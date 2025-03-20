@@ -50,6 +50,8 @@ namespace IGIEditor
         Timer updateCheckerTimer = new Timer();
         Timer internalsAttachTimer = new Timer();
         Timer levelRunTimer = new Timer();
+        Timer updatePositionTimer = new Timer();
+
         #endregion
 
         //Main-Start - Ctr.
@@ -57,7 +59,6 @@ namespace IGIEditor
         {
             try
             {
-                var updatePositionTimer = new Timer();
 
                 InitializeComponent();
                 UXWorker formMover = new UXWorker();
@@ -94,11 +95,11 @@ namespace IGIEditor
 
                 //Internals Attach/Detach timer.
                 internalsAttachTimer.Tick += new EventHandler(InternalsAttachedTimer);
-                internalsAttachTimer.Interval = 30000;//30 Seconds.
+                internalsAttachTimer.Interval = QUtils.refreshTimerInterval;
 
                 //Level runner timer.
                 levelRunTimer.Tick += new EventHandler(LevelRunnerTimer);
-                levelRunTimer.Interval = 30000;//30 Seconds.
+                levelRunTimer.Interval = QUtils.refreshTimerInterval;
 
                 //Update checker timer.
                 updateCheckerTimer.Tick += new EventHandler(UpdateCheckerTimer);
@@ -222,12 +223,12 @@ namespace IGIEditor
 #else
                     if (enable)
                     {
-                        updatePositionTimer.Start();
                         if (QUtils.gameRefresh)
                         {
                             internalsAttachTimer.Start();
                             levelRunTimer.Start();
                         }
+                        updatePositionTimer.Start();
                     }
 #endif
                 };
@@ -484,23 +485,29 @@ namespace IGIEditor
 
             //Init game path every time game found.
             QUtils.gameFound = QMemory.FindGame();
+            
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Game Found: " + QUtils.gameFound + " Game Level: " + gameLevel + " internalsAttached: " + internalsAttached);
             if (gameFound)
             {
                 int currLevel = QMemory.GetRunningLevel();
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Game Level: " + gameLevel + " Current Level: " + currLevel);
                 if (currLevel != gameLevel)
                 {
-                    refreshGame_Click(sender, e);
-                }
-                else
-                {
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Game level changed from " + gameLevel + " to " + currLevel + " setup for new level.");
+                    RefreshUIComponents(currLevel);
                     InitEditorPaths(currLevel);
+                    QUtils.graphAreas.Clear();
+                    CleanUpAiFiles();
+                    RefreshGame(false, true);
+                    QUtils.gGameLevel = gameLevel = currLevel;
+                    levelStartTxt.Text = Convert.ToString(gameLevel);
                 }
             }
 
             //Start Game if not found.
             if (!gameFound && QUtils.CheckShortcutExist())
             {
-                SetStatusText("Game not running... starting");
+                SetStatusText("Game not running... starting new game");
                 startGameBtn_Click(sender, e);
             }
         }
@@ -762,9 +769,6 @@ namespace IGIEditor
         {
             try
             {
-                internalsAttached = QUtils.CheckInternalsAttached();
-                SetInternalsStatus(internalsAttached);
-
                 if (QUtils.gameFound)
                 {
                     if (posMetersCb.Checked)
@@ -782,8 +786,15 @@ namespace IGIEditor
                         zPosLbl.Text = realPos.gamma.ToString("0.0000");
                     }
                 }
+                else
+                {
+                    throw new Exception("Game not found to get position.");
+                }
             }
-            catch (Exception) { }
+            catch (Exception) 
+            { 
+                xPosLbl.Text = yPosLbl.Text = zPosLbl.Text = "0.0000";
+            }
         }
 
         private void SetInternalsStatus(bool internalsAttached)
@@ -880,6 +891,7 @@ namespace IGIEditor
                     //Init AI Graph list.
                     try
                     {
+                        QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Graphs Init for level " + level + " with showAllGraphs: " + showAllGraphsCb.Checked.ToString());
                         QGraphs.GraphLevelInit(level, showAllGraphsCb.Checked, initialInit, ref aiGraphIdDD);
                     }
                     catch (Exception ex)
@@ -1123,14 +1135,17 @@ namespace IGIEditor
                 levelNameLbl.Text = QMission.GetMissionInfo(level);
                 var imgPath = "mission" + level + QUtils.FileExtensions.Png;
                 var imgTmpPath = QUtils.cachePathAppImages + "\\" + imgPath;
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Level Image Path: '" + imgPath + "'");
 
                 //Load level image from Cache.
                 if (File.Exists(imgTmpPath))
                 {
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Loading level image from cache: '" + imgTmpPath + "'");
                     using (var bmpTemp = new Bitmap(imgTmpPath))
                     {
                         levelImgBox.Image = new Bitmap(bmpTemp);
                     }
+                    levelImgBox.Refresh();
                 }
 
                 //Load level image from Web.
@@ -1140,7 +1155,6 @@ namespace IGIEditor
                     var imgUrl = "/" + QServer.resourceDir + "/" + "mission_" + level + QUtils.FileExtensions.Jpg;
                     QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Downloading resource URL: '" + imgUrl + "'");
                     QServer.Download(imgUrl, imgPath, imgTmpPath);
-                    //LoadImgBoxWeb(imgUrl, levelImgBox);
                     levelImgBox.Refresh();
                     QLog.ShowLogStatus(MethodBase.GetCurrentMethod().Name, "Downloading resource done");
                 }
@@ -1466,6 +1480,10 @@ namespace IGIEditor
                         InitEditorPaths(QUtils.gGameLevel);
                         QUtils.gameFound = true;
                     }
+                    else
+                    {
+                        if (gameLevel <= 0 || gameLevel > GAME_MAX_LEVEL) gameLevel = 1;
+                    }
                 }
 
                 SetStatusText("Game found success");
@@ -1493,6 +1511,10 @@ namespace IGIEditor
                     if (!QUtils.attachStatus) QUtils.AttachInternals();
                 }
                 QUtils.graphAreas.Clear();
+
+                // Refresh Position Timer.
+                if (!updatePositionTimer.Enabled)
+                    updatePositionTimer.Start();
 
             }
             catch (Exception ex)
@@ -1790,12 +1812,14 @@ namespace IGIEditor
             {
                 QUtils.appLogs = true;
                 QUtils.EnableLogs();
+                appLogsCb.Text = "Disable";
                 SetStatusText("Application Logs enabled");
             }
             else
             {
                 QUtils.appLogs = false;
                 QUtils.DisableLogs();
+                appLogsCb.Text = "Enable";
                 SetStatusText("Application Logs disabled");
             }
         }
@@ -1803,6 +1827,7 @@ namespace IGIEditor
         private void autoResetCb_CheckedChanged(object sender, EventArgs e)
         {
             autoResetCb.Checked = !autoResetCb.Checked;
+
             if (autoResetCb.Checked)
             {
                 QUtils.gameReset = true;
@@ -2461,6 +2486,7 @@ namespace IGIEditor
 
         private void StartGameLevelNow(int gameLevel)
         {
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Starting game level now... with level: " + gameLevel);
             RefreshUIComponents(gameLevel);
             InitEditorPaths(gameLevel);
             QUtils.graphAreas.Clear();
@@ -2470,10 +2496,14 @@ namespace IGIEditor
             {
                 QUtils.gameFound = QMemory.FindGame();
                 if (QUtils.gameFound)
+                {
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Live Editor - Game found running.");
                     QInternals.StartLevel(gameLevel.ToString());
+                }
                 else
                 {
                     SetStatusText("Live Editor - Error game not running.");
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Live Editor - Error game not running.");
                     liveEditorCb.Checked = false;
                     StartGameLevel(gameLevel, true);
 
@@ -2490,7 +2520,9 @@ namespace IGIEditor
             {
                 gameLevel = Convert.ToInt32(levelStartTxt.Text.ToString());
                 StartGameLevelNow(gameLevel);
-                refreshGame_Click(sender, e);
+                RefreshGame(true, true);
+                if (!updatePositionTimer.Enabled)
+                    updatePositionTimer.Start();
             }
             catch (Exception ex)
             {
@@ -2558,6 +2590,8 @@ namespace IGIEditor
 				    level = QMemory.GetRunningLevel();
 
 				QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Before Level: " + QUtils.gGameLevel + " After Level: " + level);
+
+                if (level <= 0) level = 1; //Default level 1. Worst case scenario.
 
                 // Extract Nodes Data from Graph file.
                 if (QUtils.gameFound)
@@ -3100,6 +3134,7 @@ namespace IGIEditor
         private void quitLevelBtn_Click(object sender, EventArgs e)
         {
             QInternals.QuitLevel();
+            updatePositionTimer.Stop();
         }
 
         private void debugModeCb_CheckedChanged(object sender, EventArgs e)
@@ -3943,11 +3978,14 @@ namespace IGIEditor
         {
             autoRefreshGameCb.Checked = !autoRefreshGameCb.Checked;
             QUtils.gameRefresh = autoRefreshGameCb.Checked;
+
+            QUtils.refreshTimerInterval = Convert.ToInt32(refreshTimerIntervalTxt.Text) * 1000;
             if (autoRefreshGameCb.Checked)
             {
+                internalsAttachTimer.Interval = levelRunTimer.Interval = QUtils.refreshTimerInterval;
                 internalsAttachTimer.Start();
                 levelRunTimer.Start();
-                DialogMsgBox.ShowBox("Game Automatic Finder", "Game auto refresh enabled\nTimer Interval - 30s");
+                DialogMsgBox.ShowBox("Refresh Timer Interval", "Game auto refresh enabled\nTimer Interval - " + QUtils.refreshTimerInterval / 1000 + " seconds");
             }
             else
             {
@@ -4474,7 +4512,7 @@ namespace IGIEditor
         {
             editorModeCb.Checked = !editorModeCb.Checked;
             string modeStatus = editorModeCb.Checked ? "Enabled" : "Disabled";
-            SetStatusText("Editor mode status is now  '" + modeStatus + " " + editorModeCb.Text + "'");
+            SetStatusText("Editor mode status is now  '" + modeStatus);
 
             if (editorModeCb.Checked)
             {
@@ -5323,40 +5361,44 @@ namespace IGIEditor
 
         private void StartGameLevel(int level, bool windowed = true)
         {
-            try
+            if (level <= 0)
             {
-                if (level <= 0)
-                {
-                    QLog.AddLog("IGIEditorUI.StartLevel", $"Invalid level [{level}] received, defaulting to 1");
-                    level = 1;
-                }
-                //Reset only if checked.
-                if (QUtils.gameReset || autoResetCb.Checked)
-                {
-                    QUtils.RestoreLevel(level);
-                    QUtils.ResetScriptFile(level);
-                }
-
-                //Start new level.
-                QMemory.StartLevel(level, windowed);
-                QUtils.gameFound = true;
-                QUtils.Sleep(5);
-
-                //Load level details and update UI.
-                LoadLevelDetails(level);
-                RefreshUIComponents(level);
-
-                GenerateAIScriptId(true);
-                QUtils.aiScriptFiles.Clear();
-                QUtils.humanAiList.Clear();
-
-                RefreshUIComponents(level);
-                QUtils.AttachInternals();
+                QLog.AddLog("IGIEditorUI.StartLevel", $"Invalid level [{level}] received, defaulting to 1");
+                level = 1;
             }
-            catch (Exception ex)
+
+            //Reset only if checked.
+            if (QUtils.gameReset || autoResetCb.Checked)
             {
-                QLog.LogException(MethodBase.GetCurrentMethod().Name, ex);
+                QUtils.RestoreLevel(level);
+                QUtils.ResetScriptFile(level);
             }
+
+            else
+            {
+                var dialog = QLog.ShowDialog("Starting new game level without resetting it may cause issues.\nDo you want to continue?", "Warning");
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Dialog value is " + dialog);
+                if (dialog == DialogResult.No)
+                {
+                    throw new Exception("User cancelled the operation, To start a new level");
+                }
+            }
+
+            //Start new level.
+            QMemory.StartLevel(level, windowed);
+            QUtils.gameFound = true;
+            QUtils.Sleep(5);
+
+            //Load level details and update UI.
+            LoadLevelDetails(level);
+            RefreshUIComponents(level);
+
+            GenerateAIScriptId(true);
+            QUtils.aiScriptFiles.Clear();
+            QUtils.humanAiList.Clear();
+
+            RefreshUIComponents(level);
+            QUtils.AttachInternals();
         }
 
         private void RefreshUIComponents(int level, bool objItems = true, bool aiItems = true, bool missionItems = true)
@@ -5371,7 +5413,7 @@ namespace IGIEditor
                 UpdateUIComponent(graphIdDD, QUtils.aiGraphIdStr);
                 UpdateUIComponent(nodeIdDD, QUtils.aiGraphNodeIdStr);
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
 
         //Generic Update UI method for DropDowns,TextBox etc.

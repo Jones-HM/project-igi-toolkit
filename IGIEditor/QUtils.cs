@@ -19,8 +19,6 @@ using static IGIEditor.QServer;
 using File = System.IO.File;
 using FileIO = Microsoft.VisualBasic.FileIO;
 using FileSystem = Microsoft.VisualBasic.FileIO.FileSystem;
-using System.Runtime.InteropServices;
-using IGIEditor; // Added to reference QLog
 using static IGIEditor.QLog;
 
 namespace IGIEditor
@@ -104,10 +102,12 @@ namespace IGIEditor
         internal static int updateTimeInterval = 10;
         internal static int gameFPS = 30;
         internal static int healthScaleFall = 0;
+        internal static int refreshTimerInterval = 15000; //15 seconds.
+        
         #endregion
 
         #region Log & Custom Scripts
-        internal static string editorLogFile = "app.log";
+        internal static string editorLogFile = "IGIEditor.log";
         internal static string qLibLogsFile = "QLibc_logs.log";
         internal static string aiIdleFile = "aiIdle.qvm";
         internal static string objectsModelsList;
@@ -149,7 +149,7 @@ namespace IGIEditor
 
         #region App Version
         internal static string versionFileName = "VERSION";
-        internal static string appEditorSubVersion = "0.8.5.2";
+        internal static string appEditorSubVersion = "0.8.5.3";
         internal static float viewPortDelta = 10000.0f;
         #endregion
 
@@ -721,11 +721,10 @@ namespace IGIEditor
                     string gPath = configPath.Trim();
                     if (gPath.Contains("\""))
                         gPath = configPath = gPath.Replace("\"", String.Empty);
+
                     if (!File.Exists(gPath + Path.DirectorySeparatorChar + QMemory.gameName + ".exe"))
                     {
-                        //ShowError("Invalid path selected! Game 'IGI' not found at path '" + gPath + "'", CAPTION_FATAL_SYS_ERR);
-                        //if (ShowGamePathDialog() != DialogResult.OK) ; //Prompt for Game path on invalid path.
-                        //Environment.Exit(1);
+                        QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Game path not found in the directory." + gPath);
                     }
                     else
                     {
@@ -1813,7 +1812,7 @@ namespace IGIEditor
         private void ClearTempFiles()
         {
             // Cleaning up directories
-            QUtils.AddLog(MethodBase.GetCurrentMethod().Name, "Cleaning up directories");
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Cleaning up directories");
             string[] dconvFiles = Directory.GetFiles(Path.Combine(QUtils.qTools, @"DConv\input")).Concat(Directory.GetFiles(Path.Combine(QUtils.qTools, @"DConv\output"))).ToArray();
             string[] tgaConvFiles = Directory.GetFiles(Path.Combine(QUtils.qTools, @"TGAConv")).ToArray();
             foreach (string file in dconvFiles.Concat(tgaConvFiles))
@@ -1822,7 +1821,7 @@ namespace IGIEditor
                 {
                     if (file.Contains(".exe")) continue; // Skip the TGAConv file.
                     File.Delete(file);
-                    QUtils.AddLog(MethodBase.GetCurrentMethod().Name, $"Removed file: {file} successfully.");
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Removed file: {file} successfully.");
                 }
                 catch (Exception ex)
                 {
@@ -1878,15 +1877,6 @@ namespace IGIEditor
         {
             if (logEnabled)
                 logEnabled = false;
-        }
-
-        internal static void AddLog(string methodName, string logMsg)
-        {
-            if (logEnabled)
-            {
-                methodName = methodName.Replace("Btn_Click", String.Empty).Replace("_SelectedIndexChanged", String.Empty).Replace("_SelectedValueChanged", String.Empty);
-                File.AppendAllText(editorLogFile, "[" + DateTime.Now.ToString("yyyy-MM-dd - HH:mm:ss") + "] " + methodName + "(): " + logMsg + "\n");
-            }
         }
 
         internal static string GenerateRandStr(int length)

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace IGIEditor
@@ -15,20 +16,15 @@ namespace IGIEditor
 
     public static class QLog
     {
-		internal static void AddLog(string methodName, string logMsg, DEBUG_TYPE type = DEBUG_TYPE.Debug)
-		{
-			// Check that logging is enabled and a valid log file is specified in QUtils
-			if (QUtils.logEnabled && !string.IsNullOrWhiteSpace(QUtils.editorLogFile))
-			{
-			methodName = methodName.Replace("Btn_Click", string.Empty)
-						   .Replace("_SelectedIndexChanged", string.Empty)
-						   .Replace("_SelectedValueChanged", string.Empty);
-			File.AppendAllText(QUtils.editorLogFile, "[" 
-				+ DateTime.Now.ToString("yyyy-MM-dd - HH:mm:ss") + "] [" 
-				+ type.ToString().ToUpper() + "] " 
-				+ methodName + "(): " + logMsg + "\n");
-			}
-		}
+        internal static void AddLog(string methodName, string logMsg, DEBUG_TYPE type = DEBUG_TYPE.Debug)
+        {
+            if (QUtils.logEnabled && !string.IsNullOrWhiteSpace(QUtils.editorLogFile))
+            {
+                methodName = Regex.Replace(methodName, "(Btn_Click|_SelectedIndexChanged|_SelectedValueChanged)", "", RegexOptions.Compiled);
+                var logEntry = $"{DateTime.Now:yyyy-MM-dd - HH:mm:ss} [{type.ToString().ToUpper()}] {methodName}(): {logMsg}\n";
+                File.AppendAllText(QUtils.editorLogFile, logEntry);
+            }
+        }
 
         //UI-Dialogs and MessageBox.
         internal static void ShowWarning(string warnMsg, string caption = "WARNING")

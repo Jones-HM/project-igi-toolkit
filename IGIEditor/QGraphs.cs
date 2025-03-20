@@ -210,7 +210,7 @@ namespace IGIEditor
             string selectedRegex = graphRegex;
 
             //For current level.
-            if (level == -1) level = QMemory.GetRunningLevel();
+            if (level <= 0) level = QMemory.GetRunningLevel();
 
             QLog.AddLog(MethodBase.GetCurrentMethod().Name, "called with level " + level);
 
@@ -238,7 +238,7 @@ namespace IGIEditor
             List<KeyValuePair<int, List<int>>> graphNodesList = new List<KeyValuePair<int, List<int>>>();
 
             //For current level.
-            if (level == -1) level = QMemory.GetRunningLevel();
+            if (level <= 0) level = QMemory.GetRunningLevel();
             string graphNodesDetails = "GraphNodesDetails_Level_" + level + ".txt";
             string graphNodesData = "GraphNodesData_Level_" + level + ".txt";
 
@@ -357,7 +357,7 @@ namespace IGIEditor
 		internal static List<int> GetNodesForGraph(int graphId, int level)
 		{
 			List<int> graphNodeIds = new List<int>();
-			string graphFile = Path.Combine(QUtils.cfgGamePath, "missions", "location0", $"level{level}", "graphs", $"graph{graphId}" + QUtils.FileExtensions.Dat);
+			string graphFile = Path.Combine(QUtils.cfgGamePath + $"{level}", "graphs", $"graph{graphId}" + QUtils.FileExtensions.Dat);
 			
 			QUtils.graphNodesList = QGraphs.ReadGraphNodeData(graphFile);
 			int totalNodes = QUtils.graphNodesList.Count;
@@ -376,7 +376,7 @@ namespace IGIEditor
 				catch (Exception ex) { }
 			}
 
-			QUtils.AddLog(MethodBase.GetCurrentMethod().Name, "GraphFile: '" + graphFile + "'" + " NodeId Count: " + graphNodeIds.Count);
+			QLog.AddLog(MethodBase.GetCurrentMethod().Name, "GraphFile: '" + graphFile + "'" + " NodeId Count: " + graphNodeIds.Count);
 			return graphNodeIds;
 		}
 
@@ -417,7 +417,7 @@ namespace IGIEditor
                     QLog.AddLog("QGraphs.GetQTaskGraphList", $"Invalid level received, defaulting to {level}");
                 }
                 //For current level.
-                if (level == -1)
+                if (level <= 0)
                 {
                     if (QUtils.gameFound)
                     {

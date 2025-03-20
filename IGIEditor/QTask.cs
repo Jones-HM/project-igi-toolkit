@@ -110,7 +110,7 @@ namespace IGIEditor
             }
             catch (Exception ex)
             {
-                QLog.ShowLogException(MethodBase.GetCurrentMethod().Name, ex);
+                QLog.LogException(MethodBase.GetCurrentMethod().Name, ex);
                 return 0;
             }
         }
@@ -162,34 +162,34 @@ namespace IGIEditor
 
         internal static QScriptTask GetQTask(string taskName)
         {
-            AddLog(MethodBase.GetCurrentMethod().Name, " taskName called");
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, " taskName called");
             var qtaskList = GetQTaskList();
 
             foreach (var qtask in qtaskList)
             {
                 if (qtask.model.Contains(taskName))
                 {
-                    AddLog(MethodBase.GetCurrentMethod().Name, "returned value for Model " + taskName);
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "returned value for Model " + taskName);
                     return qtask;
                 }
             }
-            AddLog(MethodBase.GetCurrentMethod().Name, "returned : null");
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "returned : null");
             return null;
         }
 
         internal static QScriptTask GetQTask(int taskId)
         {
-            AddLog(MethodBase.GetCurrentMethod().Name, " taskId called");
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, " taskId called");
             var qtaskList = GetQTaskList();
             foreach (var qtask in qtaskList)
             {
                 if (qtask.id == taskId)
                 {
-                    AddLog(MethodBase.GetCurrentMethod().Name, "returned value for Task_Id " + taskId);
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "returned value for Task_Id " + taskId);
                     return qtask;
                 }
             }
-            AddLog(MethodBase.GetCurrentMethod().Name, "returned : null");
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "returned : null");
             return null;
         }
 

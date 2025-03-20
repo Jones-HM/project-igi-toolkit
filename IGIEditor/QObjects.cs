@@ -1283,7 +1283,7 @@ internal static dynamic ReadModels()
                     }
                     catch (Exception ex)
                     {
-                        ShowLogException(MethodBase.GetCurrentMethod().Name, ex);
+                        LogException(MethodBase.GetCurrentMethod().Name, ex);
                     }
                 }
             }
