@@ -4431,6 +4431,7 @@ namespace IGIEditor
             liveEditorCb.Checked = !liveEditorCb.Checked;
             string modeStatus = liveEditorCb.Checked ? "Enabled" : "Disabled";
             SetStatusText("Editor mode status is now  '" + modeStatus + " " + liveEditorCb.Text + "'");
+            QLog.ShowWarning("Live Editor works best when you start new level from Main Menu and then enable it.");
 
             if (liveEditorCb.Checked)
             {

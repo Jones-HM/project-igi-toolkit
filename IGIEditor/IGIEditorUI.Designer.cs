@@ -375,6 +375,7 @@
             this.autoOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autoResetCb = new System.Windows.Forms.ToolStripMenuItem();
             this.autoRefreshGameCb = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshTimerIntervalTxt = new System.Windows.Forms.ToolStripTextBox();
             this.compilerSelectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.internalCompilerCb = new System.Windows.Forms.ToolStripMenuItem();
             this.externalCompilerCb = new System.Windows.Forms.ToolStripMenuItem();
@@ -393,7 +394,6 @@
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionLbl = new System.Windows.Forms.ToolStripMenuItem();
             this.infoViewer = new System.Windows.Forms.ToolTip(this.components);
-            this.refreshTimerIntervalTxt = new System.Windows.Forms.ToolStripTextBox();
             this.editorMainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.levelStartTxt)).BeginInit();
             this.editorTabs.SuspendLayout();
@@ -2207,7 +2207,7 @@
             this.weaponCfgEditor.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.weaponCfgEditor.Name = "weaponCfgEditor";
             this.weaponCfgEditor.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.weaponCfgEditor.Size = new System.Drawing.Size(843, 287);
+            this.weaponCfgEditor.Size = new System.Drawing.Size(843, 266);
             this.weaponCfgEditor.TabIndex = 1;
             this.weaponCfgEditor.Text = "Advance Editor";
             this.weaponCfgEditor.Click += new System.EventHandler(this.weaponCfgEditor_Click);
@@ -4583,14 +4583,14 @@
             // startWindowedGameBtn
             // 
             this.startWindowedGameBtn.Name = "startWindowedGameBtn";
-            this.startWindowedGameBtn.Size = new System.Drawing.Size(180, 22);
+            this.startWindowedGameBtn.Size = new System.Drawing.Size(131, 22);
             this.startWindowedGameBtn.Text = "Window";
             this.startWindowedGameBtn.Click += new System.EventHandler(this.startWindowedGameBtn_Click);
             // 
             // startFullScreenGameBtn
             // 
             this.startFullScreenGameBtn.Name = "startFullScreenGameBtn";
-            this.startFullScreenGameBtn.Size = new System.Drawing.Size(180, 22);
+            this.startFullScreenGameBtn.Size = new System.Drawing.Size(131, 22);
             this.startFullScreenGameBtn.Text = "Full Screen";
             this.startFullScreenGameBtn.Click += new System.EventHandler(this.startFullScreenGameBtn_Click);
             // 
@@ -4608,7 +4608,7 @@
             this.internalsStatusMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.internalsStatusLbl});
             this.internalsStatusMenu.Name = "internalsStatusMenu";
-            this.internalsStatusMenu.Size = new System.Drawing.Size(180, 22);
+            this.internalsStatusMenu.Size = new System.Drawing.Size(119, 22);
             this.internalsStatusMenu.Text = "Internals";
             // 
             // internalsStatusLbl
@@ -4623,7 +4623,7 @@
             this.gameProfileNameLbl,
             this.gameProfileMissionLbl});
             this.profileToolStripMenuItem.Name = "profileToolStripMenuItem";
-            this.profileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.profileToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.profileToolStripMenuItem.Text = "Profile";
             // 
             // gameProfileNameLbl
@@ -4650,7 +4650,7 @@
             // compilerTypeLbl
             // 
             this.compilerTypeLbl.Name = "compilerTypeLbl";
-            this.compilerTypeLbl.Size = new System.Drawing.Size(180, 22);
+            this.compilerTypeLbl.Size = new System.Drawing.Size(114, 22);
             this.compilerTypeLbl.Text = "Internal";
             // 
             // positionToolStripMenuItem
@@ -4667,14 +4667,14 @@
             this.posCoordCb.Checked = true;
             this.posCoordCb.CheckState = System.Windows.Forms.CheckState.Checked;
             this.posCoordCb.Name = "posCoordCb";
-            this.posCoordCb.Size = new System.Drawing.Size(180, 22);
+            this.posCoordCb.Size = new System.Drawing.Size(138, 22);
             this.posCoordCb.Text = "Coordinates";
             this.posCoordCb.Click += new System.EventHandler(this.posCoordCb_Click);
             // 
             // posMetersCb
             // 
             this.posMetersCb.Name = "posMetersCb";
-            this.posMetersCb.Size = new System.Drawing.Size(180, 22);
+            this.posMetersCb.Size = new System.Drawing.Size(138, 22);
             this.posMetersCb.Text = "Meter";
             this.posMetersCb.Click += new System.EventHandler(this.posMetersCb_Click);
             // 
@@ -4823,14 +4823,14 @@
             // configSaveBtn
             // 
             this.configSaveBtn.Name = "configSaveBtn";
-            this.configSaveBtn.Size = new System.Drawing.Size(180, 22);
+            this.configSaveBtn.Size = new System.Drawing.Size(100, 22);
             this.configSaveBtn.Text = "Save";
             this.configSaveBtn.Click += new System.EventHandler(this.configSaveBtn_Click);
             // 
             // configLoadBtn
             // 
             this.configLoadBtn.Name = "configLoadBtn";
-            this.configLoadBtn.Size = new System.Drawing.Size(180, 22);
+            this.configLoadBtn.Size = new System.Drawing.Size(100, 22);
             this.configLoadBtn.Text = "Load";
             this.configLoadBtn.Click += new System.EventHandler(this.configLoadBtn_Click);
             // 
@@ -4847,21 +4847,21 @@
             // disableWarningsCb
             // 
             this.disableWarningsCb.Name = "disableWarningsCb";
-            this.disableWarningsCb.Size = new System.Drawing.Size(180, 22);
+            this.disableWarningsCb.Size = new System.Drawing.Size(174, 22);
             this.disableWarningsCb.Text = "Disable Warnings";
             this.disableWarningsCb.Click += new System.EventHandler(this.disableWarningsCb_CheckedChanged);
             // 
             // cutsceneRemoveBtn
             // 
             this.cutsceneRemoveBtn.Name = "cutsceneRemoveBtn";
-            this.cutsceneRemoveBtn.Size = new System.Drawing.Size(180, 22);
+            this.cutsceneRemoveBtn.Size = new System.Drawing.Size(174, 22);
             this.cutsceneRemoveBtn.Text = "Remove Cutscenes";
             this.cutsceneRemoveBtn.Click += new System.EventHandler(this.cutsceneRemoveBtn_Click);
             // 
             // aiIdleCb
             // 
             this.aiIdleCb.Name = "aiIdleCb";
-            this.aiIdleCb.Size = new System.Drawing.Size(180, 22);
+            this.aiIdleCb.Size = new System.Drawing.Size(174, 22);
             this.aiIdleCb.Text = "Enemy Idle state";
             this.aiIdleCb.Click += new System.EventHandler(this.aiIdleCb_CheckedChanged);
             // 
@@ -4955,7 +4955,7 @@
             // 
             this.autoResetCb.Name = "autoResetCb";
             this.autoResetCb.Size = new System.Drawing.Size(180, 22);
-            this.autoResetCb.Text = "Reset level timer";
+            this.autoResetCb.Text = "Reset level";
             this.autoResetCb.Click += new System.EventHandler(this.autoResetCb_CheckedChanged);
             // 
             // autoRefreshGameCb
@@ -4964,8 +4964,15 @@
             this.refreshTimerIntervalTxt});
             this.autoRefreshGameCb.Name = "autoRefreshGameCb";
             this.autoRefreshGameCb.Size = new System.Drawing.Size(180, 22);
-            this.autoRefreshGameCb.Text = "Refresh level timer";
+            this.autoRefreshGameCb.Text = "Refresh level";
             this.autoRefreshGameCb.Click += new System.EventHandler(this.autoRefreshGameCb_CheckedChanged);
+            // 
+            // refreshTimerIntervalTxt
+            // 
+            this.refreshTimerIntervalTxt.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.refreshTimerIntervalTxt.Name = "refreshTimerIntervalTxt";
+            this.refreshTimerIntervalTxt.Size = new System.Drawing.Size(100, 23);
+            this.refreshTimerIntervalTxt.Text = "15";
             // 
             // compilerSelectToolStripMenuItem
             // 
@@ -5101,13 +5108,6 @@
             this.versionLbl.Size = new System.Drawing.Size(108, 22);
             this.versionLbl.Text = "IGI-1.1";
             // 
-            // refreshTimerIntervalTxt
-            // 
-            this.refreshTimerIntervalTxt.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.refreshTimerIntervalTxt.Name = "refreshTimerIntervalTxt";
-            this.refreshTimerIntervalTxt.Size = new System.Drawing.Size(100, 23);
-            this.refreshTimerIntervalTxt.Text = "15";
-            // 
             // IGIEditorUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5120,7 +5120,7 @@
             this.MainMenuStrip = this.appMenuSettings;
             this.Name = "IGIEditorUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Project IGI Editor";
+            this.Text = "Project IGI 1 Editor";
             this.editorMainPanel.ResumeLayout(false);
             this.editorMainPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.levelStartTxt)).EndInit();
