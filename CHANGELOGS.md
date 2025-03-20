@@ -1,11 +1,11 @@
 # 📝 CHANGELOGS
 
-## Version 0.8.5.3 BETA 🎉
-- Fixed Position timer
-- Improved Exceptions
-- Fixed Graph Areas
-- Improved Game timers
-- Level Reset warnings
+## Version 0.8.5.3 BETA 🎉  
+- ⏱️ Fixed Position timer.  
+- ⚠️ Improved Exceptions.  
+- 📊 Fixed Graph Areas.  
+- 🎮 Improved Game timers.  
+- 🔄 Level Reset warnings.  
 
 ## Version 0.8.5.2 BETA 🎉
 - 🔧 Improved Logger.
