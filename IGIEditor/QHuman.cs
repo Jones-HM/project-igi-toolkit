@@ -15,17 +15,6 @@ namespace IGIEditor
         private static readonly IntPtr addrPeekBase = new IntPtr(0x0056E1F8);
         private static readonly IntPtr addrHealthBase = new IntPtr(0x056E204);
 
-        public float Movement { get; set; }
-        public float Forward_InAir { get; set; }
-        public float Upward { get; set; }
-        public float InAir { get; set; }
-
-        public float Peek_LR { get; set; }
-        public float Peek_Crouch { get; set; }
-
-        public float Health_Scale { get; set; }
-        public float Health_Fence { get; set; }
-
         internal static string AddWeapon(string weapon, int ammo, bool autoModel = true, bool supressErr = false)
         {
             string qscData = QUtils.LoadFile();
@@ -408,6 +397,7 @@ namespace IGIEditor
             UpdateHumanPlayerSpeed();
             UpdateHumanPlayerPeek();
             UpdateHumanPlayerHealth();
+            QMemory.GravitySet();
             QMemory.UpdateHumanHealth(HEALTH_ACTION.RESTORE);
         }
     }

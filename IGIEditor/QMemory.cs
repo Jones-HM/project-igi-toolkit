@@ -254,7 +254,7 @@ namespace IGIEditor
             }
         }
 
-        internal static void GravitySet(float gravity)
+        internal static void GravitySet(float gravity=84.74169159f)
         {
             bool status = GT.GT_WriteMemory(gravityAddr, "float", gravity.ToString(), true);
             QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Status : " + status);

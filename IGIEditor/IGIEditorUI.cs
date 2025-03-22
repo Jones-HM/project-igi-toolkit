@@ -2201,6 +2201,7 @@ namespace IGIEditor
             damageScaleTxt.Text = "3.0";
             damageScaleFenceTxt.Text = "0.5";
             damageScaleFallTxt.Value = 0;
+            gravityTxt.Text = "84.74169159";
 
             QHuman.ResetHumanPlayer();
             QMemory.SetStatusMsgText("Human parameters reset success");
