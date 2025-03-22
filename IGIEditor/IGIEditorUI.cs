@@ -186,7 +186,7 @@ namespace IGIEditor
                 if (appLogs)
                 {
                     QUtils.EnableLogs();
-                    //GT.GT_EnableLogs(); //Disabling Library logs as they are increasing huge in size.
+                    //GT.GT_EnableLogs(); //Disabling Library logs
                 }
 
                 //Get current level selected.
@@ -215,11 +215,7 @@ namespace IGIEditor
                 EnableTimers enableTimers = delegate (bool enable)
                 {
 #if DEV_MODE
-                    if (enable)
-                    {
-                        levelRunTimer.Start();
-                        internalsAttachTimer.Start();
-                    }
+                    // No timers in DEV mode.
 #else
                     if (enable)
                     {
@@ -240,7 +236,8 @@ namespace IGIEditor
             }
             catch (Exception ex)
             {
-                QLog.LogException(MethodBase.GetCurrentMethod().Name, ex);
+                QLog.ShowException(MethodBase.GetCurrentMethod().Name, ex);
+                Environment.Exit(0);
             }
         }
 
@@ -3611,7 +3608,7 @@ namespace IGIEditor
                     var dlgResult = QLog.ShowDialog("Do you want to create new update for Editor version 'v" + devVersionTxt.Text + "?");
                     if (dlgResult == DialogResult.Yes)
                     {
-                        var changeLogIndex = changeLogsData.IndexOf("version " + devVersionTxt.Text);
+                        var changeLogIndex = changeLogsData.IndexOf("Version " + devVersionTxt.Text);
                         if (changeLogIndex == -1)
                         {
                             QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Updater changelogs not found for version v'" + devVersionTxt.Text + "'");
@@ -3631,9 +3628,19 @@ namespace IGIEditor
                         QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Moving bin folder from '" + dbgPathBin + "' to '" + cachePathBin + "'");
 
                         //Archive all path to .zip
-                        string zipCmd = "7z a -tzip " + editorUpdater + " " + cachePath + "\\" + editorExe + " " + cachePathBin + " " + changelogsPath + " " + versionPath + " " + readmePath;
+                        string zipCmd = "7z a -tzip " + QUtils.editorUpdater + " " + cachePath + "\\" + editorExe + " " + cachePathBin + " " + changelogsPath + " " + versionPath + " " + readmePath;
                         QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Running zip command '" + zipCmd + "'");
-                        string shellOut = QUtils.ShellExec(zipCmd, true);
+                        string shellOut = QUtils.ShellExec(zipCmd, true, true, "cmd.exe");
+
+                        if (String.IsNullOrEmpty(shellOut))
+                        {
+                            shellOut = QUtils.ShellExec(zipCmd, true, true, "powershell.exe");
+                            if (String.IsNullOrEmpty(shellOut))
+                            {
+                                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Error in creating zip file.");
+                                return;
+                            }
+                        }
                         QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Shell output: '" + shellOut + "'");
 
                         //Remove Updater from Cache.
@@ -3644,7 +3651,7 @@ namespace IGIEditor
                         QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Remove Updater from Cache....DONE!");
 
                         //Check if update created successfully.
-                        if (File.Exists(editorUpdater))
+                        if (File.Exists(QUtils.editorUpdater))
                         {
                             QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Creating new updated versions file.");
                             //Create new version files for updater.
@@ -3671,7 +3678,12 @@ namespace IGIEditor
             try
             {
                 string updaterMask = "Updater-", updaterVersionTag = updaterMask + QUtils.appEditorSubVersion + QUtils.FileExtensions.Text, updaterVerTag = updaterVersionTag;
-                if (!File.Exists(QUtils.editorUpdater) || !File.Exists(updaterVersionTag)) { QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Updater file not found in current directory."); return; }
+                
+                if (!File.Exists(QUtils.editorUpdater) || !File.Exists(updaterVersionTag)) 
+                { 
+                    QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Updater file not found in current directory."); 
+                    return; 
+                }
 
                 float fileSize = new FileInfo(QUtils.editorUpdater).Length / 1024;
                 //Get the remote version accordinly to current version.

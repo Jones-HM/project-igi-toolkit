@@ -84,6 +84,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Dev|AnyCPU' ">
     <OutputPath>bin\Testing\</OutputPath>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Dev|x86' ">
     <OutputPath>bin\x86\Dev\</OutputPath>
@@ -100,6 +101,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>7.3</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'External|x86'">
     <OutputPath>bin\x86\External\</OutputPath>
@@ -112,12 +114,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevMode|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DevMode\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WIN32</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;DEV_MODE,WIN32</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevMode|x86'">
     <DebugSymbols>true</DebugSymbols>
