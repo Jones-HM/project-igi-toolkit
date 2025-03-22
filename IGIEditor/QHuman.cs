@@ -4,11 +4,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Web.UI;
+using static IGIEditor.QUtils;
 
 namespace IGIEditor
 {
     class QHuman
     {
+        private static readonly IntPtr addrSpeedBase = new IntPtr(0x0056E1E8);
+        private static readonly IntPtr addrPeekBase = new IntPtr(0x0056E1F8);
+        private static readonly IntPtr addrHealthBase = new IntPtr(0x056E204);
+
+        public float Movement { get; set; }
+        public float Forward_InAir { get; set; }
+        public float Upward { get; set; }
+        public float InAir { get; set; }
+
+        public float Peek_LR { get; set; }
+        public float Peek_Crouch { get; set; }
+
+        public float Health_Scale { get; set; }
+        public float Health_Fence { get; set; }
 
         internal static string AddWeapon(string weapon, int ammo, bool autoModel = true, bool supressErr = false)
         {
@@ -366,72 +382,33 @@ namespace IGIEditor
         internal static void UpdateHumanPlayerSpeed(double movSpeed = 1.75f, double forwardSpeed = 17.5f, double upwardSpeed = 27.0f, double inAirSpeed = 0.5f)
         {
             QLog.AddLog(MethodBase.GetCurrentMethod().Name, "movSpeed: " + movSpeed + " forwardSpeed: " + forwardSpeed + " upwardSpeed: " + upwardSpeed + " inAirSpeed: " + inAirSpeed);
-            UpdateHumanPlayerParams(movSpeed, forwardSpeed, upwardSpeed, inAirSpeed, QUtils.peekLRLen, QUtils.peekCrouchLen, QUtils.peekTime, QUtils.healthScale, QUtils.healthScaleFence);
+            GT.GT_WriteMemory(addrSpeedBase, "float", movSpeed.ToString());
+            GT.GT_WriteMemory(IntPtr.Add(addrSpeedBase, 4), "float", QUtils.ConvertSpeed(forwardSpeed).ToString());
+            GT.GT_WriteMemory(IntPtr.Add(addrSpeedBase, 8), "float", QUtils.ConvertSpeed(upwardSpeed).ToString());
+            GT.GT_WriteMemory(IntPtr.Add(addrSpeedBase, 12), "float", QUtils.ConvertSpeed(inAirSpeed).ToString());
         }
 
         internal static void UpdateHumanPlayerHealth(double healthScale = 3.0f, double healthScaleFence = 0.5f, int healthScaleFall = 0)
         {
             QLog.AddLog(MethodBase.GetCurrentMethod().Name, " healthScale: " + healthScale + " healthScaleFence: " + healthScaleFence + " healthScaleFall: " + healthScaleFall);
-            UpdateHumanPlayerParams(QUtils.movSpeed, QUtils.forwardSpeed, QUtils.upwardSpeed, QUtils.inAirSpeed, QUtils.peekLRLen, QUtils.peekCrouchLen, QUtils.peekTime, healthScale, healthScaleFence);
+            GT.GT_WriteMemory(addrHealthBase, "float", healthScale.ToString());
+            GT.GT_WriteMemory(IntPtr.Add(addrHealthBase, 4), "float", healthScaleFence.ToString());
             if (healthScaleFall != -1) QMemory.UpdateHumanHealth((QUtils.HEALTH_ACTION)healthScaleFall);
         }
 
-        internal static void UpdateHumanPlayerPeek(double peekLRLen = 0.8500000238418579f, double peekCrouchLen = 0.8500000238418579f, double peekTime = 0.25f)
+        internal static void UpdateHumanPlayerPeek(double peekLR = 0.8500000238418579f, double peekCrouch = 0.8500000238418579f, double peekTime = 0.25f)
         {
-            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "peekLRLen: " + peekLRLen + " peekCrouchLen: " + peekCrouchLen + " peekTime: " + peekTime);
-            UpdateHumanPlayerParams(QUtils.movSpeed, QUtils.forwardSpeed, QUtils.upwardSpeed, QUtils.inAirSpeed, peekLRLen, peekCrouchLen, peekTime, QUtils.healthScale, QUtils.healthScaleFence);
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "peekLR: " + peekLR + " peekCrouch: " + peekCrouch + " peekTime: " + peekTime);
+            GT.GT_WriteMemory(addrPeekBase, "float", QUtils.ConvertPeek(peekLR).ToString());
+            GT.GT_WriteMemory(IntPtr.Add(addrPeekBase, 4), "float", QUtils.ConvertPeek(peekCrouch).ToString());
         }
 
-        internal static void UpdateHumanPlayerParams(double movementSpeed = 1.75f, double forwardJumpSpeed = 17.5f, double upwardJumpSpeed = 27, double inAirSpeed = 0.5f, double peekLeftRightLen = 0.8500000238418579f, double peekCrouchLen = 0.8500000238418579f, double peekTimeLen = 0.25f, double healthDamageScale = 3.0f, double healthFenceDamageScale = 0.5f)
+        internal static void ResetHumanPlayer()
         {
-            var humanPlayerFile = QUtils.cfgHumanplayerPathQsc + @"\humanplayer" + QUtils.FileExtensions.Qsc;
-            string humanPlayerData = QUtils.LoadFile(humanPlayerFile);
-            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "movementSpeed: " + movementSpeed + " forwardSpeed: " + forwardJumpSpeed + " upwardJumpSpeed: " + upwardJumpSpeed + " inAirSpeed: " + inAirSpeed + " peekLeftRightLen: " + peekLeftRightLen + " peekCrouchLen: " + peekCrouchLen + " peekLen: " + peekTimeLen + " healthDamageScale: " + healthDamageScale + " healthFenceDamageScale: " + healthFenceDamageScale);
-
-            //Add movement speed param.
-            if (humanPlayerData.Contains(QUtils.movementSpeedMask))
-                humanPlayerData = humanPlayerData.ReplaceFirst(QUtils.movementSpeedMask, movementSpeed.ToString());
-
-            //Add forward speed param.
-            if (humanPlayerData.Contains(QUtils.forwardSpeedMask))
-                humanPlayerData = humanPlayerData.ReplaceFirst(QUtils.forwardSpeedMask, forwardJumpSpeed.ToString());
-
-            //Add upward speed param.
-            if (humanPlayerData.Contains(QUtils.upwardSpeedMask))
-                humanPlayerData = humanPlayerData.ReplaceFirst(QUtils.upwardSpeedMask, upwardJumpSpeed.ToString());
-
-            //Add in air speed param.
-            if (humanPlayerData.Contains(QUtils.inAirSpeedMask))
-                humanPlayerData = humanPlayerData.ReplaceFirst(QUtils.inAirSpeedMask, inAirSpeed.ToString());
-
-            //Add peek Left Right Length param.
-            if (humanPlayerData.Contains(QUtils.peekLeftRightLenMask))
-                humanPlayerData = humanPlayerData.ReplaceFirst(QUtils.peekLeftRightLenMask, peekLeftRightLen.ToString());
-
-            //Add peek crouch length param.
-            if (humanPlayerData.Contains(QUtils.peekCrouchLenMask))
-                humanPlayerData = humanPlayerData.ReplaceFirst(QUtils.peekCrouchLenMask, peekCrouchLen.ToString());
-
-            //Add peek time param.
-            if (humanPlayerData.Contains(QUtils.peekTimeMask))
-                humanPlayerData = humanPlayerData.ReplaceFirst(QUtils.peekTimeMask, peekTimeLen.ToString());
-
-            //Add health damage scale param.
-            if (humanPlayerData.Contains(QUtils.healthScaleMask))
-                humanPlayerData = humanPlayerData.ReplaceFirst(QUtils.healthScaleMask, healthDamageScale.ToString());
-
-            //Add health fence damage scale param.
-            if (humanPlayerData.Contains(QUtils.healthFenceMask))
-                humanPlayerData = humanPlayerData.ReplaceFirst(QUtils.healthFenceMask, healthFenceDamageScale.ToString());
-
-            string humanFileName = "humanplayer.qsc";
-            var outputHumanPlayerPath = QUtils.gameAbsPath + "\\humanplayer\\";
-
-            QUtils.SaveFile(humanFileName, humanPlayerData);
-            bool status = QCompiler.Compile(humanFileName, outputHumanPlayerPath, 0x0);
-            QUtils.FileIODelete(humanFileName);
-
-            if (status) QInternals.HumanplayerLoad();
+            UpdateHumanPlayerSpeed();
+            UpdateHumanPlayerPeek();
+            UpdateHumanPlayerHealth();
+            QMemory.UpdateHumanHealth(HEALTH_ACTION.RESTORE);
         }
     }
 }

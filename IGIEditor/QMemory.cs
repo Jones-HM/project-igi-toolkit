@@ -12,7 +12,9 @@ namespace IGIEditor
         internal static string gameName = "IGI";
         internal static float deltaToGround = 7000.0f;
         internal static IntPtr gtGameBase = (IntPtr)0x00400000; //Game base address.
-        internal static IntPtr humanXPL_DamageAddr = (IntPtr)0x00416D85;
+        internal static IntPtr humanDamageAddr = (IntPtr)0x0057BABC;
+        internal static IntPtr gravityAddr = (IntPtr)0x005333F0;
+
 
         internal static void StartGame(string args = "window")
         {
@@ -157,21 +159,31 @@ namespace IGIEditor
 
         internal static void UpdateHumanHealth(QUtils.HEALTH_ACTION healthAction)
         {
+            IntPtr humanDamageHitAddr;
+            unsafe 
+            { 
+                humanDamageHitAddr = (IntPtr)GT.GT_ReadInt(humanDamageAddr) + 0xE1;
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Human Damage Hit Address : 0x" + humanDamageHitAddr.ToString("X"));
+            }
+
             if (healthAction == QUtils.HEALTH_ACTION.RESTORE || healthAction == QUtils.HEALTH_ACTION.NONE)
             {
-                GT.GT_WriteMemory(humanXPL_DamageAddr, "bytes", "8A 80 E1 00 00 00");//mov al,[eax+000000E1]
+                GT.GT_WriteMemory(humanDamageHitAddr, "byte", "0");
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Health Restored");
             }
             else if (healthAction == QUtils.HEALTH_ACTION.PERMANENT)
             {
                 //Enable normal and fence damage scale. 
                 QHuman.UpdateHumanPlayerHealth(float.MaxValue, 0.0f, -1);
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Health Permanent Enabled");
             }
             else if (healthAction == QUtils.HEALTH_ACTION.TEMPORARY)
             {
                 unsafe
                 {
-                    //Enable PlayerXP Hit damage.
-                    GT.GT_WriteNOP(humanXPL_DamageAddr, 6);
+                    //Enable Player Hit damage.
+                    GT.GT_WriteMemory(humanDamageHitAddr, "byte", "1");
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Health Hit Enabled");
                 }
             }
         }
@@ -180,7 +192,7 @@ namespace IGIEditor
         {
             try
             {
-                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Called with level: " + level + " windowed: " + windowed);
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Called with level " + level + " windowed: " + windowed);
                 if (level <= 0 || level > QUtils.GAME_MAX_LEVEL) throw new ArgumentNullException("Level must be between 1-" + QUtils.GAME_MAX_LEVEL);
 
                 var igiProc = Process.GetProcessesByName(gameName);
@@ -192,7 +204,7 @@ namespace IGIEditor
 
                 if (QUtils.shortcutExist)
                 {
-                    FindGame(QUtils.logEnabled);
+                    FindGame();
                 }
                 else
                 {
@@ -240,6 +252,13 @@ namespace IGIEditor
             {
                 QLog.LogException(MethodBase.GetCurrentMethod().Name, ex);
             }
+        }
+
+        internal static void GravitySet(float gravity)
+        {
+            bool status = GT.GT_WriteMemory(gravityAddr, "float", gravity.ToString(), true);
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Status : " + status);
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Gravity address : 0x" + gravityAddr.ToString("X") + " Value : " + gravity);
         }
     }
 }

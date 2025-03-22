@@ -2201,29 +2201,9 @@ namespace IGIEditor
             damageScaleTxt.Text = "3.0";
             damageScaleFenceTxt.Text = "0.5";
             damageScaleFallTxt.Value = 0;
-            QMemory.UpdateHumanHealth(HEALTH_ACTION.RESTORE);
-            QInternals.HumanplayerLoad();
+
+            QHuman.ResetHumanPlayer();
             QMemory.SetStatusMsgText("Human parameters reset success");
-        }
-
-        private void readHumanBtn_Click(object sender, EventArgs e)
-        {
-            var humanPlayerFile = QUtils.cfgHumanplayerPathQsc + @"\humanplayer" + QUtils.FileExtensions.Qsc;
-            string humanFileName = "humanplayer.qsc";
-            string humanPlayerData = QUtils.LoadFile(humanPlayerFile);
-
-            var outputHumanPlayerPath = QUtils.gameAbsPath + "\\humanplayer\\";
-
-            QUtils.SaveFile(humanFileName, humanPlayerData);
-            bool status = QCompiler.Compile(humanFileName, outputHumanPlayerPath, 0x0);
-            QUtils.FileIODelete(humanFileName);
-
-            if (status)
-            {
-                Thread.Sleep(1000);
-                QInternals.HumanplayerLoad();
-                QMemory.SetStatusMsgText("Human parameters set success");
-            }
         }
 
         private void resetObjectsBtn_Click(object sender, EventArgs e)
@@ -3109,6 +3089,7 @@ namespace IGIEditor
         private void updateTeamIdBtn_Click(object sender, EventArgs e)
         {
             int teamId = 0;
+            float gravity = 0.0f;
             if (!String.IsNullOrEmpty(teamIdTxt.Text))
             {
                 teamId = Convert.ToInt32(teamIdTxt.Text);
@@ -3122,6 +3103,13 @@ namespace IGIEditor
             }
             if (!String.IsNullOrEmpty(humanViewCamTxt.Text)) QInternals.HumanCameraView(humanViewCamTxt.Text);
             QInternals.StatusMessageShow("Human camera updated.");
+
+            if (!String.IsNullOrEmpty(gravityTxt.Text))
+            {
+                gravity = float.Parse(gravityTxt.Text);
+                QMemory.GravitySet(gravity);
+                SetStatusText("Gravity updated to " + gravity);
+            }
         }
 
         private void setFramesBtn_Click(object sender, EventArgs e)

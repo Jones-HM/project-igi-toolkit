@@ -394,6 +394,8 @@
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionLbl = new System.Windows.Forms.ToolStripMenuItem();
             this.infoViewer = new System.Windows.Forms.ToolTip(this.components);
+            this.gravityLbl = new System.Windows.Forms.Label();
+            this.gravityTxt = new System.Windows.Forms.NumericUpDown();
             this.editorMainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.levelStartTxt)).BeginInit();
             this.editorTabs.SuspendLayout();
@@ -450,6 +452,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.objectsRemoveTxt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.levelImgBox)).BeginInit();
             this.appMenuSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gravityTxt)).BeginInit();
             this.SuspendLayout();
             // 
             // editorMainPanel
@@ -474,7 +477,7 @@
             this.editorMainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editorMainPanel.Location = new System.Drawing.Point(0, 0);
             this.editorMainPanel.Name = "editorMainPanel";
-            this.editorMainPanel.Size = new System.Drawing.Size(860, 602);
+            this.editorMainPanel.Size = new System.Drawing.Size(866, 625);
             this.editorMainPanel.TabIndex = 0;
             // 
             // quitLevelBtn
@@ -1408,6 +1411,8 @@
             // humanEditor
             // 
             this.humanEditor.BackColor = System.Drawing.SystemColors.Control;
+            this.humanEditor.Controls.Add(this.gravityTxt);
+            this.humanEditor.Controls.Add(this.gravityLbl);
             this.humanEditor.Controls.Add(this.inAirSpeedTxt);
             this.humanEditor.Controls.Add(this.upwardJumpTxt);
             this.humanEditor.Controls.Add(this.forwardJumpTxt);
@@ -1834,7 +1839,7 @@
             this.fallDamageLbl.Name = "fallDamageLbl";
             this.fallDamageLbl.Size = new System.Drawing.Size(72, 27);
             this.fallDamageLbl.TabIndex = 47;
-            this.fallDamageLbl.Text = "Fall";
+            this.fallDamageLbl.Text = "Damage";
             this.fallDamageLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // fenceDamageScaleLbl
@@ -4449,7 +4454,7 @@
             this.appMenuSettings.Location = new System.Drawing.Point(0, 0);
             this.appMenuSettings.Name = "appMenuSettings";
             this.appMenuSettings.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.appMenuSettings.Size = new System.Drawing.Size(858, 24);
+            this.appMenuSettings.Size = new System.Drawing.Size(864, 24);
             this.appMenuSettings.TabIndex = 49;
             this.appMenuSettings.Text = "menuStrip1";
             // 
@@ -4476,7 +4481,7 @@
             this.refreshGameBtnMenu,
             this.clearToolStripMenuItem});
             this.editorOnlineToolStripMenuItem.Name = "editorOnlineToolStripMenuItem";
-            this.editorOnlineToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editorOnlineToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.editorOnlineToolStripMenuItem.Text = "Level Menu";
             // 
             // startGameBtnMenu
@@ -4484,7 +4489,7 @@
             this.startGameBtnMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.levelStartTxtMenu});
             this.startGameBtnMenu.Name = "startGameBtnMenu";
-            this.startGameBtnMenu.Size = new System.Drawing.Size(180, 22);
+            this.startGameBtnMenu.Size = new System.Drawing.Size(113, 22);
             this.startGameBtnMenu.Text = "Start";
             this.startGameBtnMenu.Click += new System.EventHandler(this.startGameBtnMenu_Click);
             // 
@@ -4498,28 +4503,28 @@
             // restartLevelBtnMenu
             // 
             this.restartLevelBtnMenu.Name = "restartLevelBtnMenu";
-            this.restartLevelBtnMenu.Size = new System.Drawing.Size(180, 22);
+            this.restartLevelBtnMenu.Size = new System.Drawing.Size(113, 22);
             this.restartLevelBtnMenu.Text = "Restart";
             this.restartLevelBtnMenu.Click += new System.EventHandler(this.restartLevelBtn_Click);
             // 
             // quitLevelBtnMenu
             // 
             this.quitLevelBtnMenu.Name = "quitLevelBtnMenu";
-            this.quitLevelBtnMenu.Size = new System.Drawing.Size(180, 22);
+            this.quitLevelBtnMenu.Size = new System.Drawing.Size(113, 22);
             this.quitLevelBtnMenu.Text = "Quit";
             this.quitLevelBtnMenu.Click += new System.EventHandler(this.quitLevelBtn_Click);
             // 
             // refreshGameBtnMenu
             // 
             this.refreshGameBtnMenu.Name = "refreshGameBtnMenu";
-            this.refreshGameBtnMenu.Size = new System.Drawing.Size(180, 22);
+            this.refreshGameBtnMenu.Size = new System.Drawing.Size(113, 22);
             this.refreshGameBtnMenu.Text = "Refresh";
             this.refreshGameBtnMenu.Click += new System.EventHandler(this.refreshGame_Click);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.clearToolStripMenuItem.Text = "Clear ";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
@@ -4530,27 +4535,27 @@
             this.editorModeCb,
             this.liveEditorCb});
             this.selectEditorModeToolStripMenuItem.Name = "selectEditorModeToolStripMenuItem";
-            this.selectEditorModeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.selectEditorModeToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.selectEditorModeToolStripMenuItem.Text = "Editor Mode";
             // 
             // playModeCb
             // 
             this.playModeCb.Name = "playModeCb";
-            this.playModeCb.Size = new System.Drawing.Size(180, 22);
+            this.playModeCb.Size = new System.Drawing.Size(130, 22);
             this.playModeCb.Text = "Play Mode";
             this.playModeCb.Click += new System.EventHandler(this.playModeCb_Click);
             // 
             // editorModeCb
             // 
             this.editorModeCb.Name = "editorModeCb";
-            this.editorModeCb.Size = new System.Drawing.Size(180, 22);
+            this.editorModeCb.Size = new System.Drawing.Size(130, 22);
             this.editorModeCb.Text = "Edit Mode";
             this.editorModeCb.Click += new System.EventHandler(this.editorModeCb_Click);
             // 
             // liveEditorCb
             // 
             this.liveEditorCb.Name = "liveEditorCb";
-            this.liveEditorCb.Size = new System.Drawing.Size(180, 22);
+            this.liveEditorCb.Size = new System.Drawing.Size(130, 22);
             this.liveEditorCb.Text = "Live Mode";
             this.liveEditorCb.Click += new System.EventHandler(this.liveEditorCb_Click);
             // 
@@ -4559,7 +4564,7 @@
             this.editorConnectionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editorOnlineCb});
             this.editorConnectionToolStripMenuItem.Name = "editorConnectionToolStripMenuItem";
-            this.editorConnectionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editorConnectionToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.editorConnectionToolStripMenuItem.Text = "Editor Connection";
             // 
             // editorOnlineCb
@@ -4577,7 +4582,7 @@
             this.startWindowedGameBtn,
             this.startFullScreenGameBtn});
             this.startGameToolStripMenuItem.Name = "startGameToolStripMenuItem";
-            this.startGameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startGameToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.startGameToolStripMenuItem.Text = "Start Game";
             // 
             // startWindowedGameBtn
@@ -4600,7 +4605,7 @@
             this.internalsStatusMenu,
             this.profileToolStripMenuItem});
             this.gameStatusToolStripMenuItem.Name = "gameStatusToolStripMenuItem";
-            this.gameStatusToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gameStatusToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.gameStatusToolStripMenuItem.Text = "Game Status";
             // 
             // internalsStatusMenu
@@ -4644,7 +4649,7 @@
             this.compilerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.compilerTypeLbl});
             this.compilerToolStripMenuItem.Name = "compilerToolStripMenuItem";
-            this.compilerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.compilerToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.compilerToolStripMenuItem.Text = "Compiler";
             // 
             // compilerTypeLbl
@@ -4659,7 +4664,7 @@
             this.posCoordCb,
             this.posMetersCb});
             this.positionToolStripMenuItem.Name = "positionToolStripMenuItem";
-            this.positionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.positionToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.positionToolStripMenuItem.Text = "Position";
             // 
             // posCoordCb
@@ -4706,7 +4711,7 @@
             this.enableMusicCb,
             this.volumeToolStripMenuItem});
             this.musicToolStripMenuItem.Name = "musicToolStripMenuItem";
-            this.musicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.musicToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.musicToolStripMenuItem.Text = "Music";
             // 
             // enableMusicCb
@@ -4762,7 +4767,7 @@
             this.setFramesBtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.framesTxt});
             this.setFramesBtn.Name = "setFramesBtn";
-            this.setFramesBtn.Size = new System.Drawing.Size(180, 22);
+            this.setFramesBtn.Size = new System.Drawing.Size(143, 22);
             this.setFramesBtn.Text = "Frames";
             // 
             // framesTxt
@@ -4776,7 +4781,7 @@
             // debugModeCb
             // 
             this.debugModeCb.Name = "debugModeCb";
-            this.debugModeCb.Size = new System.Drawing.Size(180, 22);
+            this.debugModeCb.Size = new System.Drawing.Size(143, 22);
             this.debugModeCb.Text = "Debug Mode";
             this.debugModeCb.Click += new System.EventHandler(this.debugModeCb_CheckedChanged);
             // 
@@ -4787,27 +4792,27 @@
             this.resetLevelBtn,
             this.resetScriptsFileBtn});
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.resetToolStripMenuItem.Text = "Reset";
             // 
             // gfxResetBtn
             // 
             this.gfxResetBtn.Name = "gfxResetBtn";
-            this.gfxResetBtn.Size = new System.Drawing.Size(180, 22);
+            this.gfxResetBtn.Size = new System.Drawing.Size(151, 22);
             this.gfxResetBtn.Text = "Graphics Reset";
             this.gfxResetBtn.Click += new System.EventHandler(this.gfxResetBtn_Click);
             // 
             // resetLevelBtn
             // 
             this.resetLevelBtn.Name = "resetLevelBtn";
-            this.resetLevelBtn.Size = new System.Drawing.Size(180, 22);
+            this.resetLevelBtn.Size = new System.Drawing.Size(151, 22);
             this.resetLevelBtn.Text = "Level Reset";
             this.resetLevelBtn.Click += new System.EventHandler(this.resetLevelBtn_Click);
             // 
             // resetScriptsFileBtn
             // 
             this.resetScriptsFileBtn.Name = "resetScriptsFileBtn";
-            this.resetScriptsFileBtn.Size = new System.Drawing.Size(180, 22);
+            this.resetScriptsFileBtn.Size = new System.Drawing.Size(151, 22);
             this.resetScriptsFileBtn.Text = "File Reset";
             this.resetScriptsFileBtn.Click += new System.EventHandler(this.resetScriptsFileBtn_Click);
             // 
@@ -4817,7 +4822,7 @@
             this.configSaveBtn,
             this.configLoadBtn});
             this.configToolStripMenuItem.Name = "configToolStripMenuItem";
-            this.configToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.configToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.configToolStripMenuItem.Text = "Config";
             // 
             // configSaveBtn
@@ -4841,7 +4846,7 @@
             this.cutsceneRemoveBtn,
             this.aiIdleCb});
             this.miscToolStripMenuItem.Name = "miscToolStripMenuItem";
-            this.miscToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.miscToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.miscToolStripMenuItem.Text = "Misc";
             // 
             // disableWarningsCb
@@ -4887,7 +4892,7 @@
             this.shareAppLogsBtn,
             this.viewAppLogsBtn});
             this.logsToolStripMenuItem.Name = "logsToolStripMenuItem";
-            this.logsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.logsToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.logsToolStripMenuItem.Text = "Logs";
             // 
             // appLogsCb
@@ -4918,7 +4923,7 @@
             this.clearCacheBtn,
             this.clearTempToolStripMenuItem});
             this.appdataToolStripMenuItem.Name = "appdataToolStripMenuItem";
-            this.appdataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.appdataToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.appdataToolStripMenuItem.Text = "Appdata";
             // 
             // showAppDataCachePathBtn
@@ -4948,13 +4953,13 @@
             this.autoResetCb,
             this.autoRefreshGameCb});
             this.autoOptionsToolStripMenuItem.Name = "autoOptionsToolStripMenuItem";
-            this.autoOptionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.autoOptionsToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.autoOptionsToolStripMenuItem.Text = "Timer";
             // 
             // autoResetCb
             // 
             this.autoResetCb.Name = "autoResetCb";
-            this.autoResetCb.Size = new System.Drawing.Size(180, 22);
+            this.autoResetCb.Size = new System.Drawing.Size(140, 22);
             this.autoResetCb.Text = "Reset level";
             this.autoResetCb.Click += new System.EventHandler(this.autoResetCb_CheckedChanged);
             // 
@@ -4963,7 +4968,7 @@
             this.autoRefreshGameCb.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshTimerIntervalTxt});
             this.autoRefreshGameCb.Name = "autoRefreshGameCb";
-            this.autoRefreshGameCb.Size = new System.Drawing.Size(180, 22);
+            this.autoRefreshGameCb.Size = new System.Drawing.Size(140, 22);
             this.autoRefreshGameCb.Text = "Refresh level";
             this.autoRefreshGameCb.Click += new System.EventHandler(this.autoRefreshGameCb_CheckedChanged);
             // 
@@ -4980,7 +4985,7 @@
             this.internalCompilerCb,
             this.externalCompilerCb});
             this.compilerSelectToolStripMenuItem.Name = "compilerSelectToolStripMenuItem";
-            this.compilerSelectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.compilerSelectToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.compilerSelectToolStripMenuItem.Text = "Compiler";
             // 
             // internalCompilerCb
@@ -5003,7 +5008,7 @@
             this.editorUpdaterBtn,
             this.updateCheckerAutomaticOption});
             this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.updateToolStripMenuItem.Text = "Update";
             // 
             // editorUpdaterBtn
@@ -5041,7 +5046,7 @@
             // appSupportBtn
             // 
             this.appSupportBtn.Name = "appSupportBtn";
-            this.appSupportBtn.Size = new System.Drawing.Size(180, 22);
+            this.appSupportBtn.Size = new System.Drawing.Size(132, 22);
             this.appSupportBtn.Text = "Support";
             this.appSupportBtn.Click += new System.EventHandler(this.appSupportBtn_Click);
             // 
@@ -5051,7 +5056,7 @@
             this.exportObjectsDD,
             this.exportObjectsBtn});
             this.exportObjectsToolStripMenuItem.Name = "exportObjectsToolStripMenuItem";
-            this.exportObjectsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportObjectsToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.exportObjectsToolStripMenuItem.Text = "Export";
             // 
             // exportObjectsDD
@@ -5074,7 +5079,7 @@
             // gamePathBtn
             // 
             this.gamePathBtn.Name = "gamePathBtn";
-            this.gamePathBtn.Size = new System.Drawing.Size(180, 22);
+            this.gamePathBtn.Size = new System.Drawing.Size(132, 22);
             this.gamePathBtn.Text = "Game Path";
             this.gamePathBtn.Click += new System.EventHandler(this.gamePathBtn_Click);
             // 
@@ -5105,15 +5110,53 @@
             // versionLbl
             // 
             this.versionLbl.Name = "versionLbl";
-            this.versionLbl.Size = new System.Drawing.Size(108, 22);
+            this.versionLbl.Size = new System.Drawing.Size(180, 22);
             this.versionLbl.Text = "IGI-1.1";
+            // 
+            // gravityLbl
+            // 
+            this.gravityLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.gravityLbl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.gravityLbl.Location = new System.Drawing.Point(359, 222);
+            this.gravityLbl.Name = "gravityLbl";
+            this.gravityLbl.Size = new System.Drawing.Size(88, 27);
+            this.gravityLbl.TabIndex = 84;
+            this.gravityLbl.Text = "Gravity";
+            this.gravityLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // gravityTxt
+            // 
+            this.gravityTxt.BackColor = System.Drawing.SystemColors.Control;
+            this.gravityTxt.DecimalPlaces = 2;
+            this.gravityTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.gravityTxt.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.gravityTxt.Location = new System.Drawing.Point(453, 221);
+            this.gravityTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.gravityTxt.Maximum = new decimal(new int[] {
+            -805306368,
+            967903254,
+            1843143693,
+            0});
+            this.gravityTxt.Minimum = new decimal(new int[] {
+            -805306368,
+            967903254,
+            1843143693,
+            -2147483648});
+            this.gravityTxt.Name = "gravityTxt";
+            this.gravityTxt.Size = new System.Drawing.Size(75, 24);
+            this.gravityTxt.TabIndex = 85;
+            this.gravityTxt.Value = new decimal(new int[] {
+            -115765433,
+            1,
+            0,
+            524288});
             // 
             // IGIEditorUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(860, 602);
+            this.ClientSize = new System.Drawing.Size(866, 625);
             this.Controls.Add(this.editorMainPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -5189,6 +5232,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.levelImgBox)).EndInit();
             this.appMenuSettings.ResumeLayout(false);
             this.appMenuSettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gravityTxt)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -5559,6 +5603,8 @@
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.Label modelInfoLbl;
         private System.Windows.Forms.ToolStripTextBox refreshTimerIntervalTxt;
+        private System.Windows.Forms.NumericUpDown gravityTxt;
+        private System.Windows.Forms.Label gravityLbl;
     }
 }
 

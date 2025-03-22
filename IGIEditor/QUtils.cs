@@ -149,7 +149,7 @@ namespace IGIEditor
 
         #region App Version
         internal static string versionFileName = "VERSION";
-        internal static string appEditorSubVersion = "0.8.5.3";
+        internal static string appEditorSubVersion = "0.8.5.4";
         internal static float viewPortDelta = 10000.0f;
         #endregion
 
@@ -1899,6 +1899,21 @@ namespace IGIEditor
         internal static bool IsNonASCII(string str)
         {
             return (Encoding.UTF8.GetByteCount(str) != str.Length);
+        }
+
+        // Multiplies the input speed by 4.096e+06 * 9.259259e-06 (~1024/27 or ~37.9259259)
+        public static double ConvertSpeed(double speed)
+        {
+            float multiplier = 4.096e+06f;
+            float conversionFactor = 9.259259e-06f;
+            return speed * multiplier * conversionFactor;
+        }
+
+        // Multiplies the input value by 2^12 (4096) to convert peek values
+        public static double ConvertPeek(double value)
+        {
+            int twoPow12 = 1 << 12; // 2^12 = 4096
+            return value * twoPow12;
         }
     }
 

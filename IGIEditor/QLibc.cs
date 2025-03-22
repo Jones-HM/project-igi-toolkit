@@ -62,6 +62,7 @@ using IGIEditor;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -869,6 +870,12 @@ namespace QLibc
         [DllImport("user32.dll", SetLastError = true)]
         private static extern uint SendInput(uint numberOfInputs, INPUT[] inputs, int sizeOfInputStructure);
 
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool VirtualProtectEx(IntPtr hProcess, IntPtr lpAddress, UIntPtr dwSize, uint flNewProtect, out uint lpflOldProtect);
+        
+        // Protection constants
+        private const uint PAGE_EXECUTE_READWRITE = 0x40;
+
         internal static void ShowAppForeground(string processName)
         {
             Process[] p = Process.GetProcessesByName(processName);
@@ -968,7 +975,27 @@ namespace QLibc
             return value;
         }
 
-        public static bool GT_WriteMemory(IntPtr address, string type, string value)
+        // Writes data to a read-only memory region
+        public static bool WriteToReadOnlyMemory(IntPtr processHandle, IntPtr address, byte[] data)
+        {
+            UIntPtr size = (UIntPtr)data.Length;
+            uint oldProtect;
+            // Change the memory protection to allow writes
+            if (!VirtualProtectEx(processHandle, address, size, PAGE_EXECUTE_READWRITE, out oldProtect))
+            {
+                return false;
+            }
+
+            // Write the data
+            bool result = WriteProcessMemory(processHandle, address, data, size, IntPtr.Zero);
+
+            // Restore the original protection
+            VirtualProtectEx(processHandle, address, size, oldProtect, out _);
+
+            return result;
+        }
+
+        public static bool GT_WriteMemory(IntPtr address, string type, string value, bool read_only = false)
         {
             byte[] real_value = new byte[4];
             int size = 4;
@@ -1038,6 +1065,10 @@ namespace QLibc
                 size = value.Length;
             }
             IntPtr gHandle = GT_GetGameHandle();
+            if (read_only)
+            {
+                return WriteToReadOnlyMemory(gHandle, address, real_value);
+            }
             return WriteProcessMemory(gHandle, address, real_value, (UIntPtr)size, IntPtr.Zero);
         }
 

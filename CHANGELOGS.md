@@ -1,5 +1,10 @@
 # 📝 CHANGELOGS
 
+## Version 0.8.5.4 BETA 🎉  
+- 🌍 Added New Gravity Section.  
+- 📝 Updated Human Editor to work without Internals DLL.  
+- 🎨 Improved UI/UX.  
+
 ## Version 0.8.5.3 BETA 🎉  
 - ⏱️ Fixed Position timer.  
 - ⚠️ Improved Exceptions.  
