@@ -138,7 +138,7 @@ And now you can generate Key from KeyGen for your editor for free.</br>~~
 [![QEditor](https://img.youtube.com/vi/wMyAlgIm2AY/0.jpg)](https://www.youtube.com/watch?v=wMyAlgIm2AY)
 
 ## Version Update:
-**Editor version 0.8.5.3 Latest.**
+**Editor version 0.8.5.4 Latest.**
 
 # Chagelogs:
 Check out the detailed version history in [Changelogs.md](CHANGELOGS.md)
@@ -148,7 +148,7 @@ The editor onwards version 0.7 doesn't store any type of data from _User,Machine
 
 # **DOWNLOAD LINKS**</br>
 - **Project I.G.I 1 Editor** Version 0.8.5.3 _RELEASED_</br>
-[IGI Editor](https://github.com/IGI-Research-Devs/IGI-Editor/releases/tag/0.8.5.3)</br>
+[IGI Editor](https://github.com/IGI-Research-Devs/IGI-Editor/releases/tag/0.8.5.4)</br>
 
 # 📚 FAQ (Frequently Asked Questions)
 Checkout the detailed FAQ in [FAQ.md](FAQ.md)
