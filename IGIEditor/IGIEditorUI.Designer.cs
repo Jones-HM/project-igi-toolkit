@@ -413,6 +413,7 @@
             this.aiPatrolFileSizeTxt = new System.Windows.Forms.TextBox();
             this.aiPatrolIdTxt = new System.Windows.Forms.TextBox();
             this.aiPatrolIdLbl = new System.Windows.Forms.Label();
+            this.aiPatrolIdDD = new System.Windows.Forms.ComboBox();
             this.editorMainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.levelStartTxt)).BeginInit();
             this.editorTabs.SuspendLayout();
@@ -1416,6 +1417,7 @@
             // aiPatrolPathEditor
             // 
             this.aiPatrolPathEditor.BackColor = System.Drawing.SystemColors.Control;
+            this.aiPatrolPathEditor.Controls.Add(this.aiPatrolIdDD);
             this.aiPatrolPathEditor.Controls.Add(this.aiPatrolIdLbl);
             this.aiPatrolPathEditor.Controls.Add(this.aiPatrolIdTxt);
             this.aiPatrolPathEditor.Controls.Add(this.aiPatrolFileNameTxt);
@@ -5399,6 +5401,20 @@
             this.aiPatrolIdLbl.Text = "Patrol Id";
             this.aiPatrolIdLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // aiPatrolIdDD
+            // 
+            this.aiPatrolIdDD.BackColor = System.Drawing.SystemColors.Control;
+            this.aiPatrolIdDD.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.aiPatrolIdDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.aiPatrolIdDD.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.aiPatrolIdDD.FormattingEnabled = true;
+            this.aiPatrolIdDD.Location = new System.Drawing.Point(659, 101);
+            this.aiPatrolIdDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.aiPatrolIdDD.Name = "aiPatrolIdDD";
+            this.aiPatrolIdDD.Size = new System.Drawing.Size(166, 21);
+            this.aiPatrolIdDD.TabIndex = 95;
+            this.aiPatrolIdDD.SelectedIndexChanged += new System.EventHandler(this.aiPatrolIdDD_SelectedIndexChanged);
+            // 
             // IGIEditorUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5874,6 +5890,7 @@
         private System.Windows.Forms.TextBox aiPatrolFileSizeTxt;
         private System.Windows.Forms.Label aiPatrolIdLbl;
         private System.Windows.Forms.TextBox aiPatrolIdTxt;
+        private System.Windows.Forms.ComboBox aiPatrolIdDD;
     }
 }
 

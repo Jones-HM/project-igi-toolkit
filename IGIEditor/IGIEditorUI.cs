@@ -5155,6 +5155,9 @@ namespace IGIEditor
 
         private Point lastPoint;
         private bool isDrawing = false;
+        private string aiPatrolPath, aiPatrolData;
+
+        public string levelAiPath { get; private set; }
 
         private void textureBox_MouseDown(object sender, MouseEventArgs e)
         {
@@ -5319,36 +5322,59 @@ namespace IGIEditor
 
         private void aiScriptLoadBtn_Click(object sender, EventArgs e)
         {
-            string levelAiPath = QUtils.cfgGamePath + gameLevel.ToString() + "\\ai";
+            levelAiPath = QUtils.cfgGamePath + gameLevel.ToString() + "\\ai";
             var fopenIO = QUtils.ShowOpenFileDlg("Select AI script file", ".qvm", "QVM File|*.qvm|QSC file|*.qsc", true, levelAiPath);
             string fileName = fopenIO.FileName;
             string tmpPath = Path.GetTempPath();
+            levelAiPath = fileName;
 
-            // updating the UI name and size.
+            List<string> requiredKeywords = new List<string> { "if", "else", "==", "(", ")", "{", "}" };
+
+            // Update UI name and size.
             aiScriptFileNameTxt.Text = Path.GetFileName(fileName);
             aiScriptFileSizeTxt.Text = "File Size: " + fopenIO.FileSize + " Kb";
 
-            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Script path is '" + levelAiPath + "' and file name is '" + fileName + "'");
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name,
+                "AI Script path is '" + levelAiPath + "' and file name is '" + fileName + "'");
+
             string data = fopenIO.FileData;
             bool status = false;
 
             if (!string.IsNullOrEmpty(data))
             {
+                // If file is QVM, decompile and load the resulting QSC file data.
+                string scriptData = data;
                 if (fileName.Contains(QUtils.FileExtensions.Qvm))
                 {
-                   status = QCompiler.Decompile(fileName, tmpPath, 0x0);
+                    status = QCompiler.Decompile(fileName, tmpPath, 0x0);
                     if (status)
                     {
                         string aiScriptFile = Path.ChangeExtension(Path.GetFileName(fileName), QUtils.FileExtensions.Qsc);
-                        aiScriptEditorTxt.Text = QUtils.LoadFile(Path.Combine(tmpPath, aiScriptFile));
-                        if(aiScrptFormatCb.Checked) 
-                            RichViewerUpdateFormat();
+                        scriptData = QUtils.LoadFile(Path.Combine(tmpPath, aiScriptFile));
                     }
                 }
                 else
                 {
-                    aiScriptEditorTxt.Text = data;
+                    status = true;
                 }
+
+                // Validate the script data only once.
+                foreach (string keyword in requiredKeywords)
+                {
+                    if (!scriptData.Contains(keyword))
+                    {
+                        QLog.ShowLogError(MethodBase.GetCurrentMethod().Name,
+                            $"Invalid AI script file selected: missing keyword '{keyword}'.\nPlease select a valid file from 'missions/location0/levelX/ai' Path");
+                        aiScriptEditorTxt.Text = "";
+                        return;
+                    }
+                }
+
+                // Update the editor text with the validated script data.
+                aiScriptEditorTxt.Text = scriptData;
+                if (aiScrptFormatCb.Checked)
+                    RichViewerUpdateFormat();
+
                 QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Script loaded successfully.");
             }
 
@@ -5361,7 +5387,6 @@ namespace IGIEditor
 
         private void aiScriptSaveBtn_Click(object sender, EventArgs e)
         {
-            string levelAiPath = QUtils.cfgGamePath + gameLevel.ToString() + "\\ai";
             QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Script path is " + levelAiPath);
             string data = aiScriptEditorTxt.Text;
             string qscFile = aiScriptFileNameTxt.Text.Replace(".qvm", ".qsc");
@@ -5383,19 +5408,47 @@ namespace IGIEditor
         private void aiPatrolLoadBtn_Click(object sender, EventArgs e)
         {
             int patrolId = Convert.ToInt32(aiPatrolIdTxt.Text);
-            string levelAiPath = QUtils.cfgGamePath + gameLevel.ToString();
+            levelAiPath = QUtils.cfgGamePath + gameLevel.ToString();
+            FOpenIO fopenIO = new FOpenIO();
+            string fileName = null;
+            string aiPatrolFileData = null;
 
-            var fopenIO = QUtils.ShowOpenFileDlg("Select AI Patrol file", ".qvm", "QVM File|*.qvm|QSC file|*.qsc", true, levelAiPath);
-            string fileName = fopenIO.FileName;
+            // clear the dropdown if clear checkbox is checked.
+            if (aiPatrolClearCb.Checked)
+            {
+                aiPatrolIdDD.Items.Clear();
+                aiPatrolIdTxt.Text = "0";
+            }
+
+            if (aiPatrolIdDD.Items.Count == 0)
+            {
+                fopenIO = QUtils.ShowOpenFileDlg("Select AI Patrol file", ".qvm", "QVM File|*.qvm|QSC file|*.qsc", true, levelAiPath);
+                fileName = levelAiPath = fopenIO.FileName;
+                aiPatrolPath = fopenIO.FileName;
+                aiPatrolData = fopenIO.FileData;
+
+                if (!aiPatrolFileNameTxt.Text.Contains(QUtils.objectsQsc))
+                {
+                    QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Invalid AI Patrol file selected.\nPlease select " + QUtils.objectsQsc + " file.");
+                    return;
+                }
+
+                // updating the UI name and size.
+                aiPatrolFileNameTxt.Text = Path.GetFileName(fileName);
+                aiPatrolFileSizeTxt.Text = "File Size: " + fopenIO.FileSize + " Kb";
+            }
+
+            else
+            {
+                fileName = levelAiPath = aiPatrolPath;
+            }
+
             string tmpPath = Path.GetTempPath();
-            string data = fopenIO.FileData;
+            
             bool status = false;
+            string aiPatrolFilePath = null;
 
-            // updating the UI name and size.
-            aiPatrolFileNameTxt.Text = Path.GetFileName(fileName);
-            aiPatrolFileSizeTxt.Text = "File Size: " + fopenIO.FileSize + " Kb";
-
-            if (!String.IsNullOrEmpty(data))
+            if (!String.IsNullOrEmpty(fileName) && !String.IsNullOrEmpty(aiPatrolData))
             {
                 if (fileName.Contains(QUtils.FileExtensions.Qvm))
                 {
@@ -5403,13 +5456,13 @@ namespace IGIEditor
                     if (status)
                     {
                         string aiPatrolFile = Path.ChangeExtension(Path.GetFileName(fileName), QUtils.FileExtensions.Qsc);
-                        string aiPatrolFilePath = Path.Combine(tmpPath, aiPatrolFile);
-                        QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Patrol path is " + aiPatrolFilePath);
+                        aiPatrolFilePath = Path.Combine(tmpPath, aiPatrolFile);
+                        QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Patrol path is " + levelAiPath);
 
-                        string aiPatrolData = QAI.ReadPatrolData(aiPatrolFilePath, patrolId);
-                        if (aiPatrolData != null)
+                        aiPatrolFileData = QAI.ReadPatrolData(aiPatrolFilePath, patrolId);
+                        if (aiPatrolFileData != null)
                         {
-                            aiPatrolEditorTxt.Text = aiPatrolData.Trim();
+                            aiPatrolEditorTxt.Text = aiPatrolFileData.Trim();
                             if (aiPatrolFormatCb.Checked)
                                 RichViewerUpdateFormat();
                         }
@@ -5417,12 +5470,29 @@ namespace IGIEditor
                 }
                 else
                 {
-                    aiPatrolEditorTxt.Text = data;
+                    aiPatrolFilePath = aiPatrolPath;
+                    aiPatrolFileData = QAI.ReadPatrolData(aiPatrolFilePath, patrolId);
+                    if (aiPatrolFileData != null)
+                    {
+                        aiPatrolEditorTxt.Text = aiPatrolFileData.Trim();
+                        status = true;
+
+                        if (aiPatrolFormatCb.Checked)
+                            RichViewerUpdateFormat();
+                    }
+                    else 
+                        status = false;
+                }
+
+                // populate the aiPatrolIdDD dropdown with data.
+                if (aiPatrolIdDD.Items.Count == 0 && status)
+                {
+                    aiPatrolIdDD.Items.AddRange(QAI.GetPatrolIds(aiPatrolFilePath).Cast<object>().ToArray());
                 }
                 QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Patrol loaded successfully.");
             }
 
-            if (string.IsNullOrEmpty(data) || !status)
+            if (!status || string.IsNullOrEmpty(aiPatrolFileData))
             {
                 aiPatrolEditorTxt.Text = "";
                 QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "AI Patrol failed to load.");
@@ -5432,7 +5502,6 @@ namespace IGIEditor
         private void aiPatrolSaveBtn_Click(object sender, EventArgs e)
         {
             int patrolId = Convert.ToInt32(aiPatrolIdTxt.Text);
-            string levelAiPath = QUtils.cfgGamePath + gameLevel.ToString();
             QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Patrol path is " + levelAiPath);
 
             string data = aiPatrolEditorTxt.Text;
@@ -5494,6 +5563,8 @@ namespace IGIEditor
             if (((CheckBox)sender).Checked)
             {
                 aiPatrolEditorTxt.Text = "";
+                aiPatrolIdDD.Items.Clear();
+                aiPatrolIdTxt.Text = "0";
             }
         }
 
@@ -5511,6 +5582,12 @@ namespace IGIEditor
             {
                 RichViewerUpdateFormat();
             }
+        }
+
+        private void aiPatrolIdDD_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            aiPatrolIdTxt.Text = aiPatrolIdDD.SelectedItem.ToString();
+            aiPatrolLoadBtn_Click(sender, e);
         }
 
         private void missionsOnlineDD_SelectedIndexChanged(object sender, EventArgs e)

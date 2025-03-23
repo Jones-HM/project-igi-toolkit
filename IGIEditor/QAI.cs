@@ -387,39 +387,45 @@ namespace IGIEditor
         {
             QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Started ExtractPatrolPathBlock for PatrolId {patrolId}");
             string fileContent = QUtils.LoadFile(patrolFile);
-
-            if (String.IsNullOrEmpty(fileContent)) {
+            if (String.IsNullOrEmpty(fileContent))
+            {
                 QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "File content is empty.");
                 return null;
             }
-
             string trimmedContent = fileContent.Trim();
-            string pattern = $@"Task_New\(\s*{patrolId}\s*,\s*""PatrolPath""\s*,\s*""""\s*,\s*(?<block>(?>[^()]+|\((?<DEPTH>)|\)(?<-DEPTH>))*)(?(DEPTH)(?!))\)";
-            
+            string pattern = $@"Task_New\(\s*{patrolId}\s*,\s*""PatrolPath""\s*,\s*""[^""]*""\s*,\s*(?<block>(?>[^()]+|\((?<DEPTH>)|\)(?<-DEPTH>))*)(?(DEPTH)(?!))\)";
             Regex regex = new Regex(pattern, RegexOptions.Singleline);
             Match match = regex.Match(trimmedContent);
-
             if (!match.Success)
             {
                 QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Data is incorrect format.");
                 return null;
             }
             string result = match.Value.Trim();
-            
             QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Extraction completed successfully with result: " + result);
             return result;
         }
+
 
         public static void SavePatrolData(string filename, int patrolId, string dataToUpdate)
         {
             string newData = dataToUpdate.Trim();
             string validatePattern = $@"^Task_New\(\s*{patrolId}\s*,\s*""PatrolPath""";
+            
             if (!Regex.IsMatch(newData, validatePattern))
             {
-                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Data is incorrect format.");
+                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Data is incorrect format.");
                 return;
             }
+
             string fileContent = System.IO.File.ReadAllText(filename);
+
+            if (String.IsNullOrEmpty(fileContent))
+            {
+                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "File content is empty.");
+                return;
+            }   
+
             string blockPattern = $@"Task_New\(\s*{patrolId}\s*,\s*""PatrolPath""\s*,\s*""""\s*,\s*(?<block>(?>[^()]+|\((?<DEPTH>)|\)(?<-DEPTH>))*)(?(DEPTH)(?!))\)";
             Regex regex = new Regex(blockPattern, RegexOptions.Singleline);
             Match match = regex.Match(fileContent);
@@ -433,6 +439,26 @@ namespace IGIEditor
             string updatedContent = regex.Replace(fileContent, newData);
             QUtils.SaveFile(filename, updatedContent);
             QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Patrol data for id {patrolId} updated successfully.");
+        }
+
+        public static List<int> GetPatrolIds(string filename)
+        {
+            string fileContent = System.IO.File.ReadAllText(filename);
+
+            if (String.IsNullOrEmpty(fileContent))
+            {
+                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "File content is empty.");
+                return null;
+            }
+
+            var ids = new List<int>();
+            string pattern = @"Task_New\(\s*(?<id>-?\d+)\s*,\s*""PatrolPath""";
+            foreach (Match m in Regex.Matches(fileContent, pattern, RegexOptions.Singleline))
+            {
+                if (int.TryParse(m.Groups["id"].Value, out int id))
+                    ids.Add(id);
+            }
+            return ids;
         }
 
 
