@@ -5384,9 +5384,9 @@
             this.aiPatrolIdTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.aiPatrolIdTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiPatrolIdTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiPatrolIdTxt.Location = new System.Drawing.Point(733, 128);
+            this.aiPatrolIdTxt.Location = new System.Drawing.Point(659, 104);
             this.aiPatrolIdTxt.Name = "aiPatrolIdTxt";
-            this.aiPatrolIdTxt.Size = new System.Drawing.Size(92, 24);
+            this.aiPatrolIdTxt.Size = new System.Drawing.Size(68, 24);
             this.aiPatrolIdTxt.TabIndex = 75;
             this.aiPatrolIdTxt.Text = "0000";
             // 
@@ -5394,7 +5394,7 @@
             // 
             this.aiPatrolIdLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiPatrolIdLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiPatrolIdLbl.Location = new System.Drawing.Point(656, 125);
+            this.aiPatrolIdLbl.Location = new System.Drawing.Point(695, 74);
             this.aiPatrolIdLbl.Name = "aiPatrolIdLbl";
             this.aiPatrolIdLbl.Size = new System.Drawing.Size(71, 27);
             this.aiPatrolIdLbl.TabIndex = 94;
@@ -5408,10 +5408,10 @@
             this.aiPatrolIdDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.aiPatrolIdDD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.aiPatrolIdDD.FormattingEnabled = true;
-            this.aiPatrolIdDD.Location = new System.Drawing.Point(659, 101);
+            this.aiPatrolIdDD.Location = new System.Drawing.Point(733, 104);
             this.aiPatrolIdDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.aiPatrolIdDD.Name = "aiPatrolIdDD";
-            this.aiPatrolIdDD.Size = new System.Drawing.Size(166, 21);
+            this.aiPatrolIdDD.Size = new System.Drawing.Size(92, 21);
             this.aiPatrolIdDD.TabIndex = 95;
             this.aiPatrolIdDD.SelectedIndexChanged += new System.EventHandler(this.aiPatrolIdDD_SelectedIndexChanged);
             // 

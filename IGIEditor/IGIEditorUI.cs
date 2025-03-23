@@ -5328,7 +5328,14 @@ namespace IGIEditor
             string tmpPath = Path.GetTempPath();
             levelAiPath = fileName;
 
-            List<string> requiredKeywords = new List<string> { "if", "else", "==", "(", ")", "{", "}" };
+
+            if (String.IsNullOrEmpty(fileName))
+            {
+                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Invalid file selected.\nPlease select a valid file from 'missions/location0/levelX/ai' Path.");
+                return;
+            }
+
+            List<string> requiredKeywords = new List<string> { "if", "else", "==", "(", ")", "{", "}", "AIFunction_DefaultHandler" };
 
             // Update UI name and size.
             aiScriptFileNameTxt.Text = Path.GetFileName(fileName);
@@ -5359,15 +5366,17 @@ namespace IGIEditor
                 }
 
                 // Validate the script data only once.
-                foreach (string keyword in requiredKeywords)
+                bool isValid = requiredKeywords.Any(keyword => scriptData.Contains(keyword));
+
+                // check file name is in this format xxxx.qvm where x is number from 0-9
+                isValid = isValid && Regex.IsMatch(Path.GetFileNameWithoutExtension(fileName), @"^\d+$");
+
+                if (!isValid)
                 {
-                    if (!scriptData.Contains(keyword))
-                    {
-                        QLog.ShowLogError(MethodBase.GetCurrentMethod().Name,
-                            $"Invalid AI script file selected: missing keyword '{keyword}'.\nPlease select a valid file from 'missions/location0/levelX/ai' Path");
-                        aiScriptEditorTxt.Text = "";
-                        return;
-                    }
+                    QLog.ShowLogError(MethodBase.GetCurrentMethod().Name,
+                        "Invalid AI script file selected\nPlease select a valid file from 'missions/location0/levelX/ai' Path");
+                    aiScriptEditorTxt.Text = "";
+                    return;
                 }
 
                 // Update the editor text with the validated script data.
@@ -5427,9 +5436,15 @@ namespace IGIEditor
                 aiPatrolPath = fopenIO.FileName;
                 aiPatrolData = fopenIO.FileData;
 
-                if (!aiPatrolFileNameTxt.Text.Contains(QUtils.objectsQsc))
+                if (String.IsNullOrEmpty(fileName))
                 {
-                    QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Invalid AI Patrol file selected.\nPlease select " + QUtils.objectsQsc + " file.");
+                    QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Invalid file selected.\nPlease select " + QUtils.objects + " file.");
+                    return;
+                }
+
+                if (!Path.GetFileNameWithoutExtension(fileName).Equals(QUtils.objects, StringComparison.OrdinalIgnoreCase))
+                {
+                    QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Invalid AI Patrol file selected.\nPlease select " + QUtils.objects + " file.");
                     return;
                 }
 
@@ -5488,6 +5503,7 @@ namespace IGIEditor
                 if (aiPatrolIdDD.Items.Count == 0 && status)
                 {
                     aiPatrolIdDD.Items.AddRange(QAI.GetPatrolIds(aiPatrolFilePath).Cast<object>().ToArray());
+                    aiPatrolIdDD.SelectedIndex = 0;
                 }
                 QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Patrol loaded successfully.");
             }
@@ -5554,7 +5570,7 @@ namespace IGIEditor
         {
             if (((CheckBox)sender).Checked)
             {
-                aiScriptEditorTxt.Text = "";
+                aiScriptEditorTxt.Text = aiScriptFileNameTxt.Text = aiScriptFileSizeTxt.Text = "";
             }
         }
 
@@ -5562,7 +5578,7 @@ namespace IGIEditor
         {
             if (((CheckBox)sender).Checked)
             {
-                aiPatrolEditorTxt.Text = "";
+                aiPatrolEditorTxt.Text = aiPatrolFileNameTxt.Text = aiPatrolFileSizeTxt.Text = "";
                 aiPatrolIdDD.Items.Clear();
                 aiPatrolIdTxt.Text = "0";
             }
