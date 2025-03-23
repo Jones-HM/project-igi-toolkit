@@ -411,6 +411,8 @@
             this.aiScriptFileSizeTxt = new System.Windows.Forms.TextBox();
             this.aiPatrolFileNameTxt = new System.Windows.Forms.TextBox();
             this.aiPatrolFileSizeTxt = new System.Windows.Forms.TextBox();
+            this.aiPatrolIdTxt = new System.Windows.Forms.TextBox();
+            this.aiPatrolIdLbl = new System.Windows.Forms.Label();
             this.editorMainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.levelStartTxt)).BeginInit();
             this.editorTabs.SuspendLayout();
@@ -1414,6 +1416,8 @@
             // aiPatrolPathEditor
             // 
             this.aiPatrolPathEditor.BackColor = System.Drawing.SystemColors.Control;
+            this.aiPatrolPathEditor.Controls.Add(this.aiPatrolIdLbl);
+            this.aiPatrolPathEditor.Controls.Add(this.aiPatrolIdTxt);
             this.aiPatrolPathEditor.Controls.Add(this.aiPatrolFileNameTxt);
             this.aiPatrolPathEditor.Controls.Add(this.aiPatrolFileSizeTxt);
             this.aiPatrolPathEditor.Controls.Add(this.aiPatrolFormatCb);
@@ -5372,6 +5376,29 @@
             this.aiPatrolFileSizeTxt.Size = new System.Drawing.Size(168, 24);
             this.aiPatrolFileSizeTxt.TabIndex = 74;
             // 
+            // aiPatrolIdTxt
+            // 
+            this.aiPatrolIdTxt.BackColor = System.Drawing.SystemColors.Control;
+            this.aiPatrolIdTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.aiPatrolIdTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.aiPatrolIdTxt.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.aiPatrolIdTxt.Location = new System.Drawing.Point(733, 128);
+            this.aiPatrolIdTxt.Name = "aiPatrolIdTxt";
+            this.aiPatrolIdTxt.Size = new System.Drawing.Size(92, 24);
+            this.aiPatrolIdTxt.TabIndex = 75;
+            this.aiPatrolIdTxt.Text = "0000";
+            // 
+            // aiPatrolIdLbl
+            // 
+            this.aiPatrolIdLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.aiPatrolIdLbl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.aiPatrolIdLbl.Location = new System.Drawing.Point(656, 125);
+            this.aiPatrolIdLbl.Name = "aiPatrolIdLbl";
+            this.aiPatrolIdLbl.Size = new System.Drawing.Size(71, 27);
+            this.aiPatrolIdLbl.TabIndex = 94;
+            this.aiPatrolIdLbl.Text = "Patrol Id";
+            this.aiPatrolIdLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // IGIEditorUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5845,6 +5872,8 @@
         private System.Windows.Forms.TextBox aiScriptFileSizeTxt;
         private System.Windows.Forms.TextBox aiPatrolFileNameTxt;
         private System.Windows.Forms.TextBox aiPatrolFileSizeTxt;
+        private System.Windows.Forms.Label aiPatrolIdLbl;
+        private System.Windows.Forms.TextBox aiPatrolIdTxt;
     }
 }
 

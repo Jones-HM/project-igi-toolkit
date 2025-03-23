@@ -133,8 +133,6 @@ namespace IGIEditor
                 {
                     int humanId = Convert.ToInt32(aiId);
                     aiId = humanId + 1;
-                    int patrolIdI = Convert.ToInt32(patrolId);
-                    int graphIdI = Convert.ToInt32(graphId);
 
                     //Set A.I Position on Graph.
                     Real64 aiPos = QGraphs.GetGraphPosition(graphId);
@@ -157,12 +155,16 @@ namespace IGIEditor
                         qscData += QAI.AddGuardGenerator("AI Army", maxSpawns);
                     
                     //Add A.I HumanSoldier.
-                    qscData += AddHumanSoldier(aiType, humanId, graphIdI, aiPos, aiAngle, modelId, teamId, true, aiWeapon, aiAmmo, guardGenerator);
+                    qscData += AddHumanSoldier(aiType, humanId, graphId, aiPos, aiAngle, modelId, teamId, true, aiWeapon, aiAmmo, guardGenerator);
                     
                     //Add A.I Script to HumanSoldier.
-                    var aiScriptData = AddAIScriptPath(aiType, graphIdI, aiId, patrolId, QUtils.gGameLevel, invulnerability, advanceView);
-                    if (!String.IsNullOrEmpty(aiScriptData)) 
+                    var aiScriptData = AddAIScriptPath(aiType, graphId, aiId, patrolId, QUtils.gGameLevel, invulnerability, advanceView);
+                    if (!String.IsNullOrEmpty(aiScriptData))
+                    {
                         qscData += aiScriptData;
+                        QLog.ShowLogInfo(MethodBase.GetCurrentMethod().Name, "AI script ID's \ngraphId : " + graphId + " \naiId : " + aiId + " \npatrolId : " + patrolId);
+                    }
+
                    
                 }
                 QUtils.aiScriptId += 3;
@@ -380,6 +382,59 @@ namespace IGIEditor
             patrolTask += (lastCmd) ? ")," : ",";
             return patrolTask;
         }
+
+        public static string ReadPatrolData(string patrolFile, int patrolId)
+        {
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Started ExtractPatrolPathBlock for PatrolId {patrolId}");
+            string fileContent = QUtils.LoadFile(patrolFile);
+
+            if (String.IsNullOrEmpty(fileContent)) {
+                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "File content is empty.");
+                return null;
+            }
+
+            string trimmedContent = fileContent.Trim();
+            string pattern = $@"Task_New\(\s*{patrolId}\s*,\s*""PatrolPath""\s*,\s*""""\s*,\s*(?<block>(?>[^()]+|\((?<DEPTH>)|\)(?<-DEPTH>))*)(?(DEPTH)(?!))\)";
+            
+            Regex regex = new Regex(pattern, RegexOptions.Singleline);
+            Match match = regex.Match(trimmedContent);
+
+            if (!match.Success)
+            {
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Data is incorrect format.");
+                return null;
+            }
+            string result = match.Value.Trim();
+            
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Extraction completed successfully with result: " + result);
+            return result;
+        }
+
+        public static void SavePatrolData(string filename, int patrolId, string dataToUpdate)
+        {
+            string newData = dataToUpdate.Trim();
+            string validatePattern = $@"^Task_New\(\s*{patrolId}\s*,\s*""PatrolPath""";
+            if (!Regex.IsMatch(newData, validatePattern))
+            {
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Data is incorrect format.");
+                return;
+            }
+            string fileContent = System.IO.File.ReadAllText(filename);
+            string blockPattern = $@"Task_New\(\s*{patrolId}\s*,\s*""PatrolPath""\s*,\s*""""\s*,\s*(?<block>(?>[^()]+|\((?<DEPTH>)|\)(?<-DEPTH>))*)(?(DEPTH)(?!))\)";
+            Regex regex = new Regex(blockPattern, RegexOptions.Singleline);
+            Match match = regex.Match(fileContent);
+
+            if (!match.Success)
+            {
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"No block found for PatrolId {patrolId}.");
+                return;
+            }
+
+            string updatedContent = regex.Replace(fileContent, newData);
+            QUtils.SaveFile(filename, updatedContent);
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Patrol data for id {patrolId} updated successfully.");
+        }
+
 
         internal static string RemoveHumanSoldier(string qscData, string aiModel)
         {

@@ -296,7 +296,7 @@ namespace IGIEditor
                     if (String.IsNullOrEmpty(qscData))
                     {
                         QLog.ShowLogStatus("AddHumanSoldier", "Error: Adding " + aiModelName + " A.I to level '" + gameLevel + "'");
-                        QUtils.aiScriptId = QUtils.aiScriptId > QUtils.LEVEL_FLOW_TASK_ID ? (QUtils.aiScriptId - 3) : QUtils.aiScriptId;//Reset scriptId on error.
+                        QUtils.aiScriptId = QUtils.aiScriptId > QUtils.LEVEL_FLOW_TASK_ID ? (QUtils.aiScriptId - 3) : QUtils.aiScriptId; //Reset scriptId on error.
                         return;
                     }
 
@@ -5382,39 +5382,74 @@ namespace IGIEditor
 
         private void aiPatrolLoadBtn_Click(object sender, EventArgs e)
         {
-            string path = null; // = QUtils.customPatrolPathQEd;
-            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Patrol path is " + path);
-            string data = QUtils.LoadFile(path);
+            int patrolId = Convert.ToInt32(aiPatrolIdTxt.Text);
+            string levelAiPath = QUtils.cfgGamePath + gameLevel.ToString();
 
-            if (!string.IsNullOrEmpty(data))
+            var fopenIO = QUtils.ShowOpenFileDlg("Select AI Patrol file", ".qvm", "QVM File|*.qvm|QSC file|*.qsc", true, levelAiPath);
+            string fileName = fopenIO.FileName;
+            string tmpPath = Path.GetTempPath();
+            string data = fopenIO.FileData;
+            bool status = false;
+
+            // updating the UI name and size.
+            aiPatrolFileNameTxt.Text = Path.GetFileName(fileName);
+            aiPatrolFileSizeTxt.Text = "File Size: " + fopenIO.FileSize + " Kb";
+
+            if (!String.IsNullOrEmpty(data))
             {
-                aiPatrolEditorTxt.Text = data;
-                RichViewerUpdateFormat();
-                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Patrol loaded successfully.");
+                if (fileName.Contains(QUtils.FileExtensions.Qvm))
+                {
+                    status = QCompiler.Decompile(fileName, tmpPath, 0x0);
+                    if (status)
+                    {
+                        string aiPatrolFile = Path.ChangeExtension(Path.GetFileName(fileName), QUtils.FileExtensions.Qsc);
+                        string aiPatrolFilePath = Path.Combine(tmpPath, aiPatrolFile);
+                        QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Patrol path is " + aiPatrolFilePath);
+
+                        string aiPatrolData = QAI.ReadPatrolData(aiPatrolFilePath, patrolId);
+                        if (aiPatrolData != null)
+                        {
+                            aiPatrolEditorTxt.Text = aiPatrolData.Trim();
+                            if (aiPatrolFormatCb.Checked)
+                                RichViewerUpdateFormat();
+                        }
+                    }
+                }
+                else
+                {
+                    aiPatrolEditorTxt.Text = data;
+                }
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Patrol loaded successfully.");
             }
-            else
+
+            if (string.IsNullOrEmpty(data) || !status)
             {
                 aiPatrolEditorTxt.Text = "";
-                QLog.ShowError("Custom Patrol failed to load.");
-                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Patrol failed to load.");
+                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "AI Patrol failed to load.");
             }
         }
 
         private void aiPatrolSaveBtn_Click(object sender, EventArgs e)
         {
-            string path = null; // = QUtils.customPatrolPathQEd;
-            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script path is " + path);
+            int patrolId = Convert.ToInt32(aiPatrolIdTxt.Text);
+            string levelAiPath = QUtils.cfgGamePath + gameLevel.ToString();
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Patrol path is " + levelAiPath);
+
             string data = aiPatrolEditorTxt.Text;
+            string qscFile = aiPatrolFileNameTxt.Text.Replace(".qvm", ".qsc");
+            bool status = false;
 
             if (!string.IsNullOrEmpty(data))
             {
-                QUtils.SaveFile(path, data);
-                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script saved successfully.");
+                QAI.SavePatrolData(qscFile, patrolId, data);
+                status = QCompiler.Compile(qscFile, levelAiPath, 0x0);
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Patrol saved successfully.");
             }
-            else
+
+            if (!status || string.IsNullOrEmpty(data))
             {
-                QLog.ShowError("Custom Script failed to save.");
-                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script failed to save.");
+                aiPatrolEditorTxt.Text = "";
+                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "AI Patrol failed to save.");
             }
         }
 
