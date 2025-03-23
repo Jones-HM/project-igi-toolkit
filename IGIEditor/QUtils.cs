@@ -20,6 +20,7 @@ using File = System.IO.File;
 using FileIO = Microsoft.VisualBasic.FileIO;
 using FileSystem = Microsoft.VisualBasic.FileIO.FileSystem;
 using static IGIEditor.QLog;
+using System.Drawing;
 
 namespace IGIEditor
 {
@@ -149,7 +150,7 @@ namespace IGIEditor
 
         #region App Version
         internal static string versionFileName = "VERSION";
-        internal static string appEditorSubVersion = "0.8.5.4";
+        internal static string appEditorSubVersion = "0.8.6.0";
         internal static float viewPortDelta = 10000.0f;
         #endregion
 
@@ -1742,6 +1743,23 @@ namespace IGIEditor
             var isSendt = sendOnce.ToString().ToUpperInvariant();
             string statusMsgTask = "Task_New(" + taskId + ",\"StatusMessage\",\"StatusMsg\",0,0,0,0,0,0,\"" + varString + "\",\"" + statusMsg + "\",\"\"," + "\"message\"," + isSendt + "," + isCutscene + "," + statusDuration + ")" + terminator + "\n";
             return statusMsgTask;
+        }
+
+        internal static Color GetDynamicColor(string keyword)
+        {
+            Color[] colors = new Color[] { Color.Blue, Color.Red, Color.Green, Color.Cyan, Color.Magenta, Color.Orange, Color.Purple, Color.Brown };
+            int index = Math.Abs(keyword.GetHashCode()) % colors.Length;
+            return colors[index];
+        }
+
+        internal static FontStyle GetDynamicFontStyle(string keyword)
+        {
+            if (keyword.Contains("AIFunction") || keyword.Contains("Task_New"))
+                return FontStyle.Bold;
+            else if (keyword.Equals("if") || keyword.Equals("else"))
+                return FontStyle.Italic;
+            else
+                return FontStyle.Regular;
         }
 
         internal static bool CheckInternalsAttached()

@@ -2341,13 +2341,6 @@ namespace IGIEditor
         {
             if (((CheckBox)sender).Checked)
             {
-                string nppCmd = (QUtils.nppInstalled) ? "notepad++ -titleAdd=\"A.I Custom Files\" -nosession -notabbar -alwaysOnTop -multiInst -lcpp " : "notepad ";
-                QLog.AddLog(MethodBase.GetCurrentMethod().Name, nppCmd);
-                SetStatusText("Add your custom scripts/path for A.I");
-                QLog.ShowInfo("Add your custom scripts for your A.I\n'XXXX' or 'YYYY' are Masking IDs dont replace them.");
-                QUtils.ShellExec(nppCmd + QUtils.customScriptPathQEd);
-                QLog.ShowInfo("Add your custom path for your A.I\n'XXXX' or 'YYYY' are Masking IDs dont replace them.");
-                QUtils.ShellExec(nppCmd + QUtils.customPatrolPathQEd);
                 QUtils.customAiSelected = true;
                 maxSpawnsTxt.Enabled = true;
             }
@@ -3476,6 +3469,42 @@ namespace IGIEditor
                 RichViewerFormatter(aiJsonEditorTxt, keywords, colors, "Consolas", 12, fontStyles);
             }
 
+            if (!String.IsNullOrEmpty(aiScriptEditorTxt.Text))
+            {
+                var keywords = new List<string>()
+                {
+                    "if", "else", "AIFunction_GetCurrentEventType", "AIEVENT_CREATE",
+                    "AIEVENT_IDLE", "AIEVENT_ALARMON", "AIEVENT_COMBAT",
+                    "AIFunction_DefaultHandler", "AIAction_Patrol"
+                };
+
+                var colors = new List<Color>();
+                var fontStyles = new List<FontStyle>();
+
+                foreach (var keyword in keywords)
+                {
+                    colors.Add(QUtils.GetDynamicColor(keyword));
+                    fontStyles.Add(QUtils.GetDynamicFontStyle(keyword));
+                }
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Keywords are : " + keywords + " Colors are : " + colors + " FontStyles are : " + fontStyles);
+                RichViewerFormatter(aiScriptEditorTxt, keywords, colors, "Consolas", 12, fontStyles);
+            }
+
+            if (!String.IsNullOrEmpty(aiPatrolEditorTxt.Text))
+            {
+                var keywords = new List<string>() { "Task_New", "PatrolPath", "PatrolPathCommand" };
+                var colors = new List<Color>();
+                var fontStyles = new List<FontStyle>();
+
+                foreach (var keyword in keywords)
+                {
+                    colors.Add(GetDynamicColor(keyword));
+                    fontStyles.Add(GetDynamicFontStyle(keyword));
+                }
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Keywords are : " + keywords + " Colors are : " + colors + " FontStyles are : " + fontStyles);
+                RichViewerFormatter(aiPatrolEditorTxt, keywords, colors, "Consolas", 12, fontStyles);
+            }
+
         }
 
         public void RichViewerFormatter(RichTextBox richBox, List<string> keywords, List<Color> colors, string fontName, int fontSize, List<FontStyle> fontStyles)
@@ -4074,7 +4103,8 @@ namespace IGIEditor
             {
                 try
                 {
-                    DialogMsgBox.ShowBox("Script Editor.", "Script editor coming soon in next updates");
+                    SetStatusText("Add your custom scripts/path for A.I");
+                    QLog.ShowInfo("Add your custom scripts for your A.I\n'XXXX' or 'YYYY' are Masking IDs dont replace them.");
                 }
                 catch (Exception ex) { QLog.LogException(e.TabPage.Name.ToUpper(), ex); }
             }
@@ -4083,7 +4113,10 @@ namespace IGIEditor
             {
                 try
                 {
-                    DialogMsgBox.ShowBox("PatrolPath Editor.", "PatrolPath editor coming soon in next updates");
+                    QLog.ShowInfo("Add your custom path for your A.I\n'XXXX' or 'YYYY' are Masking IDs dont replace them.");
+                    string path = QUtils.customPatrolPathQEd;
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Patrol path is " + path);
+
                 }
                 catch (Exception ex) { QLog.LogException(e.TabPage.Name.ToUpper(), ex); }
             }
@@ -5284,6 +5317,142 @@ namespace IGIEditor
 
             QUtils.gGameLevel = gameLevel = QUtils.gameFound ? QMemory.GetRunningLevel() : level;
             RefreshGame(false, false);
+        }
+
+        private void aiScriptLoadBtn_Click(object sender, EventArgs e)
+        {
+            string path = QUtils.customScriptPathQEd;
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script path is " + path);
+            string data = QUtils.LoadFile(path);
+
+            if(!string.IsNullOrEmpty(data))
+            {
+                aiScriptEditorTxt.Text = data;
+                RichViewerUpdateFormat();
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script loaded successfully.");
+            }
+            else
+            {
+                aiScriptEditorTxt.Text = "";
+                QLog.ShowError("Custom Script failed to load.");
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script failed to load.");
+            }
+        }
+
+        private void aiScriptSaveBtn_Click(object sender, EventArgs e)
+        {
+            string path = QUtils.customScriptPathQEd;
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script path is " + path);
+            string data = aiScriptEditorTxt.Text;
+
+            if (!string.IsNullOrEmpty(data))
+            {
+                QUtils.SaveFile(path, data);
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script saved successfully.");
+            }
+            else
+            {
+                QLog.ShowError("Custom Script failed to save.");
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script failed to save.");
+            }
+        }
+
+        private void aiPatrolLoadBtn_Click(object sender, EventArgs e)
+        {
+            string path = QUtils.customPatrolPathQEd;
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Patrol path is " + path);
+            string data = QUtils.LoadFile(path);
+
+            if (!string.IsNullOrEmpty(data))
+            {
+                aiPatrolEditorTxt.Text = data;
+                RichViewerUpdateFormat();
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Patrol loaded successfully.");
+            }
+            else
+            {
+                aiPatrolEditorTxt.Text = "";
+                QLog.ShowError("Custom Patrol failed to load.");
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Patrol failed to load.");
+            }
+        }
+
+        private void aiPatrolSaveBtn_Click(object sender, EventArgs e)
+        {
+            string path = QUtils.customPatrolPathQEd;
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script path is " + path);
+            string data = aiPatrolEditorTxt.Text;
+
+            if (!string.IsNullOrEmpty(data))
+            {
+                QUtils.SaveFile(path, data);
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script saved successfully.");
+            }
+            else
+            {
+                QLog.ShowError("Custom Script failed to save.");
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script failed to save.");
+            }
+        }
+
+        private void aiScrptEditModeCb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).Checked)
+            {
+                DialogMsgBox.ShowBox("SCRIPT Editor", "This is manual editing so be careful\nEdit at your own risk.[BETA]");
+                aiScriptEditorTxt.ReadOnly = false;
+            }
+            else aiScriptEditorTxt.ReadOnly = true;
+        }
+
+        private void aiPatrolEditModeCb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).Checked)
+            {
+                DialogMsgBox.ShowBox("PATROl Editor", "This is manual editing so be careful\nEdit at your own risk.[BETA]");
+                aiPatrolEditorTxt.ReadOnly = false;
+            }
+            else aiPatrolEditorTxt.ReadOnly = true;
+        }
+
+        private void aiJsonClearDataCb_CheckedChanged(object sender, EventArgs e)
+        {
+           if(((CheckBox)sender).Checked)
+            {
+                aiJsonEditorTxt.Text = "";
+            }
+        }
+
+        private void aiScrptClearCb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).Checked)
+            {
+                aiScriptEditorTxt.Text = "";
+            }
+        }
+
+        private void aiPatrolClearCb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).Checked)
+            {
+                aiPatrolEditorTxt.Text = "";
+            }
+        }
+
+        private void aiScrptFormatCb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).Checked)
+            {
+                RichViewerUpdateFormat();
+            }
+        }
+
+        private void aiPatrolFormatCb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).Checked)
+            {
+                RichViewerUpdateFormat();
+            }
         }
 
         private void missionsOnlineDD_SelectedIndexChanged(object sender, EventArgs e)
