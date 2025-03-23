@@ -1,58 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace IGIEditor
 {
-
-    public class HumanAI
-    {
-        public int aiCount { get; set; }
-        public string aiType { get; set; }
-        public int graphId { get; set; }
-        public string weapon { get; set; }
-        public string model { get; set; }
-        public bool guardGenerator { get; set; }
-        public int maxSpawns { get; set; }
-        public int teamId { get; set; }
-        public bool invincible { get; set; }
-        public bool advanceView { get; set; }
-
-        public HumanAI() { }
-        public HumanAI(int aiCount, string aiType, int graphId, string weapon, string model, bool guardGenerator, int maxSpawns, int teamId, bool invincible, bool advanceView)
-        {
-            this.aiCount = aiCount;this.aiType = aiType;this.graphId = graphId;this.weapon = weapon;
-            this.model = model; this.guardGenerator = guardGenerator; this.maxSpawns = maxSpawns; this.teamId = teamId;
-            this.invincible = invincible; this.advanceView = advanceView;
-        }
-    }
-
-    class AIModel
-    {
-        string modelName;
-        string modelId;
-        char option;
-        List<int> levels;
-
-        public string ModelName { get => modelName; set => modelName = value; }
-        public string ModelId { get => modelId; set => modelId = value; }
-        public char Option { get => option; set => option = value; }
-        public List<int> Levels { get => levels; set => levels = value; }
-
-        public AIModel Add(string modelName, string modelId, char option, List<int> levels)
-        {
-            this.ModelName = modelName;
-            this.ModelId = modelId;
-            this.Option = option;
-            this.Levels = levels;
-            return this;
-        }
-    }
-
     class QAI
     {
+        public class HumanAI
+        {
+            public int Id { get; }
+            public string AIType { get; }
+            public int GraphId { get; }
+            public HumanAI(int id, string aiType, int graphId) => (Id, AIType, GraphId) = (id, aiType, graphId);
+        }
+
+        public class HumanSoldier
+        {
+            public int SoldierId { get; }
+            public Real64 Position { get; }
+            public int Angle { get; }
+            public string ModelId { get; }
+            public int TeamId { get; }
+            public int BoneHierarchy { get; }
+            public int StandAnimation { get; }
+            public HumanAI HumanAIData { get; }
+            public HumanSoldier(int soldierId, Real64 position, int angle, string modelId, int teamId, int boneHierarchy, int standAnimation, HumanAI humanAIData)
+                => (SoldierId, Position, Angle, ModelId, TeamId, BoneHierarchy, StandAnimation, HumanAIData) = (soldierId, position, angle, modelId, teamId, boneHierarchy, standAnimation, humanAIData);
+        }
+        public class HumanAIJson
+        {
+            public int aiCount { get; set; }
+            public string aiType { get; set; }
+            public int graphId { get; set; }
+            public string weapon { get; set; }
+            public string model { get; set; }
+            public bool guardGenerator { get; set; }
+            public int maxSpawns { get; set; }
+            public int teamId { get; set; }
+            public bool invincible { get; set; }
+            public bool advanceView { get; set; }
+
+            public HumanAIJson() { }
+            public HumanAIJson(int aiCount, string aiType, int graphId, string weapon, string model, bool guardGenerator, int maxSpawns, int teamId, bool invincible, bool advanceView)
+            {
+                this.aiCount = aiCount; this.aiType = aiType; this.graphId = graphId; this.weapon = weapon;
+                this.model = model; this.guardGenerator = guardGenerator; this.maxSpawns = maxSpawns; this.teamId = teamId;
+                this.invincible = invincible; this.advanceView = advanceView;
+            }
+        }
+
+        class AIModel
+        {
+            string modelName;
+            string modelId;
+            char option;
+            List<int> levels;
+
+            public string ModelName { get => modelName; set => modelName = value; }
+            public string ModelId { get => modelId; set => modelId = value; }
+            public char Option { get => option; set => option = value; }
+            public List<int> Levels { get => levels; set => levels = value; }
+
+            public AIModel Add(string modelName, string modelId, char option, List<int> levels)
+            {
+                this.ModelName = modelName;
+                this.ModelId = modelId;
+                this.Option = option;
+                this.Levels = levels;
+                return this;
+            }
+        }
 
         private static List<AIModel> aiModelList = new List<AIModel>();
 
@@ -72,7 +93,7 @@ namespace IGIEditor
             //Add the A.I (Human soldier)
             string humanSoldierType = (model == "015_01_1" || model == "012_01_1") ? "HumanSoldierFemale" : "HumanSoldier";
             string qtaskSoldier = "\nTask_New(" + taskId + ",\"" + humanSoldierType + "\",\"" + taskNote + "\"," + position.x + "," + position.y + "," + position.z + "," + angle + ",\"" + model + "\"," + team + "," + boneHeirachy + "," + standAnimation + ",\n";
-            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Ai Type: '" + aiType + "' ID : " + taskId + ",HumanSoldier : " + QObjects.FindModelName(model) + ", Position: \"," + position.x + "," + position.y + "," + position.z + ", Angle: " + angle + ",\", Model:" + model + "\", TeamId: " + team + ", BoneHeirachy: " + boneHeirachy + ", Stand Animation: " + standAnimation + ",\n");
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Ai AIType: '" + aiType + "' ID : " + taskId + ",HumanSoldier : " + QObjects.FindModelName(model) + ", Position: \"," + position.x + "," + position.y + "," + position.z + ", Angle: " + angle + ",\", Model:" + model + "\", TeamId: " + team + ", BoneHeirachy: " + boneHeirachy + ", Stand Animation: " + standAnimation + ",\n");
 
             //Add A.I type to status message.
             if (team == 0) QUtils.aiFriendTask += humanSoldierType + "_" + taskId + ".isDead && ";
@@ -83,7 +104,7 @@ namespace IGIEditor
             if (addWeapon) qtaskSoldier += QHuman.AddWeapon(weapon, ammo);
 
             //Add AI's script and graph data.
-            qtaskSoldier += "Task_New(" + aiScriptId + ",\"HumanAI\",\"" + taskNote + "\",\"" + aiType + "\"," + graphId;
+            qtaskSoldier += "Task_New(" + aiScriptId + ",\"HumanAIJson\",\"" + taskNote + "\",\"" + aiType + "\"," + graphId;
             qtaskSoldier += (!guardGenerator) ? "));" : ")));";
             return qtaskSoldier;
         }
@@ -94,30 +115,30 @@ namespace IGIEditor
             return qTaskGuardGen;
         }
 
-        internal static string AddHumanSoldier(HumanAI humanAi)
+        internal static string AddHumanSoldier(HumanAIJson humanAiJson)
         {
-            bool guardGenerator = humanAi.guardGenerator, advanceView = humanAi.advanceView, invulnerability = humanAi.invincible;
-            int maxSpawns = humanAi.maxSpawns;
+            bool guardGenerator = humanAiJson.guardGenerator, advanceView = humanAiJson.advanceView, invulnerability = humanAiJson.invincible;
+            int maxSpawns = humanAiJson.maxSpawns;
             string aiType = null, aiWeapon = null, modelId = null;
             int aiCount = 1, teamId = 0, aiAmmo = 999;
             int graphId = 0, aiId = 0, patrolId = 0;
-            string qscData = null,aiModelName = QObjects.FindModelName(humanAi.model);
+            string qscData = null, aiModelName = QObjects.FindModelName(humanAiJson.model);
 
             //QUtils.aiScriptId = QTask.GenerateUniqueQTaskId(QUtils.aiScriptId);
             QLog.AddLog(MethodBase.GetCurrentMethod().Name, "A.I Script Id: " + QUtils.aiScriptId);
 
-            if (humanAi != null) aiCount = humanAi.aiCount;
+            if (humanAiJson != null) aiCount = humanAiJson.aiCount;
 
-            int aiWorkTotal = humanAi.aiCount, aiWorkCount = 1, aiWorkPercent = 1;
+            int aiWorkTotal = humanAiJson.aiCount, aiWorkCount = 1, aiWorkPercent = 1;
 
             for (int index = 1; index <= aiCount; index++)
             {
-                if (humanAi != null)
+                if (humanAiJson != null)
                 {
-                    aiType = humanAi.aiType;
-                    graphId = humanAi.graphId;
+                    aiType = humanAiJson.aiType;
+                    graphId = humanAiJson.graphId;
                 }
-               
+
                 aiId = QUtils.aiScriptId;
                 aiId = QTask.GetUniqueQTaskId(aiId); //Get Unique Id for A.I.
                 bool aiIdExist = false; //QGraphs.CheckIdExist(aiId, "AI", QUtils.gGameLevel, "AI Id " + aiId + " already exist for current level");
@@ -142,21 +163,21 @@ namespace IGIEditor
                     aiPos.x += new Random().Next(1000, 100000);
                     aiPos.y += new Random().Next(1000, 100000);
 
-                    if (humanAi != null)
+                    if (humanAiJson != null)
                     {
-                        modelId = humanAi.model;
-                        aiWeapon = humanAi.weapon;
-                        teamId = humanAi.teamId;
+                        modelId = humanAiJson.model;
+                        aiWeapon = humanAiJson.weapon;
+                        teamId = humanAiJson.teamId;
                         aiAmmo = 999;
                     }
 
                     //Add GuardGenerator .
-                    if (guardGenerator) 
-                        qscData += QAI.AddGuardGenerator("AI Army", maxSpawns);
-                    
+                    if (guardGenerator)
+                        qscData += AddGuardGenerator("AI Army", maxSpawns);
+
                     //Add A.I HumanSoldier.
                     qscData += AddHumanSoldier(aiType, humanId, graphId, aiPos, aiAngle, modelId, teamId, true, aiWeapon, aiAmmo, guardGenerator);
-                    
+
                     //Add A.I Script to HumanSoldier.
                     var aiScriptData = AddAIScriptPath(aiType, graphId, aiId, patrolId, QUtils.gGameLevel, invulnerability, advanceView);
                     if (!String.IsNullOrEmpty(aiScriptData))
@@ -165,7 +186,7 @@ namespace IGIEditor
                         QLog.ShowLogInfo(MethodBase.GetCurrentMethod().Name, "AI script ID's \ngraphId : " + graphId + " \naiId : " + aiId + " \npatrolId : " + patrolId);
                     }
 
-                   
+
                 }
                 QUtils.aiScriptId += 3;
 
@@ -214,7 +235,7 @@ namespace IGIEditor
                         {
                             var aiPos = QGraphs.GetGraphPosition(graphId);
                             int alarmControlId = 0;
-                            alarmControlId = QAI.GetNearestDynamicId(aiPos, QUtils.alarmControl);
+                            alarmControlId = GetNearestDynamicId(aiPos, QUtils.alarmControl);
                             if (alarmControlId == 0)
                                 QLog.ShowWarning("Couldn't find nearest alarm Id for AI : " + aiId + " on Graph : " + graphId);
                             aiScriptData = aiScriptData.ReplaceFirst(QUtils.alarmControlMask, alarmControlId.ToString());
@@ -226,7 +247,7 @@ namespace IGIEditor
                         {
                             var aiPos = QGraphs.GetGraphPosition(graphId);
                             int gunnerId = 0;
-                            gunnerId = QAI.GetNearestDynamicId(aiPos, QUtils.stationaryGun);
+                            gunnerId = GetNearestDynamicId(aiPos, QUtils.stationaryGun);
                             if (gunnerId == 0)
                                 QLog.ShowWarning("Couldn't find nearest Gunner Id for AI : " + aiId + " on Graph : " + graphId);
                             aiScriptData = aiScriptData.ReplaceFirst(QUtils.gunnerIdMask, gunnerId.ToString()).ReplaceFirst(QUtils.viewGammaMask, "180");//Set View Gamma to 180.
@@ -411,7 +432,7 @@ namespace IGIEditor
         {
             string newData = dataToUpdate.Trim();
             string validatePattern = $@"^Task_New\(\s*{patrolId}\s*,\s*""PatrolPath""";
-            
+
             if (!Regex.IsMatch(newData, validatePattern))
             {
                 QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Data is incorrect format.");
@@ -424,7 +445,7 @@ namespace IGIEditor
             {
                 QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "File content is empty.");
                 return;
-            }   
+            }
 
             string blockPattern = $@"Task_New\(\s*{patrolId}\s*,\s*""PatrolPath""\s*,\s*""""\s*,\s*(?<block>(?>[^()]+|\((?<DEPTH>)|\)(?<-DEPTH>))*)(?(DEPTH)(?!))\)";
             Regex regex = new Regex(blockPattern, RegexOptions.Singleline);
@@ -741,6 +762,202 @@ namespace IGIEditor
         {
             return QUtils.aiTypes;
         }
-    }
 
+        public static HumanSoldier ReadHumanSoldierBySoldierId(string fileName = "objects.qvm", int soldierId = 0)
+        {
+            try
+            {
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Start reading SoldierId: {soldierId} from {fileName}");
+
+                string content = QUtils.LoadFile(fileName);
+
+                if (string.IsNullOrEmpty(content))
+                {
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"File {fileName} is empty.");
+                    return null;
+                }
+                content = content.Trim();
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Loaded file length: {content.Length}");
+                string pattern = @"Task_New\(\s*(?<SoldierId>\d+)\s*,\s*""HumanSoldier""\s*,\s*""[^""]*""\s*,\s*(?<PosX>-?\d+(?:\.\d+)?)\s*,\s*(?<PosY>-?\d+(?:\.\d+)?)\s*,\s*(?<PosZ>-?\d+(?:\.\d+)?)\s*,\s*(?<Angle>-?\d+)\s*,\s*""(?<AIType>[^""]+)""\s*,\s*(?<TeamId>-?\d+)\s*,\s*(?<BoneHierarchy>-?\d+)\s*,\s*(?<StandAnimation>-?\d+)";
+                var soldierMatch = Regex.Matches(content, pattern)
+                                         .Cast<Match>()
+                                         .FirstOrDefault(m => int.Parse(m.Groups["SoldierId"].Value) == soldierId);
+
+                if (soldierMatch == null)
+                {
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"SoldierId {soldierId} not found.");
+                    return null;
+                }
+
+                double posX = double.Parse(soldierMatch.Groups["PosX"].Value, CultureInfo.InvariantCulture);
+                double posY = double.Parse(soldierMatch.Groups["PosY"].Value, CultureInfo.InvariantCulture);
+                double posZ = double.Parse(soldierMatch.Groups["PosZ"].Value, CultureInfo.InvariantCulture);
+                int angle = int.Parse(soldierMatch.Groups["Angle"].Value);
+                string modelId = soldierMatch.Groups["ModelId"].Value;
+                int teamId = int.Parse(soldierMatch.Groups["TeamId"].Value);
+                int boneHierarchy = int.Parse(soldierMatch.Groups["BoneHierarchy"].Value);
+                int standAnimation = int.Parse(soldierMatch.Groups["StandAnimation"].Value);
+
+                var humanAIMatch = Regex.Match(soldierMatch.Value,
+                    @"Task_New\(\s*(?<Id>\d+)\s*,\s*""HumanAI""\s*,\s*""[^""]*""\s*,\s*""(?<AIType>[^""]+)""\s*,\s*(?<GraphId>-?\d+)\s*\)");
+
+                HumanAI humanAIData = humanAIMatch.Success
+                    ? new HumanAI(
+                          int.Parse(humanAIMatch.Groups["Id"].Value),
+                          humanAIMatch.Groups["AIType"].Value,
+                          int.Parse(humanAIMatch.Groups["GraphId"].Value))
+                    : null;
+
+                if (humanAIData != null)
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Found HumanAI Id: {humanAIData.Id}");
+
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name,
+                    $"Parsed SoldierId {soldierId}: Pos({posX},{posY},{posZ}), Angle {angle}, ModelId {modelId}, TeamId {teamId}, " +
+                    $"BoneHierarchy {boneHierarchy}, StandAnimation {standAnimation}, HumanAI Id {humanAIData.Id}, AIType {humanAIData.AIType}, GraphId {humanAIData.GraphId}");
+                
+                return new HumanSoldier(soldierId, new Real64(posX, posY, posZ), angle, modelId, teamId, boneHierarchy, standAnimation, humanAIData);
+            }
+            catch (Exception ex)
+            {
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Exception: {ex.Message}", DEBUG_TYPE.Error);
+                return null;
+            }
+        }
+    
+        public static HumanSoldier ReadHumanSoldierByHumanAIId(string fileName = "objects.qvm", int targetHumanAIId = 0)
+        {
+            try
+            {
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Start reading HumanAI Id: {targetHumanAIId} from {fileName}");
+                string content = QUtils.LoadFile(fileName);
+                
+                if (string.IsNullOrEmpty(content))
+                {
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"File {fileName} is empty.");
+                    return null;
+                }
+                content = content.Trim();
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Loaded file length: {content.Length}");
+
+                var lines = content.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+                var humanAILine = lines
+                    .Select((line, idx) => new { line, idx })
+                    .FirstOrDefault(x => x.line.Contains("\"HumanAI\"") &&
+                        int.TryParse(Regex.Match(x.line, @"Task_New\(\s*(?<Id>-?\d+)\s*,\s*""HumanAI""").Groups["Id"].Value, out int id) && id == targetHumanAIId);
+                
+                if (humanAILine == null)
+                {
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"HumanAI Id {targetHumanAIId} not found.");
+                    return null;
+                }
+
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Found HumanAI at line {humanAILine.idx}");
+
+                var soldierLine = lines
+                    .Select((line, idx) => new { line, idx })
+                    .Where(x => x.idx < humanAILine.idx && x.line.Contains("\"HumanSoldier\""))
+                    .LastOrDefault();
+
+                if (soldierLine == null)
+                {
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"No HumanSoldier found for HumanAI Id {targetHumanAIId}");
+                    return null;
+                }
+
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Found HumanSoldier at line {soldierLine.idx}");
+
+                int balance = 0;
+                var sb = new StringBuilder();
+
+                foreach (var line in lines.Skip(soldierLine.idx))
+                {
+                    foreach (char ch in line)
+                        balance += ch == '(' ? 1 : ch == ')' ? -1 : 0;
+                    sb.Append(line);
+                    if (balance == 0 && sb.Length > 0) break;
+                }
+                string soldierBlock = sb.ToString();
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Assembled soldier block.");
+
+                var soldierMatch = Regex.Match(soldierBlock, @"Task_New\(\s*(?<SoldierId>-?\d+)\s*,\s*""HumanSoldier""\s*,\s*""[^""]*""\s*,\s*(?<PosX>-?\d+(?:\.\d+)?)\s*,\s*(?<PosY>-?\d+(?:\.\d+)?)\s*,\s*(?<PosZ>-?\d+(?:\.\d+)?)\s*,\s*(?<Angle>-?\d+)\s*,\s*""(?<ModelId>[^""]+)""\s*,\s*(?<TeamId>-?\d+)\s*,\s*(?<BoneHierarchy>-?\d+)\s*,\s*(?<StandAnimation>-?\d+)");
+                if (!soldierMatch.Success)
+                {
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Failed to parse soldier block.");
+                    return null;
+                }
+
+                int soldierId = int.Parse(soldierMatch.Groups["SoldierId"].Value);
+                var pos = new Real64(
+                    double.Parse(soldierMatch.Groups["PosX"].Value, CultureInfo.InvariantCulture),
+                    double.Parse(soldierMatch.Groups["PosY"].Value, CultureInfo.InvariantCulture),
+                    double.Parse(soldierMatch.Groups["PosZ"].Value, CultureInfo.InvariantCulture));
+                int angle = int.Parse(soldierMatch.Groups["Angle"].Value);
+                string modelId = soldierMatch.Groups["ModelId"].Value;
+                int teamId = int.Parse(soldierMatch.Groups["TeamId"].Value);
+                int boneHierarchy = int.Parse(soldierMatch.Groups["BoneHierarchy"].Value);
+                int standAnimation = int.Parse(soldierMatch.Groups["StandAnimation"].Value);
+
+                var humanAIData = Regex.Matches(soldierBlock, @"Task_New\(\s*(?<Id>-?\d+)\s*,\s*""HumanAI""\s*,\s*""[^""]*""\s*,\s*""(?<AIType>[^""]+)""\s*,\s*(?<GraphId>-?\d+)\s*\)")
+                    .Cast<Match>()
+                    .Select(m => new HumanAI(
+                        int.Parse(m.Groups["Id"].Value),
+                        m.Groups["AIType"].Value,
+                        int.Parse(m.Groups["GraphId"].Value)))
+                    .FirstOrDefault(ai => ai.Id == targetHumanAIId);
+
+                if (humanAIData == null)
+                {
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"HumanAI data for Id {targetHumanAIId} not found.");
+                    return null;
+                }
+
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name,
+                    $"Parsed SoldierId {soldierId}: Pos({pos.x},{pos.y},{pos.z}), Angle {angle}, ModelId {modelId}, TeamId {teamId}, " +
+                    $"BoneHierarchy {boneHierarchy}, StandAnimation {standAnimation}, HumanAI Id {humanAIData.Id}, AIType {humanAIData.AIType}, GraphId {humanAIData.GraphId}");
+                return new HumanSoldier(soldierId, pos, angle, modelId, teamId, boneHierarchy, standAnimation, humanAIData);
+            }
+            catch (Exception ex)
+            {
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Exception: {ex.Message}", DEBUG_TYPE.Error);
+                return null;
+            }
+        }
+
+        public static void WriteHumanSoldierBySoldierId(string fileName = "objects.qvm", HumanSoldier soldier = null)
+        {
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Starting write by SoldierId: {soldier?.SoldierId}");
+            if (soldier == null)
+            {
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Provided soldier is null");
+                return;
+            }
+            string soldierRecord = $"Task_New({soldier.SoldierId}, \"HumanSoldier\", \"\", {soldier.Position.x.ToString(CultureInfo.InvariantCulture)}, {soldier.Position.y.ToString(CultureInfo.InvariantCulture)}, {soldier.Position.z.ToString(CultureInfo.InvariantCulture)}, {soldier.Angle}, \"{soldier.ModelId}\", {soldier.TeamId}, {soldier.BoneHierarchy}, {soldier.StandAnimation}";
+            if (soldier.HumanAIData != null)
+            {
+                soldierRecord += $", Task_New({soldier.HumanAIData.Id}, \"HumanAI\", \"\", \"{soldier.HumanAIData.AIType}\", {soldier.HumanAIData.GraphId})";
+            }
+            soldierRecord += ")";
+            QUtils.SaveFile(soldierRecord, true);
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Written HumanSoldier record: {soldierRecord}");
+        }
+
+        public static void WriteHumanSoldierByHumanAIId(string fileName = "objects.qvm", HumanSoldier soldier = null)
+        {
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Starting write by Id: {soldier?.HumanAIData?.Id}");
+            if (soldier == null)
+            {
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Provided soldier is null");
+                return;
+            }
+            string soldierRecord = $"Task_New({soldier.SoldierId}, \"HumanSoldier\", \"\", {soldier.Position.x.ToString(CultureInfo.InvariantCulture)}, {soldier.Position.y.ToString(CultureInfo.InvariantCulture)}, {soldier.Position.z.ToString(CultureInfo.InvariantCulture)}, {soldier.Angle}, \"{soldier.ModelId}\", {soldier.TeamId}, {soldier.BoneHierarchy}, {soldier.StandAnimation}";
+            if (soldier.HumanAIData != null)
+            {
+                soldierRecord += $", Task_New({soldier.HumanAIData.Id}, \"HumanAI\", \"\", \"{soldier.HumanAIData.AIType}\", {soldier.HumanAIData.GraphId})";
+            }
+            soldierRecord += ")";
+            QUtils.SaveFile(soldierRecord, true);
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Written HumanSoldier record with Id: {soldier.HumanAIData?.Id}");
+        }
+    }
 }

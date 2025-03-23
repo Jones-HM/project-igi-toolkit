@@ -20,6 +20,7 @@ using static IGIEditor.QServer;
 using static System.Drawing.Color;
 using static System.Drawing.FontStyle;
 using Timer = System.Windows.Forms.Timer;
+using static IGIEditor.QAI;
 
 namespace IGIEditor
 {
@@ -262,36 +263,36 @@ namespace IGIEditor
                 }));
 
                 //Set human A.I properties.
-                var humanAi = new HumanAI();
-                humanAi.model = aiModelId;
-                humanAi.weapon = aiWeaponModel;
-                humanAi.graphId = aiGraphId;
-                humanAi.aiType = aiType;
-                humanAi.aiCount = aiCount;
-                humanAi.guardGenerator = guardGeneratorCb.Checked;
-                humanAi.maxSpawns = maxSpawns;
-                humanAi.invincible = aiInvincibleCb.Checked;
-                humanAi.advanceView = aiAdvanceViewCb.Checked;
-                humanAi.teamId = teamId;
+                var humanAiJson = new HumanAIJson();
+                humanAiJson.model = aiModelId;
+                humanAiJson.weapon = aiWeaponModel;
+                humanAiJson.graphId = aiGraphId;
+                humanAiJson.aiType = aiType;
+                humanAiJson.aiCount = aiCount;
+                humanAiJson.guardGenerator = guardGeneratorCb.Checked;
+                humanAiJson.maxSpawns = maxSpawns;
+                humanAiJson.invincible = aiInvincibleCb.Checked;
+                humanAiJson.advanceView = aiAdvanceViewCb.Checked;
+                humanAiJson.teamId = teamId;
 
                 string configOut = "";
-                configOut += "A.I Count : " + humanAi.aiCount + "\n";
-                configOut += "AI Type : " + humanAi.aiType + "\n";
-                configOut += "Graph Id : " + humanAi.graphId + "\n";
-                configOut += "Weapon : " + humanAi.weapon + "\n";
-                configOut += "Model : " + humanAi.model + "\n";
-                configOut += "Team Id : " + humanAi.teamId + "\n";
-                configOut += "Guard Generator : " + humanAi.guardGenerator + "\n";
-                configOut += "Spawns : " + humanAi.maxSpawns + "\n";
-                configOut += "Invincible : " + humanAi.invincible + "\n";
-                configOut += "Advance View : " + humanAi.advanceView + "\n";
+                configOut += "A.I Count : " + humanAiJson.aiCount + "\n";
+                configOut += "AI AIType : " + humanAiJson.aiType + "\n";
+                configOut += "Graph Id : " + humanAiJson.graphId + "\n";
+                configOut += "Weapon : " + humanAiJson.weapon + "\n";
+                configOut += "Model : " + humanAiJson.model + "\n";
+                configOut += "Team Id : " + humanAiJson.teamId + "\n";
+                configOut += "Guard Generator : " + humanAiJson.guardGenerator + "\n";
+                configOut += "Spawns : " + humanAiJson.maxSpawns + "\n";
+                configOut += "Invincible : " + humanAiJson.invincible + "\n";
+                configOut += "Advance View : " + humanAiJson.advanceView + "\n";
 
                 var dlgResult = QLog.ShowDialog("You are about to add AI Confirm ?\n" + configOut);
 
                 if (dlgResult == DialogResult.Yes)
                 {
-                    QLog.AddLog("AddHumanSoldier", "Level " + gameLevel + ", Model Name: " + QObjects.FindModelName(humanAi.model) + ", " + configOut.Replace("\n", ", "));
-                    var qscData = QAI.AddHumanSoldier(humanAi);
+                    QLog.AddLog("AddHumanSoldier", "Level " + gameLevel + ", Model Name: " + QObjects.FindModelName(humanAiJson.model) + ", " + configOut.Replace("\n", ", "));
+                    var qscData = QAI.AddHumanSoldier(humanAiJson);
 
                     if (String.IsNullOrEmpty(qscData))
                     {
@@ -1068,21 +1069,21 @@ namespace IGIEditor
             }
         }
 
-        private static HumanAI ReadHumanAiJSON(string fileName)
+        private static HumanAIJson ReadHumanAiJSON(string fileName)
         {
-            HumanAI humanAi = new HumanAI();
+            HumanAIJson humanAiJson = new HumanAIJson();
             try
             {
-                humanAi = JsonConvert.DeserializeObject<HumanAI>(File.ReadAllText(fileName));
+                humanAiJson = JsonConvert.DeserializeObject<HumanAIJson>(File.ReadAllText(fileName));
             }
             catch (Exception ex)
             {
                 if (ex.Message.Contains("Additional text encountered"))
-                    QLog.ShowError("Error occurred while reading HumanAI data from JSON file");
+                    QLog.ShowError("Error occurred while reading HumanAIJson data from JSON file");
                 else
                     QLog.LogException(MethodBase.GetCurrentMethod().Name, ex);
             }
-            return humanAi;
+            return humanAiJson;
         }
 
 
@@ -3153,12 +3154,12 @@ namespace IGIEditor
             //HumanSoldierFemale exceptions.
             if (aiModelName == "ANYA" && (aiTypeName != "ANYA" && aiTypeName != "EKK"))
             {
-                QLog.ShowWarning("HumanSoldier-Female 'ANYA' Type should also be of female soldier.", "A.I WARNING");
+                QLog.ShowWarning("HumanSoldier-Female 'ANYA' AIType should also be of female soldier.", "A.I WARNING");
                 addAiBtn.Enabled = false;
             }
             else if (aiModelName == "EKK" && (aiTypeName != "ANYA" && aiTypeName != "EKK"))
             {
-                QLog.ShowWarning("HumanSoldier-Female 'EKK' Type should also be of female soldier.", "A.I WARNING");
+                QLog.ShowWarning("HumanSoldier-Female 'EKK' AIType should also be of female soldier.", "A.I WARNING");
                 addAiBtn.Enabled = false;
             }
             else
@@ -3554,7 +3555,7 @@ namespace IGIEditor
                 {
                     devViewerTxt.Text = fopenIO.FileData;
                     RichViewerUpdateFormat();
-                    devFileSizeTxt.Text = "File Size: " + fopenIO.FileLength / 1024 + "Kb";
+                    devFileSizeTxt.Text = fopenIO.FileLength / 1024 + "Kb";
                 }
             }
             catch (Exception ex)
@@ -3692,7 +3693,7 @@ namespace IGIEditor
 
                             float fileSize = new FileInfo(editorUpdater).Length / 1024;
                             devFileNameTxt.Text = editorUpdater;
-                            devFileSizeTxt.Text = "File Size: " + fileSize + "Kb";
+                            devFileSizeTxt.Text = fileSize + "Kb";
                             QLog.ShowLogStatus(MethodBase.GetCurrentMethod().Name, "Update created successfully.");
                         }
                     }
@@ -3748,7 +3749,7 @@ namespace IGIEditor
                     if (status)
                     {
                         devFileNameTxt.Text = editorUpdater;
-                        devFileSizeTxt.Text = "File Size: " + fileSize + "Kb";
+                        devFileSizeTxt.Text = fileSize + "Kb";
                         QLog.ShowLogStatus(MethodBase.GetCurrentMethod().Name, "Update uploaded successfully.");
                     }
                 }
@@ -3813,7 +3814,7 @@ namespace IGIEditor
                 {
                     aiJsonEditorTxt.Text = fopenIO.FileData;
                     RichViewerUpdateFormat();
-                    aiFileSizeTxt.Text = "File Size: " + fopenIO.FileSize / 1024 + " Kb";
+                    aiFileSizeTxt.Text = fopenIO.FileSize / 1024 + " Kb";
                 }
 
                 JToken parsedJson = JToken.Parse(aiFileNameTxt.Text);
@@ -3876,7 +3877,7 @@ namespace IGIEditor
             if (dlgMsg == DialogResult.Yes)
             {
                 var humanAi = ReadHumanAiJSON(fopenIO.FileName);
-                humanAiList.Add(humanAi);
+                humanAiJsonList.Add(humanAi);
                 SetStatusText("Human A.I added to list.");
                 if (aiJsonClearDataCb.Checked) aiJsonEditorTxt.Clear();
             }
@@ -3884,12 +3885,12 @@ namespace IGIEditor
 
         private void aiJsonAddAiBtn_Click(object sender, EventArgs e)
         {
-            if (humanAiList.Count == 0) QLog.ShowLogError("AddHumanSoldierJSON", "No A.I JSON Files were added to list yet.", "JSON Editor.");
-            else if (humanAiList.Count >= 1)
+            if (humanAiJsonList.Count == 0) QLog.ShowLogError("AddHumanSoldierJSON", "No A.I JSON Files were added to list yet.", "JSON Editor.");
+            else if (humanAiJsonList.Count >= 1)
             {
                 try
                 {
-                    foreach (var humanAi in humanAiList)
+                    foreach (var humanAi in humanAiJsonList)
                     {
                         var aiModelName = QObjects.FindModelName(humanAi.model);
                         var dlgResult = QLog.ShowDialog("You are about to Add " + aiModelName + "A.I confirm ?\nThis is manual editing so be carefuly about data you edit.", "JSON Editor");
@@ -3919,7 +3920,7 @@ namespace IGIEditor
                 }
             }
 
-            humanAiList.Clear();
+            humanAiJsonList.Clear();
         }
 
         private void aiJsonSaveBtn_Click(object sender, EventArgs e)
@@ -3979,9 +3980,9 @@ namespace IGIEditor
                 teamId = Convert.ToInt32(teamIdText.Text);
             }));
 
-            //Convert HumanAI obj to JSON.
-            var humanAi = new HumanAI(aiCount, aiType, aiGraphId, aiWeapon, aiModel, guardGeneratorCb.Checked, maxSpawns, teamId, aiInvincibleCb.Checked, aiAdvanceViewCb.Checked);
-            var humanJSON = JsonConvert.SerializeObject(humanAi, Formatting.Indented);
+            //Convert HumanAIJson obj to JSON.
+            var humanAiJson = new HumanAIJson(aiCount, aiType, aiGraphId, aiWeapon, aiModel, guardGeneratorCb.Checked, maxSpawns, teamId, aiInvincibleCb.Checked, aiAdvanceViewCb.Checked);
+            var humanJSON = JsonConvert.SerializeObject(humanAiJson, Formatting.Indented);
 
             var inputDlgMsg = DialogMsgBox.ShowBox("Enter A.I File name", aiModelName + "_" + gameLevel + QUtils.FileExtensions.Json, MsgBoxButtons.YesNo, true);
             if (inputDlgMsg == DialogResult.Yes)
@@ -5322,12 +5323,15 @@ namespace IGIEditor
 
         private void aiScriptLoadBtn_Click(object sender, EventArgs e)
         {
-            levelAiPath = QUtils.cfgGamePath + gameLevel.ToString() + "\\ai";
+            levelAiPath = levelAiPath ?? QUtils.cfgGamePath + gameLevel.ToString() + "\\ai";
             var fopenIO = QUtils.ShowOpenFileDlg("Select AI script file", ".qvm", "QVM File|*.qvm|QSC file|*.qsc", true, levelAiPath);
             string fileName = fopenIO.FileName;
             string tmpPath = Path.GetTempPath();
             levelAiPath = fileName;
 
+            int levelAi = int.Parse(Regex.Match(levelAiPath, @"level(\d+)").Groups[1].Value);
+            int humanAIId = int.Parse(Regex.Match(levelAiPath, @"ai\\(\d+)").Groups[1].Value);
+            string objectsQscPath = Path.Combine(QUtils.cfgQscPath + levelAi.ToString(), QUtils.objectsQsc);
 
             if (String.IsNullOrEmpty(fileName))
             {
@@ -5339,7 +5343,7 @@ namespace IGIEditor
 
             // Update UI name and size.
             aiScriptFileNameTxt.Text = Path.GetFileName(fileName);
-            aiScriptFileSizeTxt.Text = "File Size: " + fopenIO.FileSize + " Kb";
+            aiScriptFileSizeTxt.Text = fopenIO.FileSize + " Kb";
 
             QLog.AddLog(MethodBase.GetCurrentMethod().Name,
                 "AI Script path is '" + levelAiPath + "' and file name is '" + fileName + "'");
@@ -5381,6 +5385,23 @@ namespace IGIEditor
 
                 // Update the editor text with the validated script data.
                 aiScriptEditorTxt.Text = scriptData;
+                HumanSoldier humanSoldierData = QAI.ReadHumanSoldierByHumanAIId(objectsQscPath, humanAIId);
+
+                if (humanSoldierData != null)
+                {
+                    // Update the details of Human Soldier from HumaAI Id.
+                    string aiName = QObjects.FindModelName(humanSoldierData.ModelId, false);
+                    if (!String.IsNullOrEmpty(aiName))
+                        aiScriptAiNameTxt.Text = "Name: " + aiName.Replace("AITYPE_", "");
+
+                    aiScriptAiTypeTxt.Text = "Type: " + humanSoldierData.HumanAIData.AIType.Replace("AITYPE_", "");
+                    aiScriptAiGraphIdTxt.Text = "Graph Id: " + humanSoldierData.HumanAIData.GraphId.ToString();
+                }
+                else
+                {
+                    aiScriptAiNameTxt.Text = aiScriptAiNameTxt.Text = aiScriptAiTypeTxt.Text = aiScriptAiGraphIdTxt.Text = "";
+                }
+
                 if (aiScrptFormatCb.Checked)
                     RichViewerUpdateFormat();
 
@@ -5417,7 +5438,7 @@ namespace IGIEditor
         private void aiPatrolLoadBtn_Click(object sender, EventArgs e)
         {
             int patrolId = Convert.ToInt32(aiPatrolIdTxt.Text);
-            levelAiPath = QUtils.cfgGamePath + gameLevel.ToString();
+            levelAiPath = levelAiPath ?? QUtils.cfgGamePath + gameLevel.ToString();
             FOpenIO fopenIO = new FOpenIO();
             string fileName = null;
             string aiPatrolFileData = null;
@@ -5450,7 +5471,7 @@ namespace IGIEditor
 
                 // updating the UI name and size.
                 aiPatrolFileNameTxt.Text = Path.GetFileName(fileName);
-                aiPatrolFileSizeTxt.Text = "File Size: " + fopenIO.FileSize + " Kb";
+                aiPatrolFileSizeTxt.Text = fopenIO.FileSize + " Kb";
             }
 
             else
@@ -5717,7 +5738,7 @@ namespace IGIEditor
 
             GenerateAIScriptId(true);
             QUtils.aiScriptFiles.Clear();
-            QUtils.humanAiList.Clear();
+            QUtils.humanAiJsonList.Clear();
 
             RefreshUIComponents(level);
             QUtils.AttachInternals();
