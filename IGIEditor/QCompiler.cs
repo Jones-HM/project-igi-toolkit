@@ -127,7 +127,6 @@ namespace IGIEditor
             {
                 string scriptFile = "";
                 string outScriptPath = gamePath + Path.DirectorySeparatorChar + qscFile;
-                string scriptWeaponFile = "LOCAL:weapons/weaponconfig.qsc";
                 QLog.AddLog(MethodBase.GetCurrentMethod().Name, "QFile : Output path '" + outScriptPath + "'");
 
                 var qscData = QUtils.LoadFile(qscFile);
@@ -168,7 +167,7 @@ namespace IGIEditor
             return status;
         }
 
-        internal static bool CompileInternalData(string qscData, string gamePath, bool appendData = false, bool restartLevel = false, bool savePos = true)
+        internal static bool CompileInternalData(string qscData, string gamePath, bool appendData = false, bool restartLevel = false, bool savePos = true, string qscFile = null)
         {
             bool status = false;
             try
@@ -177,7 +176,7 @@ namespace IGIEditor
                 string currLevelPath = "level" + QUtils.currGameLevel;
                 if (!String.IsNullOrEmpty(qscData))
                 {
-                    string scriptFile = "MISSION:objects.qsc";
+                    string scriptFile = string.IsNullOrEmpty(qscFile) ? "MISSION:objects.qsc" : "MISSION:AI/" + qscFile;
                     QLog.AddLog(MethodBase.GetCurrentMethod().Name, "QData : Script File :'" + scriptFile + "' Game Path: '" + gamePath + ",CurrLevel path: " + currLevelPath + "',Append Data: " + appendData + ",Restart Level: " + restartLevel + ",Save Position: " + savePos);
 
                     if (!gamePath.Contains(currLevelPath))
@@ -187,9 +186,15 @@ namespace IGIEditor
                     }
 
                     //Compile for Objets.
-                    QUtils.SaveFile(qscData, appendData);
+                    QUtils.SaveFile(scriptFile, qscData, appendData);
                     QUtils.gamePath = QUtils.cfgGamePath + QMemory.GetRunningLevel();
-                    string outScriptPath = QUtils.gamePath + Path.DirectorySeparatorChar + QUtils.objectsQsc;
+                    string outScriptPath = null;
+                    
+                    if (scriptFile.Contains("objects"))
+                        outScriptPath = QUtils.gamePath + Path.DirectorySeparatorChar + QUtils.objectsQsc;
+                    else
+                        outScriptPath = QUtils.gamePath + Path.DirectorySeparatorChar + qscFile;
+
                     QLog.AddLog(MethodBase.GetCurrentMethod().Name, "QData : Output Path: '" + outScriptPath + "'");
 
                     if (File.Exists(outScriptPath))
@@ -210,7 +215,8 @@ namespace IGIEditor
 
                     QLog.AddLog(MethodBase.GetCurrentMethod().Name, "QData : Output Path: '" + outScriptPath + "' removed");
 
-                    if (restartLevel) QMemory.RestartLevel(savePos);
+                    if (restartLevel) 
+                        QMemory.RestartLevel(savePos);
                     status = true;
                 }
             }
@@ -245,22 +251,24 @@ namespace IGIEditor
             return status;
         }
 
-        internal static bool CompileExternalData(string qscData, string gamePath, bool appendData = false, bool restartLevel = false, bool savePos = true)
+        internal static bool CompileExternalData(string qscData, string gamePath, bool appendData = false, bool restartLevel = false, bool savePos = true, string qscFile = null)
         {
             bool status = false;
             try
             {
                 if (!String.IsNullOrEmpty(qscData))
                 {
-                    QUtils.SaveFile(qscData, appendData);
+                    qscFile = qscFile ?? QUtils.objectsQsc;
+                    QUtils.SaveFile(qscFile, qscData, appendData);
                     var qcompiler = GetQCompiler();
                     if (qcompiler is null)
                         QLog.ShowError(QUtils.EXTERNAL_COMPILER_ERR);
                     else
-                        status = qcompiler.QCompile(new List<string>() { QUtils.objectsQsc }, gamePath);
+                        status = qcompiler.QCompile(new List<string>() { qscFile }, gamePath);
 
                     if (status)
-                        if (restartLevel) QMemory.RestartLevel(savePos);
+                        if (restartLevel) 
+                            QMemory.RestartLevel(savePos);
                 }
             }
 
@@ -325,13 +333,13 @@ namespace IGIEditor
             return status;
         }
 
-        internal static bool Compile(string qscData, string gamePath, bool appendData = false, bool restartLevel = false, bool savePos = true)
+        internal static bool Compile(string qscData, string gamePath, bool appendData = false, bool restartLevel = false, bool savePos = true, string qscFile = null)
         {
             bool status = false;
             if (QUtils.internalCompiler)
-                status = CompileInternalData(qscData, gamePath, appendData, restartLevel, savePos);
+                status = CompileInternalData(qscData, gamePath, appendData, restartLevel, savePos, qscFile);
             else if (QUtils.externalCompiler)
-                status = CompileExternalData(qscData, gamePath, appendData, restartLevel, savePos);
+                status = CompileExternalData(qscData, gamePath, appendData, restartLevel, savePos, qscFile);
             return status;
         }
 
@@ -381,15 +389,13 @@ namespace IGIEditor
             return status;
         }
 
-        internal static bool Decompile(string qvmFile, string gamePath, int _ignore)
+        internal static bool Decompile(string qscFile, string gamePath, int _ignore)
         {
-            bool status = DecompileExternalFile(qvmFile, gamePath);
-            return status;
-        }
-
-        internal static bool Decompile(string qvmData, string gamePath, bool appendData = false, bool restartLevel = false, bool savePos = true)
-        {
-            bool status = DecompileExternalData(qvmData, gamePath, appendData, restartLevel, savePos);
+            bool status = false;
+            if (QUtils.internalCompiler)
+                status = DecompileExternalFile(qscFile, gamePath);
+            else if (QUtils.externalCompiler)
+                status = DecompileExternalFile(qscFile, gamePath);
             return status;
         }
 

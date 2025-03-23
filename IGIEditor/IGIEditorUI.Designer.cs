@@ -67,7 +67,6 @@
             this.removeAiBtn = new System.Windows.Forms.Button();
             this.graphAreaAiLbl = new System.Windows.Forms.TextBox();
             this.taskDetectionAiCb = new System.Windows.Forms.CheckBox();
-            this.customAiCb = new System.Windows.Forms.CheckBox();
             this.maxSpawnsLbl = new System.Windows.Forms.Label();
             this.aiFriendlyCb = new System.Windows.Forms.CheckBox();
             this.aiAdvanceViewCb = new System.Windows.Forms.CheckBox();
@@ -408,6 +407,10 @@
             this.aiPatrolFormatCb = new System.Windows.Forms.CheckBox();
             this.aiPatrolEditModeCb = new System.Windows.Forms.CheckBox();
             this.aiPatrolClearCb = new System.Windows.Forms.CheckBox();
+            this.aiScriptFileNameTxt = new System.Windows.Forms.TextBox();
+            this.aiScriptFileSizeTxt = new System.Windows.Forms.TextBox();
+            this.aiPatrolFileNameTxt = new System.Windows.Forms.TextBox();
+            this.aiPatrolFileSizeTxt = new System.Windows.Forms.TextBox();
             this.editorMainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.levelStartTxt)).BeginInit();
             this.editorTabs.SuspendLayout();
@@ -849,7 +852,7 @@
             this.aiEditor.Name = "aiEditor";
             this.aiEditor.Size = new System.Drawing.Size(851, 292);
             this.aiEditor.TabIndex = 8;
-            this.aiEditor.Text = "A.I Editor";
+            this.aiEditor.Text = "AI Editor";
             // 
             // aiEditorTabs
             // 
@@ -876,7 +879,6 @@
             this.aiEditorMainTab.Controls.Add(this.removeAiBtn);
             this.aiEditorMainTab.Controls.Add(this.graphAreaAiLbl);
             this.aiEditorMainTab.Controls.Add(this.taskDetectionAiCb);
-            this.aiEditorMainTab.Controls.Add(this.customAiCb);
             this.aiEditorMainTab.Controls.Add(this.maxSpawnsLbl);
             this.aiEditorMainTab.Controls.Add(this.aiFriendlyCb);
             this.aiEditorMainTab.Controls.Add(this.aiAdvanceViewCb);
@@ -902,7 +904,7 @@
             this.aiEditorMainTab.Name = "aiEditorMainTab";
             this.aiEditorMainTab.Size = new System.Drawing.Size(845, 306);
             this.aiEditorMainTab.TabIndex = 0;
-            this.aiEditorMainTab.Text = "Main Editor";
+            this.aiEditorMainTab.Text = "Main";
             // 
             // teamIdText
             // 
@@ -998,24 +1000,12 @@
             // 
             this.taskDetectionAiCb.AutoSize = true;
             this.taskDetectionAiCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.taskDetectionAiCb.Location = new System.Drawing.Point(166, 110);
+            this.taskDetectionAiCb.Location = new System.Drawing.Point(166, 95);
             this.taskDetectionAiCb.Name = "taskDetectionAiCb";
             this.taskDetectionAiCb.Size = new System.Drawing.Size(122, 21);
             this.taskDetectionAiCb.TabIndex = 104;
             this.taskDetectionAiCb.Text = "Task Detection";
             this.taskDetectionAiCb.UseVisualStyleBackColor = true;
-            // 
-            // customAiCb
-            // 
-            this.customAiCb.AutoSize = true;
-            this.customAiCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customAiCb.Location = new System.Drawing.Point(166, 88);
-            this.customAiCb.Name = "customAiCb";
-            this.customAiCb.Size = new System.Drawing.Size(94, 21);
-            this.customAiCb.TabIndex = 103;
-            this.customAiCb.Text = "Custom A.I";
-            this.customAiCb.UseVisualStyleBackColor = true;
-            this.customAiCb.Click += new System.EventHandler(this.customAiCb_CheckedChanged);
             // 
             // maxSpawnsLbl
             // 
@@ -1261,7 +1251,7 @@
             this.aiJSONEditor.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.aiJSONEditor.Size = new System.Drawing.Size(845, 306);
             this.aiJSONEditor.TabIndex = 1;
-            this.aiJSONEditor.Text = "JSON Editor";
+            this.aiJSONEditor.Text = "JSON";
             // 
             // aiJsonAutoFmtCb
             // 
@@ -1405,6 +1395,8 @@
             // aiScriptEditor
             // 
             this.aiScriptEditor.BackColor = System.Drawing.SystemColors.Control;
+            this.aiScriptEditor.Controls.Add(this.aiScriptFileNameTxt);
+            this.aiScriptEditor.Controls.Add(this.aiScriptFileSizeTxt);
             this.aiScriptEditor.Controls.Add(this.aiScrptFormatCb);
             this.aiScriptEditor.Controls.Add(this.aiScrptEditModeCb);
             this.aiScriptEditor.Controls.Add(this.aiScrptClearCb);
@@ -1417,11 +1409,13 @@
             this.aiScriptEditor.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.aiScriptEditor.Size = new System.Drawing.Size(845, 306);
             this.aiScriptEditor.TabIndex = 2;
-            this.aiScriptEditor.Text = "Script Editor";
+            this.aiScriptEditor.Text = "Script";
             // 
             // aiPatrolPathEditor
             // 
             this.aiPatrolPathEditor.BackColor = System.Drawing.SystemColors.Control;
+            this.aiPatrolPathEditor.Controls.Add(this.aiPatrolFileNameTxt);
+            this.aiPatrolPathEditor.Controls.Add(this.aiPatrolFileSizeTxt);
             this.aiPatrolPathEditor.Controls.Add(this.aiPatrolFormatCb);
             this.aiPatrolPathEditor.Controls.Add(this.aiPatrolEditModeCb);
             this.aiPatrolPathEditor.Controls.Add(this.aiPatrolClearCb);
@@ -1433,7 +1427,7 @@
             this.aiPatrolPathEditor.Name = "aiPatrolPathEditor";
             this.aiPatrolPathEditor.Size = new System.Drawing.Size(845, 306);
             this.aiPatrolPathEditor.TabIndex = 3;
-            this.aiPatrolPathEditor.Text = "Patrol Editor";
+            this.aiPatrolPathEditor.Text = "Patrol";
             // 
             // humanEditor
             // 
@@ -1833,7 +1827,7 @@
             this.updateHumanBtn.Name = "updateHumanBtn";
             this.updateHumanBtn.Size = new System.Drawing.Size(136, 25);
             this.updateHumanBtn.TabIndex = 60;
-            this.updateHumanBtn.Text = "Update Human";
+            this.updateHumanBtn.Text = "Update Misc";
             this.updateHumanBtn.UseVisualStyleBackColor = true;
             this.updateHumanBtn.Click += new System.EventHandler(this.updateTeamIdBtn_Click);
             // 
@@ -2787,9 +2781,9 @@
             this.threeDEditor.Controls.Add(this.resume3DEditorBtn);
             this.threeDEditor.Controls.Add(this.start3DEditorBtn);
             this.threeDEditor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.threeDEditor.Location = new System.Drawing.Point(4, 46);
+            this.threeDEditor.Location = new System.Drawing.Point(4, 25);
             this.threeDEditor.Name = "threeDEditor";
-            this.threeDEditor.Size = new System.Drawing.Size(851, 292);
+            this.threeDEditor.Size = new System.Drawing.Size(851, 313);
             this.threeDEditor.TabIndex = 3;
             this.threeDEditor.Text = "3D Editor";
             // 
@@ -2839,9 +2833,9 @@
             this.missionEditor.Controls.Add(this.loadMissionBtn);
             this.missionEditor.Controls.Add(this.saveMissionBtn);
             this.missionEditor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.missionEditor.Location = new System.Drawing.Point(4, 46);
+            this.missionEditor.Location = new System.Drawing.Point(4, 25);
             this.missionEditor.Name = "missionEditor";
-            this.missionEditor.Size = new System.Drawing.Size(851, 292);
+            this.missionEditor.Size = new System.Drawing.Size(851, 313);
             this.missionEditor.TabIndex = 4;
             this.missionEditor.Text = "Mission Editor";
             // 
@@ -3123,10 +3117,10 @@
             this.graphEditor.Controls.Add(this.graphIdDD);
             this.graphEditor.Controls.Add(this.graphIdLbl);
             this.graphEditor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.graphEditor.Location = new System.Drawing.Point(4, 46);
+            this.graphEditor.Location = new System.Drawing.Point(4, 25);
             this.graphEditor.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.graphEditor.Name = "graphEditor";
-            this.graphEditor.Size = new System.Drawing.Size(851, 292);
+            this.graphEditor.Size = new System.Drawing.Size(851, 313);
             this.graphEditor.TabIndex = 9;
             this.graphEditor.Text = "Graph Editor";
             // 
@@ -3620,9 +3614,9 @@
             this.positionEditor.Controls.Add(this.xPosLbl_O);
             this.positionEditor.Controls.Add(this.updateObjPosition);
             this.positionEditor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.positionEditor.Location = new System.Drawing.Point(4, 46);
+            this.positionEditor.Location = new System.Drawing.Point(4, 25);
             this.positionEditor.Name = "positionEditor";
-            this.positionEditor.Size = new System.Drawing.Size(851, 292);
+            this.positionEditor.Size = new System.Drawing.Size(851, 313);
             this.positionEditor.TabIndex = 5;
             this.positionEditor.Text = "Position Editor";
             // 
@@ -4043,10 +4037,10 @@
             this.devMode.Controls.Add(this.devVersionTxt);
             this.devMode.Controls.Add(this.createUpdateBtn);
             this.devMode.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.devMode.Location = new System.Drawing.Point(4, 46);
+            this.devMode.Location = new System.Drawing.Point(4, 25);
             this.devMode.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.devMode.Name = "devMode";
-            this.devMode.Size = new System.Drawing.Size(851, 292);
+            this.devMode.Size = new System.Drawing.Size(851, 313);
             this.devMode.TabIndex = 10;
             this.devMode.Text = "Dev Mode";
             // 
@@ -5197,7 +5191,7 @@
             this.aiScriptSaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aiScriptSaveBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.aiScriptSaveBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiScriptSaveBtn.Location = new System.Drawing.Point(654, 47);
+            this.aiScriptSaveBtn.Location = new System.Drawing.Point(654, 214);
             this.aiScriptSaveBtn.Name = "aiScriptSaveBtn";
             this.aiScriptSaveBtn.Size = new System.Drawing.Size(190, 33);
             this.aiScriptSaveBtn.TabIndex = 64;
@@ -5210,7 +5204,7 @@
             this.aiScriptLoadBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aiScriptLoadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.aiScriptLoadBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiScriptLoadBtn.Location = new System.Drawing.Point(654, 7);
+            this.aiScriptLoadBtn.Location = new System.Drawing.Point(654, 174);
             this.aiScriptLoadBtn.Name = "aiScriptLoadBtn";
             this.aiScriptLoadBtn.Size = new System.Drawing.Size(190, 33);
             this.aiScriptLoadBtn.TabIndex = 65;
@@ -5237,7 +5231,7 @@
             this.aiPatrolSaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aiPatrolSaveBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.aiPatrolSaveBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiPatrolSaveBtn.Location = new System.Drawing.Point(655, 47);
+            this.aiPatrolSaveBtn.Location = new System.Drawing.Point(652, 210);
             this.aiPatrolSaveBtn.Name = "aiPatrolSaveBtn";
             this.aiPatrolSaveBtn.Size = new System.Drawing.Size(190, 33);
             this.aiPatrolSaveBtn.TabIndex = 67;
@@ -5250,7 +5244,7 @@
             this.aiPatrolLoadBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aiPatrolLoadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.aiPatrolLoadBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiPatrolLoadBtn.Location = new System.Drawing.Point(655, 7);
+            this.aiPatrolLoadBtn.Location = new System.Drawing.Point(652, 170);
             this.aiPatrolLoadBtn.Name = "aiPatrolLoadBtn";
             this.aiPatrolLoadBtn.Size = new System.Drawing.Size(190, 33);
             this.aiPatrolLoadBtn.TabIndex = 68;
@@ -5262,7 +5256,7 @@
             // 
             this.aiScrptFormatCb.AutoSize = true;
             this.aiScrptFormatCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiScrptFormatCb.Location = new System.Drawing.Point(783, 86);
+            this.aiScrptFormatCb.Location = new System.Drawing.Point(783, 253);
             this.aiScrptFormatCb.Name = "aiScrptFormatCb";
             this.aiScrptFormatCb.Size = new System.Drawing.Size(58, 17);
             this.aiScrptFormatCb.TabIndex = 67;
@@ -5274,7 +5268,7 @@
             // 
             this.aiScrptEditModeCb.AutoSize = true;
             this.aiScrptEditModeCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiScrptEditModeCb.Location = new System.Drawing.Point(654, 86);
+            this.aiScrptEditModeCb.Location = new System.Drawing.Point(654, 253);
             this.aiScrptEditModeCb.Name = "aiScrptEditModeCb";
             this.aiScrptEditModeCb.Size = new System.Drawing.Size(44, 17);
             this.aiScrptEditModeCb.TabIndex = 68;
@@ -5286,7 +5280,7 @@
             // 
             this.aiScrptClearCb.AutoSize = true;
             this.aiScrptClearCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiScrptClearCb.Location = new System.Drawing.Point(716, 86);
+            this.aiScrptClearCb.Location = new System.Drawing.Point(716, 253);
             this.aiScrptClearCb.Name = "aiScrptClearCb";
             this.aiScrptClearCb.Size = new System.Drawing.Size(50, 17);
             this.aiScrptClearCb.TabIndex = 69;
@@ -5298,7 +5292,7 @@
             // 
             this.aiPatrolFormatCb.AutoSize = true;
             this.aiPatrolFormatCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiPatrolFormatCb.Location = new System.Drawing.Point(786, 86);
+            this.aiPatrolFormatCb.Location = new System.Drawing.Point(783, 249);
             this.aiPatrolFormatCb.Name = "aiPatrolFormatCb";
             this.aiPatrolFormatCb.Size = new System.Drawing.Size(58, 17);
             this.aiPatrolFormatCb.TabIndex = 70;
@@ -5310,7 +5304,7 @@
             // 
             this.aiPatrolEditModeCb.AutoSize = true;
             this.aiPatrolEditModeCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiPatrolEditModeCb.Location = new System.Drawing.Point(657, 86);
+            this.aiPatrolEditModeCb.Location = new System.Drawing.Point(654, 249);
             this.aiPatrolEditModeCb.Name = "aiPatrolEditModeCb";
             this.aiPatrolEditModeCb.Size = new System.Drawing.Size(44, 17);
             this.aiPatrolEditModeCb.TabIndex = 71;
@@ -5322,13 +5316,61 @@
             // 
             this.aiPatrolClearCb.AutoSize = true;
             this.aiPatrolClearCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiPatrolClearCb.Location = new System.Drawing.Point(719, 86);
+            this.aiPatrolClearCb.Location = new System.Drawing.Point(716, 249);
             this.aiPatrolClearCb.Name = "aiPatrolClearCb";
             this.aiPatrolClearCb.Size = new System.Drawing.Size(50, 17);
             this.aiPatrolClearCb.TabIndex = 72;
             this.aiPatrolClearCb.Text = "Clear";
             this.aiPatrolClearCb.UseVisualStyleBackColor = true;
             this.aiPatrolClearCb.CheckedChanged += new System.EventHandler(this.aiPatrolClearCb_CheckedChanged);
+            // 
+            // aiScriptFileNameTxt
+            // 
+            this.aiScriptFileNameTxt.BackColor = System.Drawing.SystemColors.Control;
+            this.aiScriptFileNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.aiScriptFileNameTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.aiScriptFileNameTxt.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.aiScriptFileNameTxt.Location = new System.Drawing.Point(656, 7);
+            this.aiScriptFileNameTxt.Name = "aiScriptFileNameTxt";
+            this.aiScriptFileNameTxt.ReadOnly = true;
+            this.aiScriptFileNameTxt.Size = new System.Drawing.Size(168, 24);
+            this.aiScriptFileNameTxt.TabIndex = 70;
+            // 
+            // aiScriptFileSizeTxt
+            // 
+            this.aiScriptFileSizeTxt.BackColor = System.Drawing.SystemColors.Control;
+            this.aiScriptFileSizeTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.aiScriptFileSizeTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.aiScriptFileSizeTxt.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.aiScriptFileSizeTxt.Location = new System.Drawing.Point(656, 39);
+            this.aiScriptFileSizeTxt.Name = "aiScriptFileSizeTxt";
+            this.aiScriptFileSizeTxt.ReadOnly = true;
+            this.aiScriptFileSizeTxt.Size = new System.Drawing.Size(168, 24);
+            this.aiScriptFileSizeTxt.TabIndex = 71;
+            // 
+            // aiPatrolFileNameTxt
+            // 
+            this.aiPatrolFileNameTxt.BackColor = System.Drawing.SystemColors.Control;
+            this.aiPatrolFileNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.aiPatrolFileNameTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.aiPatrolFileNameTxt.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.aiPatrolFileNameTxt.Location = new System.Drawing.Point(657, 7);
+            this.aiPatrolFileNameTxt.Name = "aiPatrolFileNameTxt";
+            this.aiPatrolFileNameTxt.ReadOnly = true;
+            this.aiPatrolFileNameTxt.Size = new System.Drawing.Size(168, 24);
+            this.aiPatrolFileNameTxt.TabIndex = 73;
+            // 
+            // aiPatrolFileSizeTxt
+            // 
+            this.aiPatrolFileSizeTxt.BackColor = System.Drawing.SystemColors.Control;
+            this.aiPatrolFileSizeTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.aiPatrolFileSizeTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.aiPatrolFileSizeTxt.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.aiPatrolFileSizeTxt.Location = new System.Drawing.Point(657, 39);
+            this.aiPatrolFileSizeTxt.Name = "aiPatrolFileSizeTxt";
+            this.aiPatrolFileSizeTxt.ReadOnly = true;
+            this.aiPatrolFileSizeTxt.Size = new System.Drawing.Size(168, 24);
+            this.aiPatrolFileSizeTxt.TabIndex = 74;
             // 
             // IGIEditorUI
             // 
@@ -5575,7 +5617,6 @@
         private System.Windows.Forms.Button removeAiBtn;
         private System.Windows.Forms.TextBox graphAreaAiLbl;
         private System.Windows.Forms.CheckBox taskDetectionAiCb;
-        private System.Windows.Forms.CheckBox customAiCb;
         private System.Windows.Forms.Label maxSpawnsLbl;
         private System.Windows.Forms.CheckBox aiFriendlyCb;
         private System.Windows.Forms.CheckBox aiAdvanceViewCb;
@@ -5800,6 +5841,10 @@
         private System.Windows.Forms.CheckBox aiPatrolFormatCb;
         private System.Windows.Forms.CheckBox aiPatrolEditModeCb;
         private System.Windows.Forms.CheckBox aiPatrolClearCb;
+        private System.Windows.Forms.TextBox aiScriptFileNameTxt;
+        private System.Windows.Forms.TextBox aiScriptFileSizeTxt;
+        private System.Windows.Forms.TextBox aiPatrolFileNameTxt;
+        private System.Windows.Forms.TextBox aiPatrolFileSizeTxt;
     }
 }
 

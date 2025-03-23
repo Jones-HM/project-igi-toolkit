@@ -46,7 +46,8 @@ namespace IGIEditor
 
         #region timers
         static internal IGIEditorUI editorRef;
-        BackgroundWorker graphNodesAddWorker, graphLinksAddWorker, graphTraverseWorker, nodesTraverseWorker, downloadMissionWorker, downloadUpdaterWorker, uploadMissionWorker, addAiSoldierWorker;
+        BackgroundWorker graphNodesAddWorker, graphLinksAddWorker, graphTraverseWorker, nodesTraverseWorker, 
+            downloadMissionWorker, downloadUpdaterWorker, uploadMissionWorker, addAiSoldierWorker;
         Timer updateCheckerTimer = new Timer();
         Timer internalsAttachTimer = new Timer();
         Timer levelRunTimer = new Timer();
@@ -245,7 +246,7 @@ namespace IGIEditor
         {
             try
             {
-                string aiModelName = null, aiModelId = null, aiWeaponMode = null, aiType = null, aiWeaponModel = null;
+                string aiModelName = null, aiModelId = null, aiType = null, aiWeaponModel = null;
                 int aiCount = 1, maxSpawns = 1, teamId = TEAM_ID_ENEMY;
 
                 Invoke((Action)(() =>
@@ -261,7 +262,7 @@ namespace IGIEditor
                 }));
 
                 //Set human A.I properties.
-                var humanAi = new HumanAi();
+                var humanAi = new HumanAI();
                 humanAi.model = aiModelId;
                 humanAi.weapon = aiWeaponModel;
                 humanAi.graphId = aiGraphId;
@@ -285,7 +286,7 @@ namespace IGIEditor
                 configOut += "Invincible : " + humanAi.invincible + "\n";
                 configOut += "Advance View : " + humanAi.advanceView + "\n";
 
-                var dlgResult = QLog.ShowDialog("You are about to Add A.I confirm ?\n" + configOut);
+                var dlgResult = QLog.ShowDialog("You are about to add AI Confirm ?\n" + configOut);
 
                 if (dlgResult == DialogResult.Yes)
                 {
@@ -298,12 +299,16 @@ namespace IGIEditor
                         QUtils.aiScriptId = QUtils.aiScriptId > QUtils.LEVEL_FLOW_TASK_ID ? (QUtils.aiScriptId - 3) : QUtils.aiScriptId;//Reset scriptId on error.
                         return;
                     }
+
                     //Add task detection only if selected.
-                    if (taskDetectionAiCb.Checked) qscData += QAI.AddAiTaskDetection(qscData);
+                    if (taskDetectionAiCb.Checked) 
+                        qscData += QAI.AddAiTaskDetection(qscData);
 
-                    if (!String.IsNullOrEmpty(qscData)) compileStatus = QCompiler.Compile(qscData, QUtils.gamePath, true);
+                    if (!String.IsNullOrEmpty(qscData)) 
+                        compileStatus = QCompiler.Compile(qscData, QUtils.gamePath, true);
 
-                    if (compileStatus) SetStatusText("AI " + aiModelName + " Added successfully");
+                    if (compileStatus) 
+                        SetStatusText("AI " + aiModelName + " Added successfully");
                 }
             }
             catch (IndexOutOfRangeException ex)
@@ -1063,12 +1068,12 @@ namespace IGIEditor
             }
         }
 
-        private static HumanAi ReadHumanAiJSON(string fileName)
+        private static HumanAI ReadHumanAiJSON(string fileName)
         {
-            HumanAi humanAi = new HumanAi();
+            HumanAI humanAi = new HumanAI();
             try
             {
-                humanAi = JsonConvert.DeserializeObject<HumanAi>(File.ReadAllText(fileName));
+                humanAi = JsonConvert.DeserializeObject<HumanAI>(File.ReadAllText(fileName));
             }
             catch (Exception ex)
             {
@@ -1199,7 +1204,7 @@ namespace IGIEditor
                             if (!String.IsNullOrEmpty(qscData))
                                 QUtils.SaveFile(qscData);
                         }
-                        catch (Exception ex) { }
+                        catch (Exception) { }
                     }
 
                     if (markWeaponsCb.Checked) { markWeaponsCb.Checked = false; weaponMarkedIds.Clear(); }
@@ -1693,7 +1698,7 @@ namespace IGIEditor
 
         private void PopulateWeaponDD(int index, PictureBox imgBox)
         {
-            string weaponModel = null, weaponName = null, imgUrl = null, imgPath = null;
+            string weaponName = null, imgUrl = null, imgPath = null;
             try
             {
                 weaponName = QUtils.weaponList[index].Keys.ElementAt(0);
@@ -1722,7 +1727,7 @@ namespace IGIEditor
                     QLog.ShowLogStatus(MethodBase.GetCurrentMethod().Name, "Downloading resource done");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 imgBox.Image = null;
             }
@@ -2335,20 +2340,6 @@ namespace IGIEditor
         {
             SetStatusText("Adding new A.I to level please wait...");
             addAiSoldierWorker.RunWorkerAsync();
-        }
-
-        private void customAiCb_CheckedChanged(object sender, EventArgs e)
-        {
-            if (((CheckBox)sender).Checked)
-            {
-                QUtils.customAiSelected = true;
-                maxSpawnsTxt.Enabled = true;
-            }
-            else
-            {
-                maxSpawnsTxt.Enabled = false;
-                QUtils.customAiSelected = false;
-            }
         }
 
         private void editorOnlineCb_CheckedChanged(object sender, EventArgs e)
@@ -3038,7 +3029,7 @@ namespace IGIEditor
                 InitMissionsOnline(true, false);
                 UpdateUIComponent(missionsOnlineDD, QUtils.missionNameListStr);
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
 
         private void editorModeCb_CheckedChanged(object sender, EventArgs e)
@@ -3473,9 +3464,20 @@ namespace IGIEditor
             {
                 var keywords = new List<string>()
                 {
-                    "if", "else", "AIFunction_GetCurrentEventType", "AIEVENT_CREATE",
-                    "AIEVENT_IDLE", "AIEVENT_ALARMON", "AIEVENT_COMBAT",
-                    "AIFunction_DefaultHandler", "AIAction_Patrol"
+                    "if", "else", "AIFunction_GetCurrentEventType", "AIEVENT_CREATE", "AIEVENT_IDLE", "AIEVENT_ALARMON", "AIEVENT_ALARMOFF",
+                    "AIEVENT_ALERT", "AIEVENT_ALERT_RESPONSE", "AIEVENT_ANIMATION", "AIEVENT_COMBAT", "AIEVENT_DEAD", "AIEVENT_DELETE", "AIEVENT_DOOR",
+                    "AIEVENT_ENEMYDETECTION", "AIEVENT_EXPLOSION", "AIEVENT_FENCE", "AIEVENT_FLASHBANG", "AIEVENT_FRIENDLYDETECTION", "AIEVENT_GRENADELAND",
+                    "AIEVENT_GRENADETHROWN", "AIEVENT_GROUNDIMPACT", "AIEVENT_GUNSHOT", "AIEVENT_GUNSHOTMISS", "AIEVENT_TAKINGDAMAGE", "AIEVENT_LADDER",
+                    "AIEVENT_WALK", "AIAction_Patrol", "AIAction_PlayAnimation", "AIFunction_DefaultHandler", "AIFunction_SetAlarmControlID",
+                    "AIFunction_SendResponse", "AIFunction_GetAnimationToPlay", "AIFunction_AddAnimationEntry", "AIFunction_SetAnimationInterval",
+                    "AIFunction_GetAlarmTriggerDistance", "AIFunction_GetEventDistance", "AIFunction_GetRandomValue", "AIFunction_GetScriptRealValue",
+                    "AIFunction_IsEventBehind", "AIFunction_GetScriptIntegerValue", "AIFunction_GetGunnerStatus", "AIFunction_GetAlarmControlStatus",
+                    "AIFunction_GetGunnerID", "AIFunction_GetAlarmAccess", "AIFunction_GetAlarmControlID", "AIFunction_GetAlarmTriggerID",
+                    "AIFunction_SetScriptRealValue", "AIFunction_SetScriptIntegerValue", "AIFunction_SetGunnerID", "AIFunction_SetAlarmAccess",
+                    "AIFunction_SetAlarmControlID", "AIFunction_SetAlarmTriggerID", "AIFunction_SetDeathAnimation", "AIFunction_SetInstantDeath",
+                    "AIFunction_SetInvulnerability", "AIFunction_SetEventPriority", "AIFunction_SetSecondaryViewGamma", "AIFunction_SetSecondaryViewAlpha",
+                    "AIFunction_SetSecondaryAlarmViewLength", "AIFunction_SetSecondaryViewLength", "AIFunction_SetViewGamma", "AIFunction_SetViewAlpha",
+                    "AIFunction_SetAlarmViewLength", "AIFunction_SetViewLength", "AIFunction_RemoveAlarmActions", "AIACTIONFLAG_NONE", "AIACTIONFLAG_PUSHABLE"
                 };
 
                 var colors = new List<Color>();
@@ -3811,7 +3813,7 @@ namespace IGIEditor
                 {
                     aiJsonEditorTxt.Text = fopenIO.FileData;
                     RichViewerUpdateFormat();
-                    aiFileSizeTxt.Text = "File Size: " + fopenIO.FileSize + " Kb";
+                    aiFileSizeTxt.Text = "File Size: " + fopenIO.FileSize / 1024 + " Kb";
                 }
 
                 JToken parsedJson = JToken.Parse(aiFileNameTxt.Text);
@@ -3962,7 +3964,7 @@ namespace IGIEditor
 
         private void saveAIBtn_Click(object sender, EventArgs e)
         {
-            string aiModelName = null, aiModel = null, aiWeaponMode = null, aiType = null, aiWeapon = null;
+            string aiModelName = null, aiModel = null, aiType = null, aiWeapon = null;
             int aiCount = 1, maxSpawns = 1, teamId = TEAM_ID_ENEMY;
 
             Invoke((Action)(() =>
@@ -3978,7 +3980,7 @@ namespace IGIEditor
             }));
 
             //Convert HumanAI obj to JSON.
-            var humanAi = new HumanAi(aiCount, aiType, aiGraphId, aiWeapon, aiModel, guardGeneratorCb.Checked, maxSpawns, teamId, aiInvincibleCb.Checked, aiAdvanceViewCb.Checked);
+            var humanAi = new HumanAI(aiCount, aiType, aiGraphId, aiWeapon, aiModel, guardGeneratorCb.Checked, maxSpawns, teamId, aiInvincibleCb.Checked, aiAdvanceViewCb.Checked);
             var humanJSON = JsonConvert.SerializeObject(humanAi, Formatting.Indented);
 
             var inputDlgMsg = DialogMsgBox.ShowBox("Enter A.I File name", aiModelName + "_" + gameLevel + QUtils.FileExtensions.Json, MsgBoxButtons.YesNo, true);
@@ -4103,8 +4105,7 @@ namespace IGIEditor
             {
                 try
                 {
-                    SetStatusText("Add your custom scripts/path for A.I");
-                    QLog.ShowInfo("Add your custom scripts for your A.I\n'XXXX' or 'YYYY' are Masking IDs dont replace them.");
+                    SetStatusText("Edit scripts for A.I");
                 }
                 catch (Exception ex) { QLog.LogException(e.TabPage.Name.ToUpper(), ex); }
             }
@@ -4113,10 +4114,7 @@ namespace IGIEditor
             {
                 try
                 {
-                    QLog.ShowInfo("Add your custom path for your A.I\n'XXXX' or 'YYYY' are Masking IDs dont replace them.");
-                    string path = QUtils.customPatrolPathQEd;
-                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Patrol path is " + path);
-
+                    SetStatusText("Edit patrol path for A.I");
                 }
                 catch (Exception ex) { QLog.LogException(e.TabPage.Name.ToUpper(), ex); }
             }
@@ -5321,45 +5319,70 @@ namespace IGIEditor
 
         private void aiScriptLoadBtn_Click(object sender, EventArgs e)
         {
-            string path = QUtils.customScriptPathQEd;
-            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script path is " + path);
-            string data = QUtils.LoadFile(path);
+            string levelAiPath = QUtils.cfgGamePath + gameLevel.ToString() + "\\ai";
+            var fopenIO = QUtils.ShowOpenFileDlg("Select AI script file", ".qvm", "QVM File|*.qvm|QSC file|*.qsc", true, levelAiPath);
+            string fileName = fopenIO.FileName;
+            string tmpPath = Path.GetTempPath();
 
-            if(!string.IsNullOrEmpty(data))
+            // updating the UI name and size.
+            aiScriptFileNameTxt.Text = Path.GetFileName(fileName);
+            aiScriptFileSizeTxt.Text = "File Size: " + fopenIO.FileSize + " Kb";
+
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Script path is '" + levelAiPath + "' and file name is '" + fileName + "'");
+            string data = fopenIO.FileData;
+            bool status = false;
+
+            if (!string.IsNullOrEmpty(data))
             {
-                aiScriptEditorTxt.Text = data;
-                RichViewerUpdateFormat();
-                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script loaded successfully.");
+                if (fileName.Contains(QUtils.FileExtensions.Qvm))
+                {
+                   status = QCompiler.Decompile(fileName, tmpPath, 0x0);
+                    if (status)
+                    {
+                        string aiScriptFile = Path.ChangeExtension(Path.GetFileName(fileName), QUtils.FileExtensions.Qsc);
+                        aiScriptEditorTxt.Text = QUtils.LoadFile(Path.Combine(tmpPath, aiScriptFile));
+                        if(aiScrptFormatCb.Checked) 
+                            RichViewerUpdateFormat();
+                    }
+                }
+                else
+                {
+                    aiScriptEditorTxt.Text = data;
+                }
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Script loaded successfully.");
             }
-            else
+
+            if (!status || string.IsNullOrEmpty(data))
             {
                 aiScriptEditorTxt.Text = "";
-                QLog.ShowError("Custom Script failed to load.");
-                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script failed to load.");
+                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "AI Script failed to load.");
             }
         }
 
         private void aiScriptSaveBtn_Click(object sender, EventArgs e)
         {
-            string path = QUtils.customScriptPathQEd;
-            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script path is " + path);
+            string levelAiPath = QUtils.cfgGamePath + gameLevel.ToString() + "\\ai";
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Script path is " + levelAiPath);
             string data = aiScriptEditorTxt.Text;
+            string qscFile = aiScriptFileNameTxt.Text.Replace(".qvm", ".qsc");
+            bool status = false;
 
             if (!string.IsNullOrEmpty(data))
             {
-                QUtils.SaveFile(path, data);
-                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script saved successfully.");
+                status = QCompiler.Compile(data, levelAiPath, false, false, false, qscFile);
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Script saved successfully.");
             }
-            else
+
+            if (!status || string.IsNullOrEmpty(data))
             {
-                QLog.ShowError("Custom Script failed to save.");
-                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script failed to save.");
+                aiScriptEditorTxt.Text = "";
+                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "AI Script failed to save.");
             }
         }
 
         private void aiPatrolLoadBtn_Click(object sender, EventArgs e)
         {
-            string path = QUtils.customPatrolPathQEd;
+            string path = null; // = QUtils.customPatrolPathQEd;
             QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Patrol path is " + path);
             string data = QUtils.LoadFile(path);
 
@@ -5379,7 +5402,7 @@ namespace IGIEditor
 
         private void aiPatrolSaveBtn_Click(object sender, EventArgs e)
         {
-            string path = QUtils.customPatrolPathQEd;
+            string path = null; // = QUtils.customPatrolPathQEd;
             QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Custom Script path is " + path);
             string data = aiPatrolEditorTxt.Text;
 

@@ -54,7 +54,7 @@ namespace IGIEditor
                 if (level > QUtils.GAME_MAX_LEVEL) QLog.ShowSystemFatalError("IGI Editor is limited to " + QUtils.GAME_MAX_LEVEL + " levels only.");
                 return (int)level;
             }
-            catch (Exception ex) { return -1; }
+            catch (Exception) { return -1; }
         }
 
         internal static void DisableGameWarnings()

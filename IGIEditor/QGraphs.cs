@@ -373,7 +373,7 @@ namespace IGIEditor
 						graphNodeIds.Add(node.MGraphVertexNodes.LastOrDefault().NodeId);
 					}
 				}
-				catch (Exception ex) { }
+				catch (Exception) { }
 			}
 
 			QLog.AddLog(MethodBase.GetCurrentMethod().Name, "GraphFile: '" + graphFile + "'" + " NodeId Count: " + graphNodeIds.Count);

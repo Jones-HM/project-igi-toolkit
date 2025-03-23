@@ -113,10 +113,6 @@ namespace IGIEditor
         internal static string aiIdleFile = "aiIdle.qvm";
         internal static string objectsModelsList;
         internal static string aiIdlePath;
-        internal static string customScriptFile = "ai_custom_script.qsc";
-        internal static string customPatrolFile = "ai_custom_path.qsc";
-        internal static string customScriptPathQEd;
-        internal static string customPatrolPathQEd;
         internal static string appLogFileTmp = @"%tmp%\IGIEditorCache\AppLogs\";
         internal static string nativesFile = @"\IGI-Natives.json";
         internal static string modelsFile = @"\IGI-Models.json";
@@ -131,7 +127,6 @@ namespace IGIEditor
         internal static bool keyExist = false;
         internal static bool keyFileExist = false;
         internal static bool attachStatus = false;
-        internal static bool customAiSelected = false;
         internal static bool editorOnline = true;
         internal static bool gameReset = false;
         internal static bool appLogs = false;
@@ -390,7 +385,7 @@ namespace IGIEditor
         internal static List<int> weaponMarkedIds = new List<int>();
         internal static List<QGraphs.GraphNode> graphNodesList = new List<QGraphs.GraphNode>();
         internal static List<int> qIdsList = new List<int>();
-        internal static List<HumanAi> humanAiList = new List<HumanAi>();
+        internal static List<HumanAI> humanAiList = new List<HumanAI>();
         internal static List<Weapon> weaponDataList = new List<Weapon>();
         internal static List<string> weaponSFXList = new List<string>();
         internal static List<string> weaponDDList = new List<string>();
@@ -500,8 +495,6 @@ namespace IGIEditor
             qedAiJsonPath = igiEditorQEdPath + qedAiPath + qedAiJson;
             qedAiScriptPath = igiEditorQEdPath + qedAiPath + qedAiScript;
             qedAiPatrolPath = igiEditorQEdPath + qedAiPath + qedAiPatrol;
-            customScriptPathQEd = qedAiScriptPath + "\\" + customScriptFile;
-            customPatrolPathQEd = qedAiPatrolPath + "\\" + customPatrolFile;
             cfgVoidPath = igiEditorQEdPath + qedVoidPath;
             cfgQFilesPath = igiEditorQEdPath + qfilesPath;
             menuSystemPath = gameAbsPath + menuSystemDir;
@@ -759,7 +752,7 @@ namespace IGIEditor
                     CreateConfig();
                 }
             }
-            catch (FormatException ex)
+            catch (FormatException)
             {
                 //Check for App settings.
                 if (!appLogsParsed) ShowConfigError("app_logs");
@@ -1600,7 +1593,7 @@ namespace IGIEditor
         internal static void ExportJson(string fileName)
         {
             string xmlFile = objects + QUtils.FileExtensions.Xml;
-            string xmlData = null;
+            string xmlData;
 
             if (File.Exists(xmlFile))
                 xmlData = LoadFile(xmlFile);
@@ -1611,7 +1604,7 @@ namespace IGIEditor
                 xmlData = LoadFile(xmlFile);
             }
 
-            string jsonData = null;
+            string jsonData;
             Sleep(1);
 
             if (File.Exists(xmlFile))
@@ -1620,7 +1613,7 @@ namespace IGIEditor
                 doc.LoadXml(xmlData);
 
                 jsonData = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.Indented);
-                SaveFile(fileName, jsonData);
+                SaveFile(fileName, null);
             }
             else throw new FileNotFoundException("File 'objects.xml' was not found in current directory");
 
@@ -1787,11 +1780,11 @@ namespace IGIEditor
                             }
 
                         }
-                        catch (Exception ex) { }
+                        catch (Exception) { }
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
