@@ -2001,15 +2001,15 @@ namespace IGIEditor
 
     enum PATROLACTIONS
     {
-        PATROLPATH_ANIMATION,
-        PATROLPATH_DELAY,
-        PATROLPATH_WALKTO,
-        PATROLPATH_RUNTO,
-        PATROLPATH_CROUCH,
-        PATROLPATH_LOOKATNODE,
-        PATROLPATH_END,
-        PATROLPATH_QUIT,
-        PATROLPATH_SETSPEED
+        ANIMATION,
+        DELAY,
+        WALKTO,
+        RUNTO,
+        CROUCH,
+        LOOKATNODE,
+        END,
+        QUIT,
+        SETSPEED
     }
 
     enum AITYPES

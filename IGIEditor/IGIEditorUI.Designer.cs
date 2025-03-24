@@ -99,6 +99,9 @@
             this.aiJsonVersionTxt = new System.Windows.Forms.TextBox();
             this.aiJsonSaveAiBtn = new System.Windows.Forms.Button();
             this.aiScriptEditor = new System.Windows.Forms.TabPage();
+            this.aiScriptAiGraphIdTxt = new System.Windows.Forms.TextBox();
+            this.aiScriptAiTypeTxt = new System.Windows.Forms.TextBox();
+            this.aiScriptAiNameTxt = new System.Windows.Forms.TextBox();
             this.aiScriptFileNameTxt = new System.Windows.Forms.TextBox();
             this.aiScriptFileSizeTxt = new System.Windows.Forms.TextBox();
             this.aiScrptFormatCb = new System.Windows.Forms.CheckBox();
@@ -414,9 +417,9 @@
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionLbl = new System.Windows.Forms.ToolStripMenuItem();
             this.infoViewer = new System.Windows.Forms.ToolTip(this.components);
-            this.aiScriptAiNameTxt = new System.Windows.Forms.TextBox();
-            this.aiScriptAiTypeTxt = new System.Windows.Forms.TextBox();
-            this.aiScriptAiGraphIdTxt = new System.Windows.Forms.TextBox();
+            this.commandIdLbl = new System.Windows.Forms.Label();
+            this.aiPatrolCmdIdDD = new System.Windows.Forms.ComboBox();
+            this.aiPatrolCmdIdTxt = new System.Windows.Forms.TextBox();
             this.editorMainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.levelStartTxt)).BeginInit();
             this.editorTabs.SuspendLayout();
@@ -1420,6 +1423,42 @@
             this.aiScriptEditor.TabIndex = 2;
             this.aiScriptEditor.Text = "Script";
             // 
+            // aiScriptAiGraphIdTxt
+            // 
+            this.aiScriptAiGraphIdTxt.BackColor = System.Drawing.SystemColors.Control;
+            this.aiScriptAiGraphIdTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.aiScriptAiGraphIdTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.aiScriptAiGraphIdTxt.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.aiScriptAiGraphIdTxt.Location = new System.Drawing.Point(657, 129);
+            this.aiScriptAiGraphIdTxt.Name = "aiScriptAiGraphIdTxt";
+            this.aiScriptAiGraphIdTxt.ReadOnly = true;
+            this.aiScriptAiGraphIdTxt.Size = new System.Drawing.Size(183, 24);
+            this.aiScriptAiGraphIdTxt.TabIndex = 75;
+            // 
+            // aiScriptAiTypeTxt
+            // 
+            this.aiScriptAiTypeTxt.BackColor = System.Drawing.SystemColors.Control;
+            this.aiScriptAiTypeTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.aiScriptAiTypeTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.aiScriptAiTypeTxt.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.aiScriptAiTypeTxt.Location = new System.Drawing.Point(656, 99);
+            this.aiScriptAiTypeTxt.Name = "aiScriptAiTypeTxt";
+            this.aiScriptAiTypeTxt.ReadOnly = true;
+            this.aiScriptAiTypeTxt.Size = new System.Drawing.Size(184, 24);
+            this.aiScriptAiTypeTxt.TabIndex = 74;
+            // 
+            // aiScriptAiNameTxt
+            // 
+            this.aiScriptAiNameTxt.BackColor = System.Drawing.SystemColors.Control;
+            this.aiScriptAiNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.aiScriptAiNameTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.aiScriptAiNameTxt.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.aiScriptAiNameTxt.Location = new System.Drawing.Point(656, 69);
+            this.aiScriptAiNameTxt.Name = "aiScriptAiNameTxt";
+            this.aiScriptAiNameTxt.ReadOnly = true;
+            this.aiScriptAiNameTxt.Size = new System.Drawing.Size(184, 24);
+            this.aiScriptAiNameTxt.TabIndex = 72;
+            // 
             // aiScriptFileNameTxt
             // 
             this.aiScriptFileNameTxt.BackColor = System.Drawing.SystemColors.Control;
@@ -1523,6 +1562,9 @@
             // aiPatrolPathEditor
             // 
             this.aiPatrolPathEditor.BackColor = System.Drawing.SystemColors.Control;
+            this.aiPatrolPathEditor.Controls.Add(this.aiPatrolCmdIdDD);
+            this.aiPatrolPathEditor.Controls.Add(this.aiPatrolCmdIdTxt);
+            this.aiPatrolPathEditor.Controls.Add(this.commandIdLbl);
             this.aiPatrolPathEditor.Controls.Add(this.aiPatrolIdDD);
             this.aiPatrolPathEditor.Controls.Add(this.aiPatrolIdLbl);
             this.aiPatrolPathEditor.Controls.Add(this.aiPatrolIdTxt);
@@ -1548,7 +1590,7 @@
             this.aiPatrolIdDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.aiPatrolIdDD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.aiPatrolIdDD.FormattingEnabled = true;
-            this.aiPatrolIdDD.Location = new System.Drawing.Point(733, 104);
+            this.aiPatrolIdDD.Location = new System.Drawing.Point(743, 87);
             this.aiPatrolIdDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.aiPatrolIdDD.Name = "aiPatrolIdDD";
             this.aiPatrolIdDD.Size = new System.Drawing.Size(92, 21);
@@ -1559,9 +1601,9 @@
             // 
             this.aiPatrolIdLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiPatrolIdLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiPatrolIdLbl.Location = new System.Drawing.Point(713, 74);
+            this.aiPatrolIdLbl.Location = new System.Drawing.Point(713, 66);
             this.aiPatrolIdLbl.Name = "aiPatrolIdLbl";
-            this.aiPatrolIdLbl.Size = new System.Drawing.Size(71, 27);
+            this.aiPatrolIdLbl.Size = new System.Drawing.Size(71, 18);
             this.aiPatrolIdLbl.TabIndex = 94;
             this.aiPatrolIdLbl.Text = "Patrol Id";
             this.aiPatrolIdLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1572,8 +1614,9 @@
             this.aiPatrolIdTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.aiPatrolIdTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiPatrolIdTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiPatrolIdTxt.Location = new System.Drawing.Point(659, 104);
+            this.aiPatrolIdTxt.Location = new System.Drawing.Point(669, 87);
             this.aiPatrolIdTxt.Name = "aiPatrolIdTxt";
+            this.aiPatrolIdTxt.ReadOnly = true;
             this.aiPatrolIdTxt.Size = new System.Drawing.Size(68, 24);
             this.aiPatrolIdTxt.TabIndex = 75;
             this.aiPatrolIdTxt.Text = "0000";
@@ -5421,41 +5464,43 @@
             this.versionLbl.Size = new System.Drawing.Size(108, 22);
             this.versionLbl.Text = "IGI-1.1";
             // 
-            // aiScriptAiNameTxt
+            // commandIdLbl
             // 
-            this.aiScriptAiNameTxt.BackColor = System.Drawing.SystemColors.Control;
-            this.aiScriptAiNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.aiScriptAiNameTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.aiScriptAiNameTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiScriptAiNameTxt.Location = new System.Drawing.Point(656, 69);
-            this.aiScriptAiNameTxt.Name = "aiScriptAiNameTxt";
-            this.aiScriptAiNameTxt.ReadOnly = true;
-            this.aiScriptAiNameTxt.Size = new System.Drawing.Size(184, 24);
-            this.aiScriptAiNameTxt.TabIndex = 72;
+            this.commandIdLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.commandIdLbl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.commandIdLbl.Location = new System.Drawing.Point(713, 114);
+            this.commandIdLbl.Name = "commandIdLbl";
+            this.commandIdLbl.Size = new System.Drawing.Size(96, 18);
+            this.commandIdLbl.TabIndex = 96;
+            this.commandIdLbl.Text = "Command Id";
+            this.commandIdLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // aiScriptAiTypeTxt
+            // aiPatrolCmdIdDD
             // 
-            this.aiScriptAiTypeTxt.BackColor = System.Drawing.SystemColors.Control;
-            this.aiScriptAiTypeTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.aiScriptAiTypeTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.aiScriptAiTypeTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiScriptAiTypeTxt.Location = new System.Drawing.Point(656, 99);
-            this.aiScriptAiTypeTxt.Name = "aiScriptAiTypeTxt";
-            this.aiScriptAiTypeTxt.ReadOnly = true;
-            this.aiScriptAiTypeTxt.Size = new System.Drawing.Size(184, 24);
-            this.aiScriptAiTypeTxt.TabIndex = 74;
+            this.aiPatrolCmdIdDD.BackColor = System.Drawing.SystemColors.Control;
+            this.aiPatrolCmdIdDD.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.aiPatrolCmdIdDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.aiPatrolCmdIdDD.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.aiPatrolCmdIdDD.FormattingEnabled = true;
+            this.aiPatrolCmdIdDD.Location = new System.Drawing.Point(743, 135);
+            this.aiPatrolCmdIdDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.aiPatrolCmdIdDD.Name = "aiPatrolCmdIdDD";
+            this.aiPatrolCmdIdDD.Size = new System.Drawing.Size(92, 21);
+            this.aiPatrolCmdIdDD.TabIndex = 98;
+            this.aiPatrolCmdIdDD.SelectedIndexChanged += new System.EventHandler(this.aiPatrolCmdIdDD_SelectedIndexChanged);
             // 
-            // aiScriptAiGraphIdTxt
+            // aiPatrolCmdIdTxt
             // 
-            this.aiScriptAiGraphIdTxt.BackColor = System.Drawing.SystemColors.Control;
-            this.aiScriptAiGraphIdTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.aiScriptAiGraphIdTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.aiScriptAiGraphIdTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiScriptAiGraphIdTxt.Location = new System.Drawing.Point(657, 129);
-            this.aiScriptAiGraphIdTxt.Name = "aiScriptAiGraphIdTxt";
-            this.aiScriptAiGraphIdTxt.ReadOnly = true;
-            this.aiScriptAiGraphIdTxt.Size = new System.Drawing.Size(183, 24);
-            this.aiScriptAiGraphIdTxt.TabIndex = 75;
+            this.aiPatrolCmdIdTxt.BackColor = System.Drawing.SystemColors.Control;
+            this.aiPatrolCmdIdTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.aiPatrolCmdIdTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.aiPatrolCmdIdTxt.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.aiPatrolCmdIdTxt.Location = new System.Drawing.Point(669, 135);
+            this.aiPatrolCmdIdTxt.Name = "aiPatrolCmdIdTxt";
+            this.aiPatrolCmdIdTxt.ReadOnly = true;
+            this.aiPatrolCmdIdTxt.Size = new System.Drawing.Size(68, 24);
+            this.aiPatrolCmdIdTxt.TabIndex = 97;
+            this.aiPatrolCmdIdTxt.Text = "0";
             // 
             // IGIEditorUI
             // 
@@ -5936,6 +5981,9 @@
         private System.Windows.Forms.TextBox aiScriptAiGraphIdTxt;
         private System.Windows.Forms.TextBox aiScriptAiTypeTxt;
         private System.Windows.Forms.TextBox aiScriptAiNameTxt;
+        private System.Windows.Forms.ComboBox aiPatrolCmdIdDD;
+        private System.Windows.Forms.TextBox aiPatrolCmdIdTxt;
+        private System.Windows.Forms.Label commandIdLbl;
     }
 }
 

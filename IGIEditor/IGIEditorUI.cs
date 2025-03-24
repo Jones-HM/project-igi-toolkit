@@ -47,7 +47,7 @@ namespace IGIEditor
 
         #region timers
         static internal IGIEditorUI editorRef;
-        BackgroundWorker graphNodesAddWorker, graphLinksAddWorker, graphTraverseWorker, nodesTraverseWorker, 
+        BackgroundWorker graphNodesAddWorker, graphLinksAddWorker, graphTraverseWorker, nodesTraverseWorker,
             downloadMissionWorker, downloadUpdaterWorker, uploadMissionWorker, addAiSoldierWorker;
         Timer updateCheckerTimer = new Timer();
         Timer internalsAttachTimer = new Timer();
@@ -302,13 +302,13 @@ namespace IGIEditor
                     }
 
                     //Add task detection only if selected.
-                    if (taskDetectionAiCb.Checked) 
+                    if (taskDetectionAiCb.Checked)
                         qscData += QAI.AddAiTaskDetection(qscData);
 
-                    if (!String.IsNullOrEmpty(qscData)) 
+                    if (!String.IsNullOrEmpty(qscData))
                         compileStatus = QCompiler.Compile(qscData, QUtils.gamePath, true);
 
-                    if (!compileStatus) 
+                    if (!compileStatus)
                         QLog.ShowLogError("AddHumanSoldier", "Error: Adding " + aiModelName + " A.I to level '" + gameLevel + "'");
                 }
             }
@@ -441,10 +441,10 @@ namespace IGIEditor
                 var graphIdList = QUtils.aiGraphIdStr;
                 var qscData = QUtils.LoadFile();
                 int graphWorkTotal = graphIdList.Count, graphWorkCount = 1, graphWorkPercent = 1;
-				int level = QUtils.gGameLevel;
-				
-				if (level <= 0 || level > QUtils.GAME_MAX_LEVEL)
-				    level = QMemory.GetRunningLevel();
+                int level = QUtils.gGameLevel;
+
+                if (level <= 0 || level > QUtils.GAME_MAX_LEVEL)
+                    level = QMemory.GetRunningLevel();
 
                 if (graphsAllCb.Checked)
                 {
@@ -488,7 +488,7 @@ namespace IGIEditor
 
             //Init game path every time game found.
             QUtils.gameFound = QMemory.FindGame();
-            
+
             QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Game Found: " + QUtils.gameFound + " Game Level: " + gameLevel + " internalsAttached: " + internalsAttached);
             if (gameFound)
             {
@@ -794,8 +794,8 @@ namespace IGIEditor
                     throw new Exception("Game not found to get position.");
                 }
             }
-            catch (Exception) 
-            { 
+            catch (Exception)
+            {
                 xPosLbl.Text = yPosLbl.Text = zPosLbl.Text = "0.0000";
             }
         }
@@ -1762,27 +1762,28 @@ namespace IGIEditor
 
         private void exportObjectsBtn_Click(object sender, EventArgs e)
         {
-			try{
-            var qtaskList = QTask.GetQTaskList(false, true);
-
-            switch (exportObjectsDD.SelectedIndex)
+            try
             {
-                case 0:
-                    QUtils.ExportCSV(QUtils.objects + QUtils.FileExtensions.Csv, qtaskList);
-                    break;
-                case 1:
-                    QUtils.ExportXML(QUtils.objects + QUtils.FileExtensions.Xml);
-                    break;
-                case 2:
-                    QUtils.ExportJson(QUtils.objects + QUtils.FileExtensions.Json);
-                    break;
+                var qtaskList = QTask.GetQTaskList(false, true);
+
+                switch (exportObjectsDD.SelectedIndex)
+                {
+                    case 0:
+                        QUtils.ExportCSV(QUtils.objects + QUtils.FileExtensions.Csv, qtaskList);
+                        break;
+                    case 1:
+                        QUtils.ExportXML(QUtils.objects + QUtils.FileExtensions.Xml);
+                        break;
+                    case 2:
+                        QUtils.ExportJson(QUtils.objects + QUtils.FileExtensions.Json);
+                        break;
+                }
+                SetStatusText("Data exported success");
             }
-            SetStatusText("Data exported success");
-			}
-			catch (Exception ex)
-			{
-				QLog.LogException(MethodBase.GetCurrentMethod().Name, ex);
-			}
+            catch (Exception ex)
+            {
+                QLog.LogException(MethodBase.GetCurrentMethod().Name, ex);
+            }
         }
 
         private void objectSelectDD_Click(object sender, EventArgs e)
@@ -2544,22 +2545,22 @@ namespace IGIEditor
                 QUtils.gGameLevel = QUtils.gameFound ? QMemory.GetRunningLevel() : Convert.ToInt32(levelStartTxt.Value);
                 graphIdDD.SelectedIndex = (graphIdDD.SelectedIndex == -1) ? 0 : graphIdDD.SelectedIndex;
                 aiGraphId = QUtils.aiGraphIdStr[graphIdDD.SelectedIndex];
-				QLog.AddLog(MethodBase.GetCurrentMethod().Name, "GraphId : " + aiGraphId + ",Level: " + QUtils.gGameLevel);
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "GraphId : " + aiGraphId + ",Level: " + QUtils.gGameLevel);
 
                 SetStatusText("Updating GraphNodes data please wait....");
-				int level = QUtils.gGameLevel;
-				
-				if (level <= 0 || level > QUtils.GAME_MAX_LEVEL)
-				    level = QMemory.GetRunningLevel();
+                int level = QUtils.gGameLevel;
 
-				QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Before Level: " + QUtils.gGameLevel + " After Level: " + level);
+                if (level <= 0 || level > QUtils.GAME_MAX_LEVEL)
+                    level = QMemory.GetRunningLevel();
+
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Before Level: " + QUtils.gGameLevel + " After Level: " + level);
 
                 if (level <= 0) level = 1; //Default level 1. Worst case scenario.
 
                 // Extract Nodes Data from Graph file.
                 if (QUtils.gameFound)
                 {
-                    graphPos = QGraphs.GetGraphPosition(aiGraphId,level);
+                    graphPos = QGraphs.GetGraphPosition(aiGraphId, level);
                     aiGraphNodeIdStr = QGraphs.GetNodesForGraph(aiGraphId, level);
                     graphTotalNodes = aiGraphNodeIdStr.Count;
                     graphTotalNodesTxt.Text = graphTotalNodes.ToString();
@@ -3710,11 +3711,11 @@ namespace IGIEditor
             try
             {
                 string updaterMask = "Updater-", updaterVersionTag = updaterMask + QUtils.appEditorSubVersion + QUtils.FileExtensions.Text, updaterVerTag = updaterVersionTag;
-                
-                if (!File.Exists(QUtils.editorUpdater) || !File.Exists(updaterVersionTag)) 
-                { 
-                    QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Updater file not found in current directory."); 
-                    return; 
+
+                if (!File.Exists(QUtils.editorUpdater) || !File.Exists(updaterVersionTag))
+                {
+                    QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Updater file not found in current directory.");
+                    return;
                 }
 
                 float fileSize = new FileInfo(QUtils.editorUpdater).Length / 1024;
@@ -3784,11 +3785,11 @@ namespace IGIEditor
         {
             var framesTxt = ((NumericUpDown)sender).Value.ToString();
             int frame = gameFPS = Convert.ToInt32(framesTxt);
-            
-			//Check for Max FPS.
+
+            //Check for Max FPS.
             if (frame < MIN_FPS || frame > MAX_FPS)
             {
-				QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Frames value is out of range.");
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Frames value is out of range.");
                 ((NumericUpDown)sender).Value = frame = gameFPS = 30;
             }
         }
@@ -4108,7 +4109,7 @@ namespace IGIEditor
             {
                 try
                 {
-                    SetStatusText("Edit scripts for A.I");
+                    SetStatusText("Edit Scripts for A.I");
                 }
                 catch (Exception ex) { QLog.LogException(e.TabPage.Name.ToUpper(), ex); }
             }
@@ -4118,6 +4119,7 @@ namespace IGIEditor
                 try
                 {
                     SetStatusText("Edit patrol path for A.I");
+                    aiPatrolCmdIdDD.DataSource = Enum.GetValues(typeof(PATROLACTIONS));
                 }
                 catch (Exception ex) { QLog.LogException(e.TabPage.Name.ToUpper(), ex); }
             }
@@ -5333,7 +5335,7 @@ namespace IGIEditor
 
             if (String.IsNullOrEmpty(fileName))
             {
-                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Invalid file selected.\nPlease select a valid file from 'missions/location0/levelX/ai' Path.");
+                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Invalid file selected.\nPlease select a valid file from 'missions/location0/level/ai' Path.");
                 return;
             }
 
@@ -5376,36 +5378,46 @@ namespace IGIEditor
                 if (!isValid)
                 {
                     QLog.ShowLogError(MethodBase.GetCurrentMethod().Name,
-                        "Invalid AI script file selected\nPlease select a valid file from 'missions/location0/levelX/ai' Path");
+                        "Invalid AI script file selected\nPlease select a valid file from 'missions/location0/level/ai' Path");
                     aiScriptEditorTxt.Text = "";
                     return;
                 }
 
-                aiScriptEditorTxt.Text = scriptData;
 
-                // Update the editor text with the validated script data.
-                int levelAi = int.Parse(Regex.Match(levelAiPath, @"level(\d+)").Groups[1].Value);
-                int humanAIId = int.Parse(Regex.Match(levelAiPath, @"ai\\(\d+)").Groups[1].Value);
-                string objectsQscPath = Path.Combine(QUtils.cfgQscPath + levelAi.ToString(), QUtils.objectsQsc);
-                HumanSoldier humanSoldierData = QAI.ReadHumanSoldierByHumanAIId(objectsQscPath, humanAIId);
-
-                if (humanSoldierData != null)
+                try
                 {
-                    // Update the details of Human Soldier from HumaAI Id.
-                    string aiName = QObjects.FindModelName(humanSoldierData.ModelId, false);
-                    if (!String.IsNullOrEmpty(aiName))
-                        aiScriptAiNameTxt.Text = "Name: " + aiName.Replace("AITYPE_", "");
+                    // Update the editor text with the validated script data.
+                    int levelAi = int.Parse(Regex.Match(levelAiPath, @"level(\d+)").Groups[1].Value);
+                    int humanAIId = int.Parse(Regex.Match(levelAiPath, @"ai\\(\d+)").Groups[1].Value);
 
-                    aiScriptAiTypeTxt.Text = "Type: " + humanSoldierData.HumanAIData.AIType.Replace("AITYPE_", "");
-                    aiScriptAiGraphIdTxt.Text = "Graph Id: " + humanSoldierData.HumanAIData.GraphId.ToString();
+                    string objectsQscPath = Path.Combine(QUtils.cfgQscPath + levelAi.ToString(), QUtils.objectsQsc);
+                    HumanSoldier humanSoldierData = QAI.ReadHumanSoldierByHumanAIId(objectsQscPath, humanAIId);
+
+                    if (humanSoldierData != null)
+                    {
+                        // Update the details of Human Soldier from HumaAI Id.
+                        string aiName = QObjects.FindModelName(humanSoldierData.ModelId, false);
+                        if (!String.IsNullOrEmpty(aiName))
+                            aiScriptAiNameTxt.Text = "Name: " + aiName.Replace("AITYPE_", "");
+
+                        aiScriptAiTypeTxt.Text = "Type: " + humanSoldierData.HumanAIData.AIType.Replace("AITYPE_", "");
+                        aiScriptAiGraphIdTxt.Text = "Graph Id: " + humanSoldierData.HumanAIData.GraphId.ToString();
+                    }
+                    else
+                    {
+                        aiScriptAiNameTxt.Text = aiScriptAiNameTxt.Text = aiScriptAiTypeTxt.Text = aiScriptAiGraphIdTxt.Text = "";
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    aiScriptAiNameTxt.Text = aiScriptAiNameTxt.Text = aiScriptAiTypeTxt.Text = aiScriptAiGraphIdTxt.Text = "";
+                    QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Failed to load AI Human Soldier data\nError: " + ex.Message);
                 }
-
-                if (aiScrptFormatCb.Checked)
-                    RichViewerUpdateFormat();
+                finally
+                {
+                    aiScriptEditorTxt.Text = scriptData;
+                    if (aiScrptFormatCb.Checked)
+                        RichViewerUpdateFormat();
+                }
 
                 QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Script loaded successfully.");
             }
@@ -5482,7 +5494,7 @@ namespace IGIEditor
             }
 
             string tmpPath = Path.GetTempPath();
-            
+
             bool status = false;
             string aiPatrolFilePath = null;
 
@@ -5500,6 +5512,10 @@ namespace IGIEditor
                         aiPatrolFileData = QAI.ReadPatrolData(aiPatrolFilePath, patrolId);
                         if (aiPatrolFileData != null)
                         {
+                            var trimmedLines = aiPatrolFileData.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None)
+                          .Select(line => line.Trim());
+                            aiPatrolFileData = string.Join(Environment.NewLine, trimmedLines);
+
                             aiPatrolEditorTxt.Text = aiPatrolFileData.Trim();
                             if (aiPatrolFormatCb.Checked)
                                 RichViewerUpdateFormat();
@@ -5510,15 +5526,20 @@ namespace IGIEditor
                 {
                     aiPatrolFilePath = aiPatrolPath;
                     aiPatrolFileData = QAI.ReadPatrolData(aiPatrolFilePath, patrolId);
+
                     if (aiPatrolFileData != null)
                     {
+                        var trimmedLines = aiPatrolFileData.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None)
+                          .Select(line => line.Trim());
+                        aiPatrolFileData = string.Join(Environment.NewLine, trimmedLines);
+
                         aiPatrolEditorTxt.Text = aiPatrolFileData.Trim();
                         status = true;
 
                         if (aiPatrolFormatCb.Checked)
                             RichViewerUpdateFormat();
                     }
-                    else 
+                    else
                         status = false;
                 }
 
@@ -5526,7 +5547,6 @@ namespace IGIEditor
                 if (aiPatrolIdDD.Items.Count == 0 && status)
                 {
                     aiPatrolIdDD.Items.AddRange(QAI.GetPatrolIds(aiPatrolFilePath).Cast<object>().ToArray());
-                    aiPatrolIdDD.SelectedIndex = 0;
                 }
                 QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Patrol loaded successfully.");
             }
@@ -5583,7 +5603,7 @@ namespace IGIEditor
 
         private void aiJsonClearDataCb_CheckedChanged(object sender, EventArgs e)
         {
-           if(((CheckBox)sender).Checked)
+            if (((CheckBox)sender).Checked)
             {
                 aiJsonEditorTxt.Text = "";
             }
@@ -5620,6 +5640,14 @@ namespace IGIEditor
             if (((CheckBox)sender).Checked)
             {
                 RichViewerUpdateFormat();
+            }
+        }
+
+        private void aiPatrolCmdIdDD_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (aiPatrolCmdIdDD.SelectedItem != null)
+            {
+                aiPatrolCmdIdTxt.Text = aiPatrolCmdIdDD.SelectedIndex.ToString();
             }
         }
 
