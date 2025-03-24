@@ -5593,7 +5593,7 @@ namespace IGIEditor
         {
             if (((CheckBox)sender).Checked)
             {
-                aiScriptEditorTxt.Text = aiScriptFileNameTxt.Text = aiScriptFileSizeTxt.Text = "";
+                aiScriptEditorTxt.Text = aiScriptFileNameTxt.Text = aiScriptFileSizeTxt.Text = aiScriptAiGraphIdTxt.Text = aiScriptAiNameTxt.Text = aiScriptAiTypeTxt.Text = "";
             }
         }
 

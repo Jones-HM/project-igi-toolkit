@@ -22,13 +22,13 @@ namespace IGIEditor
         {
             public int SoldierId { get; }
             public Real64 Position { get; }
-            public int Angle { get; }
+            public float Angle { get; }
             public string ModelId { get; }
             public int TeamId { get; }
             public int BoneHierarchy { get; }
             public int StandAnimation { get; }
             public HumanAI HumanAIData { get; }
-            public HumanSoldier(int soldierId, Real64 position, int angle, string modelId, int teamId, int boneHierarchy, int standAnimation, HumanAI humanAIData)
+            public HumanSoldier(int soldierId, Real64 position, float angle, string modelId, int teamId, int boneHierarchy, int standAnimation, HumanAI humanAIData)
                 => (SoldierId, Position, Angle, ModelId, TeamId, BoneHierarchy, StandAnimation, HumanAIData) = (soldierId, position, angle, modelId, teamId, boneHierarchy, standAnimation, humanAIData);
         }
 
@@ -825,68 +825,69 @@ namespace IGIEditor
                 return null;
             }
         }
-    
+
         public static HumanSoldier ReadHumanSoldierByHumanAIId(string fileName = "objects.qvm", int targetHumanAIId = 0)
         {
             try
             {
                 QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Start reading HumanAI Id: {targetHumanAIId} from {fileName}");
                 string content = QUtils.LoadFile(fileName);
-                
                 if (string.IsNullOrEmpty(content))
                 {
                     QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"File {fileName} is empty.");
                     return null;
                 }
-                
-                var trimmedLines = content.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None)
-                                       .Select(line => line.Trim());
-                content = string.Join(Environment.NewLine, trimmedLines);
 
+                // Trim each line and rebuild the content for consistency.
+                var trimmedLines = content.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None)
+                                          .Select(line => line.Trim());
+                content = string.Join(Environment.NewLine, trimmedLines);
                 QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Loaded file length: {content.Length}");
 
                 var lines = trimmedLines;
 
+                // Locate the HumanAI line matching the targetHumanAIId.
                 var humanAILine = lines
                     .Select((line, idx) => new { line, idx })
                     .FirstOrDefault(x => x.line.Contains("\"HumanAI\"") &&
-                        int.TryParse(Regex.Match(x.line, @"Task_New\(\s*(?<Id>-?\d+)\s*,\s*""HumanAI""").Groups["Id"].Value, out int id) && id == targetHumanAIId);
-                
+                        int.TryParse(Regex.Match(x.line, @"Task_New\(\s*(?<Id>-?\d+)\s*,\s*""HumanAI""")
+                        .Groups["Id"].Value, out int id) && id == targetHumanAIId);
                 if (humanAILine == null)
                 {
                     QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"HumanAI Id {targetHumanAIId} not found.");
                     return null;
                 }
-
                 QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Found HumanAI at line {humanAILine.idx}");
 
+                // Locate the nearest preceding HumanSoldier line.
                 var soldierLine = lines
                     .Select((line, idx) => new { line, idx })
                     .Where(x => x.idx < humanAILine.idx && x.line.Contains("\"HumanSoldier\""))
                     .LastOrDefault();
-
                 if (soldierLine == null)
                 {
                     QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"No HumanSoldier found for HumanAI Id {targetHumanAIId}");
                     return null;
                 }
-
                 QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Found HumanSoldier at line {soldierLine.idx}");
 
+                // Assemble the complete soldier block (handles nested parentheses).
                 int balance = 0;
-                var sb = new StringBuilder();
-
+                var sb = new System.Text.StringBuilder();
                 foreach (var line in lines.Skip(soldierLine.idx))
                 {
                     foreach (char ch in line)
                         balance += ch == '(' ? 1 : ch == ')' ? -1 : 0;
                     sb.Append(line);
-                    if (balance == 0 && sb.Length > 0) break;
+                    if (balance == 0 && sb.Length > 0)
+                        break;
                 }
                 string soldierBlock = sb.ToString();
                 QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Assembled soldier block.");
 
-                var soldierMatch = Regex.Match(soldierBlock, @"Task_New\(\s*(?<SoldierId>-?\d+)\s*,\s*""HumanSoldier""\s*,\s*""[^""]*""\s*,\s*(?<PosX>-?\d+(?:\.\d+)?)\s*,\s*(?<PosY>-?\d+(?:\.\d+)?)\s*,\s*(?<PosZ>-?\d+(?:\.\d+)?)\s*,\s*(?<Angle>-?\d+)\s*,\s*""(?<ModelId>[^""]+)""\s*,\s*(?<TeamId>-?\d+)\s*,\s*(?<BoneHierarchy>-?\d+)\s*,\s*(?<StandAnimation>-?\d+)");
+                // Fix: Updated regex to handle soldier task id as -1 and a decimal (double) angle.
+                var soldierMatch = Regex.Match(soldierBlock,
+                    @"Task_New\(\s*(?<SoldierId>-?\d+)\s*,\s*""HumanSoldier""\s*,\s*""[^""]*""\s*,\s*(?<PosX>-?\d+(?:\.\d+)?)\s*,\s*(?<PosY>-?\d+(?:\.\d+)?)\s*,\s*(?<PosZ>-?\d+(?:\.\d+)?)\s*,\s*(?<Angle>-?\d+(?:\.\d+)?)\s*,\s*""(?<ModelId>[^""]+)""\s*,\s*(?<TeamId>-?\d+)\s*,\s*(?<BoneHierarchy>-?\d+)\s*,\s*(?<StandAnimation>-?\d+)");
                 if (!soldierMatch.Success)
                 {
                     QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Failed to parse soldier block.");
@@ -898,13 +899,15 @@ namespace IGIEditor
                     double.Parse(soldierMatch.Groups["PosX"].Value, CultureInfo.InvariantCulture),
                     double.Parse(soldierMatch.Groups["PosY"].Value, CultureInfo.InvariantCulture),
                     double.Parse(soldierMatch.Groups["PosZ"].Value, CultureInfo.InvariantCulture));
-                int angle = int.Parse(soldierMatch.Groups["Angle"].Value);
+
+                float angle = float.Parse(soldierMatch.Groups["Angle"].Value, NumberStyles.Float, CultureInfo.InvariantCulture);
                 string modelId = soldierMatch.Groups["ModelId"].Value;
                 int teamId = int.Parse(soldierMatch.Groups["TeamId"].Value);
                 int boneHierarchy = int.Parse(soldierMatch.Groups["BoneHierarchy"].Value);
                 int standAnimation = int.Parse(soldierMatch.Groups["StandAnimation"].Value);
 
-                var humanAIData = Regex.Matches(soldierBlock, @"Task_New\(\s*(?<Id>-?\d+)\s*,\s*""HumanAI""\s*,\s*""[^""]*""\s*,\s*""(?<AIType>[^""]+)""\s*,\s*(?<GraphId>-?\d+)\s*\)")
+                var humanAIData = Regex.Matches(soldierBlock,
+                    @"Task_New\(\s*(?<Id>-?\d+)\s*,\s*""HumanAI""\s*,\s*""[^""]*""\s*,\s*""(?<AIType>[^""]+)""\s*,\s*(?<GraphId>-?\d+)\s*\)")
                     .Cast<Match>()
                     .Select(m => new HumanAI(
                         int.Parse(m.Groups["Id"].Value),
