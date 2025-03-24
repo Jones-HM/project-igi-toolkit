@@ -816,7 +816,7 @@ namespace IGIEditor
                 QLog.AddLog(MethodBase.GetCurrentMethod().Name,
                     $"Parsed SoldierId {soldierId}: Pos({posX},{posY},{posZ}), Angle {angle}, ModelId {modelId}, TeamId {teamId}, " +
                     $"BoneHierarchy {boneHierarchy}, StandAnimation {standAnimation}, HumanAI Id {humanAIData.Id}, AIType {humanAIData.AIType}, GraphId {humanAIData.GraphId}");
-                
+
                 return new HumanSoldier(soldierId, new Real64(posX, posY, posZ), angle, modelId, teamId, boneHierarchy, standAnimation, humanAIData);
             }
             catch (Exception ex)

@@ -76,12 +76,6 @@ namespace IGIEditor
             public int Ammo { get => ammo; set => ammo = value; }
         }
 
-        #region Git-Config
-        // WARNING - DO NOT EDIT.
-        private const string gitUserName = "IGI-Research-Devs";
-        private const string gitUserFile = "IGI1Editor_Users.xml";
-        #endregion
-
         #region Task Decl
         internal static string taskNew = "Task_New";
         internal static string taskDecl = "Task_DeclareParameters";
@@ -105,7 +99,7 @@ namespace IGIEditor
         internal static int gameFPS = 30;
         internal static int healthScaleFall = 0;
         internal static int refreshTimerInterval = 15000; //15 seconds.
-        
+
         #endregion
 
         #region Log & Custom Scripts
@@ -289,7 +283,7 @@ namespace IGIEditor
         internal const int TEAM_ID_FRIENDLY = 0;
         internal const int TEAM_ID_ENEMY = 1;
         internal const int MAX_AI_COUNT = 100;
-		internal const int MIN_FPS = 10;
+        internal const int MIN_FPS = 10;
         internal const int MAX_FPS = 240;
         internal const int MAX_UPDATE_TIME = 120;
         internal const int MAX_HUMAN_CAM = 5;
@@ -983,6 +977,30 @@ namespace IGIEditor
 
 
         //Directory Operation Utilities C#.
+        internal static void DirectoryCopy(string sourceDir, string destinationDir, bool copySubDirs)
+        {
+            DirectoryInfo dir = new DirectoryInfo(sourceDir);
+            if (!dir.Exists)
+            {
+                throw new DirectoryNotFoundException($"Source directory does not exist or could not be found: {sourceDir}");
+            }
+
+            foreach (FileInfo file in dir.GetFiles())
+            {
+                string temppath = Path.Combine(destinationDir, file.Name);
+                file.CopyTo(temppath, true);
+            }
+
+            if (copySubDirs)
+            {
+                foreach (DirectoryInfo subdir in dir.GetDirectories())
+                {
+                    string temppath = Path.Combine(destinationDir, subdir.Name);
+                    DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+                }
+            }
+        }
+
         internal static void DirectoryMove(string sourcePath, string destPath)
         {
             try
@@ -1272,6 +1290,7 @@ namespace IGIEditor
                 if (level <= 0 || level > GAME_MAX_LEVEL) level = 1;
                 QUtils.RestoreLevel(level);
                 QUtils.ResetScriptFile(level);
+                QUtils.ResetAiFiles(level);
                 if (restartLevel)
                     QMemory.RestartLevel(savePosition);
                 CleanUpAiFiles();
@@ -1841,6 +1860,29 @@ namespace IGIEditor
                 }
             }
         }
+
+        internal static void ResetAiFiles(int level)
+        {
+            var inputAiPath = Path.Combine(qQVMPath, "missions", "location0", "level" + level, "ai");
+            var outputAiPath = cfgGamePath + level + "\\ai\\";
+
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name,
+                $"Resetting AI files from '{inputAiPath}' to '{outputAiPath}'");
+
+            try
+            {
+                if(Directory.Exists(outputAiPath))
+                    Directory.Delete(outputAiPath, true);
+
+                DirectoryIOCopy(inputAiPath, outputAiPath);
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Reset AI files successfully.");
+            }
+            catch (Exception ex)
+            {
+                QLog.LogException(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
 
         internal static void CleanUpAiFiles()
         {

@@ -4123,7 +4123,6 @@ namespace IGIEditor
                 }
                 catch (Exception ex) { QLog.LogException(e.TabPage.Name.ToUpper(), ex); }
             }
-
         }
 
         private void markWeaponsCb_CheckedChanged(object sender, EventArgs e)
@@ -5390,8 +5389,17 @@ namespace IGIEditor
                     int levelAi = int.Parse(Regex.Match(levelAiPath, @"level(\d+)").Groups[1].Value);
                     int humanAIId = int.Parse(Regex.Match(levelAiPath, @"ai\\(\d+)").Groups[1].Value);
 
-                    string objectsQscPath = Path.Combine(QUtils.cfgQscPath + levelAi.ToString(), QUtils.objectsQsc);
-                    HumanSoldier humanSoldierData = QAI.ReadHumanSoldierByHumanAIId(objectsQscPath, humanAIId);
+                    string objectsQvmPath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(levelAiPath)), QUtils.objectsQvm);
+
+                    status = QCompiler.Decompile(objectsQvmPath, tmpPath, 0x0);
+
+                    if (status)
+                    {
+                        string aiScriptFile = Path.ChangeExtension(Path.GetFileName(objectsQvmPath), QUtils.FileExtensions.Qsc);
+                        objectsQvmPath = Path.Combine(tmpPath, aiScriptFile);
+                    }
+
+                    HumanSoldier humanSoldierData = QAI.ReadHumanSoldierByHumanAIId(objectsQvmPath, humanAIId);
 
                     if (humanSoldierData != null)
                     {
