@@ -3712,6 +3712,7 @@ namespace IGIEditor
                 if (!File.Exists(QUtils.editorUpdater) || !File.Exists(updaterVersionTag))
                 {
                     QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Updater file not found in current directory.");
+                    QUtils.SaveFile(updaterVersionTag, QUtils.appEditorSubVersion);
                     return;
                 }
 
