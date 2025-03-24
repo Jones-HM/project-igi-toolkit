@@ -143,7 +143,7 @@ And now you can generate Key from KeyGen for your editor for free.</br>~~
 **QCompiler editor**: Lets you `Compile/Assemble/Parse` game files which game uses internaly to save/edit game data.</br>
 
 # Editor Tutorial on YouTube :
-[![QEditor](https://img.youtube.com/vi/wMyAlgIm2AY/0.jpg)](https://www.youtube.com/watch?v=wMyAlgIm2AY)
+[![QEditor](https://img.youtube.com/vi/gwj5HNzF9cQ/0.jpg)](https://www.youtube.com/watch?v=gwj5HNzF9cQ)
 
 ## Version Update:
 **Editor version 0.8.6.0 Latest.**
