@@ -1616,7 +1616,6 @@
             this.aiPatrolIdTxt.ForeColor = System.Drawing.SystemColors.ControlText;
             this.aiPatrolIdTxt.Location = new System.Drawing.Point(669, 87);
             this.aiPatrolIdTxt.Name = "aiPatrolIdTxt";
-            this.aiPatrolIdTxt.ReadOnly = true;
             this.aiPatrolIdTxt.Size = new System.Drawing.Size(68, 24);
             this.aiPatrolIdTxt.TabIndex = 75;
             this.aiPatrolIdTxt.Text = "0000";
@@ -4512,6 +4511,7 @@
             this.textureFileSize.ForeColor = System.Drawing.SystemColors.ControlText;
             this.textureFileSize.Location = new System.Drawing.Point(670, 181);
             this.textureFileSize.Name = "textureFileSize";
+            this.textureFileSize.ReadOnly = true;
             this.textureFileSize.Size = new System.Drawing.Size(168, 24);
             this.textureFileSize.TabIndex = 55;
             // 
@@ -4523,6 +4523,7 @@
             this.textureFileResolution.ForeColor = System.Drawing.SystemColors.ControlText;
             this.textureFileResolution.Location = new System.Drawing.Point(670, 148);
             this.textureFileResolution.Name = "textureFileResolution";
+            this.textureFileResolution.ReadOnly = true;
             this.textureFileResolution.Size = new System.Drawing.Size(168, 24);
             this.textureFileResolution.TabIndex = 54;
             // 
@@ -4534,6 +4535,7 @@
             this.textureFileName.ForeColor = System.Drawing.SystemColors.ControlText;
             this.textureFileName.Location = new System.Drawing.Point(670, 108);
             this.textureFileName.Name = "textureFileName";
+            this.textureFileName.ReadOnly = true;
             this.textureFileName.Size = new System.Drawing.Size(168, 24);
             this.textureFileName.TabIndex = 53;
             // 
@@ -5062,7 +5064,7 @@
             this.enableMusicCb,
             this.volumeToolStripMenuItem});
             this.musicToolStripMenuItem.Name = "musicToolStripMenuItem";
-            this.musicToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.musicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.musicToolStripMenuItem.Text = "Music";
             // 
             // enableMusicCb
@@ -5118,7 +5120,7 @@
             this.setFramesBtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.framesTxt});
             this.setFramesBtn.Name = "setFramesBtn";
-            this.setFramesBtn.Size = new System.Drawing.Size(143, 22);
+            this.setFramesBtn.Size = new System.Drawing.Size(180, 22);
             this.setFramesBtn.Text = "Frames";
             // 
             // framesTxt
@@ -5132,7 +5134,7 @@
             // debugModeCb
             // 
             this.debugModeCb.Name = "debugModeCb";
-            this.debugModeCb.Size = new System.Drawing.Size(143, 22);
+            this.debugModeCb.Size = new System.Drawing.Size(180, 22);
             this.debugModeCb.Text = "Debug Mode";
             this.debugModeCb.Click += new System.EventHandler(this.debugModeCb_CheckedChanged);
             // 
@@ -5143,27 +5145,27 @@
             this.resetLevelBtn,
             this.resetScriptsFileBtn});
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.resetToolStripMenuItem.Text = "Reset";
             // 
             // gfxResetBtn
             // 
             this.gfxResetBtn.Name = "gfxResetBtn";
-            this.gfxResetBtn.Size = new System.Drawing.Size(151, 22);
+            this.gfxResetBtn.Size = new System.Drawing.Size(180, 22);
             this.gfxResetBtn.Text = "Graphics Reset";
             this.gfxResetBtn.Click += new System.EventHandler(this.gfxResetBtn_Click);
             // 
             // resetLevelBtn
             // 
             this.resetLevelBtn.Name = "resetLevelBtn";
-            this.resetLevelBtn.Size = new System.Drawing.Size(151, 22);
+            this.resetLevelBtn.Size = new System.Drawing.Size(180, 22);
             this.resetLevelBtn.Text = "Level Reset";
             this.resetLevelBtn.Click += new System.EventHandler(this.resetLevelBtn_Click);
             // 
             // resetScriptsFileBtn
             // 
             this.resetScriptsFileBtn.Name = "resetScriptsFileBtn";
-            this.resetScriptsFileBtn.Size = new System.Drawing.Size(151, 22);
+            this.resetScriptsFileBtn.Size = new System.Drawing.Size(180, 22);
             this.resetScriptsFileBtn.Text = "File Reset";
             this.resetScriptsFileBtn.Click += new System.EventHandler(this.resetScriptsFileBtn_Click);
             // 
@@ -5173,7 +5175,7 @@
             this.configSaveBtn,
             this.configLoadBtn});
             this.configToolStripMenuItem.Name = "configToolStripMenuItem";
-            this.configToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.configToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.configToolStripMenuItem.Text = "Config";
             // 
             // configSaveBtn
@@ -5197,7 +5199,7 @@
             this.cutsceneRemoveBtn,
             this.aiIdleCb});
             this.miscToolStripMenuItem.Name = "miscToolStripMenuItem";
-            this.miscToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.miscToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.miscToolStripMenuItem.Text = "Misc";
             // 
             // disableWarningsCb
@@ -5243,27 +5245,27 @@
             this.shareAppLogsBtn,
             this.viewAppLogsBtn});
             this.logsToolStripMenuItem.Name = "logsToolStripMenuItem";
-            this.logsToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.logsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.logsToolStripMenuItem.Text = "Logs";
             // 
             // appLogsCb
             // 
             this.appLogsCb.Name = "appLogsCb";
-            this.appLogsCb.Size = new System.Drawing.Size(109, 22);
+            this.appLogsCb.Size = new System.Drawing.Size(180, 22);
             this.appLogsCb.Text = "Enable";
             this.appLogsCb.Click += new System.EventHandler(this.appLogsCb_CheckedChanged);
             // 
             // shareAppLogsBtn
             // 
             this.shareAppLogsBtn.Name = "shareAppLogsBtn";
-            this.shareAppLogsBtn.Size = new System.Drawing.Size(109, 22);
+            this.shareAppLogsBtn.Size = new System.Drawing.Size(180, 22);
             this.shareAppLogsBtn.Text = "Share";
             this.shareAppLogsBtn.Click += new System.EventHandler(this.shareAppLogsBtn_Click);
             // 
             // viewAppLogsBtn
             // 
             this.viewAppLogsBtn.Name = "viewAppLogsBtn";
-            this.viewAppLogsBtn.Size = new System.Drawing.Size(109, 22);
+            this.viewAppLogsBtn.Size = new System.Drawing.Size(180, 22);
             this.viewAppLogsBtn.Text = "View";
             this.viewAppLogsBtn.Click += new System.EventHandler(this.viewAppLogsBtn_Click);
             // 
@@ -5274,7 +5276,7 @@
             this.clearCacheBtn,
             this.clearTempToolStripMenuItem});
             this.appdataToolStripMenuItem.Name = "appdataToolStripMenuItem";
-            this.appdataToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.appdataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.appdataToolStripMenuItem.Text = "Appdata";
             // 
             // showAppDataCachePathBtn
@@ -5304,7 +5306,7 @@
             this.autoResetCb,
             this.autoRefreshGameCb});
             this.autoOptionsToolStripMenuItem.Name = "autoOptionsToolStripMenuItem";
-            this.autoOptionsToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.autoOptionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.autoOptionsToolStripMenuItem.Text = "Timer";
             // 
             // autoResetCb
@@ -5336,7 +5338,7 @@
             this.internalCompilerCb,
             this.externalCompilerCb});
             this.compilerSelectToolStripMenuItem.Name = "compilerSelectToolStripMenuItem";
-            this.compilerSelectToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.compilerSelectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.compilerSelectToolStripMenuItem.Text = "Compiler";
             // 
             // internalCompilerCb
@@ -5359,7 +5361,7 @@
             this.editorUpdaterBtn,
             this.updateCheckerAutomaticOption});
             this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.updateToolStripMenuItem.Text = "Update";
             // 
             // editorUpdaterBtn
@@ -5397,7 +5399,7 @@
             // appSupportBtn
             // 
             this.appSupportBtn.Name = "appSupportBtn";
-            this.appSupportBtn.Size = new System.Drawing.Size(132, 22);
+            this.appSupportBtn.Size = new System.Drawing.Size(180, 22);
             this.appSupportBtn.Text = "Support";
             this.appSupportBtn.Click += new System.EventHandler(this.appSupportBtn_Click);
             // 
@@ -5407,7 +5409,7 @@
             this.exportObjectsDD,
             this.exportObjectsBtn});
             this.exportObjectsToolStripMenuItem.Name = "exportObjectsToolStripMenuItem";
-            this.exportObjectsToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.exportObjectsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exportObjectsToolStripMenuItem.Text = "Export";
             // 
             // exportObjectsDD
@@ -5430,7 +5432,7 @@
             // gamePathBtn
             // 
             this.gamePathBtn.Name = "gamePathBtn";
-            this.gamePathBtn.Size = new System.Drawing.Size(132, 22);
+            this.gamePathBtn.Size = new System.Drawing.Size(180, 22);
             this.gamePathBtn.Text = "Game Path";
             this.gamePathBtn.Click += new System.EventHandler(this.gamePathBtn_Click);
             // 

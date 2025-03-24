@@ -1,5 +1,11 @@
 # 📝 CHANGELOGS
 
+## Version 0.8.6.0 BETA 🎉  
+- 🤖 Added New AI Script Editor.  
+- 🚓 Introduced AI Patrol Editor.  
+- 🌍 Added Gravity in Human Editor.
+- 📜 Improved Logging System.  
+
 ## Version 0.8.5.4 BETA 🎉  
 - 🌍 Added New Gravity Section.  
 - 📝 Updated Human Editor to work without Internals DLL.  

@@ -17,7 +17,7 @@ Editor has several components which it needs in order to work fully to its funct
 - Server : Located at [OrgFree](http://igiresearchdevelopers.orgfree.com/) which contains Mission files and Resources like Weapon/A.I images for editor.
 - ~~Database : Located at Github Gist private repo contains privacy information like _I.P,Mac Address_ and _Key_ for Editor.~~
 - Internal DLL : Located at [IGI-Internals](https://github.com/IGI-Research-Devs/IGI_Internal) is used to call IGI Game internal native methods.
-- QEditor - Located at path `C:\Users\my_username\AppData\Roaming\QEditor`  This is appdata file comes pre-installed with any version of editor and can be downloaded from here [QEditor Full Version](https://cutt.ly/p1ASiQX).</br>
+- QEditor - Located at path `C:\Users\my_username\AppData\Roaming\QEditor`  This is appdata file comes pre-installed with any version of editor and can be downloaded from here [QEditor Full Version](https://www.mediafire.com/file/jpkxc51tpo9d1a1/QEditor.zip/file).</br>
 
 ## QEditor components.
 **Q**Editor was the initial name of the project because editor actually modifies **Q** files of games like _QVM,QSC,QAS_ files but later it was changed.</br>
@@ -31,7 +31,7 @@ Editor has several components which it needs in order to work fully to its funct
     ├── QWeapons                # Custom Weapons files.
     ├── Void                    # Empty Mission files.
     ├── aiIdle.qvm              # File for setting AI to idle state.
-    ├── IGIModels.txt           # Contains 3D Models information.
+    ├── IGIModels.json           # Contains 3D Models information.
     ├── keywords.txt            # Keywords for QVM Editor.
     ├── QChecks.dat             # Contain MD5 Hashes to check file integrity.
     └── weaponconfig.qvm        # Weapon config file.
@@ -77,6 +77,14 @@ Here is workflow mentioned.
 ### A.I JSON Editor.
 **JSON Editor**: Lets you to `Save` or `Load` A.I to `JSON` file _permanently_ for later use, and you can edit/share json files into editor.</br>
 ![](https://github.com/IGI-Research-Devs/IGI-Editor/blob/master/resources/ai_json_editor.png)
+
+### A.I Script Editor  
+**Script Editor**: Allows you to `Create`, `Edit`, and `Manage` A.I scripts seamlessly. You can save scripts for later use.  
+![](https://github.com/IGI-Research-Devs/IGI-Editor/blob/master/resources/ai_script_editor.png)  
+
+### A.I Patrol Editor  
+**Patrol Editor**: Enables you to `Define`, `Modify`, and `Control` A.I patrol routes. Save patrol patterns for reuse.  
+![](https://github.com/IGI-Research-Devs/IGI-Editor/blob/master/resources/ai_patrol_editor.png)
 
 
 ### Mission Editor
@@ -138,7 +146,7 @@ And now you can generate Key from KeyGen for your editor for free.</br>~~
 [![QEditor](https://img.youtube.com/vi/wMyAlgIm2AY/0.jpg)](https://www.youtube.com/watch?v=wMyAlgIm2AY)
 
 ## Version Update:
-**Editor version 0.8.5.4 Latest.**
+**Editor version 0.8.6.0 Latest.**
 
 # Chagelogs:
 Check out the detailed version history in [Changelogs.md](CHANGELOGS.md)
@@ -147,8 +155,8 @@ Check out the detailed version history in [Changelogs.md](CHANGELOGS.md)
 The editor onwards version 0.7 doesn't store any type of data from _User,Machine_ the editor doesn't maintain any sort of database now.
 
 # **DOWNLOAD LINKS**</br>
-- **Project I.G.I 1 Editor** Version 0.8.5.3 _RELEASED_</br>
-[IGI Editor](https://github.com/IGI-Research-Devs/IGI-Editor/releases/tag/0.8.5.4)</br>
+- **Project I.G.I 1 Editor** Version 0.8.6.0 _RELEASED_</br>
+[IGI Editor](https://github.com/IGI-Research-Devs/IGI-Editor/releases/tag/0.8.6.0)</br>
 
 # 📚 FAQ (Frequently Asked Questions)
 Checkout the detailed FAQ in [FAQ.md](FAQ.md)

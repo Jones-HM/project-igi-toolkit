@@ -1847,9 +1847,6 @@ namespace IGIEditor
         private void aboutBtn_Click(object sender, EventArgs e)
         {
             QLog.ShowInfo(QUtils.aboutStr, "ABOUT");
-            string readmeCmd = (QUtils.nppInstalled ? "notepad++  -nosession -notabbar -alwaysOnTop -multiInst -lhaskell \"" : "notepad \"") + QUtils.editorCurrPath + "\\" + QUtils.editorReadme + QUtils.FileExtensions.Text + "\"";
-            QLog.AddLog(MethodBase.GetCurrentMethod().Name, readmeCmd);
-            QUtils.ShellExec(readmeCmd);
         }
 
         private void objectIDTxt_KeyDown(object sender, KeyEventArgs e)
@@ -4109,7 +4106,7 @@ namespace IGIEditor
             {
                 try
                 {
-                    SetStatusText("Edit Scripts for A.I");
+                    SetStatusText("Edit Scripts for AI");
                 }
                 catch (Exception ex) { QLog.LogException(e.TabPage.Name.ToUpper(), ex); }
             }
@@ -4118,7 +4115,7 @@ namespace IGIEditor
             {
                 try
                 {
-                    SetStatusText("Edit patrol path for A.I");
+                    SetStatusText("Edit Patrol path for AI");
                     aiPatrolCmdIdDD.DataSource = Enum.GetValues(typeof(PATROLACTIONS));
                 }
                 catch (Exception ex) { QLog.LogException(e.TabPage.Name.ToUpper(), ex); }

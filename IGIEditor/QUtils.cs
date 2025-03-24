@@ -254,6 +254,7 @@ namespace IGIEditor
             public const string Csv = ".csv";
             public const string Json = ".json";
             public const string Txt = ".txt";
+            public const string Md = ".md";
             public const string Xml = ".xml";
             public const string Dll = ".dll";
             public const string Mission = ".igimsf";
@@ -305,8 +306,9 @@ namespace IGIEditor
 
         #region About Info
         internal static string keyBase = @"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths";
-        internal static string aboutStr = "IGI Editor is powerful editor to edit game levels" + "\n" + "Offers upto " + GAME_MAX_LEVEL + " level\nVersion: v"
-            + appEditorSubVersion + " BETA.\n\nTools/Language: C#(5.0) VS-Studio/Code\nCreated by HeavenHM\n\nCredits & People\nUI Designing - Dark\nResearch data - Dimon, Yoejin, GM123.\nQScript/DConv Tools - Artiom.\nTester - Orwa\nTexture Editor - Neoxaero/Dark\nIGI-VK Community.";
+        internal static string aboutStr = "IGI Editor is powerful editor to edit game levels" + "\n" + "offers upto " + GAME_MAX_LEVEL + " level\nVersion: v"
+            + appEditorSubVersion + " BETA.\n\nTools/Language: C#(5.0) VS-Studio/Code\nCreated by HeavenHM\n\nCredits & People\nUI/UX Designing - Dark\nResearch - Dimon, Yoejin, GM123.\n" +
+            "Compiler - Artiom.\nTester - Orwa\nTexture Editor - Neoxaero/Dark\nIGI-VK Community.";
         #endregion
 
         #region Mask Constants
