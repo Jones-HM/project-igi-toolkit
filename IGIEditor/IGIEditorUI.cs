@@ -308,8 +308,8 @@ namespace IGIEditor
                     if (!String.IsNullOrEmpty(qscData)) 
                         compileStatus = QCompiler.Compile(qscData, QUtils.gamePath, true);
 
-                    if (compileStatus) 
-                        SetStatusText("AI " + aiModelName + " Added successfully");
+                    if (!compileStatus) 
+                        QLog.ShowLogError("AddHumanSoldier", "Error: Adding " + aiModelName + " A.I to level '" + gameLevel + "'");
                 }
             }
             catch (IndexOutOfRangeException ex)
@@ -3899,6 +3899,7 @@ namespace IGIEditor
                         {
                             QLog.AddLog("AddHumanSoldierJSON", "Level " + gameLevel + ", Model Name: " + aiModelName);
                             var qscData = QAI.AddHumanSoldier(humanAi);
+
                             if (String.IsNullOrEmpty(qscData))
                             {
                                 QLog.ShowLogStatus("AddHumanSoldierJSON", "Error: Adding " + aiModelName + " A.I to level '" + gameLevel + "'");
@@ -3910,7 +3911,8 @@ namespace IGIEditor
 
                             if (!String.IsNullOrEmpty(qscData)) compileStatus = QCompiler.Compile(qscData, QUtils.gamePath, true, true); ;
 
-                            if (compileStatus) SetStatusText("AI " + aiModelName + " Added successfully");
+                            if (!compileStatus)
+                                QLog.ShowLogError("AddHumanSoldierJSON", "Error: Compiling " + aiModelName + " A.I to level '" + gameLevel + "'");
                         }
                     }
                 }
@@ -5329,10 +5331,6 @@ namespace IGIEditor
             string tmpPath = Path.GetTempPath();
             levelAiPath = fileName;
 
-            int levelAi = int.Parse(Regex.Match(levelAiPath, @"level(\d+)").Groups[1].Value);
-            int humanAIId = int.Parse(Regex.Match(levelAiPath, @"ai\\(\d+)").Groups[1].Value);
-            string objectsQscPath = Path.Combine(QUtils.cfgQscPath + levelAi.ToString(), QUtils.objectsQsc);
-
             if (String.IsNullOrEmpty(fileName))
             {
                 QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Invalid file selected.\nPlease select a valid file from 'missions/location0/levelX/ai' Path.");
@@ -5383,8 +5381,12 @@ namespace IGIEditor
                     return;
                 }
 
-                // Update the editor text with the validated script data.
                 aiScriptEditorTxt.Text = scriptData;
+
+                // Update the editor text with the validated script data.
+                int levelAi = int.Parse(Regex.Match(levelAiPath, @"level(\d+)").Groups[1].Value);
+                int humanAIId = int.Parse(Regex.Match(levelAiPath, @"ai\\(\d+)").Groups[1].Value);
+                string objectsQscPath = Path.Combine(QUtils.cfgQscPath + levelAi.ToString(), QUtils.objectsQsc);
                 HumanSoldier humanSoldierData = QAI.ReadHumanSoldierByHumanAIId(objectsQscPath, humanAIId);
 
                 if (humanSoldierData != null)

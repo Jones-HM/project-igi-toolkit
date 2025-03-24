@@ -31,6 +31,7 @@ namespace IGIEditor
             public HumanSoldier(int soldierId, Real64 position, int angle, string modelId, int teamId, int boneHierarchy, int standAnimation, HumanAI humanAIData)
                 => (SoldierId, Position, Angle, ModelId, TeamId, BoneHierarchy, StandAnimation, HumanAIData) = (soldierId, position, angle, modelId, teamId, boneHierarchy, standAnimation, humanAIData);
         }
+
         public class HumanAIJson
         {
             public int aiCount { get; set; }
@@ -104,7 +105,7 @@ namespace IGIEditor
             if (addWeapon) qtaskSoldier += QHuman.AddWeapon(weapon, ammo);
 
             //Add AI's script and graph data.
-            qtaskSoldier += "Task_New(" + aiScriptId + ",\"HumanAIJson\",\"" + taskNote + "\",\"" + aiType + "\"," + graphId;
+            qtaskSoldier += "Task_New(" + aiScriptId + ",\"HumanAI\",\"" + taskNote + "\",\"" + aiType + "\"," + graphId;
             qtaskSoldier += (!guardGenerator) ? "));" : ")));";
             return qtaskSoldier;
         }
@@ -183,7 +184,7 @@ namespace IGIEditor
                     if (!String.IsNullOrEmpty(aiScriptData))
                     {
                         qscData += aiScriptData;
-                        QLog.ShowLogInfo(MethodBase.GetCurrentMethod().Name, "AI script ID's \ngraphId : " + graphId + " \naiId : " + aiId + " \npatrolId : " + patrolId);
+                        QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI Added Success Graph Id : " + graphId + " AI Id : " + aiId + " Patrol Id : " + patrolId);
                     }
 
 
@@ -195,6 +196,7 @@ namespace IGIEditor
                 aiWorkCount++;
             }
             QUtils.SwitchEditorUI();
+            IGIEditorUI.editorRef.SetStatusText("AI Added Success Graph Id : " + graphId + " AI Id : " + aiId + " Patrol Id : " + patrolId);
             return qscData;
         }
 
@@ -836,10 +838,14 @@ namespace IGIEditor
                     QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"File {fileName} is empty.");
                     return null;
                 }
-                content = content.Trim();
+                
+                var trimmedLines = content.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None)
+                                       .Select(line => line.Trim());
+                content = string.Join(Environment.NewLine, trimmedLines);
+
                 QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"Loaded file length: {content.Length}");
 
-                var lines = content.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                var lines = trimmedLines;
 
                 var humanAILine = lines
                     .Select((line, idx) => new { line, idx })
