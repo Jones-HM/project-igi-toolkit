@@ -1782,7 +1782,7 @@ namespace IGIEditor
             }
             catch (Exception ex)
             {
-                QLog.LogException(MethodBase.GetCurrentMethod().Name, ex);
+                QLog.ShowLogException(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 

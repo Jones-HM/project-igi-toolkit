@@ -415,30 +415,30 @@ namespace IGIEditor
         #region Game weapon data
         internal enum GAME_WEAPON
         {
-            WEAPON_ID_GLOCK = 1, //Weapon AIType: Pistol.
-            WEAPON_ID_COLT = 21,//Weapon AIType: Revolver.
-            WEAPON_ID_DESERTEAGLE = 3,//Weapon AIType: Pistol.
-            WEAPON_ID_MP5SD = 7,//Weapon AIType: SMG.
-            WEAPON_ID_UZI = 6,//Weapon AIType: SMG.
-            WEAPON_ID_UZIX2 = 13,//Weapon AIType: SMG.
-            WEAPON_ID_M16A2 = 4,//Weapon AIType: Rifle.
-            WEAPON_ID_AK47 = 5,//Weapon AIType: Rifle.
-            WEAPON_ID_MINIMI = 10,//Weapon AIType: HMG (Machine Gun).
-            WEAPON_ID_SPAS12 = 8,//Weapon AIType: Shotgun.
-            WEAPON_ID_JACKHAMMER = 9,//Weapon AIType: Shotgun.
-            WEAPON_ID_DRAGUNOV = 11,//Weapon AIType: Sniper.
-            WEAPON_ID_FLASHBANG = 15,//Weapon AIType: Grenade.
-            WEAPON_ID_GRENADE = 14,//Weapon AIType: Grenade.
-            WEAPON_ID_T80 = 43,//Weapon AIType: Launcher.
-            WEAPON_ID_SENTRY = 44,//Weapon AIType: HMG (Machine Gun).
-            WEAPON_ID_RPG18 = 12,//Weapon AIType: Launcher.
-            WEAPON_ID_PROXIMITYMINE = 41,//Weapon AIType: Grenade.
-            WEAPON_ID_MIL = 41,//Weapon AIType: HMG (Machine Gun).
-            WEAPON_ID_MEDIPACK = 19,//Weapon AIType: MediPack.
-            WEAPON_ID_KNIFE = 20,//Weapon AIType: Knife.
-            WEAPON_ID_M2HB = 42,//Weapon AIType: HMG (Machine Gun).
-            WEAPON_ID_BINOCULARS = 18,//Weapon AIType: Binoculars.
-            WEAPON_ID_APC = 40,//Weapon AIType: Launcher.
+            WEAPON_ID_GLOCK = 1, //Weapon Type: Pistol.
+            WEAPON_ID_COLT = 21,//Weapon Type: Revolver.
+            WEAPON_ID_DESERTEAGLE = 3,//Weapon Type: Pistol.
+            WEAPON_ID_MP5SD = 7,//Weapon Type: SMG.
+            WEAPON_ID_UZI = 6,//Weapon Type: SMG.
+            WEAPON_ID_UZIX2 = 13,//Weapon Type: SMG.
+            WEAPON_ID_M16A2 = 4,//Weapon Type: Rifle.
+            WEAPON_ID_AK47 = 5,//Weapon Type: Rifle.
+            WEAPON_ID_MINIMI = 10,//Weapon Type: HMG (Machine Gun).
+            WEAPON_ID_SPAS12 = 8,//Weapon Type: Shotgun.
+            WEAPON_ID_JACKHAMMER = 9,//Weapon Type: Shotgun.
+            WEAPON_ID_DRAGUNOV = 11,//Weapon Type: Sniper.
+            WEAPON_ID_FLASHBANG = 15,//Weapon Type: Grenade.
+            WEAPON_ID_GRENADE = 14,//Weapon Type: Grenade.
+            WEAPON_ID_T80 = 43,//Weapon Type: Launcher.
+            WEAPON_ID_SENTRY = 44,//Weapon Type: HMG (Machine Gun).
+            WEAPON_ID_RPG18 = 12,//Weapon Type: Launcher.
+            WEAPON_ID_PROXIMITYMINE = 41,//Weapon Type: Grenade.
+            WEAPON_ID_MIL = 41,//Weapon Type: HMG (Machine Gun).
+            WEAPON_ID_MEDIPACK = 19,//Weapon Type: MediPack.
+            WEAPON_ID_KNIFE = 20,//Weapon Type: Knife.
+            WEAPON_ID_M2HB = 42,//Weapon Type: HMG (Machine Gun).
+            WEAPON_ID_BINOCULARS = 18,//Weapon Type: Binoculars.
+            WEAPON_ID_APC = 40,//Weapon Type: Launcher.
         };
         #endregion
 
@@ -464,7 +464,6 @@ namespace IGIEditor
             iniCfgFile = editorAppName + ".ini";
             editorLogFile = editorAppName + ".log";
             editorCurrPath = Directory.GetCurrentDirectory();
-            deviceIdDLLPath = editorCurrPath + Path.DirectorySeparatorChar + "DeviceId.dll";
 
             //Set new Input QSC & QVM path releative to appdata.
             objectsModelsList = igiEditorQEdPath + Path.DirectorySeparatorChar + "IGIModels" + QUtils.FileExtensions.Json;
@@ -1635,7 +1634,7 @@ namespace IGIEditor
                 doc.LoadXml(xmlData);
 
                 jsonData = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.Indented);
-                SaveFile(fileName, null);
+                SaveFile(fileName, jsonData);
             }
             else throw new FileNotFoundException("File 'objects.xml' was not found in current directory");
 
