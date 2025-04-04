@@ -91,7 +91,7 @@ namespace IGIEditor
         internal static int qtaskId;
         internal static int anyaTeamTaskId = -1;
         internal static int ekkTeamTaskId = -1;
-        internal static int aiScriptId = 0;
+        internal static int aiScriptId = 10; // Default AI Script Id, because some tasks Task_New(0 to 10) are reserved for Graphs.
         internal static int gGameLevel = 1;
         internal static int GAME_MAX_LEVEL = 14;
         internal static int currGameLevel = 1;

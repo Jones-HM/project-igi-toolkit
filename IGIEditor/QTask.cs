@@ -67,7 +67,7 @@ namespace IGIEditor
             if (QUtils.qIdsList.Contains(taskId))
             {
                 QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Duplicate TaskId: " + taskId + " Generating new TaskId");
-                while (QUtils.qIdsList.Contains(taskId++)) ;
+                while (QUtils.qIdsList.Contains(taskId)) taskId++;
                 QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Generated New TaskId: " + taskId);
             }
             QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Returned New TaskId: " + taskId);

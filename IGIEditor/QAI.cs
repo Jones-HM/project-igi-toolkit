@@ -153,6 +153,7 @@ namespace IGIEditor
 
                 if (!patrolIdExist && !aiIdExist && graphIdExist)
                 {
+                    // update the index because we use humanId for HumanSoldier and aiId for HumanAI.
                     int humanId = Convert.ToInt32(aiId);
                     aiId = humanId + 1;
 
@@ -169,7 +170,7 @@ namespace IGIEditor
                         modelId = humanAiJson.model;
                         aiWeapon = humanAiJson.weapon;
                         teamId = humanAiJson.teamId;
-                        aiAmmo = 999;
+                        aiAmmo = 0;
                     }
 
                     //Add GuardGenerator .
@@ -441,7 +442,7 @@ namespace IGIEditor
                 return;
             }
 
-            string fileContent = System.IO.File.ReadAllText(filename);
+            string fileContent = QUtils.LoadFile(filename);
 
             if (String.IsNullOrEmpty(fileContent))
             {
@@ -455,7 +456,7 @@ namespace IGIEditor
 
             if (!match.Success)
             {
-                QLog.AddLog(MethodBase.GetCurrentMethod().Name, $"No block found for PatrolId {patrolId}.");
+                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, $"No block found for PatrolId {patrolId}.");
                 return;
             }
 

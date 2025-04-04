@@ -17,7 +17,7 @@ Editor has several components which it needs in order to work fully to its funct
 - Server : Located at [OrgFree](http://igiresearchdevelopers.orgfree.com/) which contains Mission files and Resources like Weapon/A.I images for editor.
 - ~~Database : Located at Github Gist private repo contains privacy information like _I.P,Mac Address_ and _Key_ for Editor.~~
 - Internal DLL : Located at [IGI-Internals](https://github.com/IGI-Research-Devs/IGI_Internal) is used to call IGI Game internal native methods.
-- QEditor - Located at path `C:\Users\my_username\AppData\Roaming\QEditor`  This is appdata file comes pre-installed with any version of editor and can be downloaded from here [QEditor Full Version](https://www.mediafire.com/file/jpkxc51tpo9d1a1/QEditor.zip/file).</br>
+- QEditor - Located at path `C:\Users\my_username\AppData\Roaming\QEditor`  This is appdata file comes pre-installed with any version of editor and can be downloaded from here [QEditor Full Version](https://www.mediafire.com/file/7ycvekb2l9fc7qr/QEditor.zip/file).</br>
 
 ## QEditor components.
 **Q**Editor was the initial name of the project because editor actually modifies **Q** files of games like _QVM,QSC,QAS_ files but later it was changed.</br>
