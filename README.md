@@ -169,5 +169,17 @@ If you encounter any issues with the Editor, don't hesitate to contact me 👇
 - 🌟 Follow the Project: Stay updated with the latest developments on [GitHub](https://github.com/IGI-Research-Devs/).
 - 📺 Subscribe to our Channel: Watch useful guides and walkthroughs on our [YouTube](https://www.youtube.com/@igi-research-devs) channel.
 
+## Credits and People
+If you want to use this data, respect fellow researchers and give proper credits to people. (давать людям должные кредиты)
+- [Yoejin Light](https://vk.com/id436486682) 🌟 : _MTP, Models structure_ and information.
+- [Dimon Krevedko](https://vk.com/dimonkrevedko) 🌟 : **Graphs and Nodes** structure and information.
+- [Artiom Rotari](https://github.com/NEWME0) 🌟 : _DConv Tools for Decompiler_ and **Scripts**.
+- [ORWA S](https://www.youtube.com/@totalwartimelapses6359) 🌟 - **Graphs Area and Nodes** compilation of information.
+- [GM123](https://www.youtube.com/@gm1233) 🌟 - **Detailed Models Information**.
+- [Dark](https://www.youtube.com/@CRONOQUILLOFFICIAL)🌟 - **Contrinuted on Various Projects and files (Resources,QVM,QSC etc) and UI/UX Designs**.
+- [Ferit Coder](https://www.youtube.com/channel/UCpn_gZMkFVBUAe9SJK9hYQA) 🌟 - **Helped with IGI 2 Editor **Maps/Models** conversion to IGI 1.**.
+- [IGI ResearchDevs@HM](https://vk.com/id679925339) 🌟 - **Maintainer of this repo**.
+- [Chat-GPT Advanced](https://chat.openai.com/) 🌟 - **Understanding complex game mechanics** with _Reverse Engineering_ and **Advaced Data Analysis** of Game files _QVM,QSC,.DAT and more_.
+
 👤 Original Author: _HeavenHM@2022_.
 
