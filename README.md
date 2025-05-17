@@ -166,7 +166,7 @@ If you encounter any issues with the Editor, don't hesitate to contact me 👇
 
 - 🎮 Discord: Feel free to message me at _Jones_IGI#3954_ and join our [Discord server](https://discord.gg/AyVDW7kE6V) for quick support.
 - 📧 Email: You can reach me at igiproz.hm@gmail.com for any questions or feedback.
-- 🌟 Follow the Project: Stay updated with the latest developments on [GitHub](https://github.com/IGI-Research-Devs/).
+- 🌟 Follow the Project: Stay updated with the latest developments on [GitHub](https://github.com/Jones-HM/).
 - 📺 Subscribe to our Channel: Watch useful guides and walkthroughs on our [YouTube](https://www.youtube.com/@igi-research-devs) channel.
 
 ## Credits and People
@@ -181,5 +181,8 @@ If you want to use this data, respect fellow researchers and give proper credits
 - [Neo](https://next.nexusmods.com/profile/xaeroneo?gameId=5664) 🌟 - **Helped with improvement of Editor overall and Texture Editor.**.
 - [Chat-GPT Pro](https://chat.openai.com/) 🌟 - **Understanding complex game mechanics** with _Reverse Engineering_ and **Advaced Data Analysis** of Game files _QVM,QSC,.DAT and more_.
 
-👤 Original Author: _HeavenHM@2022_.
+👤 Original Author: </br>
+- LinkedIn: [Haseeb-Mir91](https://in.linkedin.com/in/haseebmir91) </br>
+- GitHub: [Haseeb-Heaven](https://github.com/haseeb-heaven)
+
 
