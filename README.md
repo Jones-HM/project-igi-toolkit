@@ -15,6 +15,9 @@ form of _MEF_ (**M**esh **E**xternal **F**ile).
 ## ToolKit components.
 ToolKit has several components which it needs in order to work fully to its functionality.
 - Server : Located at [OrgFree](http://igiresearchdevelopers.orgfree.com/) which contains Mission files and Resources like Weapon/A.I images for toolkit.
+  - **⚠️ Server Issues**: The server might face connectivity issues or downtime. If you encounter problems:
+    - **For Images**: Use the local "AppImages" folder provided with QEditor in the ToolKit package
+    - **For Missions**: Upload/Download functionality may be unavailable during server downtime
 - ~~Database : Located at Github Gist private repo contains privacy information like _I.P,Mac Address_ and _Key_ for ToolKit.~~
 - Internal DLL : Located at [IGI-Internals](https://github.com/IGI-Research-Devs/IGI_Internal) is used to call IGI Game internal native methods.
 - QToolKit - Located at path `C:\Users\my_username\AppData\Roaming\QToolKit`  This is appdata file comes pre-installed with any version of toolkit and can be downloaded from here [QToolKit Full Version](https://www.mediafire.com/file/7ycvekb2l9fc7qr/QToolKit.zip/file).</br>
@@ -156,7 +159,7 @@ The toolkit onwards version 0.7 doesn't store any type of data from _User,Machin
 
 # **DOWNLOAD LINKS**</br>
 - **Project I.G.I 1 ToolKit** Version 0.8.7.0 _RELEASED_</br>
-[IGI ToolKit](https://github.com/IGI-Research-Devs/IGI-ToolKit/releases/tag/0.8.7.0)</br>
+[IGI ToolKit](https://github.com/Jones-HM/project-igi-toolkit/releases/tag/0.8.7.0)</br>
 
 # 📚 FAQ (Frequently Asked Questions)
 Checkout the detailed FAQ in [FAQ.md](FAQ.md)
