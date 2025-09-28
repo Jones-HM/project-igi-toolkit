@@ -19,8 +19,8 @@ ToolKit has several components which it needs in order to work fully to its func
 - Internal DLL : Located at [IGI-Internals](https://github.com/IGI-Research-Devs/IGI_Internal) is used to call IGI Game internal native methods.
 - QToolKit - Located at path `C:\Users\my_username\AppData\Roaming\QToolKit`  This is appdata file comes pre-installed with any version of toolkit and can be downloaded from here [QToolKit Full Version](https://www.mediafire.com/file/7ycvekb2l9fc7qr/QToolKit.zip/file).</br>
 
-## QToolKit components.
-**Q**ToolKit was the initial name of the project because toolkit actually modifies **Q** files of games like _QVM,QSC,QAS_ files but later it was changed.</br>
+## QEditor components.
+**Q**Editor was the initial name of the project because editor actually modifies **Q** files of games like _QVM,QSC,QAS_ files but later it was changed.</br>
 
     .
     ├── AIFiles                 # AI Script and Path files.
