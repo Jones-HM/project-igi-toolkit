@@ -20,7 +20,7 @@ ToolKit has several components which it needs in order to work fully to its func
     - **For Missions**: Upload/Download functionality may be unavailable during server downtime
 - ~~Database : Located at Github Gist private repo contains privacy information like _I.P,Mac Address_ and _Key_ for ToolKit.~~
 - Internal DLL : Located at [IGI-Internals](https://github.com/IGI-Research-Devs/IGI_Internal) is used to call IGI Game internal native methods.
-- QToolKit - Located at path `C:\Users\my_username\AppData\Roaming\QToolKit`  This is appdata file comes pre-installed with any version of toolkit and can be downloaded from here [QToolKit Full Version](https://www.mediafire.com/file/7ycvekb2l9fc7qr/QToolKit.zip/file).</br>
+- QEditor - Located at path `C:\Users\my_username\AppData\Roaming\QEditor`  This is appdata file comes pre-installed with any version of toolkit and can be downloaded from here [QEditor Full Version](https://www.mediafire.com/file/7ycvekb2l9fc7qr/QEditor.zip/file).</br>
 
 ## QEditor components.
 **Q**Editor was the initial name of the project because editor actually modifies **Q** files of games like _QVM,QSC,QAS_ files but later it was changed.</br>
@@ -35,7 +35,7 @@ ToolKit has several components which it needs in order to work fully to its func
     ├── Void                    # Empty Mission files.
     ├── aiIdle.qvm              # File for setting AI to idle state.
     ├── IGIModels.json           # Contains 3D Models information.
-    ├── keywords.txt            # Keywords for QVM ToolKit.
+    ├── keywords.txt            # Keywords for QVM Editor.
     ├── QChecks.dat             # Contain MD5 Hashes to check file integrity.
     └── weaponconfig.qvm        # Weapon config file.
 
@@ -43,12 +43,12 @@ ToolKit has several components which it needs in order to work fully to its func
 ## ToolKit Working flow.
 ToolKit most of the time just compiles the script file _QSC_ called _Q_ script source into _QVM_ called _Q_ virtual machine and Restart the level in order to see the affected changes. 
 Here is workflow mentioned.
-1. Get game level and select proper source file of level located at `QToolKit\QFiles\IGI_QSC\missions\location0\level`.</br>
+1. Get game level and select proper source file of level located at `QEditor\QFiles\IGI_QSC\missions\location0\level`.</br>
 2. Updates the script file with new script depends upon logic Add/Update/Delete commands.</br>
 **Internal compiler**</br>
-3. Copies script file from ToolKit `C:\IGI-ToolKit` to `D:\IGI\` and compiles them to binary _QVM_ file and moves them to proper destination.</br>
+3. Copies script file from ToolKit `C:\IGI-Editor` to `D:\IGI\` and compiles them to binary _QVM_ file and moves them to proper destination.</br>
 **External compiler**</br>
-3. Copies script file from ToolKit `C:\IGI-ToolKit` to `QToolKit\QCompiler\Compile\input` and compiles them to binary _QVM_ file and convert compiled QVM v7 (IGI 2) to QVM v5 (IGI 1) using _DConv_ tool and moves them to proper destination.</br>
+3. Copies script file from ToolKit `C:\IGI-Editor` to `QEditor\QCompiler\Compile\input` and compiles them to binary _QVM_ file and convert compiled QVM v7 (IGI 2) to QVM v5 (IGI 1) using _DConv_ tool and moves them to proper destination.</br>
 4. Restart the level and see the changes.</br>
 
 ## ToolKit sections.
@@ -146,7 +146,7 @@ And now you can generate Key from KeyGen for your toolkit for free.</br>~~
 **QCompiler toolkit**: Lets you `Compile/Assemble/Parse` game files which game uses internaly to save/edit game data.</br>
 
 # ToolKit Tutorial on YouTube :
-[![QToolKit](https://img.youtube.com/vi/gwj5HNzF9cQ/0.jpg)](https://www.youtube.com/watch?v=gwj5HNzF9cQ)
+[![QEditor](https://img.youtube.com/vi/gwj5HNzF9cQ/0.jpg)](https://www.youtube.com/watch?v=gwj5HNzF9cQ)
 
 ## Version Update:
 **ToolKit version 0.8.7.0 Latest.**
