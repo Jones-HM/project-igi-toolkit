@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -27,7 +27,7 @@ namespace IGIEditor
                 }
                 else
                 {
-                    QLog.ShowError("IGI Editor is already running");
+                    QLog.ShowError("IGI ToolKit is already running");
                 }
             }
             catch (Exception ex)
