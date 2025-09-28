@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -64,7 +64,14 @@ namespace IGIEditor
             qHash1 = qHashTmp = serverBaseURL.Slice(serverBaseURL.IndexOf("://") + 3, serverBaseURL.LastIndexOf(@"/"));
             qHash2 = qHashTmp = qHash1.Substring(0, 3) + "#p@ro@z##" + "#.@@h###m@";
             qHash2 = qHash2.Replace("@", String.Empty).Replace("#", String.Empty);
+            
+            // Add detailed logging for FTP connection
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Creating FTP client connection");
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Server URL: " + serverBaseURL);
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Password: " + qHash2); // Show actual password for debugging
+            
             var qftpClient = new QFtpClient(serverBaseURL, qHash1, qHash2);
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "FTP client created successfully");
             return qftpClient;
         }
 
@@ -73,12 +80,20 @@ namespace IGIEditor
             bool status = false;
             try
             {
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Starting upload operation");
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Local file: " + localFile);
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Remote file: " + remoteFile);
+                
                 var qftpClient = GetQFtpClient();
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "FTP client obtained, starting upload...");
+                
                 qftpClient.upload(remoteFile, localFile);
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Upload completed successfully");
                 status = true;
             }
             catch (Exception ex)
             {
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Upload failed with exception");
                 QLog.ShowLogException("Server" + MethodBase.GetCurrentMethod().Name, ex);
                 status = false;
             }
@@ -90,16 +105,42 @@ namespace IGIEditor
             bool status;
             try
             {
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Starting download operation");
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Remote file: " + remoteFile);
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Local file: " + localFile);
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Destination path: " + destPath);
+                
                 var qftpClient = GetQFtpClient();
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "FTP client obtained, starting download...");
+                
                 qftpClient.download(remoteFile, localFile);
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Download completed successfully");
+                
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Moving file to destination...");
                 QUtils.ShellExec("move /Y " + localFile + " " + destPath);
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "File moved successfully");
+                
                 status = true;
             }
             catch (Exception ex)
             {
-                if (ex.Message.Contains("File unavailable")) QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "File '" + localFile + "' was not found on server.");
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Download failed with exception");
+                if (ex.Message.Contains("File unavailable")) 
+                {
+                    QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "File '" + localFile + "' was not found on server.");
+                }
+                else if (ex.Message.Contains("timed out"))
+                {
+                    QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Connection timed out while downloading '" + remoteFile + "'");
+                }
+                else if (ex.Message.Contains("connection was closed"))
+                {
+                    QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Connection was unexpectedly closed while downloading '" + remoteFile + "'");
+                }
                 else
+                {
                     QLog.ShowLogException("Server" + MethodBase.GetCurrentMethod().Name, ex);
+                }
                 status = false;
             }
             return status;

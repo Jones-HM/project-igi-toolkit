@@ -701,7 +701,7 @@ namespace IGIEditor
             this.levelEditor.Padding = new System.Windows.Forms.Padding(3);
             this.levelEditor.Size = new System.Drawing.Size(851, 292);
             this.levelEditor.TabIndex = 1;
-            this.levelEditor.Text = "Level ToolKit";
+            this.levelEditor.Text = "Level";
             // 
             // modelInfoLbl
             // 
@@ -861,7 +861,7 @@ namespace IGIEditor
             this.aiEditor.Name = "aiEditor";
             this.aiEditor.Size = new System.Drawing.Size(851, 292);
             this.aiEditor.TabIndex = 8;
-            this.aiEditor.Text = "AI ToolKit";
+            this.aiEditor.Text = "AI";
             // 
             // aiEditorTabs
             // 
@@ -1759,7 +1759,7 @@ namespace IGIEditor
             this.humanEditor.Name = "humanEditor";
             this.humanEditor.Size = new System.Drawing.Size(851, 292);
             this.humanEditor.TabIndex = 2;
-            this.humanEditor.Text = "Human ToolKit";
+            this.humanEditor.Text = "Human";
             // 
             // gravityTxt
             // 
@@ -2312,7 +2312,7 @@ namespace IGIEditor
             this.weaponEditor.Name = "weaponEditor";
             this.weaponEditor.Size = new System.Drawing.Size(851, 292);
             this.weaponEditor.TabIndex = 7;
-            this.weaponEditor.Text = "Weapon ToolKit";
+            this.weaponEditor.Text = "Weapon";
             // 
             // weaponEditorTabs
             // 
@@ -3076,7 +3076,7 @@ namespace IGIEditor
             this.threeDEditor.Name = "threeDEditor";
             this.threeDEditor.Size = new System.Drawing.Size(851, 292);
             this.threeDEditor.TabIndex = 3;
-            this.threeDEditor.Text = "3D ToolKit";
+            this.threeDEditor.Text = "3D";
             // 
             // resume3DEditorBtn
             // 
@@ -3128,7 +3128,7 @@ namespace IGIEditor
             this.missionEditor.Name = "missionEditor";
             this.missionEditor.Size = new System.Drawing.Size(851, 292);
             this.missionEditor.TabIndex = 4;
-            this.missionEditor.Text = "Mission ToolKit";
+            this.missionEditor.Text = "Mission";
             // 
             // missionLevelLbl
             // 
@@ -3413,7 +3413,7 @@ namespace IGIEditor
             this.graphEditor.Name = "graphEditor";
             this.graphEditor.Size = new System.Drawing.Size(851, 292);
             this.graphEditor.TabIndex = 9;
-            this.graphEditor.Text = "Graph ToolKit";
+            this.graphEditor.Text = "Graph";
             // 
             // nodesInfoCb
             // 
@@ -3909,7 +3909,7 @@ namespace IGIEditor
             this.positionEditor.Name = "positionEditor";
             this.positionEditor.Size = new System.Drawing.Size(851, 292);
             this.positionEditor.TabIndex = 5;
-            this.positionEditor.Text = "Position ToolKit";
+            this.positionEditor.Text = "Position";
             // 
             // resetPosCb
             // 
@@ -4477,7 +4477,7 @@ namespace IGIEditor
             this.texEditor.Name = "texEditor";
             this.texEditor.Size = new System.Drawing.Size(851, 292);
             this.texEditor.TabIndex = 11;
-            this.texEditor.Text = "Texture ToolKit";
+            this.texEditor.Text = "Texture";
             // 
             // nextTextureBtn
             // 
@@ -4619,7 +4619,7 @@ namespace IGIEditor
             this.objectEditor.Padding = new System.Windows.Forms.Padding(3);
             this.objectEditor.Size = new System.Drawing.Size(851, 292);
             this.objectEditor.TabIndex = 0;
-            this.objectEditor.Text = "Object ToolKit";
+            this.objectEditor.Text = "Object Section";
             // 
             // buildingsResetTxt
             // 

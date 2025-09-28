@@ -460,7 +460,7 @@ namespace IGIEditor
             appdataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             igiEditorQEdPath = appdataPath + Path.DirectorySeparatorChar + qEditor;
 
-            editorAppName = "IGIEditor"; // Keep as IGIEditor for server compatibility
+            editorAppName = "IGIToolKit";
             iniCfgFile = editorAppName + ".ini";
             editorLogFile = editorAppName + ".log";
             editorCurrPath = Directory.GetCurrentDirectory();

@@ -3,7 +3,9 @@
 ## Version 0.8.7.0 BETA 🎉  
 - 🔄 **Project Rebranding** - Changed from "Project IGI Editor" to "Project IGI ToolKit".
 - 📝 **Updated All References** - Changed "Editor" to "ToolKit" throughout the application.
-- 🎨 **Updated UI/UX** - Refreshed branding and terminology.
+- 🎨 **Updated UI/UX** - Refreshed branding and terminology, simplified tab names.
+- 🔧 **Fixed Server Connection** - Resolved FTP connection issues by maintaining internal compatibility.
+- 📊 **Enhanced Logging** - Added detailed FTP connection and operation logging for better debugging.
 - 📚 **Updated Documentation** - README and changelog updates.
 
 ## Version 0.8.6.0 BETA 🎉  
