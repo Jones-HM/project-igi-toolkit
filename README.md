@@ -35,7 +35,7 @@ ToolKit has several components which it needs in order to work fully to its func
     ├── Void                    # Empty Mission files.
     ├── aiIdle.qvm              # File for setting AI to idle state.
     ├── IGIModels.json           # Contains 3D Models information.
-    ├── keywords.txt            # Keywords for QVM Editor.
+    ├── keywords.txt            # Keywords for QVM ToolKit.
     ├── QChecks.dat             # Contain MD5 Hashes to check file integrity.
     └── weaponconfig.qvm        # Weapon config file.
 
@@ -46,9 +46,9 @@ Here is workflow mentioned.
 1. Get game level and select proper source file of level located at `QEditor\QFiles\IGI_QSC\missions\location0\level`.</br>
 2. Updates the script file with new script depends upon logic Add/Update/Delete commands.</br>
 **Internal compiler**</br>
-3. Copies script file from ToolKit `C:\IGI-Editor` to `D:\IGI\` and compiles them to binary _QVM_ file and moves them to proper destination.</br>
+3. Copies script file from ToolKit `C:\IGI-ToolKit` to `D:\IGI\` and compiles them to binary _QVM_ file and moves them to proper destination.</br>
 **External compiler**</br>
-3. Copies script file from ToolKit `C:\IGI-Editor` to `QEditor\QCompiler\Compile\input` and compiles them to binary _QVM_ file and convert compiled QVM v7 (IGI 2) to QVM v5 (IGI 1) using _DConv_ tool and moves them to proper destination.</br>
+3. Copies script file from ToolKit `C:\IGI-ToolKit` to `QEditor\QCompiler\Compile\input` and compiles them to binary _QVM_ file and convert compiled QVM v7 (IGI 2) to QVM v5 (IGI 1) using _DConv_ tool and moves them to proper destination.</br>
 4. Restart the level and see the changes.</br>
 
 ## ToolKit sections.
