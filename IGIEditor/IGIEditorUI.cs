@@ -360,6 +360,13 @@ namespace IGIEditor
         {
             try
             {
+                // Don't check for updates if editor is in offline mode
+                if (!QUtils.editorOnline)
+                {
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Skipping update check - editor is in offline mode (app_online=false)");
+                    return;
+                }
+                
                 updateCheckerTimer.Stop();//Dont check for new updates while updating - 'Macht keinen Sense oder?'
                 string updateName = QUtils.editorUpdaterDir;
                 string updateNameAbs = QUtils.cachePath + "\\" + updateName + QUtils.FileExtensions.Zip;
@@ -981,8 +988,7 @@ namespace IGIEditor
             {
                 qIniParser = new QIniParser(iniCfgFile);
                 QUtils.gameAbsPath = qIniParser.Read("game_path", PATH_SECTION);
-                QUtils.editorOnline = QUtils.IsNetworkAvailable();
-
+                
                 //Initialize app data for QEditor.
                 var status = QUtils.InitEditorAppData();
 
@@ -1004,13 +1010,21 @@ namespace IGIEditor
                 }
 
                 //Show Game set path dialog.
-                /*if (!File.Exists(QUtils.iniCfgFile))
-                    QUtils.gamePathSet = QUtils.ShowGamePathDialog() == DialogResult.OK;
-                else QUtils.gamePathSet = true;*/
                 QUtils.gamePathSet = false;
 
                 //Start parsing data from Config file.
                 QUtils.ParseConfig();
+                
+                // Only check network availability if app_online is true in config
+                if (QUtils.editorOnline)
+                {
+                    QUtils.editorOnline = QUtils.IsNetworkAvailable();
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Online mode enabled in config, network available: " + QUtils.editorOnline);
+                }
+                else
+                {
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Online mode disabled in config (app_online=false)");
+                }
 
                 //Initialize app data for QEditor.
                 if (!status) QUtils.InitEditorAppData();
@@ -1020,10 +1034,12 @@ namespace IGIEditor
                 autoResetCb.Checked = gameReset;
                 autoRefreshGameCb.Checked = gameRefresh;
                 editorOnlineCb.Checked = editorOnline;
+                editorOnlineCb.Text = editorOnline ? "Online" : "Offline";
                 updateIntervalTxt.Text = updateTimeInterval.ToString();
                 updateCheckerAutomaticOption.Checked = editorUpdateCheck;
                 internalCompilerCb.Checked = internalCompiler;
                 externalCompilerCb.Checked = externalCompiler;
+                compilerTypeLbl.Text = internalCompiler ? "internal" : "external";
 
                 //Settings Options for Game config.
                 enableMusicCb.Checked = gameMusicEnabled;
@@ -1152,7 +1168,7 @@ namespace IGIEditor
                 }
 
                 //Load level image from Web.
-                else
+                else if (QUtils.editorOnline)
                 {
                     QLog.ShowLogStatus(MethodBase.GetCurrentMethod().Name, "Downloading resource please wait...");
                     var imgUrl = "/" + QServer.resourceDir + "/" + "mission_" + level + QUtils.FileExtensions.Jpg;
@@ -1160,6 +1176,10 @@ namespace IGIEditor
                     QServer.Download(imgUrl, imgPath, imgTmpPath);
                     levelImgBox.Refresh();
                     QLog.ShowLogStatus(MethodBase.GetCurrentMethod().Name, "Downloading resource done");
+                }
+                else
+                {
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Skipping image download - editor is in offline mode (app_online=false)");
                 }
             }
             catch (Exception ex)
@@ -1718,7 +1738,7 @@ namespace IGIEditor
                 }
 
                 //Load image from Web.
-                else
+                else if (QUtils.editorOnline)
                 {
                     QLog.ShowLogStatus(MethodBase.GetCurrentMethod().Name, "Downloading resource please wait...");
                     imgUrl = "/" + QServer.resourceDir + "/" + weaponName + QUtils.FileExtensions.Jpg;
@@ -1726,6 +1746,10 @@ namespace IGIEditor
                     QServer.Download(imgUrl, imgPath, imgTmpPath);
                     imgBox.Refresh();
                     QLog.ShowLogStatus(MethodBase.GetCurrentMethod().Name, "Downloading resource done");
+                }
+                else
+                {
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Skipping weapon image download - editor is in offline mode (app_online=false)");
                 }
             }
             catch (Exception)
@@ -2288,7 +2312,7 @@ namespace IGIEditor
                 }
 
                 //Load image from Web.
-                else
+                else if (QUtils.editorOnline)
                 {
                     QLog.ShowLogStatus(MethodBase.GetCurrentMethod().Name, "Downloading resource please wait...");
                     //A.I image paths.
@@ -2297,6 +2321,11 @@ namespace IGIEditor
                     QServer.Download(imgUrl, imgPath, imgTmpPath);
                     aiImgBox.Refresh();
                     QLog.ShowLogStatus(MethodBase.GetCurrentMethod().Name, "Downloading resource done");
+                }
+                else
+                {
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Skipping AI model image download - editor is in offline mode (app_online=false)");
+                    aiImgBox.Image = null;
                 }
             }
             catch (Exception ex)
@@ -4040,48 +4069,90 @@ namespace IGIEditor
             else aiJsonEditorTxt.ReadOnly = true;
         }
 
-        private void internalCompilerCb_CheckedChanged(object sender, EventArgs e)
+        private void internalCompilerCb_Click(object sender, EventArgs e)
         {
-            if (internalCompilerCb.Checked)
+            try
             {
-                var dlgResult = QLog.ShowDialog("Do you want to change Compiler to Internal?\nCompiler - Internal [Fast]\nRequires - Internals.dll", "Select Game Compiler");
-
-                if (dlgResult == DialogResult.Yes)
-                {
-                    internalCompilerCb.Checked = QUtils.internalCompiler = true;
-                    externalCompilerCb.Checked = QUtils.externalCompiler = false;
-                    SetStatusText("Compiler changed to internal.");
-                    compilerTypeLbl.Text = "internal";
-                }
-                else internalCompilerCb.Checked = false;
+                // Toggle to internal compiler
+                QUtils.internalCompiler = true;
+                QUtils.externalCompiler = false;
+                
+                // Update menu items
+                internalCompilerCb.Checked = true;
+                externalCompilerCb.Checked = false;
+                
+                // Update UI
+                SetStatusText("Compiler switched to Internal [Fast] - Requires Internals.dll");
+                compilerTypeLbl.Text = "internal";
+                
+                // Save to config file immediately
+                QUtils.CreateConfig();
+                
+                // Add detailed logs
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Compiler toggled to Internal");
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Config updated: compiler_type=internal");
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Internal compiler active - Fast compilation using Internals.dll");
             }
-            else if (!externalCompilerCb.Checked) internalCompilerCb.Checked = true;
+            catch (Exception ex)
+            {
+                QLog.LogException(MethodBase.GetCurrentMethod().Name, ex);
+            }
         }
 
-        private void externalCompilerCb_CheckedChanged(object sender, EventArgs e)
+        private void externalCompilerCb_Click(object sender, EventArgs e)
         {
-            if (externalCompilerCb.Checked)
+            try
             {
-                var dlgResult = QLog.ShowDialog("Do you want to change Compiler to External?\nCompiler - External [Slow]\nRequires - GConv/DConv Tools.", "Select Game Compiler");
-
-                if (dlgResult == DialogResult.Yes)
+                // Check if external compiler tools exist first
+                if (QCompiler.CheckQCompilerExist())
                 {
-                    if (QCompiler.CheckQCompilerExist())
-                    {
-                        externalCompilerCb.Checked = QUtils.externalCompiler = true;
-                        internalCompilerCb.Checked = QUtils.internalCompiler = false;
-                        SetStatusText("Compiler changed to external.");
-                        compilerTypeLbl.Text = "external";
-                    }
-                    else
-                    {
-                        internalCompilerCb.Checked = QUtils.internalCompiler = true;
-                        externalCompilerCb.Checked = false;
-                    }
+                    // Toggle to external compiler
+                    QUtils.externalCompiler = true;
+                    QUtils.internalCompiler = false;
+                    
+                    // Update menu items
+                    externalCompilerCb.Checked = true;
+                    internalCompilerCb.Checked = false;
+                    
+                    // Update UI
+                    SetStatusText("Compiler switched to External [Slow] - Using GConv/DConv Tools");
+                    compilerTypeLbl.Text = "external";
+                    
+                    // Save to config file immediately
+                    QUtils.CreateConfig();
+                    
+                    // Add detailed logs
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Compiler toggled to External");
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Config updated: compiler_type=external");
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "External compiler active - Slow compilation using GConv/DConv tools");
                 }
-                else externalCompilerCb.Checked = false;
+                else
+                {
+                    // External compiler tools not found, revert to internal
+                    QUtils.internalCompiler = true;
+                    QUtils.externalCompiler = false;
+                    
+                    // Update menu items
+                    internalCompilerCb.Checked = true;
+                    externalCompilerCb.Checked = false;
+                    
+                    // Update UI
+                    SetStatusText("External tools not found - Reverted to Internal compiler");
+                    compilerTypeLbl.Text = "internal";
+                    
+                    // Save to config file
+                    QUtils.CreateConfig();
+                    
+                    // Add detailed logs
+                    QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "External compiler tools (GConv/DConv) not found!");
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Auto-reverted to Internal compiler");
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Config updated: compiler_type=internal");
+                }
             }
-            else if (!internalCompilerCb.Checked) externalCompilerCb.Checked = true;
+            catch (Exception ex)
+            {
+                QLog.LogException(MethodBase.GetCurrentMethod().Name, ex);
+            }
         }
 
         private void resetScriptsFileBtn_Click(object sender, EventArgs e)
@@ -4327,7 +4398,7 @@ namespace IGIEditor
             if (status)
             {
                 QInternals.WeaponConfigRead();
-                QLog.ShowLogStatus("", "Weapon properties updated success");
+                QLog.ShowLogStatus("updateWeaponPropertiesBtn_Click", "Weapon properties updated success");
             }
         }
 
@@ -4485,18 +4556,59 @@ namespace IGIEditor
 
         private void editorOnlineCb_Click(object sender, EventArgs e)
         {
-            if (editorOnlineCb.Checked)
+            try
             {
-                editorOnlineCb.Text = "Online";
-                editorOnline = true;
+                // Toggle the online state
+                QUtils.editorOnline = !QUtils.editorOnline;
+                
+                // Update the menu item text and checked state
+                if (QUtils.editorOnline)
+                {
+                    editorOnlineCb.Text = "Online";
+                    editorOnlineCb.Checked = true;
+                    
+                    // Check network availability when going online
+                    if (QUtils.IsNetworkAvailable())
+                    {
+                        SetStatusText("Editor online mode enabled - network available");
+                        // Enable online-dependent UI elements
+                        downloadMissionBtn.Enabled = uploadMissionBtn.Enabled = missionsOnlineDD.Enabled = 
+                            missionRefreshBtn.Enabled = editorUpdaterBtn.Enabled = updateCheckerAutomaticOption.Enabled = 
+                            updateIntervalTxt.Enabled = true;
+                        
+                        // Reload missions if needed
+                        InitMissionsOnline(false, true, false);
+                    }
+                    else
+                    {
+                        QUtils.editorOnline = false; // Revert if no network
+                        editorOnlineCb.Text = "Offline";
+                        editorOnlineCb.Checked = false;
+                        SetStatusText("Cannot enable online mode - no network connection available");
+                        return;
+                    }
+                }
+                else
+                {
+                    editorOnlineCb.Text = "Offline";
+                    editorOnlineCb.Checked = false;
+                    SetStatusText("Editor offline mode enabled");
+                    
+                    // Disable online-dependent UI elements
+                    downloadMissionBtn.Enabled = uploadMissionBtn.Enabled = missionsOnlineDD.Enabled = 
+                        missionRefreshBtn.Enabled = editorUpdaterBtn.Enabled = updateCheckerAutomaticOption.Enabled = 
+                        updateCheckerAutomaticOption.Checked = updateIntervalTxt.Enabled = false;
+                }
+                
+                // Update the .ini file with the new setting
+                QUtils.CreateConfig();
+                
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Editor connection toggled to: " + (QUtils.editorOnline ? "Online" : "Offline") + ", config updated");
             }
-            else
+            catch (Exception ex)
             {
-                editorOnlineCb.Text = "Offline";
-                editorOnline = false;
+                QLog.LogException(MethodBase.GetCurrentMethod().Name, ex);
             }
-            SetStatusText("Editor connection status is now '" + (!editorOnline).ToString() + "'");
-            editorOnlineCb.Checked = !editorOnline;
         }
 
         private void posCoordCb_Click(object sender, EventArgs e)

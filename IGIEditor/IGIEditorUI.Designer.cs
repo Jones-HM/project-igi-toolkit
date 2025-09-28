@@ -358,7 +358,6 @@ namespace IGIEditor
             this.profileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameProfileNameLbl = new System.Windows.Forms.ToolStripTextBox();
             this.gameProfileMissionLbl = new System.Windows.Forms.ToolStripMenuItem();
-            this.compilerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compilerTypeLbl = new System.Windows.Forms.ToolStripMenuItem();
             this.positionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.posCoordCb = new System.Windows.Forms.ToolStripMenuItem();
@@ -2349,7 +2348,7 @@ namespace IGIEditor
             this.weaponMainEditor.Name = "weaponMainEditor";
             this.weaponMainEditor.Size = new System.Drawing.Size(843, 266);
             this.weaponMainEditor.TabIndex = 0;
-            this.weaponMainEditor.Text = "Weapon Editor";
+            this.weaponMainEditor.Text = "Basic";
             this.weaponMainEditor.Click += new System.EventHandler(this.weaponEditorMainTab_Click);
             // 
             // currentWeaponCb
@@ -2564,7 +2563,7 @@ namespace IGIEditor
             this.weaponCfgEditor.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.weaponCfgEditor.Size = new System.Drawing.Size(843, 266);
             this.weaponCfgEditor.TabIndex = 1;
-            this.weaponCfgEditor.Text = "Advance Editor";
+            this.weaponCfgEditor.Text = "Advanced";
             this.weaponCfgEditor.Click += new System.EventHandler(this.weaponCfgEditor_Click);
             // 
             // loadWeaponProps
@@ -4819,7 +4818,7 @@ namespace IGIEditor
             this.editorConnectionToolStripMenuItem,
             this.startGameToolStripMenuItem,
             this.gameStatusToolStripMenuItem,
-            this.compilerToolStripMenuItem,
+            this.compilerSelectToolStripMenuItem,
             this.positionToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
@@ -4996,14 +4995,6 @@ namespace IGIEditor
             this.gameProfileMissionLbl.Name = "gameProfileMissionLbl";
             this.gameProfileMissionLbl.Size = new System.Drawing.Size(284, 22);
             this.gameProfileMissionLbl.Text = "N/A";
-            // 
-            // compilerToolStripMenuItem
-            // 
-            this.compilerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.compilerTypeLbl});
-            this.compilerToolStripMenuItem.Name = "compilerToolStripMenuItem";
-            this.compilerToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.compilerToolStripMenuItem.Text = "Compiler";
             // 
             // compilerTypeLbl
             // 
@@ -5229,7 +5220,6 @@ namespace IGIEditor
             this.logsToolStripMenuItem,
             this.appdataToolStripMenuItem,
             this.autoOptionsToolStripMenuItem,
-            this.compilerSelectToolStripMenuItem,
             this.updateToolStripMenuItem,
             this.appSupportBtn,
             this.exportObjectsToolStripMenuItem,
@@ -5338,22 +5328,26 @@ namespace IGIEditor
             this.internalCompilerCb,
             this.externalCompilerCb});
             this.compilerSelectToolStripMenuItem.Name = "compilerSelectToolStripMenuItem";
-            this.compilerSelectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.compilerSelectToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.compilerSelectToolStripMenuItem.Text = "Compiler";
             // 
             // internalCompilerCb
             // 
+            this.internalCompilerCb.Checked = false;
+            this.internalCompilerCb.CheckState = System.Windows.Forms.CheckState.Unchecked;
             this.internalCompilerCb.Name = "internalCompilerCb";
             this.internalCompilerCb.Size = new System.Drawing.Size(115, 22);
             this.internalCompilerCb.Text = "Internal";
-            this.internalCompilerCb.Click += new System.EventHandler(this.internalCompilerCb_CheckedChanged);
+            this.internalCompilerCb.Click += new System.EventHandler(this.internalCompilerCb_Click);
             // 
             // externalCompilerCb
             // 
+            this.externalCompilerCb.Checked = true;
+            this.externalCompilerCb.CheckState = System.Windows.Forms.CheckState.Checked;
             this.externalCompilerCb.Name = "externalCompilerCb";
             this.externalCompilerCb.Size = new System.Drawing.Size(115, 22);
             this.externalCompilerCb.Text = "External";
-            this.externalCompilerCb.Click += new System.EventHandler(this.externalCompilerCb_CheckedChanged);
+            this.externalCompilerCb.Click += new System.EventHandler(this.externalCompilerCb_Click);
             // 
             // updateToolStripMenuItem
             // 
@@ -5873,7 +5867,6 @@ namespace IGIEditor
         private System.Windows.Forms.ToolStripMenuItem quitLevelBtnMenu;
         private System.Windows.Forms.ToolStripMenuItem versionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gameStatusToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem compilerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem profileToolStripMenuItem;
         private System.Windows.Forms.ToolStripTextBox gameProfileNameLbl;
         private System.Windows.Forms.ToolStripMenuItem liveEditorCb;

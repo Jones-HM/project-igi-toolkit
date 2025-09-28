@@ -135,7 +135,7 @@ namespace IGIEditor
         internal static bool gameDisableWarns = true;
         internal static bool gameRefresh = false;
         internal static bool internalCompiler = false;
-        internal static bool externalCompiler = false;
+        internal static bool externalCompiler = true; // Default to external compiler
         #endregion
 
         #region App Version

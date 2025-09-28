@@ -43,12 +43,12 @@ ToolKit has several components which it needs in order to work fully to its func
 ## ToolKit Working flow.
 ToolKit most of the time just compiles the script file _QSC_ called _Q_ script source into _QVM_ called _Q_ virtual machine and Restart the level in order to see the affected changes. 
 Here is workflow mentioned.
-1. Get game level and select proper source file of level located at `QEditor\QFiles\IGI_QSC\missions\location0\level`.</br>
+1. Get game level and select proper source file of level located at `QToolKit\QFiles\IGI_QSC\missions\location0\level`.</br>
 2. Updates the script file with new script depends upon logic Add/Update/Delete commands.</br>
 **Internal compiler**</br>
 3. Copies script file from ToolKit `C:\IGI-ToolKit` to `D:\IGI\` and compiles them to binary _QVM_ file and moves them to proper destination.</br>
 **External compiler**</br>
-3. Copies script file from ToolKit `C:\IGI-ToolKit` to `QEditor\QCompiler\Compile\input` and compiles them to binary _QVM_ file and convert compiled QVM v7 (IGI 2) to QVM v5 (IGI 1) using _DConv_ tool and moves them to proper destination.</br>
+3. Copies script file from ToolKit `C:\IGI-ToolKit` to `QToolKit\QCompiler\Compile\input` and compiles them to binary _QVM_ file and convert compiled QVM v7 (IGI 2) to QVM v5 (IGI 1) using _DConv_ tool and moves them to proper destination.</br>
 4. Restart the level and see the changes.</br>
 
 ## ToolKit sections.
@@ -146,7 +146,7 @@ And now you can generate Key from KeyGen for your toolkit for free.</br>~~
 **QCompiler toolkit**: Lets you `Compile/Assemble/Parse` game files which game uses internaly to save/edit game data.</br>
 
 # ToolKit Tutorial on YouTube :
-[![QEditor](https://img.youtube.com/vi/gwj5HNzF9cQ/0.jpg)](https://www.youtube.com/watch?v=gwj5HNzF9cQ)
+[![QToolKit](https://img.youtube.com/vi/gwj5HNzF9cQ/0.jpg)](https://www.youtube.com/watch?v=gwj5HNzF9cQ)
 
 ## Version Update:
 **ToolKit version 0.8.7.0 Latest.**

@@ -24,3 +24,10 @@
 
 ### ❓ How to send or view Logs?
 **A:** Go to Misc section and click 'Show Logs' to view them and 'Share logs' to share. 📬
+
+### ❓ I got a LoadLibrary error or DLL injection failed. What should I do?
+**A:** If you encounter LoadLibrary error or DLL injection issues, use the manual injector provided with the ToolKit:
+- Navigate to `bin/IGI-Injector.bat` in your ToolKit directory and run it to inject the DLL into the game
+- Alternatively, use your favorite DLL Injector to inject the required DLL manually
+- After successful injection, make sure to use Menu "Level Menu -> Refresh" to refresh the game
+- This will ensure the ToolKit can properly communicate with the game 🔧
