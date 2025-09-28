@@ -52,51 +52,51 @@ Here is workflow mentioned.
 ### Level ToolKit:
 **Level ToolKit**: Lets you to `Add` or `Remove` Building/Objects in level at any position you want select list of objects to add in level and add then in `Edit mode`.</br>
 
-![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/level_editor.png)
+![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/level_toolkit.png)
 
 ### Human ToolKit:
 **Human ToolKit**: Lets you to Update human Speed/Jump,Health Scale peek and Team Id/Human Camera (1st Person,3rd person).</br>
 
-![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/human_editor.png)
+![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/human_toolkit.png)
 
 ### Weapon ToolKit:
 **Weapon ToolKit**: Lets you to `Add` or `Remove` new weapons in level `permanently` or `temporary` depends which mode is selected `Live` or `Normal` mode.</br>
 
-![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/weapon_editor.png)
+![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/weapon_toolkit.png)
 
 ### Weapon Advance ToolKit:
 **Weapon Advance ToolKit**: Lets you to `Update` Weapon's advance data like _Name,UI Type,Ammo Damage, Weapon Power/RPM and more_.</br>
 
-![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/weapon_advance_editor.png)
+![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/weapon_advance_toolkit.png)
 
 ### A.I ToolKit:
 **A.I ToolKit**: Lets you to `Add` or `Remove` `Friendly/Enemy` A.I into level with various properties like _invincible_,_advance view_,_guard generator_ etc.</br>
 
-![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/ai_editor.png)
+![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/ai_toolkit.png)
 
 ### A.I JSON ToolKit.
 **JSON ToolKit**: Lets you to `Save` or `Load` A.I to `JSON` file _permanently_ for later use, and you can edit/share json files into toolkit.</br>
-![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/ai_json_editor.png)
+![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/ai_json_toolkit.png)
 
 ### A.I Script ToolKit  
 **Script ToolKit**: Allows you to `Create`, `Edit`, and `Manage` A.I scripts seamlessly. You can save scripts for later use.  
-![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/ai_script_editor.png)  
+![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/ai_script_toolkit.png)  
 
 ### A.I Patrol ToolKit  
 **Patrol ToolKit**: Enables you to `Define`, `Modify`, and `Control` A.I patrol routes. Save patrol patterns for reuse.  
-![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/ai_patrol_editor.png)
+![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/ai_patrol_toolkit.png)
 
 
 ### Mission ToolKit
 **Mission ToolKit**: Lets you to `Add` or `Remove` `Missions` into level after you design your own custom level enter _Name_ and _Description_ and **Save** your Mission</br>
 You can also **Upload** or **Download** new missions from _Server_ and load into your game and play them directly..</br>
 
-![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/mission_editor.png)
+![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/mission_toolkit.png)
 
 ### Position ToolKit
 **Position ToolKit**: Lets you to `Update` or `Reset` `Positions` and `Orientation` of Game objects and Humanplayer you can Rotate them to `180` degree or move them to different location easily.</br>
 
-![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/position_editor.png)
+![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/position_toolkit.png)
 
 
 ### Texture ToolKit
@@ -104,12 +104,12 @@ You can also **Upload** or **Download** new missions from _Server_ and load into
 - This can automatically Import textures from `.RES` Resource packed file annd view them directly into toolkit.</br>
 - This can automatically Replace Images from `JPG/PNG` to `TGA` Game supported format and turn that into game texture easily.</br>
 
-![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/texture_editor.png)
+![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/texture_toolkit.png)
 
 ### Graph ToolKit.</br> 
 **Graph toolkit**: Lets you see visualization of Graph and nodes information, You can `teleport` or `Auto traverse` to Graph or Nodes in _real time_ and see where graph or nodes are in selected level..</br>
 
-![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/graph_editor.png)
+![](https://github.com/IGI-Research-Devs/IGI-ToolKit/blob/develop/IGIEditor/resources/graph_toolkit.png)
 
 ### Graph & Links - Level 5. ( IGI 1 ToolKit).
 ![](https://i.ibb.co/px7fWfS/Node-Links-L5-Area2.png)
