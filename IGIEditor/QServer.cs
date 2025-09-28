@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace IGIEditor
@@ -74,9 +75,23 @@ namespace IGIEditor
             bool status = false;
             try
             {
-                var qftpClient = GetQFtpClient();
-                qftpClient.upload(remoteFile, localFile);
-                status = true;
+                // Run upload in separate thread to avoid blocking GUI
+                Thread uploadThread = new Thread(() =>
+                {
+                    try
+                    {
+                        var qftpClient = GetQFtpClient();
+                        qftpClient.upload(remoteFile, localFile);
+                        QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Upload completed successfully");
+                    }
+                    catch (Exception ex)
+                    {
+                        QLog.ShowLogException("Server" + MethodBase.GetCurrentMethod().Name, ex);
+                    }
+                });
+                uploadThread.IsBackground = true;
+                uploadThread.Start();
+                status = true; // Return true immediately as thread is started
             }
             catch (Exception ex)
             {
@@ -91,10 +106,26 @@ namespace IGIEditor
             bool status;
             try
             {
-                var qftpClient = GetQFtpClient();
-                qftpClient.download(remoteFile, localFile);
-                QUtils.ShellExec("move /Y " + localFile + " " + destPath);
-                status = true;
+                // Run download in separate thread to avoid blocking GUI
+                Thread downloadThread = new Thread(() =>
+                {
+                    try
+                    {
+                        var qftpClient = GetQFtpClient();
+                        qftpClient.download(remoteFile, localFile);
+                        QUtils.ShellExec("move /Y " + localFile + " " + destPath);
+                        QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Download completed successfully");
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ex.Message.Contains("File unavailable")) QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "File '" + localFile + "' was not found on server.");
+                        else
+                            QLog.ShowLogException("Server" + MethodBase.GetCurrentMethod().Name, ex);
+                    }
+                });
+                downloadThread.IsBackground = true;
+                downloadThread.Start();
+                status = true; // Return true immediately as thread is started
             }
             catch (Exception ex)
             {
