@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using QLibc;
 using System;
@@ -776,7 +776,7 @@ namespace IGIEditor
                 {
                     if (posMetersCb.Checked)
                     {
-                        var meterPos = (editorModeCb.Checked) ? QUtils.GetViewPortPos() : QHuman.GetPositionInMeter(false);
+                        var meterPos = (toolkitModeCb.Checked) ? QUtils.GetViewPortPos() : QHuman.GetPositionInMeter(false);
                         xPosLbl.Text = meterPos.x.ToString("0.0");
                         yPosLbl.Text = meterPos.y.ToString("0.0");
                         zPosLbl.Text = meterPos.z.ToString("0.0");
@@ -1174,7 +1174,7 @@ namespace IGIEditor
             int weaponIndex = 0;
             try
             {
-                if (liveEditorCb.Checked)
+                if (liveToolKitCb.Checked)
                 {
                     weaponIndex = weaponList[weaponDD.SelectedIndex].Values.ElementAt(0);
                     weaponName = weaponList[weaponDD.SelectedIndex].Keys.ElementAt(0);
@@ -1241,7 +1241,7 @@ namespace IGIEditor
                 var buildingModel = QUtils.buildingList[buildingSelectDD.SelectedIndex].Values.ElementAt(0);
                 var buildingPos = QUtils.GetViewPortPos(); //QHuman.GetPositionInMeter();
 
-                if (liveEditorCb.Checked)
+                if (liveToolKitCb.Checked)
                 {
                     QInternals.MEF_ModelRestore();
                     SetStatusText("Buildiing " + buildingName + " restored successfully");
@@ -1249,10 +1249,10 @@ namespace IGIEditor
                 }
 
 #if !DEV_MODE
-                if (!editorModeCb.Checked)
+                if (!toolkitModeCb.Checked)
                 {
                     var result = QLog.ShowEditModeDialog();
-                    if (result) editorModeCb.Checked = true;
+                    if (result) toolkitModeCb.Checked = true;
                     else return;
                 }
 #endif
@@ -1294,7 +1294,7 @@ namespace IGIEditor
 
                 if (String.IsNullOrEmpty(buildingModel)) return;
 
-                if (liveEditorCb.Checked)
+                if (liveToolKitCb.Checked)
                 {
                     QInternals.MEF_ModelRemove(buildingModel);
                     SetStatusText("Buildiing " + buildingName + " removed successfully");
@@ -1330,7 +1330,7 @@ namespace IGIEditor
                 var objectPos = QUtils.GetViewPortPos();//QHuman.GetPositionInMeter();
                 bool hasOrientation = String.IsNullOrEmpty(alphaTxt.Text) && String.IsNullOrEmpty(betaTxt.Text) && String.IsNullOrEmpty(gammaTxt.Text);
 
-                if (liveEditorCb.Checked)
+                if (liveToolKitCb.Checked)
                 {
                     QInternals.MEF_ModelRestore();
                     SetStatusText("Object " + objectRigidName + " restored successfully");
@@ -1338,10 +1338,10 @@ namespace IGIEditor
                 }
 
 #if !DEV_MODE
-                if (!editorModeCb.Checked)
+                if (!toolkitModeCb.Checked)
                 {
                     var result = QLog.ShowEditModeDialog();
-                    if (result) editorModeCb.Checked = true;
+                    if (result) toolkitModeCb.Checked = true;
                     else return;
                 }
 #endif
@@ -1377,7 +1377,7 @@ namespace IGIEditor
 
                 if (String.IsNullOrEmpty(objectRigidModel)) return;
 
-                if (liveEditorCb.Checked)
+                if (liveToolKitCb.Checked)
                 {
                     QInternals.MEF_ModelRemove(objectRigidModel);
                     SetStatusText("Object " + objectRigidName + " removed successfully");
@@ -1861,8 +1861,8 @@ namespace IGIEditor
 
         private void tabContainer_Selected(object sender, TabControlEventArgs e)
         {
-            //Level Editor
-            if (e.TabPage.Name == "levelEditor")
+            //Level ToolKit
+            if (e.TabPage.Name == "levelToolKit")
             {
                 try
                 {
@@ -1871,8 +1871,8 @@ namespace IGIEditor
                 catch (Exception) { }
             }
 
-            //Object Editor
-            else if (e.TabPage.Name == "objectEditor")
+            //Object ToolKit
+            else if (e.TabPage.Name == "objectToolKit")
             {
                 try
                 {
@@ -1946,21 +1946,21 @@ namespace IGIEditor
                 catch (Exception ex) { QLog.LogException(e.TabPage.Name.ToUpper(), ex); }
             }
 
-            //Human Editor
-            else if (e.TabPage.Name == "humanEditor")
+            //Human ToolKit
+            else if (e.TabPage.Name == "humanToolKit")
             {
                 //movementSpeedTxt.Maximum  = forwardJumpTxt.Maximum = upwardJumpTxt.Maximum = inAirSpeedTxt.Maximum = Convert.ToDecimal(float.MaxValue);
             }
 
 
-            //MissionEditor Editor
-            else if (e.TabPage.Name == "missionEditor")
+            //MissionToolKit ToolKit
+            else if (e.TabPage.Name == "missionToolKit")
             {
                 //if (editorOnline) UpdateUIComponent(missionsOnlineDD, QUtils.missionNameListStr);
             }
 
-            //Misc Editor
-            else if (e.TabPage.Name == "miscEditor")
+            //Misc ToolKit
+            else if (e.TabPage.Name == "miscToolKit")
             {
 
             }
@@ -1974,7 +1974,7 @@ namespace IGIEditor
             {
                 var itemsCount = Convert.ToInt32(objectsRemoveTxt.Text);
                 int itemCount = 0;
-                if (liveEditorCb.Checked)
+                if (liveToolKitCb.Checked)
                 {
                     foreach (var objectRigid in QUtils.objectRigidList)
                     {
@@ -2010,7 +2010,7 @@ namespace IGIEditor
             {
                 var itemsCount = Convert.ToInt32(buildingsRemoveTxt.Text);
                 int itemCount = 0;
-                if (liveEditorCb.Checked)
+                if (liveToolKitCb.Checked)
                 {
                     foreach (var building in QUtils.buildingList)
                     {
@@ -2070,7 +2070,7 @@ namespace IGIEditor
 
         private void resetBuildingsBtn_Click(object sender, EventArgs e)
         {
-            if (liveEditorCb.Checked)
+            if (liveToolKitCb.Checked)
             {
                 QInternals.MEF_ModelRestore();
                 return;
@@ -2210,7 +2210,7 @@ namespace IGIEditor
 
         private void resetObjectsBtn_Click(object sender, EventArgs e)
         {
-            if (liveEditorCb.Checked)
+            if (liveToolKitCb.Checked)
             {
                 QInternals.MEF_ModelRestore();
                 return;
@@ -2379,15 +2379,15 @@ namespace IGIEditor
             try
             {
 #if DEV_MODE
-                if (!editorModeCb.Checked && !liveEditorCb.Checked)
+                if (!toolkitModeCb.Checked && !liveToolKitCb.Checked)
                 {
                     var result = QLog.ShowEditModeDialog();
-                    if (result) editorModeCb.Checked = true;
+                    if (result) toolkitModeCb.Checked = true;
                     else return;
                 }
 #endif
 
-                if (liveEditorCb.Checked)
+                if (liveToolKitCb.Checked)
                 {
                     var modelId = modelIDTxt.Text;
                     QInternals.MEF_ModelRemove(modelId);
@@ -2428,14 +2428,14 @@ namespace IGIEditor
 
         private void restoreModelBtn_Click(object sender, EventArgs e)
         {
-            if (!editorModeCb.Checked && !liveEditorCb.Checked)
+            if (!toolkitModeCb.Checked && !liveToolKitCb.Checked)
             {
                 var result = QLog.ShowEditModeDialog();
-                if (result) editorModeCb.Checked = true;
+                if (result) toolkitModeCb.Checked = true;
                 else return;
             }
 
-            if (liveEditorCb.Checked)
+            if (liveToolKitCb.Checked)
             {
                 var modelId = modelIDTxt.Text;
                 QInternals.MEF_ModelRestore();
@@ -2453,7 +2453,7 @@ namespace IGIEditor
             QUtils.graphAreas.Clear();
             CleanUpAiFiles();
 
-            if (liveEditorCb.Checked)
+            if (liveToolKitCb.Checked)
             {
                 QUtils.gameFound = QMemory.FindGame();
                 if (QUtils.gameFound)
@@ -2465,7 +2465,7 @@ namespace IGIEditor
                 {
                     SetStatusText("Live Editor - Error game not running.");
                     QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Live Editor - Error game not running.");
-                    liveEditorCb.Checked = false;
+                    liveToolKitCb.Checked = false;
                     StartGameLevel(gameLevel, true);
 
                 }
@@ -3843,7 +3843,7 @@ namespace IGIEditor
                     QUtils.ParseConfig();
 
                     //Initialize app data for QEditor.
-                    QUtils.InitEditorAppData();
+                    QUtils.InitToolKitAppData();
 
                     if (QUtils.CheckShortcutExist())
                     {
@@ -3868,7 +3868,7 @@ namespace IGIEditor
         {
             if (String.IsNullOrEmpty(fopenIO.FileData))
             {
-                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "JSON Editor data is empty.", "JSON Editor.");
+                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "JSON ToolKit data is empty.", "JSON ToolKit.");
                 return;
             }
 
@@ -3879,20 +3879,19 @@ namespace IGIEditor
                 humanAiJsonList.Add(humanAi);
                 SetStatusText("Human A.I added to list.");
                 if (aiJsonClearDataCb.Checked) aiJsonEditorTxt.Clear();
-            }
-        }
-
         private void aiJsonAddAiBtn_Click(object sender, EventArgs e)
         {
-            if (humanAiJsonList.Count == 0) QLog.ShowLogError("AddHumanSoldierJSON", "No A.I JSON Files were added to list yet.", "JSON Editor.");
+            if (humanAiJsonList.Count == 0)
+                QLog.ShowLogError("AddHumanSoldierJSON", "No A.I JSON Files were added to list yet.", "JSON ToolKit.");
             else if (humanAiJsonList.Count >= 1)
             {
                 try
                 {
                     foreach (var humanAi in humanAiJsonList)
+{{ ... }}
                     {
                         var aiModelName = QObjects.FindModelName(humanAi.model);
-                        var dlgResult = QLog.ShowDialog("You are about to Add " + aiModelName + "A.I confirm ?\nThis is manual editing so be carefuly about data you edit.", "JSON Editor");
+                        var dlgResult = QLog.ShowDialog("You are about to Add " + aiModelName + "A.I confirm ?\nThis is manual editing so be carefuly about data you edit.", "JSON ToolKit");
 
                         if (dlgResult == DialogResult.Yes)
                         {
@@ -3927,7 +3926,7 @@ namespace IGIEditor
         private void aiJsonSaveBtn_Click(object sender, EventArgs e)
         {
             if (String.IsNullOrEmpty(aiJsonEditorTxt.Text))
-                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "File contents are empty or invalid.", "JSON Editor.");
+                QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "File contents are empty or invalid.", "JSON ToolKit.");
 
             var dlgMsg = QLog.ShowDialog("Do you want to save all contents of '" + aiFileNameTxt.Text + "'?");
             if (dlgMsg == DialogResult.Yes)
@@ -4033,7 +4032,7 @@ namespace IGIEditor
         {
             if (((CheckBox)sender).Checked)
             {
-                DialogMsgBox.ShowBox("JSON Editor", "This is manual editing so be careful\nEdit at your own risk.[BETA]");
+                DialogMsgBox.ShowBox("JSON ToolKit", "This is manual editing so be careful\nEdit at your own risk.[BETA]");
                 aiJsonEditorTxt.ReadOnly = false;
             }
             else aiJsonEditorTxt.ReadOnly = true;
@@ -4462,12 +4461,12 @@ namespace IGIEditor
 
         private void liveEditorCb_Click(object sender, EventArgs e)
         {
-            liveEditorCb.Checked = !liveEditorCb.Checked;
-            string modeStatus = liveEditorCb.Checked ? "Enabled" : "Disabled";
+            liveToolKitCb.Checked = !liveToolKitCb.Checked;
+            string modeStatus = liveToolKitCb.Checked ? "Enabled" : "Disabled";
             SetStatusText("Editor mode status is now  '" + modeStatus + " " + liveEditorCb.Text + "'");
             QLog.ShowWarning("Live Editor works best when you start new level from Main Menu and then enable it.");
 
-            if (liveEditorCb.Checked)
+            if (liveToolKitCb.Checked)
             {
                 liveEditorCb.ForeColor = SpringGreen;
                 addBuildingBtn.Text = "Restore Building";
@@ -4479,7 +4478,7 @@ namespace IGIEditor
                 addBuildingBtn.Text = "Add Building";
                 addObjectBtn.Text = "Add Object";
             }
-            removeWeaponBtn.Enabled = !liveEditorCb.Checked;
+            removeWeaponBtn.Enabled = !liveToolKitCb.Checked;
         }
 
         private void editorOnlineCb_Click(object sender, EventArgs e)
@@ -4545,17 +4544,17 @@ namespace IGIEditor
 
         private void editorModeCb_Click(object sender, EventArgs e)
         {
-            editorModeCb.Checked = !editorModeCb.Checked;
-            string modeStatus = editorModeCb.Checked ? "Enabled" : "Disabled";
+            toolkitModeCb.Checked = !toolkitModeCb.Checked;
+            string modeStatus = toolkitModeCb.Checked ? "Enabled" : "Disabled";
             SetStatusText("Editor mode status is now  '" + modeStatus);
 
-            if (editorModeCb.Checked)
+            if (toolkitModeCb.Checked)
             {
                 QInternals.HumanFreeCam();
                 QInternals.StatusMessageShow("Editor mode enabled. use Arrows keys to move ALT/SPACE change height");
                 playModeCb.Checked = false;
             }
-            else if (!playModeCb.Checked) editorModeCb.Checked = true;
+            else if (!playModeCb.Checked) toolkitModeCb.Checked = true;
         }
 
         private void playModeCb_Click(object sender, EventArgs e)
@@ -4569,9 +4568,9 @@ namespace IGIEditor
                 GT.GT_SendKeyStroke("HOME");
                 QUtils.Sleep(0.5f);
                 QInternals.StatusMessageShow("Play mode enabled - Play level.");
-                editorModeCb.Checked = false;
+                toolkitModeCb.Checked = false;
             }
-            else if (!editorModeCb.Checked) playModeCb.Checked = true;
+            else if (!toolkitModeCb.Checked) playModeCb.Checked = true;
         }
 
         private void musicVolumeUpdateBtn_Click(object sender, EventArgs e)

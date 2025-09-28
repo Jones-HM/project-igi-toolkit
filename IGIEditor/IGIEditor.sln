@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35913.81 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IGIEditor", "IGIEditor.csproj", "{1BBBB5FC-3CF7-46C3-8837-9DBEE8BBD41F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IGIToolKit", "IGIEditor.csproj", "{1BBBB5FC-3CF7-46C3-8837-9DBEE8BBD41F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
