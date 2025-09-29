@@ -140,12 +140,12 @@ namespace IGIEditor
 
         #region App Version
         internal static string versionFileName = "VERSION";
-        internal static string appEditorSubVersion = "0.8.7.0";
+        internal static string appEditorSubVersion = "0.8.7.5";
         internal static float viewPortDelta = 10000.0f;
         #endregion
 
         #region Support Links
-        internal static string supportDiscordLink = @"https://discord.gg/9T8tzyhvp6";
+        internal static string supportDiscordLink = @"https://discord.com/invite/QpbQrRFAER";
         internal static string supportYoutubeLink = @"https://www.youtube.com/channel/UChGryl0a0dii81NfDZ12LwA";
         internal static string supportVKLink = @"https://vk.com/id679925339";
         #endregion
@@ -685,7 +685,9 @@ namespace IGIEditor
             qIniParser.Write("app_online", editorOnline.ToString().ToLower(), EDITOR_SECTION);
             qIniParser.Write("update_check", editorUpdateCheck.ToString().ToLower(), EDITOR_SECTION);
             qIniParser.Write("update_interval", updateTimeInterval.ToString().ToLower(), EDITOR_SECTION);
-            qIniParser.Write("compiler_type", (internalCompiler) ? "internal" : "external", EDITOR_SECTION);
+            string compilerTypeValue = (internalCompiler) ? "internal" : "external";
+            qIniParser.Write("compiler_type", compilerTypeValue, EDITOR_SECTION);
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Config compiler_type written: '" + compilerTypeValue + "' (internal=" + internalCompiler + ", external=" + externalCompiler + ")");
 
             //Write Game properties to config [GAME-SECTION].
             qIniParser.Write("music_enabled", gameMusicEnabled.ToString().ToLower(), GAME_SECTION);
@@ -730,7 +732,16 @@ namespace IGIEditor
                     editorUpdateCheck = bool.Parse(qIniParser.Read("update_check", EDITOR_SECTION)); editorUpdateParsed = true;
                     updateTimeInterval = int.Parse(qIniParser.Read("update_interval", EDITOR_SECTION)); timeInterval = true;
                     var compilerType = qIniParser.Read("compiler_type", EDITOR_SECTION);
-                    if (compilerType.Contains("internal") || compilerType.Contains("external")) { internalCompiler = (compilerType.Contains("internal")); externalCompiler = (compilerType.Contains("external")); compilerParsed = true; } else compilerParsed = false;
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Config compiler_type read: '" + compilerType + "'");
+                    if (compilerType.Contains("internal") || compilerType.Contains("external")) { 
+                        internalCompiler = (compilerType.Contains("internal")); 
+                        externalCompiler = (compilerType.Contains("external")); 
+                        compilerParsed = true; 
+                        QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Compiler settings parsed - internal: " + internalCompiler + ", external: " + externalCompiler);
+                    } else { 
+                        compilerParsed = false;
+                        QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Invalid compiler_type in config: '" + compilerType + "'");
+                    }
 
                     //Parse all data for Game settings.
                     gameMusicEnabled = bool.Parse(qIniParser.Read("music_enabled", GAME_SECTION)); gameMusicParsed = true;

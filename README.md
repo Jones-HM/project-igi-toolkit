@@ -149,7 +149,7 @@ And now you can generate Key from KeyGen for your toolkit for free.</br>~~
 [![QToolKit](https://img.youtube.com/vi/gwj5HNzF9cQ/0.jpg)](https://www.youtube.com/watch?v=gwj5HNzF9cQ)
 
 ## Version Update:
-**ToolKit version 0.8.7.0 Latest.**
+**ToolKit version 0.8.7.5 Latest.**
 
 # Chagelogs:
 Check out the detailed version history in [Changelogs.md](CHANGELOGS.md)
@@ -158,8 +158,8 @@ Check out the detailed version history in [Changelogs.md](CHANGELOGS.md)
 The toolkit onwards version 0.7 doesn't store any type of data from _User,Machine_ the toolkit doesn't maintain any sort of database now.
 
 # **DOWNLOAD LINKS**</br>
-- **Project I.G.I 1 ToolKit** Version 0.8.7.0 _RELEASED_</br>
-[IGI ToolKit](https://github.com/Jones-HM/project-igi-toolkit/releases/tag/0.8.7.0)</br>
+- **Project I.G.I 1 ToolKit** Version 0.8.7.5 _RELEASED_</br>
+[IGI ToolKit](https://github.com/Jones-HM/project-igi-toolkit/releases/tag/0.8.7.5)</br>
 
 # 📚 FAQ (Frequently Asked Questions)
 Checkout the detailed FAQ in [FAQ.md](FAQ.md)
@@ -167,7 +167,7 @@ Checkout the detailed FAQ in [FAQ.md](FAQ.md)
 # 📞 Connect with us:
 If you encounter any issues with the ToolKit, don't hesitate to contact me 👇
 
-- 🎮 Discord: Feel free to message me at _Jones_IGI#3954_ and join our [Discord server](https://discord.gg/AyVDW7kE6V) for quick support.
+- 🎮 Discord: Feel free to message me at _Jones_IGI#3954_ and join our [Discord server](https://discord.com/invite/QpbQrRFAER) for quick support.
 - 📧 Email: You can reach me at igiproz.hm@gmail.com for any questions or feedback.
 - 🌟 Follow the Project: Stay updated with the latest developments on [GitHub](https://github.com/Jones-HM/).
 - 📺 Subscribe to our Channel: Watch useful guides and walkthroughs on our [YouTube](https://www.youtube.com/@igi-research-devs) channel.

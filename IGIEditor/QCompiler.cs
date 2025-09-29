@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -174,20 +174,26 @@ namespace IGIEditor
             {
                 QUtils.currGameLevel = QMemory.GetRunningLevel();
                 string currLevelPath = "level" + QUtils.currGameLevel;
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Current Game Level: '" + currLevelPath + "'");
+				
                 if (!String.IsNullOrEmpty(qscData))
                 {
                     string scriptFile = string.IsNullOrEmpty(qscFile) ? "MISSION:objects.qsc" : "MISSION:AI/" + qscFile;
-                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "QData : Script File :'" + scriptFile + "' Game Path: '" + gamePath + ",CurrLevel path: " + currLevelPath + "',Append Data: " + appendData + ",Restart Level: " + restartLevel + ",Save Position: " + savePos);
-
+					QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Script File: '" + scriptFile + "'");
+					
                     if (!gamePath.Contains(currLevelPath))
                     {
                         QLog.ShowLogError(MethodBase.GetCurrentMethod().Name, "Compile error in game path for level #" + QUtils.currGameLevel);
                         return false;
                     }
 
-                    //Compile for Objets.
-                    QUtils.SaveFile(scriptFile, qscData, appendData);
+                    //Compile for Objects - Save to valid filename, then use scriptFile
+                    string tempFileName = string.IsNullOrEmpty(qscFile) ? QUtils.objectsQsc : qscFile;
+					QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Temp File: '" + tempFileName + "'");
+                    QUtils.SaveFile(tempFileName, qscData, appendData);
+
                     QUtils.gamePath = QUtils.cfgGamePath + QMemory.GetRunningLevel();
+					QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Game Path: '" + QUtils.gamePath + "'");
                     string outScriptPath = null;
                     
                     if (scriptFile.Contains("objects"))
@@ -195,25 +201,25 @@ namespace IGIEditor
                     else
                         outScriptPath = QUtils.gamePath + Path.DirectorySeparatorChar + qscFile;
 
-                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "QData : Output Path: '" + outScriptPath + "'");
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Output Path: '" + outScriptPath + "'");
 
                     if (File.Exists(outScriptPath))
                     {
-                        QLog.AddLog(MethodBase.GetCurrentMethod().Name, "QData : File exist '" + outScriptPath + "' deleting file.");
+                        QLog.AddLog(MethodBase.GetCurrentMethod().Name, "File exist '" + outScriptPath + "' deleting file.");
                         QUtils.FileIODelete(outScriptPath);
                     }
 
                     //Copy file to OutPath and Compile with Internal Compiler.
-                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "QData : Starting Compiling of file '" + QUtils.objectsQsc + "'");
-                    QUtils.FileCopy(QUtils.objectsQsc, outScriptPath);
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Starting Compiling of file '" + tempFileName + "'");
+                    QUtils.FileCopy(tempFileName, outScriptPath);
                     QInternals.ScriptCompile(scriptFile);
-                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "QData : Compiling of file '" + scriptFile + "' done\tOutput Path: '" + outScriptPath + "'");
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Compiling of file '" + scriptFile + "' done\tOutput Path: '" + outScriptPath + "'");
 
                     QUtils.Sleep(1.5f);
                     //Delete script file after compiling.
                     QUtils.FileIODelete(outScriptPath);
 
-                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "QData : Output Path: '" + outScriptPath + "' removed");
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Output Path: '" + outScriptPath + "' removed");
 
                     if (restartLevel) 
                         QMemory.RestartLevel(savePos);
@@ -259,8 +265,12 @@ namespace IGIEditor
                 if (!String.IsNullOrEmpty(qscData))
                 {
                     qscFile = qscFile ?? QUtils.objectsQsc;
-                    QUtils.SaveFile(qscFile, qscData, appendData);
-                    var qcompiler = GetQCompiler();
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "QSC File: '" + qscFile + "'");
+					
+					QUtils.SaveFile(qscFile, qscData, appendData);
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "QSC Data saved to file: '" + qscFile + "'");
+
+					var qcompiler = GetQCompiler();
                     if (qcompiler is null)
                         QLog.ShowError(QUtils.EXTERNAL_COMPILER_ERR);
                     else
@@ -270,6 +280,9 @@ namespace IGIEditor
                         if (restartLevel) 
                             QMemory.RestartLevel(savePos);
                 }
+				else
+					QLog.AddLog(MethodBase.GetCurrentMethod().Name, "QSC Data is empty");
+				
             }
 
             catch (Exception ex)
@@ -336,10 +349,19 @@ namespace IGIEditor
         internal static bool Compile(string qscData, string gamePath, bool appendData = false, bool restartLevel = false, bool savePos = true, string qscFile = null)
         {
             bool status = false;
-            if (QUtils.internalCompiler)
-                status = CompileInternalData(qscData, gamePath, appendData, restartLevel, savePos, qscFile);
+            string qscDataSplit = string.Join("\n", qscData.Split('\n').Take(10)); // print only 10 lines of qscData
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Compiling data : " + qscDataSplit + "\tGame Path : " + gamePath + "\tAppend Data : " + appendData + "\tRestart Level : " + restartLevel + "\tSave Position : " + savePos + "\tQSC File : " + qscFile);
+            
+			if (QUtils.internalCompiler)
+			{
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Compiling internal data");
+				status = CompileInternalData(qscData, gamePath, appendData, restartLevel, savePos, qscFile);
+            }
             else if (QUtils.externalCompiler)
+			{
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Compiling external data");
                 status = CompileExternalData(qscData, gamePath, appendData, restartLevel, savePos, qscFile);
+            }
             return status;
         }
 

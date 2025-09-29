@@ -1850,6 +1850,10 @@ namespace IGIEditor
                 appLogsCb.Text = "Enable";
                 SetStatusText("Application Logs disabled");
             }
+            
+            // Save to config file immediately
+            QUtils.CreateConfig();
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "App logs setting updated: " + QUtils.appLogs + ", config saved");
         }
 
         private void autoResetCb_CheckedChanged(object sender, EventArgs e)
@@ -1866,6 +1870,10 @@ namespace IGIEditor
                 QUtils.gameReset = false;
                 SetStatusText("Auto reset level disabled");
             }
+            
+            // Save to config file immediately
+            QUtils.CreateConfig();
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Game reset setting updated: " + QUtils.gameReset + ", config saved");
         }
 
         private void aboutBtn_Click(object sender, EventArgs e)
@@ -2528,6 +2536,10 @@ namespace IGIEditor
                 QMemory.DisableGameWarnings();
             }
             QUtils.gameDisableWarns = disableWarningsCb.Checked;
+            
+            // Save to config file immediately
+            QUtils.CreateConfig();
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Disable warnings setting updated: " + QUtils.gameDisableWarns + ", config saved");
         }
 
         private void addNodesBtn_Click(object sender, EventArgs e)
@@ -3094,6 +3106,10 @@ namespace IGIEditor
                 SetStatusText("A.I Idle Mode disabled");
             }
             QUtils.gameAiIdleMode = ((CheckBox)sender).Checked;
+            
+            // Save to config file immediately
+            QUtils.CreateConfig();
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AI idle mode setting updated: " + QUtils.gameAiIdleMode + ", config saved");
         }
 
         private void updateTeamIdBtn_Click(object sender, EventArgs e)
@@ -3140,6 +3156,10 @@ namespace IGIEditor
             debugModeCb.Checked = !debugModeCb.Checked;
             QInternals.DebugMode();
             QUtils.gameDebugMode = debugModeCb.Checked;
+            
+            // Save to config file immediately
+            QUtils.CreateConfig();
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Debug mode setting updated: " + QUtils.gameDebugMode + ", config saved");
         }
 
         private void enableMusicCb_CheckedChanged(object sender, EventArgs e)
@@ -3160,6 +3180,10 @@ namespace IGIEditor
             }
             SetStatusText(statusMusic + " successfully.");
             QUtils.gameMusicEnabled = enableMusicCb.Checked;
+            
+            // Save to config file immediately
+            QUtils.CreateConfig();
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Music setting updated: " + QUtils.gameMusicEnabled + ", config saved");
         }
 
         private void gfxResetBtn_Click(object sender, EventArgs e)
@@ -3452,6 +3476,10 @@ namespace IGIEditor
                 SetStatusText("Editor auto update check cancelled");
                 QUtils.editorUpdateCheck = false;
             }
+            
+            // Save to config file immediately
+            QUtils.CreateConfig();
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Update check setting updated: " + QUtils.editorUpdateCheck + ", config saved");
         }
 
         private void editorUpdaterBtn_Click(object sender, EventArgs e)
@@ -4057,6 +4085,10 @@ namespace IGIEditor
                 levelRunTimer.Stop();
                 SetStatusText("Game auto refresh disabled");
             }
+            
+            // Save to config file immediately
+            QUtils.CreateConfig();
+            QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Game refresh setting updated: " + QUtils.gameRefresh + ", config saved");
         }
 
         private void aiJsonEditModeCb_CheckedChanged(object sender, EventArgs e)
@@ -4074,13 +4106,10 @@ namespace IGIEditor
             try
             {
                 // Toggle to internal compiler
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "BEFORE toggle - internal: " + QUtils.internalCompiler + ", external: " + QUtils.externalCompiler);
                 QUtils.internalCompiler = true;
                 QUtils.externalCompiler = false;
-                
-                // Update menu items
-                internalCompilerCb.Checked = true;
-                externalCompilerCb.Checked = false;
-                
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "AFTER toggle - internal: " + QUtils.internalCompiler + ", external: " + QUtils.externalCompiler);
                 // Update UI
                 SetStatusText("Compiler switched to Internal [Fast] - Requires Internals.dll");
                 compilerTypeLbl.Text = "internal";

@@ -1,5 +1,12 @@
 # 📝 CHANGELOGS
 
+## Version 0.8.7.5 BETA 🎉  
+- 🔧 **Enhanced QCompiler Logic** - Improved internal compiler workflow for better QSC to QVM compilation.
+- 📝 **Enhanced Logging** - Added detailed logging for compilation steps including current game level, script files, and paths.
+- 🔄 **Updated Discord Links** - Updated all Discord server links to the new invite URL.
+- 🐛 **Bug Fixes** - Fixed various compilation path issues and improved error handling.
+- 📊 **Improved Code Quality** - Added better variable naming and code organization in QCompiler methods.
+
 ## Version 0.8.7.0 BETA 🎉  
 - 🔄 **Project Rebranding** - Changed from "Project IGI Editor" to "Project IGI ToolKit".
 - 📝 **Updated All References** - Changed "Editor" to "ToolKit" throughout the application.
