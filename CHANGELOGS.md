@@ -6,6 +6,10 @@
 - 🔄 **Updated Discord Links** - Updated all Discord server links to the new invite URL.
 - 🐛 **Bug Fixes** - Fixed various compilation path issues and improved error handling.
 - 📊 **Improved Code Quality** - Added better variable naming and code organization in QCompiler methods.
+- 🔧 **QCompiler Filename Fix** - Improved tempFileName extraction using scriptFile path components for better file handling.
+- 📝 **Weapon Update Logging** - Added detailed logging for weapon property updates in IGIEditorUI.
+- ✅ **Build Verification** - Both Debug and Release configurations build successfully with 0 errors.
+- 🔗 **Repository Migration** - Updated remote URL to new project-igi-toolkit repository location.
 
 ## Version 0.8.7.0 BETA 🎉  
 - 🔄 **Project Rebranding** - Changed from "Project IGI Editor" to "Project IGI ToolKit".
