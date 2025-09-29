@@ -188,8 +188,8 @@ namespace IGIEditor
                     }
 
                     //Compile for Objects - Save to valid filename, then use scriptFile
-                    string tempFileName = string.IsNullOrEmpty(qscFile) ? QUtils.objectsQsc : qscFile;
-					QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Temp File: '" + tempFileName + "'");
+                    string tempFileName = scriptFile.Split(new[] { '/', '\\', ':' }, StringSplitOptions.RemoveEmptyEntries).Last();
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Temp File: '" + tempFileName + "'");
                     QUtils.SaveFile(tempFileName, qscData, appendData);
 
                     QUtils.gamePath = QUtils.cfgGamePath + QMemory.GetRunningLevel();

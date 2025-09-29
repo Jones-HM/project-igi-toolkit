@@ -4412,7 +4412,8 @@ namespace IGIEditor
                             + "," + weapon.animUpperbodyrun + "," + weapon.animUpperbodyfire + "," + weapon.animUpperbodyreload + ",\"" + weapon.soundSingle + "\",\"" + weapon.soundLoop
                             + "\"," + weapon.detectionRange + "," + weapon.projectileTaskType + "," + weapon.weaponTaskType + "," + weapon.emptyOnClear.ToString().ToUpper() + ((hasItemReal32) ? "," : "),") + "\n";
                     qscData = qscData.Remove(qtaskIndex, newlineIndex - qtaskIndex).Insert(qtaskIndex, objectTask);
-                    break;
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Updating weapon for Name: " + weapon.weaponName + " Description: " + weapon.description);
+					break;
                 }
             }
             QUtils.SaveFile(weaponConfigQSC, qscData);//Save the file at the end.
