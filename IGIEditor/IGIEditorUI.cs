@@ -504,13 +504,28 @@ namespace IGIEditor
                 if (currLevel != gameLevel)
                 {
                     QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Game level changed from " + gameLevel + " to " + currLevel + " setup for new level.");
-                    RefreshUIComponents(currLevel);
-                    InitEditorPaths(currLevel);
+                    
+                    // Clear cached data first
                     QUtils.graphAreas.Clear();
                     CleanUpAiFiles();
-                    RefreshGame(false, true);
+                    
+                    // Update level references
                     QUtils.gGameLevel = gameLevel = currLevel;
                     levelStartTxt.Text = Convert.ToString(gameLevel);
+                    
+                    // Initialize paths for new level
+                    InitEditorPaths(currLevel);
+                    
+                    // Load level details (including images)
+                    LoadLevelDetails(currLevel);
+                    
+                    // Refresh all UI components with force refresh
+                    RefreshUIComponents(currLevel, true, true, true);
+                    
+                    // Refresh game internals
+                    RefreshGame(false, true);
+                    
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Level change refresh completed for level " + currLevel);
                 }
             }
 

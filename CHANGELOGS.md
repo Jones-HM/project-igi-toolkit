@@ -1,5 +1,12 @@
 # 📝 CHANGELOGS
 
+## Version 0.8.7.6 BETA 🎉  
+- 🔧 **Fixed AI Patrol Path Variable Replacement** - Resolved issue where variables `x`, `y`, `z`, `a` were not being replaced with actual node IDs when graph had fewer nodes than variables.
+- 🔄 **Enhanced Level Change UI Refresh** - Improved UI component refresh when changing levels, ensuring graph images and dropdowns update properly.
+- 🎨 **Updated Menu Naming** - Changed "Editor Mode" to "ToolKit Mode" and "Editor Connection" to "Toolkit Connection" for consistency.
+- 📊 **Improved Level Change Logic** - Added comprehensive refresh sequence including cached data clearing, path initialization, and level details loading.
+- 🐛 **Bug Fixes** - Fixed modulo operation in AI patrol path generation to handle graphs with limited nodes.
+
 ## Version 0.8.7.5 BETA 🎉  
 - 🔧 **Enhanced Compiler Logic** - Improved internal compiler workflow for better QSC to QVM compilation.
 - 📝 **Enhanced Logging** - Added detailed logging for compilation steps including current game level, script files, and paths.

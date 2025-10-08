@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -338,12 +338,16 @@ namespace IGIEditor
                             var nIdsList = new List<char>() { 'a', 'c', 'b', 'd', 'x', 'y', 'z' };
                             foreach (var nId in nIdsList)
                             {
-                                int randIndex = new Random().Next(0, nodesList.Count - 1);
-                                if (nodesList.Count >= 20) index = randIndex;
-                                if (index >= nodesList.Count) break;
+                                int randIndex = new Random().Next(0, nodesList.Count);
+                                if (nodesList.Count >= 20) 
+                                    index = randIndex;
+                                else
+                                    index = index % nodesList.Count; // Use modulo to wrap around available nodes
+                                
                                 string pattern = @"\b" + nId + @"\b";
-                                string replace = nodesList[index++].ToString();
+                                string replace = nodesList[index].ToString();
                                 result = Regex.Replace(result, pattern, replace);
+                                index++;
                             }
                         }
                     }

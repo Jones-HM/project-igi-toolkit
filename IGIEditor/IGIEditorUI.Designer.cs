@@ -4888,7 +4888,7 @@ namespace IGIEditor
             this.liveEditorCb});
             this.selectEditorModeToolStripMenuItem.Name = "selectEditorModeToolStripMenuItem";
             this.selectEditorModeToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.selectEditorModeToolStripMenuItem.Text = "Editor Mode";
+            this.selectEditorModeToolStripMenuItem.Text = "ToolKit Mode";
             // 
             // playModeCb
             // 
@@ -4917,7 +4917,7 @@ namespace IGIEditor
             this.editorOnlineCb});
             this.editorConnectionToolStripMenuItem.Name = "editorConnectionToolStripMenuItem";
             this.editorConnectionToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.editorConnectionToolStripMenuItem.Text = "Editor Connection";
+            this.editorConnectionToolStripMenuItem.Text = "Toolkit Connection";
             // 
             // editorOnlineCb
             // 

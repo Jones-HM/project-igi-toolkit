@@ -149,7 +149,14 @@ And now you can generate Key from KeyGen for your toolkit for free.</br>~~
 [![QToolKit](https://img.youtube.com/vi/gwj5HNzF9cQ/0.jpg)](https://www.youtube.com/watch?v=gwj5HNzF9cQ)
 
 ## Version Update:
-**ToolKit version 0.8.7.5 Latest.**
+**ToolKit version 0.8.7.6 Latest.**
+
+## Recent Updates (v0.8.7.6):
+- 🔧 **Fixed AI Patrol Path Variable Replacement** - Resolved issue where variables weren't being replaced with actual node IDs
+- 🔄 **Enhanced Level Change UI Refresh** - Improved UI component refresh when changing levels
+- 🎨 **Updated Menu Naming** - Changed "Editor Mode" to "ToolKit Mode" and "Editor Connection" to "Toolkit Connection"
+- 📊 **Improved Level Change Logic** - Added comprehensive refresh sequence for better user experience
+- 🐛 **Bug Fixes** - Fixed modulo operation in AI patrol path generation
 
 # Chagelogs:
 Check out the detailed version history in [Changelogs.md](CHANGELOGS.md)
@@ -158,8 +165,8 @@ Check out the detailed version history in [Changelogs.md](CHANGELOGS.md)
 The toolkit onwards version 0.7 doesn't store any type of data from _User,Machine_ the toolkit doesn't maintain any sort of database now.
 
 # **DOWNLOAD LINKS**</br>
-- **Project I.G.I 1 ToolKit** Version 0.8.7.5 _RELEASED_</br>
-[IGI ToolKit](https://github.com/Jones-HM/project-igi-toolkit/releases/tag/0.8.7.5)</br>
+- **Project I.G.I 1 ToolKit** Version 0.8.7.6 _LATEST_</br>
+[IGI ToolKit](https://github.com/Jones-HM/project-igi-toolkit/releases/)</br>
 
 # 📚 FAQ (Frequently Asked Questions)
 Checkout the detailed FAQ in [FAQ.md](FAQ.md)
