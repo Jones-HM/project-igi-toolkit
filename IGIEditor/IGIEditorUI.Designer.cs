@@ -3068,6 +3068,20 @@ namespace IGIEditor
             // threeDEditor
             // 
             this.threeDEditor.BackColor = System.Drawing.SystemColors.Control;
+            this.threeDEditor.Controls.Add(this.updateTerrainHeightBtn);
+            this.threeDEditor.Controls.Add(this.terrainHeightVal);
+            this.threeDEditor.Controls.Add(this.terrainLabel);
+            this.threeDEditor.Controls.Add(this.terrainItemsList);
+            this.threeDEditor.Controls.Add(this.saveLmpBtn);
+            this.threeDEditor.Controls.Add(this.loadLmpBtn);
+            this.threeDEditor.Controls.Add(this.saveBitBtn);
+            this.threeDEditor.Controls.Add(this.loadBitBtn);
+            this.threeDEditor.Controls.Add(this.saveTerrainBtn);
+            this.threeDEditor.Controls.Add(this.terrainCellIdx);
+            this.threeDEditor.Controls.Add(this.terrainCellLbl);
+            this.threeDEditor.Controls.Add(this.terrainPreview3D);
+            this.threeDEditor.Controls.Add(this.terrainPreviewBox);
+            this.threeDEditor.Controls.Add(this.loadTerrainBtn);
             this.threeDEditor.Controls.Add(this.resume3DEditorBtn);
             this.threeDEditor.Controls.Add(this.start3DEditorBtn);
             this.threeDEditor.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -3075,7 +3089,151 @@ namespace IGIEditor
             this.threeDEditor.Name = "threeDEditor";
             this.threeDEditor.Size = new System.Drawing.Size(851, 292);
             this.threeDEditor.TabIndex = 3;
-            this.threeDEditor.Text = "3D Toolkit";
+            this.threeDEditor.Text = "Terrain Editor";
+            //
+            // updateTerrainHeightBtn
+            //
+            this.updateTerrainHeightBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.updateTerrainHeightBtn.Location = new System.Drawing.Point(740, 100);
+            this.updateTerrainHeightBtn.Name = "updateTerrainHeightBtn";
+            this.updateTerrainHeightBtn.Size = new System.Drawing.Size(120, 25);
+            this.updateTerrainHeightBtn.TabIndex = 12;
+            this.updateTerrainHeightBtn.Text = "Update Height";
+            this.updateTerrainHeightBtn.UseVisualStyleBackColor = true;
+            this.updateTerrainHeightBtn.Click += new System.EventHandler(this.updateTerrainHeightBtn_Click);
+            //
+            // terrainHeightVal
+            //
+            this.terrainHeightVal.DecimalPlaces = 2;
+            this.terrainHeightVal.Location = new System.Drawing.Point(620, 100);
+            this.terrainHeightVal.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            this.terrainHeightVal.Minimum = new decimal(new int[] { 100000, 0, 0, -2147483648 });
+            this.terrainHeightVal.Name = "terrainHeightVal";
+            this.terrainHeightVal.Size = new System.Drawing.Size(100, 22);
+            this.terrainHeightVal.TabIndex = 11;
+            //
+            // terrainLabel
+            //
+            this.terrainLabel.AutoSize = true;
+            this.terrainLabel.Location = new System.Drawing.Point(620, 80);
+            this.terrainLabel.Name = "terrainLabel";
+            this.terrainLabel.Size = new System.Drawing.Size(100, 16);
+            this.terrainLabel.TabIndex = 10;
+            this.terrainLabel.Text = "Terrain Height:";
+            //
+            // terrainCellIdx
+            //
+            this.terrainCellIdx.Location = new System.Drawing.Point(500, 100);
+            this.terrainCellIdx.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });
+            this.terrainCellIdx.Name = "terrainCellIdx";
+            this.terrainCellIdx.Size = new System.Drawing.Size(100, 22);
+            this.terrainCellIdx.TabIndex = 19;
+            this.terrainCellIdx.ValueChanged += new System.EventHandler(this.terrainCellIdx_ValueChanged);
+            //
+            // terrainCellLbl
+            //
+            this.terrainCellLbl.AutoSize = true;
+            this.terrainCellLbl.Location = new System.Drawing.Point(500, 80);
+            this.terrainCellLbl.Name = "terrainCellLbl";
+            this.terrainCellLbl.Size = new System.Drawing.Size(70, 16);
+            this.terrainCellLbl.TabIndex = 18;
+            this.terrainCellLbl.Text = "Cell Index:";
+            //
+            // terrainPreview3D
+            //
+            this.terrainPreview3D.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.terrainPreview3D.Location = new System.Drawing.Point(620, 130);
+            this.terrainPreview3D.Name = "terrainPreview3D";
+            this.terrainPreview3D.Size = new System.Drawing.Size(200, 150);
+            this.terrainPreview3D.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.terrainPreview3D.TabIndex = 20;
+            this.terrainPreview3D.TabStop = false;
+            //
+            // terrainPreviewBox
+            //
+            this.terrainPreviewBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.terrainPreviewBox.Location = new System.Drawing.Point(500, 180);
+            this.terrainPreviewBox.Name = "terrainPreviewBox";
+            this.terrainPreviewBox.Size = new System.Drawing.Size(100, 100);
+            this.terrainPreviewBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.terrainPreviewBox.TabIndex = 17;
+            this.terrainPreviewBox.TabStop = false;
+            //
+            // terrainItemsList
+            //
+            this.terrainItemsList.FormattingEnabled = true;
+            this.terrainItemsList.ItemHeight = 16;
+            this.terrainItemsList.Location = new System.Drawing.Point(34, 128);
+            this.terrainItemsList.Name = "terrainItemsList";
+            this.terrainItemsList.Size = new System.Drawing.Size(430, 140);
+            this.terrainItemsList.TabIndex = 9;
+            this.terrainItemsList.SelectedIndexChanged += new System.EventHandler(this.terrainItemsList_SelectedIndexChanged);
+            //
+            // saveTerrainBtn
+            //
+            this.saveTerrainBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveTerrainBtn.Location = new System.Drawing.Point(630, 28);
+            this.saveTerrainBtn.Name = "saveTerrainBtn";
+            this.saveTerrainBtn.Size = new System.Drawing.Size(163, 25);
+            this.saveTerrainBtn.TabIndex = 8;
+            this.saveTerrainBtn.Text = "Save Terrain";
+            this.saveTerrainBtn.UseVisualStyleBackColor = true;
+            this.saveTerrainBtn.Click += new System.EventHandler(this.saveTerrainBtn_Click);
+            //
+            // saveLmpBtn
+            //
+            this.saveLmpBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveLmpBtn.Location = new System.Drawing.Point(630, 92);
+            this.saveLmpBtn.Name = "saveLmpBtn";
+            this.saveLmpBtn.Size = new System.Drawing.Size(163, 25);
+            this.saveLmpBtn.TabIndex = 16;
+            this.saveLmpBtn.Text = "Save LightMap";
+            this.saveLmpBtn.UseVisualStyleBackColor = true;
+            this.saveLmpBtn.Click += new System.EventHandler(this.saveLmpBtn_Click);
+            //
+            // loadLmpBtn
+            //
+            this.loadLmpBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.loadLmpBtn.Location = new System.Drawing.Point(430, 92);
+            this.loadLmpBtn.Name = "loadLmpBtn";
+            this.loadLmpBtn.Size = new System.Drawing.Size(163, 25);
+            this.loadLmpBtn.TabIndex = 15;
+            this.loadLmpBtn.Text = "Load LightMap";
+            this.loadLmpBtn.UseVisualStyleBackColor = true;
+            this.loadLmpBtn.Click += new System.EventHandler(this.loadLmpBtn_Click);
+            //
+            // saveBitBtn
+            //
+            this.saveBitBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveBitBtn.Location = new System.Drawing.Point(630, 60);
+            this.saveBitBtn.Name = "saveBitBtn";
+            this.saveBitBtn.Size = new System.Drawing.Size(163, 25);
+            this.saveBitBtn.TabIndex = 14;
+            this.saveBitBtn.Text = "Save BitMap";
+            this.saveBitBtn.UseVisualStyleBackColor = true;
+            this.saveBitBtn.Click += new System.EventHandler(this.saveBitBtn_Click);
+            //
+            // loadBitBtn
+            //
+            this.loadBitBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.loadBitBtn.Location = new System.Drawing.Point(430, 60);
+            this.loadBitBtn.Name = "loadBitBtn";
+            this.loadBitBtn.Size = new System.Drawing.Size(163, 25);
+            this.loadBitBtn.TabIndex = 13;
+            this.loadBitBtn.Text = "Load BitMap";
+            this.loadBitBtn.UseVisualStyleBackColor = true;
+            this.loadBitBtn.Click += new System.EventHandler(this.loadBitBtn_Click);
+            //
+            // loadTerrainBtn
+            //
+            this.loadTerrainBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.loadTerrainBtn.Location = new System.Drawing.Point(430, 28);
+            this.loadTerrainBtn.Name = "loadTerrainBtn";
+            this.loadTerrainBtn.Size = new System.Drawing.Size(163, 25);
+            this.loadTerrainBtn.TabIndex = 7;
+            this.loadTerrainBtn.Text = "Load Terrain";
+            this.loadTerrainBtn.UseVisualStyleBackColor = true;
+            this.loadTerrainBtn.Click += new System.EventHandler(this.loadTerrainBtn_Click);
             // 
             // resume3DEditorBtn
             // 
@@ -3087,6 +3245,7 @@ namespace IGIEditor
             this.resume3DEditorBtn.TabIndex = 22;
             this.resume3DEditorBtn.Text = "Resume 3D Editor";
             this.resume3DEditorBtn.UseVisualStyleBackColor = true;
+            this.resume3DEditorBtn.Click += new System.EventHandler(this.start3DEditorBtn_Click);
             // 
             // start3DEditorBtn
             // 
@@ -3098,6 +3257,7 @@ namespace IGIEditor
             this.start3DEditorBtn.TabIndex = 21;
             this.start3DEditorBtn.Text = "Start 3D Editor";
             this.start3DEditorBtn.UseVisualStyleBackColor = true;
+            this.start3DEditorBtn.Click += new System.EventHandler(this.start3DEditorBtn_Click);
             // 
             // missionEditor
             // 
@@ -5605,6 +5765,20 @@ namespace IGIEditor
         private System.Windows.Forms.Button resetObjectsBtn;
         private System.Windows.Forms.Button resume3DEditorBtn;
         private System.Windows.Forms.Button start3DEditorBtn;
+        private System.Windows.Forms.Button loadTerrainBtn;
+        private System.Windows.Forms.Button saveTerrainBtn;
+        private System.Windows.Forms.ListBox terrainItemsList;
+        private System.Windows.Forms.Label terrainLabel;
+        private System.Windows.Forms.NumericUpDown terrainHeightVal;
+        private System.Windows.Forms.Button updateTerrainHeightBtn;
+        private System.Windows.Forms.Button loadBitBtn;
+        private System.Windows.Forms.Button saveBitBtn;
+        private System.Windows.Forms.Button loadLmpBtn;
+        private System.Windows.Forms.Button saveLmpBtn;
+        private System.Windows.Forms.PictureBox terrainPreviewBox;
+        private System.Windows.Forms.PictureBox terrainPreview3D;
+        private System.Windows.Forms.Label terrainCellLbl;
+        private System.Windows.Forms.NumericUpDown terrainCellIdx;
         private System.Windows.Forms.TabPage weaponEditor;
         private System.Windows.Forms.Button installMissionBtn;
         private System.Windows.Forms.TextBox missionDescTxt;
