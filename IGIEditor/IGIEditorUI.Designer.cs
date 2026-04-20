@@ -44,6 +44,19 @@ namespace IGIEditor
             this.xPosLbl_M = new System.Windows.Forms.Label();
             this.editorTabs = new System.Windows.Forms.TabControl();
             this.levelEditor = new System.Windows.Forms.TabPage();
+            this.triggerToolKit = new System.Windows.Forms.TabPage();
+            this.triggerTaskDD = new System.Windows.Forms.ComboBox();
+            this.triggerList = new System.Windows.Forms.CheckedListBox();
+            this.triggerObjectDD = new System.Windows.Forms.ComboBox();
+            this.triggerEventDD = new System.Windows.Forms.ComboBox();
+            this.addTriggerBtn = new System.Windows.Forms.Button();
+            this.removeTriggerBtn = new System.Windows.Forms.Button();
+            this.applyTriggersBtn = new System.Windows.Forms.Button();
+            this.triggerTaskLbl = new System.Windows.Forms.Label();
+            this.triggerObjectLbl = new System.Windows.Forms.Label();
+            this.triggerEventLbl = new System.Windows.Forms.Label();
+            this.triggerConditionDD = new System.Windows.Forms.ComboBox();
+            this.triggerConditionLbl = new System.Windows.Forms.Label();
             this.modelInfoLbl = new System.Windows.Forms.Label();
             this.modelIdOutLbl = new System.Windows.Forms.Label();
             this.modelNameTxt = new System.Windows.Forms.TextBox();
@@ -656,6 +669,7 @@ namespace IGIEditor
             // 
             this.editorTabs.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.editorTabs.Controls.Add(this.levelEditor);
+            this.editorTabs.Controls.Add(this.triggerToolKit);
             this.editorTabs.Controls.Add(this.aiEditor);
             this.editorTabs.Controls.Add(this.humanEditor);
             this.editorTabs.Controls.Add(this.weaponEditor);
@@ -702,6 +716,148 @@ namespace IGIEditor
             this.levelEditor.TabIndex = 1;
             this.levelEditor.Text = "Level Toolkit";
             // 
+            // triggerToolKit
+            //
+            this.triggerToolKit.BackColor = System.Drawing.SystemColors.Control;
+            this.triggerToolKit.Controls.Add(this.triggerConditionDD);
+            this.triggerToolKit.Controls.Add(this.triggerConditionLbl);
+            this.triggerToolKit.Controls.Add(this.triggerEventDD);
+            this.triggerToolKit.Controls.Add(this.triggerEventLbl);
+            this.triggerToolKit.Controls.Add(this.triggerObjectDD);
+            this.triggerToolKit.Controls.Add(this.triggerObjectLbl);
+            this.triggerToolKit.Controls.Add(this.addTriggerBtn);
+            this.triggerToolKit.Controls.Add(this.removeTriggerBtn);
+            this.triggerToolKit.Controls.Add(this.applyTriggersBtn);
+            this.triggerToolKit.Controls.Add(this.triggerList);
+            this.triggerToolKit.Controls.Add(this.triggerTaskDD);
+            this.triggerToolKit.Controls.Add(this.triggerTaskLbl);
+            this.triggerToolKit.Location = new System.Drawing.Point(4, 46);
+            this.triggerToolKit.Name = "triggerToolKit";
+            this.triggerToolKit.Padding = new System.Windows.Forms.Padding(3);
+            this.triggerToolKit.Size = new System.Drawing.Size(851, 292);
+            this.triggerToolKit.TabIndex = 12;
+            this.triggerToolKit.Text = "Trigger Toolkit";
+            //
+            // triggerTaskDD
+            //
+            this.triggerTaskDD.BackColor = System.Drawing.SystemColors.Control;
+            this.triggerTaskDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.triggerTaskDD.FormattingEnabled = true;
+            this.triggerTaskDD.Location = new System.Drawing.Point(110, 15);
+            this.triggerTaskDD.Name = "triggerTaskDD";
+            this.triggerTaskDD.Size = new System.Drawing.Size(350, 24);
+            this.triggerTaskDD.TabIndex = 0;
+            this.triggerTaskDD.SelectedIndexChanged += new System.EventHandler(this.triggerTaskDD_SelectedIndexChanged);
+            //
+            // triggerTaskLbl
+            //
+            this.triggerTaskLbl.AutoSize = true;
+            this.triggerTaskLbl.Location = new System.Drawing.Point(15, 18);
+            this.triggerTaskLbl.Name = "triggerTaskLbl";
+            this.triggerTaskLbl.Size = new System.Drawing.Size(89, 16);
+            this.triggerTaskLbl.TabIndex = 1;
+            this.triggerTaskLbl.Text = "Select Task:";
+            //
+            // triggerConditionDD
+            //
+            this.triggerConditionDD.BackColor = System.Drawing.SystemColors.Control;
+            this.triggerConditionDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.triggerConditionDD.FormattingEnabled = true;
+            this.triggerConditionDD.Location = new System.Drawing.Point(580, 15);
+            this.triggerConditionDD.Name = "triggerConditionDD";
+            this.triggerConditionDD.Size = new System.Drawing.Size(150, 24);
+            this.triggerConditionDD.TabIndex = 2;
+            this.triggerConditionDD.SelectedIndexChanged += new System.EventHandler(this.triggerConditionDD_SelectedIndexChanged);
+            //
+            // triggerConditionLbl
+            //
+            this.triggerConditionLbl.AutoSize = true;
+            this.triggerConditionLbl.Location = new System.Drawing.Point(480, 18);
+            this.triggerConditionLbl.Name = "triggerConditionLbl";
+            this.triggerConditionLbl.Size = new System.Drawing.Size(94, 16);
+            this.triggerConditionLbl.TabIndex = 3;
+            this.triggerConditionLbl.Text = "Condition:";
+            //
+            // triggerList
+            //
+            this.triggerList.BackColor = System.Drawing.SystemColors.Control;
+            this.triggerList.FormattingEnabled = true;
+            this.triggerList.Location = new System.Drawing.Point(15, 50);
+            this.triggerList.Name = "triggerList";
+            this.triggerList.Size = new System.Drawing.Size(445, 191);
+            this.triggerList.TabIndex = 4;
+            //
+            // applyTriggersBtn
+            //
+            this.applyTriggersBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.applyTriggersBtn.Location = new System.Drawing.Point(15, 250);
+            this.applyTriggersBtn.Name = "applyTriggersBtn";
+            this.applyTriggersBtn.Size = new System.Drawing.Size(445, 30);
+            this.applyTriggersBtn.TabIndex = 5;
+            this.applyTriggersBtn.Text = "Apply Changes to Mission";
+            this.applyTriggersBtn.UseVisualStyleBackColor = true;
+            this.applyTriggersBtn.Click += new System.EventHandler(this.applyTriggersBtn_Click);
+            //
+            // triggerObjectDD
+            //
+            this.triggerObjectDD.BackColor = System.Drawing.SystemColors.Control;
+            this.triggerObjectDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.triggerObjectDD.FormattingEnabled = true;
+            this.triggerObjectDD.Location = new System.Drawing.Point(580, 55);
+            this.triggerObjectDD.Name = "triggerObjectDD";
+            this.triggerObjectDD.Size = new System.Drawing.Size(250, 24);
+            this.triggerObjectDD.TabIndex = 6;
+            //
+            // triggerObjectLbl
+            //
+            this.triggerObjectLbl.AutoSize = true;
+            this.triggerObjectLbl.Location = new System.Drawing.Point(480, 58);
+            this.triggerObjectLbl.Name = "triggerObjectLbl";
+            this.triggerObjectLbl.Size = new System.Drawing.Size(97, 16);
+            this.triggerObjectLbl.TabIndex = 7;
+            this.triggerObjectLbl.Text = "Object:";
+            //
+            // triggerEventDD
+            //
+            this.triggerEventDD.BackColor = System.Drawing.SystemColors.Control;
+            this.triggerEventDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.triggerEventDD.FormattingEnabled = true;
+            this.triggerEventDD.Location = new System.Drawing.Point(580, 95);
+            this.triggerEventDD.Name = "triggerEventDD";
+            this.triggerEventDD.Size = new System.Drawing.Size(250, 24);
+            this.triggerEventDD.TabIndex = 8;
+            //
+            // triggerEventLbl
+            //
+            this.triggerEventLbl.AutoSize = true;
+            this.triggerEventLbl.Location = new System.Drawing.Point(480, 98);
+            this.triggerEventLbl.Name = "triggerEventLbl";
+            this.triggerEventLbl.Size = new System.Drawing.Size(45, 16);
+            this.triggerEventLbl.TabIndex = 9;
+            this.triggerEventLbl.Text = "Event:";
+            //
+            // addTriggerBtn
+            //
+            this.addTriggerBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addTriggerBtn.Location = new System.Drawing.Point(580, 135);
+            this.addTriggerBtn.Name = "addTriggerBtn";
+            this.addTriggerBtn.Size = new System.Drawing.Size(120, 30);
+            this.addTriggerBtn.TabIndex = 10;
+            this.addTriggerBtn.Text = "Add Trigger";
+            this.addTriggerBtn.UseVisualStyleBackColor = true;
+            this.addTriggerBtn.Click += new System.EventHandler(this.addTriggerBtn_Click);
+            //
+            // removeTriggerBtn
+            //
+            this.removeTriggerBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.removeTriggerBtn.Location = new System.Drawing.Point(710, 135);
+            this.removeTriggerBtn.Name = "removeTriggerBtn";
+            this.removeTriggerBtn.Size = new System.Drawing.Size(120, 30);
+            this.removeTriggerBtn.TabIndex = 11;
+            this.removeTriggerBtn.Text = "Remove Trigger";
+            this.removeTriggerBtn.UseVisualStyleBackColor = true;
+            this.removeTriggerBtn.Click += new System.EventHandler(this.removeTriggerBtn_Click);
+            //
             // modelInfoLbl
             // 
             this.modelInfoLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -5979,6 +6135,19 @@ namespace IGIEditor
         private System.Windows.Forms.ComboBox aiPatrolCmdIdDD;
         private System.Windows.Forms.TextBox aiPatrolCmdIdTxt;
         private System.Windows.Forms.Label commandIdLbl;
+        private System.Windows.Forms.TabPage triggerToolKit;
+        private System.Windows.Forms.ComboBox triggerTaskDD;
+        private System.Windows.Forms.CheckedListBox triggerList;
+        private System.Windows.Forms.ComboBox triggerObjectDD;
+        private System.Windows.Forms.ComboBox triggerEventDD;
+        private System.Windows.Forms.Button addTriggerBtn;
+        private System.Windows.Forms.Button removeTriggerBtn;
+        private System.Windows.Forms.Button applyTriggersBtn;
+        private System.Windows.Forms.Label triggerTaskLbl;
+        private System.Windows.Forms.Label triggerObjectLbl;
+        private System.Windows.Forms.Label triggerEventLbl;
+        private System.Windows.Forms.ComboBox triggerConditionDD;
+        private System.Windows.Forms.Label triggerConditionLbl;
     }
 }
 
