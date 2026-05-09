@@ -192,6 +192,7 @@
     <Compile Include="QSerializeLib.cs" />
     <Compile Include="QServer.cs" />
     <Compile Include="QTask.cs" />
+    <Compile Include="QTrigger.cs" />
     <Compile Include="QUtils.cs" />
     <Compile Include="QUxLib.cs" />
     <Compile Include="QWeapon.cs" />
