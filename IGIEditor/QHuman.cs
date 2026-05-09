@@ -282,12 +282,12 @@ namespace IGIEditor
             }
             catch (DllNotFoundException)
             {
-                QLog.LogInfo("GetPositionInMeter", "GTLibc library not found. Using default position.");
+                QLog.ShowLogInfo("GetPositionInMeter", "GTLibc library not found. Using default position.");
                 return new Real64(0, 0, 0);
             }
             catch (BadImageFormatException)
             {
-                QLog.LogInfo("GetPositionInMeter", "GTLibc library architecture mismatch. Using default position.");
+                QLog.ShowLogInfo("GetPositionInMeter", "GTLibc library architecture mismatch. Using default position.");
                 return new Real64(0, 0, 0);
             }
         }
