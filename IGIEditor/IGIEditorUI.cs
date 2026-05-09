@@ -136,8 +136,21 @@ namespace IGIEditor
                 #endregion
 
                 //Disabling Errors and Warnings.
-                GT.GT_SuppressErrors(true);
-                GT.GT_SuppressWarnings(true);
+                try
+                {
+                    GT.GT_SuppressErrors(true);
+                    GT.GT_SuppressWarnings(true);
+                }
+                catch (DllNotFoundException)
+                {
+                    // GTLibc library not found - some features may not work
+                    QLog.LogInfo("GTLibc library not found. Some trainer features may not be available.");
+                }
+                catch (BadImageFormatException)
+                {
+                    // GTLibc library architecture mismatch
+                    QLog.LogInfo("GTLibc library architecture mismatch. Some trainer features may not be available.");
+                }
 
                 //Get Game level from start.
                 gameLevel = Convert.ToInt32(levelStartTxt.Text.ToString());
@@ -2758,23 +2771,34 @@ namespace IGIEditor
 
         private void viewPortEnableCb_CheckedChanged(object sender, EventArgs e)
         {
-            unsafe
+            try
             {
-                IntPtr viewPortAddr = (IntPtr)0x00497E94;
-
-                if (viewPortCameraEnableCb.Checked)
+                unsafe
                 {
-                    GT.GT_WriteNOP(viewPortAddr, 2);
-                    QInternals.HumanInputDisable();
-                    viewPortCameraEnableCb.Text = "ViewPort - Enabled";
-                }
-                else
-                {
-                    GT.GT_WriteMemory(viewPortAddr, "2bytes", "42483");
-                    QInternals.HumanInputEnable();
-                    viewPortCameraEnableCb.Text = "ViewPort - Disabled";
-                }
+                    IntPtr viewPortAddr = (IntPtr)0x00497E94;
 
+                    if (viewPortCameraEnableCb.Checked)
+                    {
+                        GT.GT_WriteNOP(viewPortAddr, 2);
+                        QInternals.HumanInputDisable();
+                        viewPortCameraEnableCb.Text = "ViewPort - Enabled";
+                    }
+                    else
+                    {
+                        GT.GT_WriteMemory(viewPortAddr, "2bytes", "42483");
+                        QInternals.HumanInputEnable();
+                        viewPortCameraEnableCb.Text = "ViewPort - Disabled";
+                    }
+
+                }
+            }
+            catch (DllNotFoundException)
+            {
+                QLog.ShowLogError("viewPortEnableCb_CheckedChanged", "GTLibc library not found. Viewport camera feature not available.");
+            }
+            catch (BadImageFormatException)
+            {
+                QLog.ShowLogError("viewPortEnableCb_CheckedChanged", "GTLibc library architecture mismatch. Viewport camera feature not available.");
             }
         }
 
@@ -3196,22 +3220,33 @@ namespace IGIEditor
 
         private void editorModeCb_CheckedChanged(object sender, EventArgs e)
         {
-            if (((CheckBox)sender).Checked)
+            try
             {
-                QInternals.HumanFreeCam();
-                ((CheckBox)sender).Text = "Edit Mode";
-                ((CheckBox)sender).ForeColor = SpringGreen;
-                QInternals.StatusMessageShow("Editor mode enabled. use Arrows keys to move ALT/SPACE change height");
+                if (((CheckBox)sender).Checked)
+                {
+                    QInternals.HumanFreeCam();
+                    ((CheckBox)sender).Text = "Edit Mode";
+                    ((CheckBox)sender).ForeColor = SpringGreen;
+                    QInternals.StatusMessageShow("Editor mode enabled. use Arrows keys to move ALT/SPACE change height");
+                }
+                else
+                {
+                    GT.GT_SendKeyStroke("HOME");
+                    QUtils.Sleep(0.5f);
+                    ((CheckBox)sender).Text = "Play Mode";
+                    ((CheckBox)sender).ForeColor = Tomato;
+                    QInternals.StatusMessageShow("Play mode enabled - Play level.");
+                }
+                SetStatusText(((CheckBox)sender).Text + " enabled");
             }
-            else
+            catch (DllNotFoundException)
             {
-                GT.GT_SendKeyStroke("HOME");
-                QUtils.Sleep(0.5f);
-                ((CheckBox)sender).Text = "Play Mode";
-                ((CheckBox)sender).ForeColor = Tomato;
-                QInternals.StatusMessageShow("Play mode enabled - Play level.");
+                QLog.ShowLogError("editorModeCb_CheckedChanged", "GTLibc library not found. Some editor mode features may not work.");
             }
-            SetStatusText(((CheckBox)sender).Text + " enabled");
+            catch (BadImageFormatException)
+            {
+                QLog.ShowLogError("editorModeCb_CheckedChanged", "GTLibc library architecture mismatch. Some editor mode features may not work.");
+            }
         }
 
         private void aiIdleCb_CheckedChanged(object sender, EventArgs e)
@@ -4825,18 +4860,29 @@ namespace IGIEditor
 
         private void playModeCb_Click(object sender, EventArgs e)
         {
-            playModeCb.Checked = !playModeCb.Checked;
-            string modeStatus = playModeCb.Checked ? "Enabled" : "Disabled";
-            SetStatusText("Editor mode status is now  '" + modeStatus + " " + playModeCb.Text + "'");
-
-            if (playModeCb.Checked)
+            try
             {
-                GT.GT_SendKeyStroke("HOME");
-                QUtils.Sleep(0.5f);
-                QInternals.StatusMessageShow("Play mode enabled - Play level.");
-                editorModeCb.Checked = false;
+                playModeCb.Checked = !playModeCb.Checked;
+                string modeStatus = playModeCb.Checked ? "Enabled" : "Disabled";
+                SetStatusText("Editor mode status is now  '" + modeStatus + " " + playModeCb.Text + "'");
+
+                if (playModeCb.Checked)
+                {
+                    GT.GT_SendKeyStroke("HOME");
+                    QUtils.Sleep(0.5f);
+                    QInternals.StatusMessageShow("Play mode enabled - Play level.");
+                    editorModeCb.Checked = false;
+                }
+                else if (!editorModeCb.Checked) playModeCb.Checked = true;
             }
-            else if (!editorModeCb.Checked) playModeCb.Checked = true;
+            catch (DllNotFoundException)
+            {
+                QLog.ShowLogError("playModeCb_Click", "GTLibc library not found. Some play mode features may not work.");
+            }
+            catch (BadImageFormatException)
+            {
+                QLog.ShowLogError("playModeCb_Click", "GTLibc library architecture mismatch. Some play mode features may not work.");
+            }
         }
 
         private void musicVolumeUpdateBtn_Click(object sender, EventArgs e)
