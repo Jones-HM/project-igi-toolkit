@@ -144,12 +144,12 @@ namespace IGIEditor
                 catch (DllNotFoundException)
                 {
                     // GTLibc library not found - some features may not work
-                    QLog.LogInfo("GTLibc library not found. Some trainer features may not be available.");
+                    QLog.ShowLogError(MethodBase.GetCurrentMethod().ToString(),"GTLibc library not found. Some trainer features may not be available.");
                 }
                 catch (BadImageFormatException)
                 {
                     // GTLibc library architecture mismatch
-                    QLog.LogInfo("GTLibc library architecture mismatch. Some trainer features may not be available.");
+                    QLog.ShowLogError(MethodBase.GetCurrentMethod().ToString(), "GTLibc library architecture mismatch. Some trainer features may not be available.");
                 }
 
                 //Get Game level from start.
