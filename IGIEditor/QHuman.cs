@@ -259,24 +259,37 @@ namespace IGIEditor
 
         static internal Real64 GetPositionInMeter(bool addLog = true)
         {
-            uint posBaseAddr = (uint)0x005CA138;
-            IntPtr xPosAddr = (IntPtr)posBaseAddr + 0x0;
-            IntPtr yPosAddr = (IntPtr)posBaseAddr + 0x8;
-            IntPtr zPosAddr = (IntPtr)posBaseAddr + 0x10;
+            try
+            {
+                uint posBaseAddr = (uint)0x005CA138;
+                IntPtr xPosAddr = (IntPtr)posBaseAddr + 0x0;
+                IntPtr yPosAddr = (IntPtr)posBaseAddr + 0x8;
+                IntPtr zPosAddr = (IntPtr)posBaseAddr + 0x10;
 
-            var xpos = GT.GT_ReadDouble(xPosAddr);
-            var ypos = GT.GT_ReadDouble(yPosAddr);
-            var zpos = GT.GT_ReadDouble(zPosAddr);
+                var xpos = GT.GT_ReadDouble(xPosAddr);
+                var ypos = GT.GT_ReadDouble(yPosAddr);
+                var zpos = GT.GT_ReadDouble(zPosAddr);
 
-            double x = Convert.ToDouble(Decimal.Truncate(Convert.ToDecimal(xpos)));
-            double y = Convert.ToDouble(Decimal.Truncate(Convert.ToDecimal(ypos)));
-            double z = Convert.ToDouble(Decimal.Truncate(Convert.ToDecimal(zpos)));
+                double x = Convert.ToDouble(Decimal.Truncate(Convert.ToDecimal(xpos)));
+                double y = Convert.ToDouble(Decimal.Truncate(Convert.ToDecimal(ypos)));
+                double z = Convert.ToDouble(Decimal.Truncate(Convert.ToDecimal(zpos)));
 
-            //Fix this angle for Ground reference.
-            var position = new Real64(x, y, z - QMemory.deltaToGround);
-            if (addLog)
-                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "posBaseAddr:" + posBaseAddr + " xpos : " + xpos + " ypos : " + ypos + " zpos : " + zpos + " position: " + position);
-            return position;
+                //Fix this angle for Ground reference.
+                var position = new Real64(x, y, z - QMemory.deltaToGround);
+                if (addLog)
+                    QLog.AddLog(MethodBase.GetCurrentMethod().Name, "posBaseAddr:" + posBaseAddr + " xpos : " + xpos + " ypos : " + ypos + " zpos : " + zpos + " position: " + position);
+                return position;
+            }
+            catch (DllNotFoundException)
+            {
+                QLog.LogInfo("GetPositionInMeter", "GTLibc library not found. Using default position.");
+                return new Real64(0, 0, 0);
+            }
+            catch (BadImageFormatException)
+            {
+                QLog.LogInfo("GetPositionInMeter", "GTLibc library architecture mismatch. Using default position.");
+                return new Real64(0, 0, 0);
+            }
         }
 
         internal static string UpdatePositionInMeter(Real64 position, float angle = 0.0f)

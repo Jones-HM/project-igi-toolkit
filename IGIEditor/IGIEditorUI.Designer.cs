@@ -715,7 +715,7 @@ namespace IGIEditor
             this.levelEditor.Size = new System.Drawing.Size(851, 292);
             this.levelEditor.TabIndex = 1;
             this.levelEditor.Text = "Level Toolkit";
-            // 
+            //
             // triggerToolKit
             //
             this.triggerToolKit.BackColor = System.Drawing.SystemColors.Control;
@@ -733,115 +733,126 @@ namespace IGIEditor
             this.triggerToolKit.Controls.Add(this.triggerTaskLbl);
             this.triggerToolKit.Location = new System.Drawing.Point(4, 46);
             this.triggerToolKit.Name = "triggerToolKit";
-            this.triggerToolKit.Padding = new System.Windows.Forms.Padding(3);
+            this.triggerToolKit.Padding = new System.Windows.Forms.Padding(10);
             this.triggerToolKit.Size = new System.Drawing.Size(851, 292);
             this.triggerToolKit.TabIndex = 12;
             this.triggerToolKit.Text = "Trigger Toolkit";
+            //
+            // triggerTaskLbl
+            //
+            this.triggerTaskLbl.AutoSize = true;
+            this.triggerTaskLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.triggerTaskLbl.Location = new System.Drawing.Point(15, 18);
+            this.triggerTaskLbl.Name = "triggerTaskLbl";
+            this.triggerTaskLbl.Size = new System.Drawing.Size(89, 18);
+            this.triggerTaskLbl.TabIndex = 1;
+            this.triggerTaskLbl.Text = "Select Task:";
             //
             // triggerTaskDD
             //
             this.triggerTaskDD.BackColor = System.Drawing.SystemColors.Control;
             this.triggerTaskDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.triggerTaskDD.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.triggerTaskDD.FormattingEnabled = true;
             this.triggerTaskDD.Location = new System.Drawing.Point(110, 15);
             this.triggerTaskDD.Name = "triggerTaskDD";
-            this.triggerTaskDD.Size = new System.Drawing.Size(350, 24);
+            this.triggerTaskDD.Size = new System.Drawing.Size(350, 26);
             this.triggerTaskDD.TabIndex = 0;
             this.triggerTaskDD.SelectedIndexChanged += new System.EventHandler(this.triggerTaskDD_SelectedIndexChanged);
             //
-            // triggerTaskLbl
+            // triggerConditionLbl
             //
-            this.triggerTaskLbl.AutoSize = true;
-            this.triggerTaskLbl.Location = new System.Drawing.Point(15, 18);
-            this.triggerTaskLbl.Name = "triggerTaskLbl";
-            this.triggerTaskLbl.Size = new System.Drawing.Size(89, 16);
-            this.triggerTaskLbl.TabIndex = 1;
-            this.triggerTaskLbl.Text = "Select Task:";
+            this.triggerConditionLbl.AutoSize = true;
+            this.triggerConditionLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.triggerConditionLbl.Location = new System.Drawing.Point(480, 18);
+            this.triggerConditionLbl.Name = "triggerConditionLbl";
+            this.triggerConditionLbl.Size = new System.Drawing.Size(94, 18);
+            this.triggerConditionLbl.TabIndex = 3;
+            this.triggerConditionLbl.Text = "Condition:";
             //
             // triggerConditionDD
             //
             this.triggerConditionDD.BackColor = System.Drawing.SystemColors.Control;
             this.triggerConditionDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.triggerConditionDD.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.triggerConditionDD.FormattingEnabled = true;
             this.triggerConditionDD.Location = new System.Drawing.Point(580, 15);
             this.triggerConditionDD.Name = "triggerConditionDD";
-            this.triggerConditionDD.Size = new System.Drawing.Size(150, 24);
+            this.triggerConditionDD.Size = new System.Drawing.Size(250, 26);
             this.triggerConditionDD.TabIndex = 2;
             this.triggerConditionDD.SelectedIndexChanged += new System.EventHandler(this.triggerConditionDD_SelectedIndexChanged);
-            //
-            // triggerConditionLbl
-            //
-            this.triggerConditionLbl.AutoSize = true;
-            this.triggerConditionLbl.Location = new System.Drawing.Point(480, 18);
-            this.triggerConditionLbl.Name = "triggerConditionLbl";
-            this.triggerConditionLbl.Size = new System.Drawing.Size(94, 16);
-            this.triggerConditionLbl.TabIndex = 3;
-            this.triggerConditionLbl.Text = "Condition:";
             //
             // triggerList
             //
             this.triggerList.BackColor = System.Drawing.SystemColors.Control;
+            this.triggerList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.triggerList.FormattingEnabled = true;
             this.triggerList.Location = new System.Drawing.Point(15, 50);
             this.triggerList.Name = "triggerList";
-            this.triggerList.Size = new System.Drawing.Size(445, 191);
+            this.triggerList.Size = new System.Drawing.Size(445, 185);
             this.triggerList.TabIndex = 4;
             //
             // applyTriggersBtn
             //
             this.applyTriggersBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.applyTriggersBtn.Location = new System.Drawing.Point(15, 250);
+            this.applyTriggersBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.applyTriggersBtn.Location = new System.Drawing.Point(15, 245);
             this.applyTriggersBtn.Name = "applyTriggersBtn";
-            this.applyTriggersBtn.Size = new System.Drawing.Size(445, 30);
+            this.applyTriggersBtn.Size = new System.Drawing.Size(445, 35);
             this.applyTriggersBtn.TabIndex = 5;
             this.applyTriggersBtn.Text = "Apply Changes to Mission";
             this.applyTriggersBtn.UseVisualStyleBackColor = true;
             this.applyTriggersBtn.Click += new System.EventHandler(this.applyTriggersBtn_Click);
             //
+            // triggerObjectLbl
+            //
+            this.triggerObjectLbl.AutoSize = true;
+            this.triggerObjectLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.triggerObjectLbl.Location = new System.Drawing.Point(480, 58);
+            this.triggerObjectLbl.Name = "triggerObjectLbl";
+            this.triggerObjectLbl.Size = new System.Drawing.Size(97, 18);
+            this.triggerObjectLbl.TabIndex = 7;
+            this.triggerObjectLbl.Text = "Object:";
+            //
             // triggerObjectDD
             //
             this.triggerObjectDD.BackColor = System.Drawing.SystemColors.Control;
             this.triggerObjectDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.triggerObjectDD.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.triggerObjectDD.FormattingEnabled = true;
             this.triggerObjectDD.Location = new System.Drawing.Point(580, 55);
             this.triggerObjectDD.Name = "triggerObjectDD";
-            this.triggerObjectDD.Size = new System.Drawing.Size(250, 24);
+            this.triggerObjectDD.Size = new System.Drawing.Size(250, 26);
             this.triggerObjectDD.TabIndex = 6;
             //
-            // triggerObjectLbl
+            // triggerEventLbl
             //
-            this.triggerObjectLbl.AutoSize = true;
-            this.triggerObjectLbl.Location = new System.Drawing.Point(480, 58);
-            this.triggerObjectLbl.Name = "triggerObjectLbl";
-            this.triggerObjectLbl.Size = new System.Drawing.Size(97, 16);
-            this.triggerObjectLbl.TabIndex = 7;
-            this.triggerObjectLbl.Text = "Object:";
+            this.triggerEventLbl.AutoSize = true;
+            this.triggerEventLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.triggerEventLbl.Location = new System.Drawing.Point(480, 98);
+            this.triggerEventLbl.Name = "triggerEventLbl";
+            this.triggerEventLbl.Size = new System.Drawing.Size(45, 18);
+            this.triggerEventLbl.TabIndex = 9;
+            this.triggerEventLbl.Text = "Event:";
             //
             // triggerEventDD
             //
             this.triggerEventDD.BackColor = System.Drawing.SystemColors.Control;
             this.triggerEventDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.triggerEventDD.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.triggerEventDD.FormattingEnabled = true;
             this.triggerEventDD.Location = new System.Drawing.Point(580, 95);
             this.triggerEventDD.Name = "triggerEventDD";
-            this.triggerEventDD.Size = new System.Drawing.Size(250, 24);
+            this.triggerEventDD.Size = new System.Drawing.Size(250, 26);
             this.triggerEventDD.TabIndex = 8;
-            //
-            // triggerEventLbl
-            //
-            this.triggerEventLbl.AutoSize = true;
-            this.triggerEventLbl.Location = new System.Drawing.Point(480, 98);
-            this.triggerEventLbl.Name = "triggerEventLbl";
-            this.triggerEventLbl.Size = new System.Drawing.Size(45, 16);
-            this.triggerEventLbl.TabIndex = 9;
-            this.triggerEventLbl.Text = "Event:";
             //
             // addTriggerBtn
             //
             this.addTriggerBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addTriggerBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addTriggerBtn.Location = new System.Drawing.Point(580, 135);
             this.addTriggerBtn.Name = "addTriggerBtn";
-            this.addTriggerBtn.Size = new System.Drawing.Size(120, 30);
+            this.addTriggerBtn.Size = new System.Drawing.Size(120, 35);
             this.addTriggerBtn.TabIndex = 10;
             this.addTriggerBtn.Text = "Add Trigger";
             this.addTriggerBtn.UseVisualStyleBackColor = true;
@@ -850,9 +861,10 @@ namespace IGIEditor
             // removeTriggerBtn
             //
             this.removeTriggerBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.removeTriggerBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.removeTriggerBtn.Location = new System.Drawing.Point(710, 135);
             this.removeTriggerBtn.Name = "removeTriggerBtn";
-            this.removeTriggerBtn.Size = new System.Drawing.Size(120, 30);
+            this.removeTriggerBtn.Size = new System.Drawing.Size(120, 35);
             this.removeTriggerBtn.TabIndex = 11;
             this.removeTriggerBtn.Text = "Remove Trigger";
             this.removeTriggerBtn.UseVisualStyleBackColor = true;
