@@ -3263,7 +3263,7 @@ namespace IGIEditor
             this.resume3DEditorBtn.TabIndex = 22;
             this.resume3DEditorBtn.Text = "Resume 3D Editor";
             this.resume3DEditorBtn.UseVisualStyleBackColor = true;
-            this.resume3DEditorBtn.Click += new System.EventHandler(this.start3DEditorBtn_Click);
+            this.resume3DEditorBtn.Click += new System.EventHandler(this.resume3DEditorBtn_Click);
             // 
             // start3DEditorBtn
             // 

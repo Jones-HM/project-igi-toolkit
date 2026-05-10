@@ -327,13 +327,14 @@ namespace IGIEditor
         {
             try
             {
-                currentHmpData = null; currentBitData = null;
                 string terrainDir = QUtils.cfgGamePath + gameLevel;
                 FOpenIO fopen = QUtils.ShowOpenFileDlg("Select Light Map file", ".lmp", "Light Map (*.lmp)|*.lmp", true, terrainDir);
                 if (!string.IsNullOrEmpty(fopen.FileName))
                 {
+                    currentHmpData = null; currentBitData = null;
                     currentLmpPath = fopen.FileName;
                     currentLmpData = QTerrain.LoadLMP(currentLmpPath);
+                    loadedTerrainLevel = gameLevel;
                     RefreshTerrainListLmp();
                     SetStatusText("LightMap loaded: " + Path.GetFileName(currentLmpPath));
                 }
@@ -377,13 +378,14 @@ namespace IGIEditor
         {
             try
             {
-                currentHmpData = null; currentLmpData = null;
                 string terrainDir = QUtils.cfgGamePath + gameLevel;
                 FOpenIO fopen = QUtils.ShowOpenFileDlg("Select Bit Map file", ".bit", "Bit Map (*.bit)|*.bit", true, terrainDir);
                 if (!string.IsNullOrEmpty(fopen.FileName))
                 {
+                    currentHmpData = null; currentLmpData = null;
                     currentBitPath = fopen.FileName;
                     currentBitData = QTerrain.LoadBIT(currentBitPath);
+                    loadedTerrainLevel = gameLevel;
                     RefreshTerrainListBit();
                     SetStatusText("BitMap loaded: " + Path.GetFileName(currentBitPath));
                 }
@@ -2005,12 +2007,30 @@ namespace IGIEditor
 
         private void tabContainer_Selected(object sender, TabControlEventArgs e)
         {
-            if (e.TabPage.Name == "threeDEditor")
+            var tab = e.TabPage;
+            if (tab == null) return;
+
+            if (tab.Name == "threeDEditor")
             {
-                currentHmpData = null; currentBitData = null; currentLmpData = null;
-                terrainItemsList.Items.Clear();
-                terrainPreviewBox.Image = null;
-                terrainPreview3D.Image = null;
+                // Only clear terrain data if switching to a different level
+                if (loadedTerrainLevel != gameLevel && loadedTerrainLevel != -1)
+                {
+                    // Warn user about level change
+                    var result = MessageBox.Show(
+                        $"You have terrain data loaded for level {loadedTerrainLevel}, but current level is {gameLevel}.\n\nClear loaded terrain data?",
+                        "Level Changed",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        currentHmpData = null; currentBitData = null; currentLmpData = null;
+                        terrainItemsList.Items.Clear();
+                        SetTerrainPreviewImage(null);
+                        SetTerrain3DPreviewImage(null);
+                        loadedTerrainLevel = -1;
+                    }
+                }
                 SetStatusText("Terrain Editor ready for level " + gameLevel);
             }
 
@@ -6007,6 +6027,37 @@ namespace IGIEditor
             StartTerrainEditor();
         }
 
+        private void resume3DEditorBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Resume from in-memory state without reloading from disk
+                if (currentHmpData != null && !string.IsNullOrEmpty(currentHmpPath))
+                {
+                    RefreshTerrainList();
+                    SetStatusText("Resumed HMP terrain editor: " + Path.GetFileName(currentHmpPath));
+                }
+                else if (currentBitData != null && !string.IsNullOrEmpty(currentBitPath))
+                {
+                    RefreshTerrainListBit();
+                    SetStatusText("Resumed BIT terrain editor: " + Path.GetFileName(currentBitPath));
+                }
+                else if (currentLmpData != null && !string.IsNullOrEmpty(currentLmpPath))
+                {
+                    RefreshTerrainListLmp();
+                    SetStatusText("Resumed LMP terrain editor: " + Path.GetFileName(currentLmpPath));
+                }
+                else
+                {
+                    SetStatusText("No terrain data in memory to resume. Please load or start a new session.");
+                }
+            }
+            catch (Exception ex)
+            {
+                QLog.LogException(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
         private void StartTerrainEditor()
         {
             try
@@ -6024,6 +6075,7 @@ namespace IGIEditor
                 {
                     currentHmpPath = hmpFile;
                     currentHmpData = QTerrain.LoadHMP(hmpFile);
+                    loadedTerrainLevel = gameLevel;
                     RefreshTerrainList();
                     SetStatusText("Auto-loaded terrain HMP for level " + gameLevel);
                 }
@@ -6201,18 +6253,52 @@ namespace IGIEditor
 
         private QTerrain.HMPData currentHmpData;
         private string currentHmpPath;
+        private int loadedTerrainLevel = -1;
+
+        private decimal ClampToTerrainRange(decimal value)
+        {
+            if (value < terrainHeightVal.Minimum) return terrainHeightVal.Minimum;
+            if (value > terrainHeightVal.Maximum) return terrainHeightVal.Maximum;
+            return value;
+        }
+
+        private byte ClampToByte(decimal value)
+        {
+            if (value < 0) return 0;
+            if (value > 255) return 255;
+            return (byte)value;
+        }
+
+        private void SetTerrainPreviewImage(Image newImage)
+        {
+            if (terrainPreviewBox.Image != null)
+            {
+                terrainPreviewBox.Image.Dispose();
+            }
+            terrainPreviewBox.Image = newImage;
+        }
+
+        private void SetTerrain3DPreviewImage(Image newImage)
+        {
+            if (terrainPreview3D.Image != null)
+            {
+                terrainPreview3D.Image.Dispose();
+            }
+            terrainPreview3D.Image = newImage;
+        }
 
         private void loadTerrainBtn_Click(object sender, EventArgs e)
         {
             try
             {
-                currentBitData = null; currentLmpData = null;
                 string terrainDir = QUtils.cfgGamePath + gameLevel;
                 FOpenIO fopen = QUtils.ShowOpenFileDlg("Select Height Map file", ".hmp", "Height Map (*.hmp)|*.hmp", true, terrainDir);
                 if (!string.IsNullOrEmpty(fopen.FileName))
                 {
+                    currentBitData = null; currentLmpData = null;
                     currentHmpPath = fopen.FileName;
                     currentHmpData = QTerrain.LoadHMP(currentHmpPath);
+                    loadedTerrainLevel = gameLevel;
                     RefreshTerrainList();
                     SetStatusText("Terrain loaded: " + Path.GetFileName(currentHmpPath));
                 }
@@ -6246,9 +6332,9 @@ namespace IGIEditor
                 {
                     terrainCellIdx.Maximum = currentHmpData.hmpArrays[idx].Length - 1;
                     terrainCellIdx.Value = 0;
-                    terrainHeightVal.Value = (decimal)currentHmpData.hmpArrays[idx][0];
-                    terrainPreviewBox.Image = QTerrain.RenderHMP(currentHmpData.hmpArrays[idx], currentHmpData.headers[idx].size);
-                    terrainPreview3D.Image = QTerrain.Render3DWireframe(currentHmpData.hmpArrays[idx], currentHmpData.headers[idx].size);
+                    terrainHeightVal.Value = ClampToTerrainRange((decimal)currentHmpData.hmpArrays[idx][0]);
+                    SetTerrainPreviewImage(QTerrain.RenderHMP(currentHmpData.hmpArrays[idx], currentHmpData.headers[idx].size));
+                    SetTerrain3DPreviewImage(QTerrain.Render3DWireframe(currentHmpData.hmpArrays[idx], currentHmpData.headers[idx].size));
                 }
             }
             else if (currentBitData != null && idx < currentBitData.bitArrays.Count)
@@ -6257,9 +6343,9 @@ namespace IGIEditor
                 {
                     terrainCellIdx.Maximum = currentBitData.bitArrays[idx].Length - 1;
                     terrainCellIdx.Value = 0;
-                    terrainHeightVal.Value = (decimal)currentBitData.bitArrays[idx][0];
-                    terrainPreviewBox.Image = QTerrain.RenderBIT(currentBitData.bitArrays[idx], currentBitData.headers[idx].size);
-                    terrainPreview3D.Image = null;
+                    terrainHeightVal.Value = ClampToTerrainRange((decimal)currentBitData.bitArrays[idx][0]);
+                    SetTerrainPreviewImage(QTerrain.RenderBIT(currentBitData.bitArrays[idx], currentBitData.headers[idx].size));
+                    SetTerrain3DPreviewImage(null);
                 }
             }
             else if (currentLmpData != null && idx < currentLmpData.pixelData.Count)
@@ -6268,9 +6354,9 @@ namespace IGIEditor
                 {
                     terrainCellIdx.Maximum = currentLmpData.pixelData[idx].Length - 1;
                     terrainCellIdx.Value = 0;
-                    terrainHeightVal.Value = (decimal)currentLmpData.pixelData[idx][0];
-                    terrainPreviewBox.Image = QTerrain.RenderLMP(currentLmpData.pixelData[idx], currentLmpData.sizes[idx]);
-                    terrainPreview3D.Image = null;
+                    terrainHeightVal.Value = ClampToTerrainRange((decimal)currentLmpData.pixelData[idx][0]);
+                    SetTerrainPreviewImage(QTerrain.RenderLMP(currentLmpData.pixelData[idx], currentLmpData.sizes[idx]));
+                    SetTerrain3DPreviewImage(null);
                 }
             }
         }
@@ -6289,17 +6375,17 @@ namespace IGIEditor
             if (currentHmpData != null && idx < currentHmpData.hmpArrays.Count)
             {
                 if (cellIdx < currentHmpData.hmpArrays[idx].Length)
-                    terrainHeightVal.Value = (decimal)currentHmpData.hmpArrays[idx][cellIdx];
+                    terrainHeightVal.Value = ClampToTerrainRange((decimal)currentHmpData.hmpArrays[idx][cellIdx]);
             }
             else if (currentBitData != null && idx < currentBitData.bitArrays.Count)
             {
                 if (cellIdx < currentBitData.bitArrays[idx].Length)
-                    terrainHeightVal.Value = (decimal)currentBitData.bitArrays[idx][cellIdx];
+                    terrainHeightVal.Value = ClampToTerrainRange((decimal)currentBitData.bitArrays[idx][cellIdx]);
             }
             else if (currentLmpData != null && idx < currentLmpData.pixelData.Count)
             {
                 if (cellIdx < currentLmpData.pixelData[idx].Length)
-                    terrainHeightVal.Value = (decimal)currentLmpData.pixelData[idx][cellIdx];
+                    terrainHeightVal.Value = ClampToTerrainRange((decimal)currentLmpData.pixelData[idx][cellIdx]);
             }
         }
 
@@ -6314,8 +6400,8 @@ namespace IGIEditor
                 if (cellIdx < currentHmpData.hmpArrays[idx].Length)
                 {
                     currentHmpData.hmpArrays[idx][cellIdx] = (float)terrainHeightVal.Value;
-                    terrainPreviewBox.Image = QTerrain.RenderHMP(currentHmpData.hmpArrays[idx], currentHmpData.headers[idx].size);
-                    terrainPreview3D.Image = QTerrain.Render3DWireframe(currentHmpData.hmpArrays[idx], currentHmpData.headers[idx].size);
+                    SetTerrainPreviewImage(QTerrain.RenderHMP(currentHmpData.hmpArrays[idx], currentHmpData.headers[idx].size));
+                    SetTerrain3DPreviewImage(QTerrain.Render3DWireframe(currentHmpData.hmpArrays[idx], currentHmpData.headers[idx].size));
                     SetStatusText($"HMP Chunk {idx} Cell {cellIdx} updated.");
                 }
             }
@@ -6323,8 +6409,8 @@ namespace IGIEditor
             {
                 if (cellIdx < currentBitData.bitArrays[idx].Length)
                 {
-                    currentBitData.bitArrays[idx][cellIdx] = (byte)terrainHeightVal.Value;
-                    terrainPreviewBox.Image = QTerrain.RenderBIT(currentBitData.bitArrays[idx], currentBitData.headers[idx].size);
+                    currentBitData.bitArrays[idx][cellIdx] = ClampToByte(terrainHeightVal.Value);
+                    SetTerrainPreviewImage(QTerrain.RenderBIT(currentBitData.bitArrays[idx], currentBitData.headers[idx].size));
                     SetStatusText($"BIT Chunk {idx} Cell {cellIdx} updated.");
                 }
             }
@@ -6332,8 +6418,8 @@ namespace IGIEditor
             {
                 if (cellIdx < currentLmpData.pixelData[idx].Length)
                 {
-                    currentLmpData.pixelData[idx][cellIdx] = (byte)terrainHeightVal.Value;
-                    terrainPreviewBox.Image = QTerrain.RenderLMP(currentLmpData.pixelData[idx], currentLmpData.sizes[idx]);
+                    currentLmpData.pixelData[idx][cellIdx] = ClampToByte(terrainHeightVal.Value);
+                    SetTerrainPreviewImage(QTerrain.RenderLMP(currentLmpData.pixelData[idx], currentLmpData.sizes[idx]));
                     SetStatusText($"LMP Chunk {idx} Cell {cellIdx} updated.");
                 }
             }
