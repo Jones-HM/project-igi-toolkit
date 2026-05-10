@@ -32,6 +32,7 @@
     <!-- Add both the plural and singular RuntimeIdentifier properties here -->
     <RuntimeIdentifiers>win-x86</RuntimeIdentifiers>
     <RuntimeIdentifier>win-x86</RuntimeIdentifier>
+    <UseSharedCompilation>false</UseSharedCompilation>
   </PropertyGroup>
   <!-- Import common targets -->
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />

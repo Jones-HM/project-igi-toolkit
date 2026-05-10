@@ -6242,10 +6242,10 @@ namespace IGIEditor
 
             if (currentHmpData != null && idx < currentHmpData.hmpArrays.Count)
             {
-                terrainCellIdx.Maximum = currentHmpData.hmpArrays[idx].Length - 1;
-                terrainCellIdx.Value = 0;
                 if (currentHmpData.hmpArrays[idx].Length > 0)
                 {
+                    terrainCellIdx.Maximum = currentHmpData.hmpArrays[idx].Length - 1;
+                    terrainCellIdx.Value = 0;
                     terrainHeightVal.Value = (decimal)currentHmpData.hmpArrays[idx][0];
                     terrainPreviewBox.Image = QTerrain.RenderHMP(currentHmpData.hmpArrays[idx], currentHmpData.headers[idx].size);
                     terrainPreview3D.Image = QTerrain.Render3DWireframe(currentHmpData.hmpArrays[idx], currentHmpData.headers[idx].size);
@@ -6253,10 +6253,10 @@ namespace IGIEditor
             }
             else if (currentBitData != null && idx < currentBitData.bitArrays.Count)
             {
-                terrainCellIdx.Maximum = currentBitData.bitArrays[idx].Length - 1;
-                terrainCellIdx.Value = 0;
                 if (currentBitData.bitArrays[idx].Length > 0)
                 {
+                    terrainCellIdx.Maximum = currentBitData.bitArrays[idx].Length - 1;
+                    terrainCellIdx.Value = 0;
                     terrainHeightVal.Value = (decimal)currentBitData.bitArrays[idx][0];
                     terrainPreviewBox.Image = QTerrain.RenderBIT(currentBitData.bitArrays[idx], currentBitData.headers[idx].size);
                     terrainPreview3D.Image = null;
@@ -6264,10 +6264,10 @@ namespace IGIEditor
             }
             else if (currentLmpData != null && idx < currentLmpData.pixelData.Count)
             {
-                terrainCellIdx.Maximum = currentLmpData.pixelData[idx].Length - 1;
-                terrainCellIdx.Value = 0;
                 if (currentLmpData.pixelData[idx].Length > 0)
                 {
+                    terrainCellIdx.Maximum = currentLmpData.pixelData[idx].Length - 1;
+                    terrainCellIdx.Value = 0;
                     terrainHeightVal.Value = (decimal)currentLmpData.pixelData[idx][0];
                     terrainPreviewBox.Image = QTerrain.RenderLMP(currentLmpData.pixelData[idx], currentLmpData.sizes[idx]);
                     terrainPreview3D.Image = null;

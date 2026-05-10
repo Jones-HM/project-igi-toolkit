@@ -325,6 +325,10 @@ namespace IGIEditor
             this.devVersionTxt = new System.Windows.Forms.TextBox();
             this.createUpdateBtn = new System.Windows.Forms.Button();
             this.texEditor = new System.Windows.Forms.TabPage();
+            this.textureNavLbl = new System.Windows.Forms.Label();
+            this.textureFileNameLbl = new System.Windows.Forms.Label();
+            this.textureResolutionLbl = new System.Windows.Forms.Label();
+            this.textureSizeLbl = new System.Windows.Forms.Label();
             this.nextTextureBtn = new System.Windows.Forms.Button();
             this.prevTextureBtn = new System.Windows.Forms.Button();
             this.textureFileSize = new System.Windows.Forms.TextBox();
@@ -4635,6 +4639,10 @@ namespace IGIEditor
             // texEditor
             // 
             this.texEditor.BackColor = System.Drawing.SystemColors.Control;
+            this.texEditor.Controls.Add(this.textureNavLbl);
+            this.texEditor.Controls.Add(this.textureFileNameLbl);
+            this.texEditor.Controls.Add(this.textureResolutionLbl);
+            this.texEditor.Controls.Add(this.textureSizeLbl);
             this.texEditor.Controls.Add(this.nextTextureBtn);
             this.texEditor.Controls.Add(this.prevTextureBtn);
             this.texEditor.Controls.Add(this.textureFileSize);
@@ -4656,7 +4664,7 @@ namespace IGIEditor
             // 
             this.nextTextureBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.nextTextureBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.nextTextureBtn.Location = new System.Drawing.Point(758, 72);
+            this.nextTextureBtn.Location = new System.Drawing.Point(758, 90);
             this.nextTextureBtn.Name = "nextTextureBtn";
             this.nextTextureBtn.Size = new System.Drawing.Size(75, 25);
             this.nextTextureBtn.TabIndex = 57;
@@ -4668,7 +4676,7 @@ namespace IGIEditor
             // 
             this.prevTextureBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.prevTextureBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.prevTextureBtn.Location = new System.Drawing.Point(670, 72);
+            this.prevTextureBtn.Location = new System.Drawing.Point(670, 90);
             this.prevTextureBtn.Name = "prevTextureBtn";
             this.prevTextureBtn.Size = new System.Drawing.Size(75, 25);
             this.prevTextureBtn.TabIndex = 56;
@@ -4682,10 +4690,10 @@ namespace IGIEditor
             this.textureFileSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textureFileSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.textureFileSize.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textureFileSize.Location = new System.Drawing.Point(670, 181);
+            this.textureFileSize.Location = new System.Drawing.Point(670, 200);
             this.textureFileSize.Name = "textureFileSize";
             this.textureFileSize.ReadOnly = true;
-            this.textureFileSize.Size = new System.Drawing.Size(168, 24);
+            this.textureFileSize.Size = new System.Drawing.Size(163, 24);
             this.textureFileSize.TabIndex = 55;
             // 
             // textureFileResolution
@@ -4694,10 +4702,10 @@ namespace IGIEditor
             this.textureFileResolution.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textureFileResolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.textureFileResolution.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textureFileResolution.Location = new System.Drawing.Point(670, 148);
+            this.textureFileResolution.Location = new System.Drawing.Point(670, 167);
             this.textureFileResolution.Name = "textureFileResolution";
             this.textureFileResolution.ReadOnly = true;
-            this.textureFileResolution.Size = new System.Drawing.Size(168, 24);
+            this.textureFileResolution.Size = new System.Drawing.Size(163, 24);
             this.textureFileResolution.TabIndex = 54;
             // 
             // textureFileName
@@ -4706,17 +4714,17 @@ namespace IGIEditor
             this.textureFileName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textureFileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.textureFileName.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textureFileName.Location = new System.Drawing.Point(670, 108);
+            this.textureFileName.Location = new System.Drawing.Point(670, 127);
             this.textureFileName.Name = "textureFileName";
             this.textureFileName.ReadOnly = true;
-            this.textureFileName.Size = new System.Drawing.Size(168, 24);
+            this.textureFileName.Size = new System.Drawing.Size(163, 24);
             this.textureFileName.TabIndex = 53;
             // 
             // replaceTextureBtn
             // 
             this.replaceTextureBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.replaceTextureBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.replaceTextureBtn.Location = new System.Drawing.Point(670, 41);
+            this.replaceTextureBtn.Location = new System.Drawing.Point(670, 60);
             this.replaceTextureBtn.Name = "replaceTextureBtn";
             this.replaceTextureBtn.Size = new System.Drawing.Size(163, 25);
             this.replaceTextureBtn.TabIndex = 46;
@@ -4732,7 +4740,7 @@ namespace IGIEditor
             this.unpackResourceBtn.Name = "unpackResourceBtn";
             this.unpackResourceBtn.Size = new System.Drawing.Size(163, 25);
             this.unpackResourceBtn.TabIndex = 46;
-            this.unpackResourceBtn.Text = "Unpack Reesource";
+            this.unpackResourceBtn.Text = "Unpack Resource";
             this.unpackResourceBtn.UseVisualStyleBackColor = true;
             this.unpackResourceBtn.Click += new System.EventHandler(this.unpackResourceBtn_Click);
             // 
@@ -4772,6 +4780,50 @@ namespace IGIEditor
             this.textureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textureBox_MouseDown);
             this.textureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.textureBox_MouseMove);
             this.textureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.textureBox_MouseUp);
+            // 
+            // textureNavLbl
+            // 
+            this.textureNavLbl.AutoSize = true;
+            this.textureNavLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.textureNavLbl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.textureNavLbl.Location = new System.Drawing.Point(670, 72);
+            this.textureNavLbl.Name = "textureNavLbl";
+            this.textureNavLbl.Size = new System.Drawing.Size(80, 15);
+            this.textureNavLbl.TabIndex = 58;
+            this.textureNavLbl.Text = "Navigation:";
+            // 
+            // textureFileNameLbl
+            // 
+            this.textureFileNameLbl.AutoSize = true;
+            this.textureFileNameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.textureFileNameLbl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.textureFileNameLbl.Location = new System.Drawing.Point(670, 95);
+            this.textureFileNameLbl.Name = "textureFileNameLbl";
+            this.textureFileNameLbl.Size = new System.Drawing.Size(75, 15);
+            this.textureFileNameLbl.TabIndex = 59;
+            this.textureFileNameLbl.Text = "File Name:";
+            // 
+            // textureResolutionLbl
+            // 
+            this.textureResolutionLbl.AutoSize = true;
+            this.textureResolutionLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.textureResolutionLbl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.textureResolutionLbl.Location = new System.Drawing.Point(670, 135);
+            this.textureResolutionLbl.Name = "textureResolutionLbl";
+            this.textureResolutionLbl.Size = new System.Drawing.Size(75, 15);
+            this.textureResolutionLbl.TabIndex = 60;
+            this.textureResolutionLbl.Text = "Resolution:";
+            // 
+            // textureSizeLbl
+            // 
+            this.textureSizeLbl.AutoSize = true;
+            this.textureSizeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.textureSizeLbl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.textureSizeLbl.Location = new System.Drawing.Point(670, 168);
+            this.textureSizeLbl.Name = "textureSizeLbl";
+            this.textureSizeLbl.Size = new System.Drawing.Size(75, 15);
+            this.textureSizeLbl.TabIndex = 61;
+            this.textureSizeLbl.Text = "File Size:";
             // 
             // objectEditor
             // 
@@ -6131,6 +6183,10 @@ namespace IGIEditor
         private System.Windows.Forms.TextBox textureFileSize;
         private System.Windows.Forms.TextBox textureFileResolution;
         private System.Windows.Forms.TextBox textureFileName;
+        private System.Windows.Forms.Label textureNavLbl;
+        private System.Windows.Forms.Label textureFileNameLbl;
+        private System.Windows.Forms.Label textureResolutionLbl;
+        private System.Windows.Forms.Label textureSizeLbl;
         private System.Windows.Forms.Button nextTextureBtn;
         private System.Windows.Forms.Button prevTextureBtn;
         private System.Windows.Forms.Label modelIdOutLbl;
