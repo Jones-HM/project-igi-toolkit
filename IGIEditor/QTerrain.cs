@@ -334,6 +334,224 @@ namespace IGIEditor
             }
         }
 
+        public static CMDData LoadCMD(string filepath)
+        {
+            CMDData data = new CMDData();
+            if (!File.Exists(filepath)) return data;
+
+            try
+            {
+                using (BinaryReader reader = new BinaryReader(File.OpenRead(filepath)))
+                {
+                    while (reader.BaseStream.Position < reader.BaseStream.Length)
+                    {
+                        // Check if we have enough bytes for header (8 bytes)
+                        if (reader.BaseStream.Length - reader.BaseStream.Position < 8)
+                        {
+                            QLog.AddLog("LoadCMD", "Not enough bytes for CMD header at position " + reader.BaseStream.Position);
+                            break;
+                        }
+
+                        CMDItem header = new CMDItem();
+                        header.numTriangle = reader.ReadUInt16();
+                        header.vertexOffset = reader.ReadUInt16();
+                        header.numParentVertex = reader.ReadUInt16();
+                        header.numChildVertex = reader.ReadUInt16();
+
+                        // Validate values to prevent overflow
+                        if (header.numTriangle > 65535 || header.numParentVertex > 65535 || header.numChildVertex > 65535)
+                        {
+                            QLog.AddLog("LoadCMD", "Invalid CMD values, skipping entry");
+                            continue;
+                        }
+
+                        data.headers.Add(header);
+
+                        // Calculate expected data size
+                        // vertexOffset should equal numTriangle * sizeof(uint32_t)
+                        int vertexDataSize = header.numParentVertex * 12; // 12 bytes per vertex (3 floats)
+                        int triangleDataSize = header.numTriangle * 12; // 12 bytes per triangle (3 uint32)
+
+                        // Read vertex data (parent vertices + child vertices)
+                        int totalVertices = header.numParentVertex + header.numChildVertex;
+                        if (totalVertices > 0)
+                        {
+                            int expectedVertexBytes = totalVertices * 12;
+                            if (reader.BaseStream.Length - reader.BaseStream.Position >= expectedVertexBytes)
+                            {
+                                byte[] vertexBytes = reader.ReadBytes(expectedVertexBytes);
+                                data.vertexData.Add(vertexBytes);
+                            }
+                            else
+                            {
+                                QLog.AddLog("LoadCMD", "Not enough bytes for vertex data. Expected: " + expectedVertexBytes + ", Available: " + (reader.BaseStream.Length - reader.BaseStream.Position));
+                                data.vertexData.Add(new byte[0]); // Add empty to maintain index alignment
+                            }
+                        }
+                        else
+                        {
+                            data.vertexData.Add(new byte[0]);
+                        }
+
+                        // Read triangle data
+                        if (header.numTriangle > 0)
+                        {
+                            int expectedTriangleBytes = header.numTriangle * 12;
+                            if (reader.BaseStream.Length - reader.BaseStream.Position >= expectedTriangleBytes)
+                            {
+                                byte[] triangleBytes = reader.ReadBytes(expectedTriangleBytes);
+                                // Convert to uint array
+                                uint[] triangles = new uint[header.numTriangle * 3];
+                                for (int i = 0; i < triangles.Length; i++)
+                                {
+                                    triangles[i] = BitConverter.ToUInt32(triangleBytes, i * 4);
+                                }
+                                data.triangleData.Add(triangles);
+                            }
+                            else
+                            {
+                                QLog.AddLog("LoadCMD", "Not enough bytes for triangle data. Expected: " + expectedTriangleBytes + ", Available: " + (reader.BaseStream.Length - reader.BaseStream.Position));
+                                data.triangleData.Add(new uint[0]); // Add empty to maintain index alignment
+                            }
+                        }
+                        else
+                        {
+                            data.triangleData.Add(new uint[0]);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                QLog.LogException("LoadCMD", ex);
+                QLog.AddLog("LoadCMD", "Error loading CMD file: " + filepath);
+            }
+            return data;
+        }
+
+        public static void SaveCMD(string filepath, CMDData data)
+        {
+            using (BinaryWriter writer = new BinaryWriter(File.Create(filepath)))
+            {
+                for (int i = 0; i < data.headers.Count; i++)
+                {
+                    CMDItem header = data.headers[i];
+                    writer.Write(header.numTriangle);
+                    writer.Write(header.vertexOffset);
+                    writer.Write(header.numParentVertex);
+                    writer.Write(header.numChildVertex);
+
+                    // Write vertex data
+                    if (i < data.vertexData.Count && data.vertexData[i] != null)
+                    {
+                        writer.Write(data.vertexData[i]);
+                    }
+
+                    // Write triangle data
+                    if (i < data.triangleData.Count && data.triangleData[i] != null)
+                    {
+                        foreach (uint triangleIndex in data.triangleData[i])
+                        {
+                            writer.Write(triangleIndex);
+                        }
+                    }
+                }
+            }
+        }
+
+        public static Bitmap RenderCMD(byte[] vertexData, uint[] triangleData, int numVertices)
+        {
+            // Create a simple wireframe rendering of the CMD mesh
+            int width = 512;
+            int height = 512;
+            Bitmap bitmap = new Bitmap(width, height);
+            using (Graphics g = Graphics.FromImage(bitmap))
+            {
+                g.Clear(Color.Black);
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+                if (vertexData == null || vertexData.Length == 0 || triangleData == null || triangleData.Length == 0)
+                {
+                    // Draw placeholder text
+                    using (Font font = new Font("Arial", 12))
+                    using (Brush brush = new SolidBrush(Color.White))
+                    {
+                        g.DrawString("No CMD data to render", font, brush, 10, 10);
+                    }
+                    return bitmap;
+                }
+
+                // Parse vertices (assuming 3 floats per vertex: x, y, z)
+                int vertexCount = vertexData.Length / 12; // 12 bytes per vertex (3 floats)
+                float[] vertices = new float[vertexCount * 3];
+                for (int i = 0; i < vertexCount; i++)
+                {
+                    vertices[i * 3] = BitConverter.ToSingle(vertexData, i * 12);
+                    vertices[i * 3 + 1] = BitConverter.ToSingle(vertexData, i * 12 + 4);
+                    vertices[i * 3 + 2] = BitConverter.ToSingle(vertexData, i * 12 + 8);
+                }
+
+                // Find bounds to normalize coordinates
+                float minX = float.MaxValue, maxX = float.MinValue;
+                float minY = float.MaxValue, maxY = float.MinValue;
+                for (int i = 0; i < vertexCount; i++)
+                {
+                    minX = Math.Min(minX, vertices[i * 3]);
+                    maxX = Math.Max(maxX, vertices[i * 3]);
+                    minY = Math.Min(minY, vertices[i * 3 + 1]);
+                    maxY = Math.Max(maxY, vertices[i * 3 + 1]);
+                }
+
+                float rangeX = maxX - minX;
+                float rangeY = maxY - minY;
+                if (rangeX == 0) rangeX = 1;
+                if (rangeY == 0) rangeY = 1;
+
+                // Draw triangles
+                using (Pen pen = new Pen(Color.LimeGreen, 1))
+                {
+                    for (int i = 0; i < triangleData.Length; i += 3)
+                    {
+                        if (i + 2 < triangleData.Length)
+                        {
+                            uint idx1 = triangleData[i];
+                            uint idx2 = triangleData[i + 1];
+                            uint idx3 = triangleData[i + 2];
+
+                            if (idx1 < vertexCount && idx2 < vertexCount && idx3 < vertexCount)
+                            {
+                                PointF p1 = new PointF(
+                                    (vertices[idx1 * 3] - minX) / rangeX * (width - 40) + 20,
+                                    (vertices[idx1 * 3 + 1] - minY) / rangeY * (height - 40) + 20
+                                );
+                                PointF p2 = new PointF(
+                                    (vertices[idx2 * 3] - minX) / rangeX * (width - 40) + 20,
+                                    (vertices[idx2 * 3 + 1] - minY) / rangeY * (height - 40) + 20
+                                );
+                                PointF p3 = new PointF(
+                                    (vertices[idx3 * 3] - minX) / rangeX * (width - 40) + 20,
+                                    (vertices[idx3 * 3 + 1] - minY) / rangeY * (height - 40) + 20
+                                );
+
+                                g.DrawLine(pen, p1, p2);
+                                g.DrawLine(pen, p2, p3);
+                                g.DrawLine(pen, p3, p1);
+                            }
+                        }
+                    }
+                }
+
+                // Draw info text
+                using (Font font = new Font("Arial", 10))
+                using (Brush brush = new SolidBrush(Color.White))
+                {
+                    g.DrawString($"Vertices: {vertexCount}", font, brush, 10, 10);
+                    g.DrawString($"Triangles: {triangleData.Length / 3}", font, brush, 10, 25);
+                }
+            }
+            return bitmap;
+        }
+
         private static T ByteArrayToStruct<T>(byte[] bytes) where T : struct
         {
             GCHandle handle = GCHandle.Alloc(bytes, GCHandleType.Pinned);
