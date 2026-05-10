@@ -358,10 +358,17 @@ namespace IGIEditor
                         header.numParentVertex = reader.ReadUInt16();
                         header.numChildVertex = reader.ReadUInt16();
 
-                        // Validate values to prevent overflow
-                        if (header.numTriangle > 65535 || header.numParentVertex > 65535 || header.numChildVertex > 65535)
+                        // Validate values - check for sentinel value and reasonable limits
+                        if (header.numTriangle == 65535 || header.numParentVertex == 65535 || header.numChildVertex == 65535)
                         {
-                            QLog.AddLog("LoadCMD", "Invalid CMD values, skipping entry");
+                            QLog.AddLog("LoadCMD", "Invalid CMD entry (sentinel value 65535 found), skipping entry");
+                            continue;
+                        }
+
+                        // Validate vertexOffset consistency
+                        if (header.vertexOffset != header.numTriangle * 4)
+                        {
+                            QLog.AddLog("LoadCMD", "Invalid CMD entry (vertexOffset mismatch), skipping entry");
                             continue;
                         }
 
