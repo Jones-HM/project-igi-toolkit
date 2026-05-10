@@ -29,6 +29,7 @@ namespace IGIEditor
         #region variables
         //Variables section.
         private bool compileStatus = true;
+        private List<QTrigger.TriggerTask> triggerTasks = new List<QTrigger.TriggerTask>();
         private List<QUtils.QScriptTask> qtaskList = new List<QUtils.QScriptTask>();
         private int buildingsCount = 0, rigidObjCount = 0;
         private static bool isBuildingDD = false, isObjectDD = true, internalsAttached = false;
@@ -2012,7 +2013,123 @@ namespace IGIEditor
 
             }
 
+            //Trigger ToolKit
+            else if (e.TabPage.Name == "triggerToolKit")
+            {
+                PopulateTriggerToolkit();
+                if (triggerOperatorDD.SelectedIndex == -1) triggerOperatorDD.SelectedIndex = 0;
+            }
+        }
 
+        private void PopulateTriggerToolkit()
+        {
+            try
+            {
+                var qscData = QUtils.LoadFile();
+                triggerTasks = QTrigger.ParseTriggerTasks(qscData);
+                UpdateUIComponent(triggerTaskDD, triggerTasks);
+
+                var objects = QTask.GetQTaskList(true, true);
+                var objectStrings = objects.Select(o => string.Format("{0}_{1}", o.name.Replace("\"", ""), o.id)).ToList();
+                objectStrings.Sort();
+                UpdateUIComponent(triggerObjectDD, objectStrings);
+
+                UpdateUIComponent(triggerEventDD, QTrigger.AvailableTriggerProperties.ToList());
+            }
+            catch (Exception ex)
+            {
+                QLog.LogException("PopulateTriggerToolkit", ex);
+            }
+        }
+
+        private void triggerTaskDD_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (triggerTaskDD.SelectedIndex == -1) return;
+            var task = triggerTasks[triggerTaskDD.SelectedIndex];
+
+            var conditions = task.Conditions.Select(c => c.Name).ToList();
+            UpdateUIComponent(triggerConditionDD, conditions);
+        }
+
+        private void triggerConditionDD_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (triggerTaskDD.SelectedIndex == -1 || triggerConditionDD.SelectedIndex == -1) return;
+            var task = triggerTasks[triggerTaskDD.SelectedIndex];
+            var condName = triggerConditionDD.SelectedItem.ToString();
+            var cond = task.Conditions.FirstOrDefault(c => c.Name == condName);
+
+            triggerList.Items.Clear();
+            if (cond != null)
+            {
+                // Infer and set the operator for the existing condition
+                var op = QTrigger.InferOperator(cond.Value);
+                if (op == QTrigger.TriggerOperator.AND) triggerOperatorDD.SelectedIndex = 1;
+                else triggerOperatorDD.SelectedIndex = 0;
+
+                var individual = QTrigger.GetTriggerUnits(cond.Value);
+                foreach (var trigger in individual)
+                {
+                    triggerList.Items.Add(trigger, true);
+                }
+            }
+            else
+            {
+                triggerOperatorDD.SelectedIndex = 0;
+            }
+        }
+
+        private void addTriggerBtn_Click(object sender, EventArgs e)
+        {
+            if (triggerObjectDD.SelectedIndex == -1 || triggerEventDD.SelectedIndex == -1) return;
+            string obj = triggerObjectDD.SelectedItem.ToString();
+            string evt = triggerEventDD.SelectedItem.ToString();
+            string newTrigger = obj + "." + evt;
+
+            if (!triggerList.Items.Contains(newTrigger))
+            {
+                triggerList.Items.Add(newTrigger, true);
+            }
+        }
+
+        private void removeTriggerBtn_Click(object sender, EventArgs e)
+        {
+            if (triggerList.SelectedIndex != -1)
+            {
+                triggerList.Items.RemoveAt(triggerList.SelectedIndex);
+            }
+        }
+
+        private void applyTriggersBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (triggerTaskDD.SelectedIndex == -1 || triggerConditionDD.SelectedIndex == -1) return;
+                var task = triggerTasks[triggerTaskDD.SelectedIndex];
+                var condName = triggerConditionDD.SelectedItem.ToString();
+
+                var selectedTriggers = new List<string>();
+                foreach (var item in triggerList.CheckedItems)
+                {
+                    selectedTriggers.Add(item.ToString());
+                }
+
+                var qOp = triggerOperatorDD.SelectedIndex == 1 ? QTrigger.TriggerOperator.AND : QTrigger.TriggerOperator.OR;
+                string combined = QTrigger.RebuildExpression(selectedTriggers, qOp);
+
+                var qscData = QUtils.LoadFile();
+                qscData = QTrigger.UpdateTaskCondition(qscData, task, condName, combined);
+
+                compileStatus = QCompiler.CompileEx(qscData);
+                if (compileStatus)
+                {
+                    SetStatusText("Triggers updated successfully for " + task.Type);
+                    PopulateTriggerToolkit(); // Refresh
+                }
+            }
+            catch (Exception ex)
+            {
+                QLog.LogException("applyTriggersBtn_Click", ex);
+            }
         }
 
         private void removeObjsBtn_Click(object sender, EventArgs e)
