@@ -792,7 +792,6 @@ namespace IGIEditor
             "&& (AND)"});
             this.triggerOperatorDD.Location = new System.Drawing.Point(580, 175);
             this.triggerOperatorDD.Name = "triggerOperatorDD";
-            this.triggerOperatorDD.SelectedIndex = 0;
             this.triggerOperatorDD.Size = new System.Drawing.Size(150, 24);
             this.triggerOperatorDD.TabIndex = 12;
             //

@@ -56,7 +56,8 @@ namespace IGIEditor
             "isDead", "isExploded", "isDestroyed", "isAlarm", "isTrigger", "isDetection", "isHacked", "isPressed", "isLastPressed", "isClosed", "isOpen", "isLocked", "isFinished", "isSendt", "isSpawned", "isFailed", "isComplete",
             "isOn", "isReset", "isPlaying", "isRun", "isStop", "isStart", "isMoving", "isInUse", "isSearched", "isPicked", "isPickedUp",
             "nActiveID", "zData", "nValue", "vValue", "nUserData", "vFloor", "nWantedFloor", "vLastFloor", "nDetectionTime", "isHackedThisTick", "isFinishedThisTick", "nTickSendt", "nTick",
-            "isLastRun", "vGenerateFactor", "nBackupTimer", "nInactive", "isLastInUse", "nTriggerLastTick", "isLastDetection", "isLastDestroyed", "isLastOn", "nDoorOpenTicks", "isLastOpen", "isLastClosed", "nTicksSinceFinishedDisplay", "nFinishedDisplay", "isFinishedDisplay", "nSpawns", "eDifficulty", "eTeam"
+            "isLastRun", "vGenerateFactor", "nBackupTimer", "nInactive", "isLastInUse", "nTriggerLastTick", "isLastDetection", "isLastDestroyed", "isLastOn", "nDoorOpenTicks", "isLastOpen", "isLastClosed", "nTicksSinceFinishedDisplay", "nFinishedDisplay", "isFinishedDisplay", "nSpawns", "eDifficulty", "eTeam",
+            "nOffset", "nPlayTick", "isWantedFloor"
         };
 
         public static List<TriggerTask> ParseTriggerTasks(string qscData)
@@ -208,9 +209,6 @@ namespace IGIEditor
             int lineIdx = qscData.IndexOf(task.FullLine);
             if (lineIdx != -1)
             {
-                // Update the in-memory task object
-                task.FullLine = newCall;
-                cond.Value = newValue;
                 return qscData.Remove(lineIdx, task.FullLine.Length).Insert(lineIdx, newCall);
             }
             return qscData;
@@ -230,75 +228,50 @@ namespace IGIEditor
             return TriggerOperator.NONE;
         }
 
-        public static List<string> GetIndividualTriggers(string fullCondition)
+        public static List<string> GetTriggerUnits(string fullCondition)
         {
             if (string.IsNullOrWhiteSpace(fullCondition) || fullCondition == "1" || fullCondition == "0")
                 return new List<string>();
 
-            var triggers = new List<string>();
-            var ast = ParseExpression(fullCondition);
-            if (ast != null)
+            var tokens = Tokenize(fullCondition);
+            var units = new List<string>();
+            var currentUnit = new List<string>();
+            int balance = 0;
+
+            foreach (var token in tokens)
             {
-                CollectIdentifiers(ast, triggers);
+                if (token.Type == TriggerTokenType.LPAREN) balance++;
+                else if (token.Type == TriggerTokenType.RPAREN) balance--;
+
+                if (balance == 0 && (token.Type == TriggerTokenType.OPERATOR_OR || token.Type == TriggerTokenType.OPERATOR_AND))
+                {
+                    if (currentUnit.Count > 0)
+                    {
+                        string unit = string.Join(" ", currentUnit).Trim();
+                        if (!unit.Contains("Task_New")) units.Add(unit);
+                        currentUnit.Clear();
+                    }
+                }
+                else
+                {
+                    currentUnit.Add(token.Value);
+                }
             }
-            return triggers.Distinct().ToList();
+
+            if (currentUnit.Count > 0)
+            {
+                string unit = string.Join(" ", currentUnit).Trim();
+                if (!unit.Contains("Task_New")) units.Add(unit);
+            }
+
+            return units.Distinct().ToList();
         }
 
-        // Recursively collect identifiers from AST, skipping Task_New function calls
-        private static void CollectIdentifiers(ExprNode node, List<string> identifiers)
-        {
-            if (node == null) return;
-
-            if (node.Type == ExprNodeType.FunctionCall && node.Value == "Task_New")
-            {
-                // Skip entire Task_New function call subtree
-                return;
-            }
-
-            if (node.Type == ExprNodeType.Identifier)
-            {
-                identifiers.Add(node.Value);
-            }
-
-            foreach (var child in node.Children)
-            {
-                CollectIdentifiers(child, identifiers);
-            }
-        }
-
-        public enum TriggerTokenType { IDENTIFIER, OPERATOR_OR, OPERATOR_AND, LPAREN, RPAREN, NOT }
+        public enum TriggerTokenType { IDENTIFIER, OPERATOR_OR, OPERATOR_AND, LPAREN, RPAREN, NOT, COMPARISON, NUMBER, STRING }
         public class TriggerToken
         {
             public TriggerTokenType Type { get; set; }
             public string Value { get; set; }
-        }
-
-        // AST node types for structured expression parsing
-        public enum ExprNodeType { Identifier, Operator, Group, Not, FunctionCall }
-        public class ExprNode
-        {
-            public ExprNodeType Type { get; set; }
-            public string Value { get; set; }
-            public List<ExprNode> Children { get; set; } = new List<ExprNode>();
-
-            public override string ToString()
-            {
-                switch (Type)
-                {
-                    case ExprNodeType.Identifier:
-                        return Value;
-                    case ExprNodeType.Operator:
-                        return string.Join(" " + Value + " ", Children.Select(c => c.ToString()));
-                    case ExprNodeType.Group:
-                        return "(" + string.Join("", Children.Select(c => c.ToString())) + ")";
-                    case ExprNodeType.Not:
-                        return "!" + (Children.Count > 0 ? Children[0].ToString() : "");
-                    case ExprNodeType.FunctionCall:
-                        return Value + "(" + string.Join(", ", Children.Select(c => c.ToString())) + ")";
-                    default:
-                        return Value ?? "";
-                }
-            }
         }
 
         public static List<TriggerToken> Tokenize(string expression)
@@ -306,7 +279,8 @@ namespace IGIEditor
             var tokens = new List<TriggerToken>();
             if (string.IsNullOrEmpty(expression)) return tokens;
 
-            var pattern = @"(\|\||&&|\(|\)|!|[a-zA-Z_][a-zA-Z0-9_]*(\.\w+)?)";
+            // Expanded pattern to include comparison operators, numbers, and strings
+            var pattern = @"(\|\||&&|==|!=|>=|<=|>|<|\(|\)|!|\""[^\""]*\""|[a-zA-Z_][a-zA-Z0-9_]*(\.\w+)?|[0-9]+(\.[0-9]+)?)";
             var matches = Regex.Matches(expression, pattern);
 
             foreach (Match match in matches)
@@ -318,124 +292,13 @@ namespace IGIEditor
                 else if (val == "(") token.Type = TriggerTokenType.LPAREN;
                 else if (val == ")") token.Type = TriggerTokenType.RPAREN;
                 else if (val == "!") token.Type = TriggerTokenType.NOT;
+                else if (Regex.IsMatch(val, @"^(==|!=|>=|<=|>|<)$")) token.Type = TriggerTokenType.COMPARISON;
+                else if (Regex.IsMatch(val, @"^[0-9]+(\.[0-9]+)?$")) token.Type = TriggerTokenType.NUMBER;
+                else if (val.StartsWith("\"")) token.Type = TriggerTokenType.STRING;
                 else token.Type = TriggerTokenType.IDENTIFIER;
                 tokens.Add(token);
             }
             return tokens;
-        }
-
-        // Parse tokens into a structured AST that preserves grouping and function calls
-        public static ExprNode ParseExpression(string expression)
-        {
-            if (string.IsNullOrWhiteSpace(expression)) return null;
-            var tokens = Tokenize(expression);
-            int pos = 0;
-            return ParseOrExpression(tokens, ref pos);
-        }
-
-        private static ExprNode ParseOrExpression(List<TriggerToken> tokens, ref int pos)
-        {
-            var left = ParseAndExpression(tokens, ref pos);
-            if (left == null) return null;
-
-            while (pos < tokens.Count && tokens[pos].Type == TriggerTokenType.OPERATOR_OR)
-            {
-                pos++; // consume ||
-                var right = ParseAndExpression(tokens, ref pos);
-                var orNode = new ExprNode { Type = ExprNodeType.Operator, Value = "||" };
-                orNode.Children.Add(left);
-                if (right != null) orNode.Children.Add(right);
-                left = orNode;
-            }
-            return left;
-        }
-
-        private static ExprNode ParseAndExpression(List<TriggerToken> tokens, ref int pos)
-        {
-            var left = ParseUnaryExpression(tokens, ref pos);
-            if (left == null) return null;
-
-            while (pos < tokens.Count && tokens[pos].Type == TriggerTokenType.OPERATOR_AND)
-            {
-                pos++; // consume &&
-                var right = ParseUnaryExpression(tokens, ref pos);
-                var andNode = new ExprNode { Type = ExprNodeType.Operator, Value = "&&" };
-                andNode.Children.Add(left);
-                if (right != null) andNode.Children.Add(right);
-                left = andNode;
-            }
-            return left;
-        }
-
-        private static ExprNode ParseUnaryExpression(List<TriggerToken> tokens, ref int pos)
-        {
-            if (pos >= tokens.Count) return null;
-
-            if (tokens[pos].Type == TriggerTokenType.NOT)
-            {
-                pos++; // consume !
-                var child = ParsePrimaryExpression(tokens, ref pos);
-                var notNode = new ExprNode { Type = ExprNodeType.Not, Value = "!" };
-                if (child != null) notNode.Children.Add(child);
-                return notNode;
-            }
-
-            return ParsePrimaryExpression(tokens, ref pos);
-        }
-
-        private static ExprNode ParsePrimaryExpression(List<TriggerToken> tokens, ref int pos)
-        {
-            if (pos >= tokens.Count) return null;
-
-            var token = tokens[pos];
-
-            // Handle grouped expressions
-            if (token.Type == TriggerTokenType.LPAREN)
-            {
-                pos++; // consume (
-                var groupNode = new ExprNode { Type = ExprNodeType.Group, Value = "" };
-                var inner = ParseOrExpression(tokens, ref pos);
-                if (inner != null) groupNode.Children.Add(inner);
-                if (pos < tokens.Count && tokens[pos].Type == TriggerTokenType.RPAREN)
-                    pos++; // consume )
-                return groupNode;
-            }
-
-            // Handle identifiers and function calls
-            if (token.Type == TriggerTokenType.IDENTIFIER)
-            {
-                string identName = token.Value;
-                pos++;
-
-                // Check for function call (identifier followed by '(')
-                if (pos < tokens.Count && tokens[pos].Type == TriggerTokenType.LPAREN)
-                {
-                    pos++; // consume (
-                    var funcNode = new ExprNode { Type = ExprNodeType.FunctionCall, Value = identName };
-
-                    // Parse function arguments by counting balanced parentheses
-                    int parenBalance = 1;
-                    int argStart = pos;
-                    while (pos < tokens.Count && parenBalance > 0)
-                    {
-                        if (tokens[pos].Type == TriggerTokenType.LPAREN) parenBalance++;
-                        else if (tokens[pos].Type == TriggerTokenType.RPAREN) parenBalance--;
-
-                        if (parenBalance > 0) pos++;
-                    }
-                    // We've consumed the matching ')' at pos
-                    if (pos < tokens.Count) pos++;
-
-                    return funcNode;
-                }
-                else
-                {
-                    // Simple identifier
-                    return new ExprNode { Type = ExprNodeType.Identifier, Value = identName };
-                }
-            }
-
-            return null;
         }
 
         public static string RebuildExpression(List<string> activeTriggers, TriggerOperator op)
@@ -445,81 +308,6 @@ namespace IGIEditor
 
             string operatorStr = (op == TriggerOperator.AND) ? " && " : " || ";
             return string.Join(operatorStr, activeTriggers);
-        }
-
-        // AST-based rebuild that preserves structure
-        public static string RebuildExpressionFromAST(ExprNode ast)
-        {
-            if (ast == null) return "0";
-            return ast.ToString();
-        }
-
-        // Prune AST to only include specified identifiers while preserving structure
-        public static ExprNode PruneAST(ExprNode node, HashSet<string> activeIdentifiers)
-        {
-            if (node == null) return null;
-
-            switch (node.Type)
-            {
-                case ExprNodeType.Identifier:
-                    return activeIdentifiers.Contains(node.Value) ? node : null;
-
-                case ExprNodeType.FunctionCall:
-                    // Keep Task_New calls as-is if they appear
-                    return node;
-
-                case ExprNodeType.Not:
-                    var prunedChild = node.Children.Count > 0 ? PruneAST(node.Children[0], activeIdentifiers) : null;
-                    if (prunedChild != null)
-                    {
-                        var notNode = new ExprNode { Type = ExprNodeType.Not, Value = "!" };
-                        notNode.Children.Add(prunedChild);
-                        return notNode;
-                    }
-                    return null;
-
-                case ExprNodeType.Group:
-                    var prunedGroupChild = node.Children.Count > 0 ? PruneAST(node.Children[0], activeIdentifiers) : null;
-                    if (prunedGroupChild != null)
-                    {
-                        var groupNode = new ExprNode { Type = ExprNodeType.Group, Value = "" };
-                        groupNode.Children.Add(prunedGroupChild);
-                        return groupNode;
-                    }
-                    return null;
-
-                case ExprNodeType.Operator:
-                    var prunedChildren = new List<ExprNode>();
-                    foreach (var child in node.Children)
-                    {
-                        var pruned = PruneAST(child, activeIdentifiers);
-                        if (pruned != null) prunedChildren.Add(pruned);
-                    }
-
-                    if (prunedChildren.Count == 0) return null;
-                    if (prunedChildren.Count == 1) return prunedChildren[0];
-
-                    var opNode = new ExprNode { Type = ExprNodeType.Operator, Value = node.Value };
-                    opNode.Children.AddRange(prunedChildren);
-                    return opNode;
-
-                default:
-                    return null;
-            }
-        }
-
-        // Future-proofing: return a list of tokens but filter out Task_New for the simple list-based UI
-        public static List<string> GetCleanIdentifiers(string fullCondition)
-        {
-            if (string.IsNullOrWhiteSpace(fullCondition)) return new List<string>();
-
-            var identifiers = new List<string>();
-            var ast = ParseExpression(fullCondition);
-            if (ast != null)
-            {
-                CollectIdentifiers(ast, identifiers);
-            }
-            return identifiers.Distinct().ToList();
         }
     }
 }

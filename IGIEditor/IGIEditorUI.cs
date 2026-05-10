@@ -2066,7 +2066,7 @@ namespace IGIEditor
                 if (op == QTrigger.TriggerOperator.AND) triggerOperatorDD.SelectedIndex = 1;
                 else triggerOperatorDD.SelectedIndex = 0;
 
-                var individual = QTrigger.GetCleanIdentifiers(cond.Value);
+                var individual = QTrigger.GetTriggerUnits(cond.Value);
                 foreach (var trigger in individual)
                 {
                     triggerList.Items.Add(trigger, true);
