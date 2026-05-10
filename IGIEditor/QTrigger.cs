@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace IGIEditor
 {
-    class QTrigger
+    public class QTrigger
     {
         public class TriggerTask
         {
@@ -122,6 +122,10 @@ namespace IGIEditor
 
                 int id;
                 if (!int.TryParse(idStr, out id)) id = -1;
+                
+                // Skip triggers with -1 ID (invalid)
+                if (id == -1) return null;
+                
                 task.Id = id;
                 task.Type = type;
                 task.Note = args[2].Trim().Replace("\"", "");

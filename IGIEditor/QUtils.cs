@@ -25,16 +25,16 @@ using static IGIEditor.QAI;
 
 namespace IGIEditor
 {
-    internal class QUtils
+    public class QUtils
     {
-        internal class QScriptTask
+        public class QScriptTask
         {
-            internal Int32 id;
-            internal string name;
-            internal string note;
-            internal Real64 position;
-            internal Real32 orientation;
-            internal string model;
+            public Int32 id;
+            public string name;
+            public string note;
+            public Real64 position;
+            public Real32 orientation;
+            public string model;
         };
 
         internal class HTask
@@ -2119,25 +2119,25 @@ namespace IGIEditor
         }
     };
 
-    internal class Real32
+    public class Real32
     {
-        internal float alpha, beta, gamma;
+        public float alpha, beta, gamma;
 
-        internal Real32() { alpha = beta = gamma = 0.0f; }
-        internal Real32(float alpha)
+        public Real32() { alpha = beta = gamma = 0.0f; }
+        public Real32(float alpha)
         {
             this.alpha = alpha;
             this.beta = this.gamma = 0.0f;
         }
 
-        internal Real32(float alpha, float beta)
+        public Real32(float alpha, float beta)
         {
             this.alpha = alpha;
             this.beta = beta;
             this.gamma = 0.0f;
         }
 
-        internal Real32(float alpha, float beta, float gamma)
+        public Real32(float alpha, float beta, float gamma)
         {
             this.alpha = alpha;
             this.beta = beta;
@@ -2145,30 +2145,30 @@ namespace IGIEditor
         }
     };
 
-    internal class Real64
+    public class Real64
     {
-        internal double x, y, z;
-        internal Real64() { x = y = z = 0.0f; }
-        internal Real64(double x)
+        public double x, y, z;
+        public Real64() { x = y = z = 0.0f; }
+        public Real64(double x)
         {
             this.x = x;
             this.y = this.z = 0.0f;
         }
-        internal Real64(double x, double y)
+        public Real64(double x, double y)
         {
             this.x = x;
             this.y = y;
             this.z = 0.0f;
         }
 
-        internal Real64(double x, double y, double z)
+        public Real64(double x, double y, double z)
         {
             this.x = x;
             this.y = y;
             this.z = z;
         }
 
-        internal Real64 Real64Operator(Real64 real1, Real64 real2, string operatorType)
+        public Real64 Real64Operator(Real64 real1, Real64 real2, string operatorType)
         {
             Real64 real = new Real64();
 

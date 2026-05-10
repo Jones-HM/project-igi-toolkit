@@ -2042,7 +2042,29 @@ namespace IGIEditor
                 UpdateUIComponent(triggerTaskDD, triggerTasks);
 
                 var objects = QTask.GetQTaskList(true, true);
-                var objectStrings = objects.Select(o => string.Format("{0}_{1}", o.name.Replace("\"", ""), o.id)).ToList();
+                var objectStrings = new List<string>();
+
+                foreach (var o in objects)
+                {
+                    // Skip objects with -1 ID (invalid)
+                    if (o.id == -1)
+                        continue;
+
+                    // Extract model ID from the object
+                    string modelId = o.model.Replace("\"", "").Trim();
+                    
+                    // Get model name from IGIModels.json
+                    string modelName = QObjects.FindModelName(modelId, true);
+                    
+                    // Format: ModelName (ObjectType_ID)
+                    string objectName = string.Format("{0} ({1}_{2})", 
+                        modelName, 
+                        o.name.Replace("\"", ""), 
+                        o.id);
+                    
+                    objectStrings.Add(objectName);
+                }
+
                 objectStrings.Sort();
                 UpdateUIComponent(triggerObjectDD, objectStrings);
 
@@ -2084,8 +2106,17 @@ namespace IGIEditor
         private void addTriggerBtn_Click(object sender, EventArgs e)
         {
             if (triggerObjectDD.SelectedIndex == -1 || triggerEventDD.SelectedIndex == -1) return;
-            string obj = triggerObjectDD.SelectedItem.ToString();
+            string selectedItem = triggerObjectDD.SelectedItem.ToString();
             string evt = triggerEventDD.SelectedItem.ToString();
+            
+            // Extract object type and ID from format "ModelName (ObjectType_ID)"
+            string obj = selectedItem;
+            int parenIndex = selectedItem.IndexOf('(');
+            if (parenIndex != -1)
+            {
+                obj = selectedItem.Substring(parenIndex + 1).Trim().TrimEnd(')');
+            }
+            
             string newTrigger = obj + "." + evt;
 
             if (!triggerList.Items.Contains(newTrigger))

@@ -8,7 +8,7 @@ using static IGIEditor.QUtils;
 
 namespace IGIEditor
 {
-    class QTask
+    public class QTask
     {
         internal static List<QScriptTask> GetQTaskList(bool fullQtaskList = false, bool distinct = false, bool fromBackup = false)
         {

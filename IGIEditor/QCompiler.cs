@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace IGIEditor
 {
-    internal class QCompiler
+    public class QCompiler
     {
         enum QTYPE
         {
