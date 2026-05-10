@@ -32,7 +32,6 @@
     <!-- Add both the plural and singular RuntimeIdentifier properties here -->
     <RuntimeIdentifiers>win-x86</RuntimeIdentifiers>
     <RuntimeIdentifier>win-x86</RuntimeIdentifier>
-    <InternalsVisibleTo>IGIEditor.Tests</InternalsVisibleTo>
   </PropertyGroup>
   <!-- Import common targets -->
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -80,7 +79,6 @@
     <Optimize>true</Optimize>
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
-
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Dev|AnyCPU' ">
     <OutputPath>bin\Testing\</OutputPath>
@@ -89,7 +87,6 @@
     <DefineConstants>DEV_MODE,WIN32</DefineConstants>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <WarningLevel>5</WarningLevel>
-
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Dev|x86' ">
     <OutputPath>bin\x86\Dev\</OutputPath>
@@ -97,7 +94,6 @@
     <Prefer32Bit>true</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <PlatformTarget>x86</PlatformTarget>
-
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -108,7 +104,6 @@
     <LangVersion>7.3</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'External|x86'">
     <OutputPath>bin\x86\External\</OutputPath>
@@ -117,7 +112,6 @@
     <PlatformTarget>x86</PlatformTarget>
     <LangVersion>7.3</LangVersion>
     <Prefer32Bit>true</Prefer32Bit>
-
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevMode|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -129,7 +123,6 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevMode|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -140,7 +133,6 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <LangVersion>7.3</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
-
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.IWshRuntimeLibrary">
@@ -149,7 +141,7 @@
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -213,8 +205,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <!-- Temporarily disabled .resx files to allow test project to build -->
-    <!--
     <EmbeddedResource Include="DialogMsgBox.resx">
       <DependentUpon>DialogMsgBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -226,7 +216,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    -->
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

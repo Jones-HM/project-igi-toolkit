@@ -136,21 +136,8 @@ namespace IGIEditor
                 #endregion
 
                 //Disabling Errors and Warnings.
-                try
-                {
-                    GT.GT_SuppressErrors(true);
-                    GT.GT_SuppressWarnings(true);
-                }
-                catch (DllNotFoundException)
-                {
-                    // GTLibc library not found - some features may not work
-                    QLog.ShowLogError(MethodBase.GetCurrentMethod().ToString(),"GTLibc library not found. Some trainer features may not be available.");
-                }
-                catch (BadImageFormatException)
-                {
-                    // GTLibc library architecture mismatch
-                    QLog.ShowLogError(MethodBase.GetCurrentMethod().ToString(), "GTLibc library architecture mismatch. Some trainer features may not be available.");
-                }
+                GT.GT_SuppressErrors(true);
+                GT.GT_SuppressWarnings(true);
 
                 //Get Game level from start.
                 gameLevel = Convert.ToInt32(levelStartTxt.Text.ToString());
@@ -2030,6 +2017,7 @@ namespace IGIEditor
             else if (e.TabPage.Name == "triggerToolKit")
             {
                 PopulateTriggerToolkit();
+                if (triggerOperatorDD.SelectedIndex == -1) triggerOperatorDD.SelectedIndex = 0;
             }
         }
 
@@ -2042,29 +2030,7 @@ namespace IGIEditor
                 UpdateUIComponent(triggerTaskDD, triggerTasks);
 
                 var objects = QTask.GetQTaskList(true, true);
-                var objectStrings = new List<string>();
-
-                foreach (var o in objects)
-                {
-                    // Skip objects with -1 ID (invalid)
-                    if (o.id == -1)
-                        continue;
-
-                    // Extract model ID from the object
-                    string modelId = o.model.Replace("\"", "").Trim();
-                    
-                    // Get model name from IGIModels.json
-                    string modelName = QObjects.FindModelName(modelId, true);
-                    
-                    // Format: ModelName (ObjectType_ID)
-                    string objectName = string.Format("{0} ({1}_{2})", 
-                        modelName, 
-                        o.name.Replace("\"", ""), 
-                        o.id);
-                    
-                    objectStrings.Add(objectName);
-                }
-
+                var objectStrings = objects.Select(o => string.Format("{0}_{1}", o.name.Replace("\"", ""), o.id)).ToList();
                 objectStrings.Sort();
                 UpdateUIComponent(triggerObjectDD, objectStrings);
 
@@ -2106,17 +2072,8 @@ namespace IGIEditor
         private void addTriggerBtn_Click(object sender, EventArgs e)
         {
             if (triggerObjectDD.SelectedIndex == -1 || triggerEventDD.SelectedIndex == -1) return;
-            string selectedItem = triggerObjectDD.SelectedItem.ToString();
+            string obj = triggerObjectDD.SelectedItem.ToString();
             string evt = triggerEventDD.SelectedItem.ToString();
-            
-            // Extract object type and ID from format "ModelName (ObjectType_ID)"
-            string obj = selectedItem;
-            int parenIndex = selectedItem.IndexOf('(');
-            if (parenIndex != -1)
-            {
-                obj = selectedItem.Substring(parenIndex + 1).Trim().TrimEnd(')');
-            }
-            
             string newTrigger = obj + "." + evt;
 
             if (!triggerList.Items.Contains(newTrigger))
@@ -2147,7 +2104,8 @@ namespace IGIEditor
                     selectedTriggers.Add(item.ToString());
                 }
 
-                string combined = string.Join(" || ", selectedTriggers);
+                string op = triggerOperatorDD.SelectedIndex == 1 ? " && " : " || ";
+                string combined = string.Join(op, selectedTriggers);
                 if (string.IsNullOrEmpty(combined)) combined = "0";
 
                 var qscData = QUtils.LoadFile();
@@ -2802,34 +2760,23 @@ namespace IGIEditor
 
         private void viewPortEnableCb_CheckedChanged(object sender, EventArgs e)
         {
-            try
+            unsafe
             {
-                unsafe
+                IntPtr viewPortAddr = (IntPtr)0x00497E94;
+
+                if (viewPortCameraEnableCb.Checked)
                 {
-                    IntPtr viewPortAddr = (IntPtr)0x00497E94;
-
-                    if (viewPortCameraEnableCb.Checked)
-                    {
-                        GT.GT_WriteNOP(viewPortAddr, 2);
-                        QInternals.HumanInputDisable();
-                        viewPortCameraEnableCb.Text = "ViewPort - Enabled";
-                    }
-                    else
-                    {
-                        GT.GT_WriteMemory(viewPortAddr, "2bytes", "42483");
-                        QInternals.HumanInputEnable();
-                        viewPortCameraEnableCb.Text = "ViewPort - Disabled";
-                    }
-
+                    GT.GT_WriteNOP(viewPortAddr, 2);
+                    QInternals.HumanInputDisable();
+                    viewPortCameraEnableCb.Text = "ViewPort - Enabled";
                 }
-            }
-            catch (DllNotFoundException)
-            {
-                QLog.ShowLogError("viewPortEnableCb_CheckedChanged", "GTLibc library not found. Viewport camera feature not available.");
-            }
-            catch (BadImageFormatException)
-            {
-                QLog.ShowLogError("viewPortEnableCb_CheckedChanged", "GTLibc library architecture mismatch. Viewport camera feature not available.");
+                else
+                {
+                    GT.GT_WriteMemory(viewPortAddr, "2bytes", "42483");
+                    QInternals.HumanInputEnable();
+                    viewPortCameraEnableCb.Text = "ViewPort - Disabled";
+                }
+
             }
         }
 
@@ -3251,33 +3198,22 @@ namespace IGIEditor
 
         private void editorModeCb_CheckedChanged(object sender, EventArgs e)
         {
-            try
+            if (((CheckBox)sender).Checked)
             {
-                if (((CheckBox)sender).Checked)
-                {
-                    QInternals.HumanFreeCam();
-                    ((CheckBox)sender).Text = "Edit Mode";
-                    ((CheckBox)sender).ForeColor = SpringGreen;
-                    QInternals.StatusMessageShow("Editor mode enabled. use Arrows keys to move ALT/SPACE change height");
-                }
-                else
-                {
-                    GT.GT_SendKeyStroke("HOME");
-                    QUtils.Sleep(0.5f);
-                    ((CheckBox)sender).Text = "Play Mode";
-                    ((CheckBox)sender).ForeColor = Tomato;
-                    QInternals.StatusMessageShow("Play mode enabled - Play level.");
-                }
-                SetStatusText(((CheckBox)sender).Text + " enabled");
+                QInternals.HumanFreeCam();
+                ((CheckBox)sender).Text = "Edit Mode";
+                ((CheckBox)sender).ForeColor = SpringGreen;
+                QInternals.StatusMessageShow("Editor mode enabled. use Arrows keys to move ALT/SPACE change height");
             }
-            catch (DllNotFoundException)
+            else
             {
-                QLog.ShowLogError("editorModeCb_CheckedChanged", "GTLibc library not found. Some editor mode features may not work.");
+                GT.GT_SendKeyStroke("HOME");
+                QUtils.Sleep(0.5f);
+                ((CheckBox)sender).Text = "Play Mode";
+                ((CheckBox)sender).ForeColor = Tomato;
+                QInternals.StatusMessageShow("Play mode enabled - Play level.");
             }
-            catch (BadImageFormatException)
-            {
-                QLog.ShowLogError("editorModeCb_CheckedChanged", "GTLibc library architecture mismatch. Some editor mode features may not work.");
-            }
+            SetStatusText(((CheckBox)sender).Text + " enabled");
         }
 
         private void aiIdleCb_CheckedChanged(object sender, EventArgs e)
@@ -4891,29 +4827,18 @@ namespace IGIEditor
 
         private void playModeCb_Click(object sender, EventArgs e)
         {
-            try
-            {
-                playModeCb.Checked = !playModeCb.Checked;
-                string modeStatus = playModeCb.Checked ? "Enabled" : "Disabled";
-                SetStatusText("Editor mode status is now  '" + modeStatus + " " + playModeCb.Text + "'");
+            playModeCb.Checked = !playModeCb.Checked;
+            string modeStatus = playModeCb.Checked ? "Enabled" : "Disabled";
+            SetStatusText("Editor mode status is now  '" + modeStatus + " " + playModeCb.Text + "'");
 
-                if (playModeCb.Checked)
-                {
-                    GT.GT_SendKeyStroke("HOME");
-                    QUtils.Sleep(0.5f);
-                    QInternals.StatusMessageShow("Play mode enabled - Play level.");
-                    editorModeCb.Checked = false;
-                }
-                else if (!editorModeCb.Checked) playModeCb.Checked = true;
-            }
-            catch (DllNotFoundException)
+            if (playModeCb.Checked)
             {
-                QLog.ShowLogError("playModeCb_Click", "GTLibc library not found. Some play mode features may not work.");
+                GT.GT_SendKeyStroke("HOME");
+                QUtils.Sleep(0.5f);
+                QInternals.StatusMessageShow("Play mode enabled - Play level.");
+                editorModeCb.Checked = false;
             }
-            catch (BadImageFormatException)
-            {
-                QLog.ShowLogError("playModeCb_Click", "GTLibc library architecture mismatch. Some play mode features may not work.");
-            }
+            else if (!editorModeCb.Checked) playModeCb.Checked = true;
         }
 
         private void musicVolumeUpdateBtn_Click(object sender, EventArgs e)

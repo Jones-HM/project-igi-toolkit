@@ -10,7 +10,7 @@ using static IGIEditor.QLog;
 
 namespace IGIEditor
 {
-    public class QObjects
+    class QObjects
     {
         internal static string AddRigidObj(string model, Real64 position, bool checkModel = false, string taskNote = "")
         {
