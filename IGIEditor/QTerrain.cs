@@ -110,57 +110,26 @@ namespace IGIEditor
             HMPData data = new HMPData();
             if (!File.Exists(filepath)) return data;
 
-            try
+            using (BinaryReader reader = new BinaryReader(File.OpenRead(filepath)))
             {
-                using (BinaryReader reader = new BinaryReader(File.OpenRead(filepath)))
+                while (reader.BaseStream.Position < reader.BaseStream.Length)
                 {
-                    while (reader.BaseStream.Position < reader.BaseStream.Length)
+                    HMPItem header = new HMPItem();
+                    header.contents = reader.ReadUInt32();
+                    header.unk = reader.ReadByte();
+                    header.pad = reader.ReadBytes(3);
+                    header.size = reader.ReadUInt32();
+
+                    data.headers.Add(header);
+
+                    int numElements = (int)((header.size + 1) * (header.size + 1));
+                    float[] hmpArray = new float[numElements];
+                    for (int i = 0; i < numElements; i++)
                     {
-                        // Check if we have enough bytes for header (4 + 1 + 3 + 4 = 12 bytes)
-                        if (reader.BaseStream.Length - reader.BaseStream.Position < 12)
-                        {
-                            QLog.AddLog("LoadHMP", "Not enough bytes for HMP header at position " + reader.BaseStream.Position);
-                            break;
-                        }
-
-                        HMPItem header = new HMPItem();
-                        header.contents = reader.ReadUInt32();
-                        header.unk = reader.ReadByte();
-                        header.pad = reader.ReadBytes(3);
-                        header.size = reader.ReadUInt32();
-
-                        // Validate size to prevent overflow
-                        if (header.size > 65535) // Reasonable maximum size
-                        {
-                            QLog.AddLog("LoadHMP", "Invalid HMP size: " + header.size + ", skipping entry");
-                            continue;
-                        }
-
-                        data.headers.Add(header);
-
-                        int numElements = (int)((header.size + 1) * (header.size + 1));
-                        int expectedBytes = numElements * 4; // 4 bytes per float
-
-                        // Check if we have enough bytes for the array
-                        if (reader.BaseStream.Length - reader.BaseStream.Position < expectedBytes)
-                        {
-                            QLog.AddLog("LoadHMP", "Not enough bytes for HMP array. Expected: " + expectedBytes + ", Available: " + (reader.BaseStream.Length - reader.BaseStream.Position));
-                            break;
-                        }
-
-                        float[] hmpArray = new float[numElements];
-                        for (int i = 0; i < numElements; i++)
-                        {
-                            hmpArray[i] = reader.ReadSingle();
-                        }
-                        data.hmpArrays.Add(hmpArray);
+                        hmpArray[i] = reader.ReadSingle();
                     }
+                    data.hmpArrays.Add(hmpArray);
                 }
-            }
-            catch (Exception ex)
-            {
-                QLog.LogException("LoadHMP", ex);
-                QLog.AddLog("LoadHMP", "Error loading HMP file: " + filepath);
             }
             return data;
         }
@@ -222,33 +191,32 @@ namespace IGIEditor
             using (Graphics g = Graphics.FromImage(bmp))
             {
                 g.Clear(Color.Black);
-                using (Pen pen = new Pen(Color.Lime, 1))
+                Pen pen = new Pen(Color.Lime, 1);
+
+                float scale = 300.0f / gridSize;
+                float heightScale = 0.5f;
+
+                // Simple Isometric Projection
+                Func<float, float, float, PointF> project = (x, y, z) => {
+                    float px = (x - y) * 0.707f * scale + width / 2;
+                    float py = (x + y) * 0.354f * scale - z * heightScale + height / 2;
+                    return new PointF(px, py);
+                };
+
+                for (int y = 0; y < gridSize; y++)
                 {
-                    float scale = 300.0f / gridSize;
-                    float heightScale = 0.5f;
-
-                    // Simple Isometric Projection
-                    Func<float, float, float, PointF> project = (x, y, z) => {
-                        float px = (x - y) * 0.707f * scale + width / 2;
-                        float py = (x + y) * 0.354f * scale - z * heightScale + height / 2;
-                        return new PointF(px, py);
-                    };
-
-                    for (int y = 0; y < gridSize; y++)
+                    for (int x = 0; x < gridSize; x++)
                     {
-                        for (int x = 0; x < gridSize; x++)
+                        PointF p1 = project(x, y, hmpArray[y * gridSize + x]);
+                        if (x + 1 < gridSize)
                         {
-                            PointF p1 = project(x, y, hmpArray[y * gridSize + x]);
-                            if (x + 1 < gridSize)
-                            {
-                                PointF p2 = project(x + 1, y, hmpArray[y * gridSize + (x + 1)]);
-                                g.DrawLine(pen, p1, p2);
-                            }
-                            if (y + 1 < gridSize)
-                            {
-                                PointF p3 = project(x, y + 1, hmpArray[(y + 1) * gridSize + x]);
-                                g.DrawLine(pen, p1, p3);
-                            }
+                            PointF p2 = project(x + 1, y, hmpArray[y * gridSize + (x + 1)]);
+                            g.DrawLine(pen, p1, p2);
+                        }
+                        if (y + 1 < gridSize)
+                        {
+                            PointF p3 = project(x, y + 1, hmpArray[(y + 1) * gridSize + x]);
+                            g.DrawLine(pen, p1, p3);
                         }
                     }
                 }
@@ -279,22 +247,13 @@ namespace IGIEditor
         public static Bitmap RenderBIT(byte[] bitArray, uint size)
         {
             int imgSize = (int)size;
-            if (imgSize == 0 || bitArray.Length == 0) return null;
             Bitmap bmp = new Bitmap(imgSize, imgSize);
             for (int y = 0; y < imgSize; y++)
             {
                 for (int x = 0; x < imgSize; x++)
                 {
-                    int idx = y * imgSize + x;
-                    if (idx < bitArray.Length)
-                    {
-                        byte val = bitArray[idx];
-                        bmp.SetPixel(x, y, Color.FromArgb(val, val, val));
-                    }
-                    else
-                    {
-                        bmp.SetPixel(x, y, Color.Black);
-                    }
+                    byte val = bitArray[y * imgSize + x];
+                    bmp.SetPixel(x, y, Color.FromArgb(val, val, val));
                 }
             }
             return bmp;
@@ -305,55 +264,14 @@ namespace IGIEditor
             LMPData data = new LMPData();
             if (!File.Exists(filepath)) return data;
 
-            try
+            using (BinaryReader reader = new BinaryReader(File.OpenRead(filepath)))
             {
-                using (BinaryReader reader = new BinaryReader(File.OpenRead(filepath)))
+                while (reader.BaseStream.Position < reader.BaseStream.Length)
                 {
-                    while (reader.BaseStream.Position < reader.BaseStream.Length)
-                    {
-                        // Check if we have enough bytes for size field (4 bytes)
-                        if (reader.BaseStream.Length - reader.BaseStream.Position < 4)
-                        {
-                            QLog.AddLog("LoadLMP", "Not enough bytes for LMP size at position " + reader.BaseStream.Position);
-                            break;
-                        }
-
-                        uint size = reader.ReadUInt32();
-
-                        // Validate size to prevent overflow
-                        if (size > 65535) // Reasonable maximum size
-                        {
-                            QLog.AddLog("LoadLMP", "Invalid LMP size: " + size + ", skipping entry");
-                            continue;
-                        }
-
-                        data.sizes.Add(size);
-
-                        // Calculate pixel data size with overflow protection
-                        long pixelDataSizeLong = (long)size * (long)size;
-                        if (pixelDataSizeLong > int.MaxValue)
-                        {
-                            QLog.AddLog("LoadLMP", "LMP size too large: " + pixelDataSizeLong + ", skipping entry");
-                            continue;
-                        }
-
-                        int pixelDataSize = (int)pixelDataSizeLong;
-
-                        // Check if we have enough bytes for the pixel data
-                        if (reader.BaseStream.Length - reader.BaseStream.Position < pixelDataSize)
-                        {
-                            QLog.AddLog("LoadLMP", "Not enough bytes for LMP pixel data. Expected: " + pixelDataSize + ", Available: " + (reader.BaseStream.Length - reader.BaseStream.Position));
-                            break;
-                        }
-
-                        data.pixelData.Add(reader.ReadBytes(pixelDataSize));
-                    }
+                    uint size = reader.ReadUInt32();
+                    data.sizes.Add(size);
+                    data.pixelData.Add(reader.ReadBytes((int)(size * size)));
                 }
-            }
-            catch (Exception ex)
-            {
-                QLog.LogException("LoadLMP", ex);
-                QLog.AddLog("LoadLMP", "Error loading LMP file: " + filepath);
             }
             return data;
         }
@@ -375,59 +293,21 @@ namespace IGIEditor
             BITData data = new BITData();
             if (!File.Exists(filepath)) return data;
 
-            try
+            using (BinaryReader reader = new BinaryReader(File.OpenRead(filepath)))
             {
-                using (BinaryReader reader = new BinaryReader(File.OpenRead(filepath)))
+                while (reader.BaseStream.Position < reader.BaseStream.Length)
                 {
-                    while (reader.BaseStream.Position < reader.BaseStream.Length)
-                    {
-                        // Check if we have enough bytes for header (4 + 1 + 3 + 4 = 12 bytes)
-                        if (reader.BaseStream.Length - reader.BaseStream.Position < 12)
-                        {
-                            QLog.AddLog("LoadBIT", "Not enough bytes for BIT header at position " + reader.BaseStream.Position);
-                            break;
-                        }
+                    BITItem header = new BITItem();
+                    header.contents = reader.ReadUInt32();
+                    header.unk = reader.ReadByte();
+                    header.pad = reader.ReadBytes(3);
+                    header.size = reader.ReadUInt32();
 
-                        BITItem header = new BITItem();
-                        header.contents = reader.ReadUInt32();
-                        header.unk = reader.ReadByte();
-                        header.pad = reader.ReadBytes(3);
-                        header.size = reader.ReadUInt32();
+                    data.headers.Add(header);
 
-                        // Validate size to prevent overflow
-                        if (header.size > 65535) // Reasonable maximum size
-                        {
-                            QLog.AddLog("LoadBIT", "Invalid BIT size: " + header.size + ", skipping entry");
-                            continue;
-                        }
-
-                        data.headers.Add(header);
-
-                        // Calculate numElements with overflow protection
-                        long numElementsLong = (long)header.size * (long)header.size;
-                        if (numElementsLong > int.MaxValue)
-                        {
-                            QLog.AddLog("LoadBIT", "BIT size too large: " + numElementsLong + ", skipping entry");
-                            continue;
-                        }
-
-                        int numElements = (int)numElementsLong;
-
-                        // Check if we have enough bytes for the array
-                        if (reader.BaseStream.Length - reader.BaseStream.Position < numElements)
-                        {
-                            QLog.AddLog("LoadBIT", "Not enough bytes for BIT array. Expected: " + numElements + ", Available: " + (reader.BaseStream.Length - reader.BaseStream.Position));
-                            break;
-                        }
-
-                        data.bitArrays.Add(reader.ReadBytes(numElements));
-                    }
+                    int numElements = (int)(header.size * header.size);
+                    data.bitArrays.Add(reader.ReadBytes(numElements));
                 }
-            }
-            catch (Exception ex)
-            {
-                QLog.LogException("LoadBIT", ex);
-                QLog.AddLog("LoadBIT", "Error loading BIT file: " + filepath);
             }
             return data;
         }
@@ -467,7 +347,7 @@ namespace IGIEditor
             IntPtr ptr = Marshal.AllocHGlobal(size);
             try
             {
-                Marshal.StructureToPtr(str, ptr, false);
+                Marshal.StructureToPtr(str, ptr, true);
                 Marshal.Copy(ptr, arr, 0, size);
             }
             finally
