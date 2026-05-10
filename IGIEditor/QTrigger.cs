@@ -213,17 +213,87 @@ namespace IGIEditor
             return qscData;
         }
 
+        public enum TriggerOperator { OR, AND, MIXED, NONE }
+
+        public static TriggerOperator InferOperator(string fullCondition)
+        {
+            if (string.IsNullOrEmpty(fullCondition)) return TriggerOperator.NONE;
+            bool hasOr = fullCondition.Contains("||");
+            bool hasAnd = fullCondition.Contains("&&");
+
+            if (hasOr && hasAnd) return TriggerOperator.MIXED;
+            if (hasOr) return TriggerOperator.OR;
+            if (hasAnd) return TriggerOperator.AND;
+            return TriggerOperator.NONE;
+        }
+
         public static List<string> GetIndividualTriggers(string fullCondition)
         {
             if (string.IsNullOrWhiteSpace(fullCondition) || fullCondition == "1" || fullCondition == "0")
                 return new List<string>();
 
-            string[] splitters = new string[] { "||", "&&", "\n", "\r" };
-            return fullCondition.Split(splitters, StringSplitOptions.RemoveEmptyEntries)
-                                .Select(s => s.Trim())
-                                .Where(s => !string.IsNullOrEmpty(s) && !s.Contains("Task_New"))
-                                .Distinct()
-                                .ToList();
+            var triggers = new List<string>();
+            var tokens = Tokenize(fullCondition);
+
+            foreach (var token in tokens)
+            {
+                if (token.Type == TriggerTokenType.IDENTIFIER)
+                {
+                    // Filter out Task_New leaf nodes as requested
+                    if (!token.Value.Contains("Task_New"))
+                        triggers.Add(token.Value);
+                }
+            }
+            return triggers.Distinct().ToList();
+        }
+
+        public enum TriggerTokenType { IDENTIFIER, OPERATOR_OR, OPERATOR_AND, LPAREN, RPAREN, NOT }
+        public class TriggerToken
+        {
+            public TriggerTokenType Type { get; set; }
+            public string Value { get; set; }
+        }
+
+        public static List<TriggerToken> Tokenize(string expression)
+        {
+            var tokens = new List<TriggerToken>();
+            if (string.IsNullOrEmpty(expression)) return tokens;
+
+            var pattern = @"(\|\||&&|\(|\)|!|[a-zA-Z_][a-zA-Z0-9_]*(\.\w+)?)";
+            var matches = Regex.Matches(expression, pattern);
+
+            foreach (Match match in matches)
+            {
+                string val = match.Value;
+                var token = new TriggerToken { Value = val };
+                if (val == "||") token.Type = TriggerTokenType.OPERATOR_OR;
+                else if (val == "&&") token.Type = TriggerTokenType.OPERATOR_AND;
+                else if (val == "(") token.Type = TriggerTokenType.LPAREN;
+                else if (val == ")") token.Type = TriggerTokenType.RPAREN;
+                else if (val == "!") token.Type = TriggerTokenType.NOT;
+                else token.Type = TriggerTokenType.IDENTIFIER;
+                tokens.Add(token);
+            }
+            return tokens;
+        }
+
+        public static string RebuildExpression(List<string> activeTriggers, TriggerOperator op)
+        {
+            if (activeTriggers == null || activeTriggers.Count == 0) return "0";
+            if (activeTriggers.Count == 1) return activeTriggers[0];
+
+            string operatorStr = (op == TriggerOperator.AND) ? " && " : " || ";
+            return string.Join(operatorStr, activeTriggers);
+        }
+
+        // Future-proofing: return a list of tokens but filter out Task_New for the simple list-based UI
+        public static List<string> GetCleanIdentifiers(string fullCondition)
+        {
+            return Tokenize(fullCondition)
+                .Where(t => t.Type == TriggerTokenType.IDENTIFIER && !t.Value.Contains("Task_New"))
+                .Select(t => t.Value)
+                .Distinct()
+                .ToList();
         }
     }
 }

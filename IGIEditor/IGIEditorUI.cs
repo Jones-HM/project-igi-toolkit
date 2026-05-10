@@ -2061,11 +2061,20 @@ namespace IGIEditor
             triggerList.Items.Clear();
             if (cond != null)
             {
-                var individual = QTrigger.GetIndividualTriggers(cond.Value);
+                // Infer and set the operator for the existing condition
+                var op = QTrigger.InferOperator(cond.Value);
+                if (op == QTrigger.TriggerOperator.AND) triggerOperatorDD.SelectedIndex = 1;
+                else triggerOperatorDD.SelectedIndex = 0;
+
+                var individual = QTrigger.GetCleanIdentifiers(cond.Value);
                 foreach (var trigger in individual)
                 {
                     triggerList.Items.Add(trigger, true);
                 }
+            }
+            else
+            {
+                triggerOperatorDD.SelectedIndex = 0;
             }
         }
 
@@ -2104,9 +2113,8 @@ namespace IGIEditor
                     selectedTriggers.Add(item.ToString());
                 }
 
-                string op = triggerOperatorDD.SelectedIndex == 1 ? " && " : " || ";
-                string combined = string.Join(op, selectedTriggers);
-                if (string.IsNullOrEmpty(combined)) combined = "0";
+                var qOp = triggerOperatorDD.SelectedIndex == 1 ? QTrigger.TriggerOperator.AND : QTrigger.TriggerOperator.OR;
+                string combined = QTrigger.RebuildExpression(selectedTriggers, qOp);
 
                 var qscData = QUtils.LoadFile();
                 qscData = QTrigger.UpdateTaskCondition(qscData, task, condName, combined);

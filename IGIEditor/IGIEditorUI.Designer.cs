@@ -6174,6 +6174,8 @@ namespace IGIEditor
         private System.Windows.Forms.Label triggerEventLbl;
         private System.Windows.Forms.ComboBox triggerConditionDD;
         private System.Windows.Forms.Label triggerConditionLbl;
+        private System.Windows.Forms.ComboBox triggerOperatorDD;
+        private System.Windows.Forms.Label triggerOperatorLbl;
     }
 }
 
