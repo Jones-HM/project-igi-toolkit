@@ -33,20 +33,6 @@ namespace IGIEditor
             this.editorMainPanel = new System.Windows.Forms.Panel();
             this.quitLevelBtn = new System.Windows.Forms.Button();
             this.levelStartTxt = new System.Windows.Forms.NumericUpDown();
-            this.terrainItemsList = new System.Windows.Forms.ListBox();
-            this.terrainCellIdx = new System.Windows.Forms.NumericUpDown();
-            this.terrainHeightVal = new System.Windows.Forms.NumericUpDown();
-            this.terrainPreviewBox = new System.Windows.Forms.PictureBox();
-            this.terrainPreview3D = new System.Windows.Forms.PictureBox();
-            this.loadTerrainBtn = new System.Windows.Forms.Button();
-            this.saveTerrainBtn = new System.Windows.Forms.Button();
-            this.loadBitBtn = new System.Windows.Forms.Button();
-            this.saveBitBtn = new System.Windows.Forms.Button();
-            this.loadLmpBtn = new System.Windows.Forms.Button();
-            this.saveLmpBtn = new System.Windows.Forms.Button();
-            this.updateTerrainHeightBtn = new System.Windows.Forms.Button();
-            this.terrainLabel = new System.Windows.Forms.Label();
-            this.terrainCellLbl = new System.Windows.Forms.Label();
             this.restartLevelBtn = new System.Windows.Forms.Button();
             this.startGameBtn = new System.Windows.Forms.Button();
             this.xPosLbl = new System.Windows.Forms.Label();
@@ -125,6 +111,9 @@ namespace IGIEditor
             this.aiScriptSaveBtn = new System.Windows.Forms.Button();
             this.aiScriptLoadBtn = new System.Windows.Forms.Button();
             this.aiPatrolPathEditor = new System.Windows.Forms.TabPage();
+            this.aiPatrolCmdIdDD = new System.Windows.Forms.ComboBox();
+            this.aiPatrolCmdIdTxt = new System.Windows.Forms.TextBox();
+            this.commandIdLbl = new System.Windows.Forms.Label();
             this.aiPatrolIdDD = new System.Windows.Forms.ComboBox();
             this.aiPatrolIdLbl = new System.Windows.Forms.Label();
             this.aiPatrolIdTxt = new System.Windows.Forms.TextBox();
@@ -220,8 +209,20 @@ namespace IGIEditor
             this.weaponNameTxt = new System.Windows.Forms.TextBox();
             this.updateWeaponPropertiesBtn = new System.Windows.Forms.Button();
             this.threeDEditor = new System.Windows.Forms.TabPage();
-            this.resume3DEditorBtn = new System.Windows.Forms.Button();
-            this.start3DEditorBtn = new System.Windows.Forms.Button();
+            this.updateTerrainHeightBtn = new System.Windows.Forms.Button();
+            this.terrainHeightVal = new System.Windows.Forms.NumericUpDown();
+            this.terrainLabel = new System.Windows.Forms.Label();
+            this.terrainItemsList = new System.Windows.Forms.ListBox();
+            this.saveLmpBtn = new System.Windows.Forms.Button();
+            this.loadLmpBtn = new System.Windows.Forms.Button();
+            this.saveBitBtn = new System.Windows.Forms.Button();
+            this.loadBitBtn = new System.Windows.Forms.Button();
+            this.saveTerrainBtn = new System.Windows.Forms.Button();
+            this.terrainCellIdx = new System.Windows.Forms.NumericUpDown();
+            this.terrainCellLbl = new System.Windows.Forms.Label();
+            this.terrainPreview3D = new System.Windows.Forms.PictureBox();
+            this.terrainPreviewBox = new System.Windows.Forms.PictureBox();
+            this.loadTerrainBtn = new System.Windows.Forms.Button();
             this.missionEditor = new System.Windows.Forms.TabPage();
             this.missionLevelLbl = new System.Windows.Forms.Label();
             this.missionAuthorLbl = new System.Windows.Forms.Label();
@@ -376,7 +377,9 @@ namespace IGIEditor
             this.profileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameProfileNameLbl = new System.Windows.Forms.ToolStripTextBox();
             this.gameProfileMissionLbl = new System.Windows.Forms.ToolStripMenuItem();
-            this.compilerTypeLbl = new System.Windows.Forms.ToolStripMenuItem();
+            this.compilerSelectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.internalCompilerCb = new System.Windows.Forms.ToolStripMenuItem();
+            this.externalCompilerCb = new System.Windows.Forms.ToolStripMenuItem();
             this.positionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.posCoordCb = new System.Windows.Forms.ToolStripMenuItem();
             this.posMetersCb = new System.Windows.Forms.ToolStripMenuItem();
@@ -416,9 +419,6 @@ namespace IGIEditor
             this.autoResetCb = new System.Windows.Forms.ToolStripMenuItem();
             this.autoRefreshGameCb = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshTimerIntervalTxt = new System.Windows.Forms.ToolStripTextBox();
-            this.compilerSelectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.internalCompilerCb = new System.Windows.Forms.ToolStripMenuItem();
-            this.externalCompilerCb = new System.Windows.Forms.ToolStripMenuItem();
             this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editorUpdaterBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.updateCheckerAutomaticOption = new System.Windows.Forms.ToolStripMenuItem();
@@ -433,10 +433,8 @@ namespace IGIEditor
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionLbl = new System.Windows.Forms.ToolStripMenuItem();
+            this.compilerTypeLbl = new System.Windows.Forms.ToolStripMenuItem();
             this.infoViewer = new System.Windows.Forms.ToolTip(this.components);
-            this.commandIdLbl = new System.Windows.Forms.Label();
-            this.aiPatrolCmdIdDD = new System.Windows.Forms.ComboBox();
-            this.aiPatrolCmdIdTxt = new System.Windows.Forms.TextBox();
             this.editorMainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.levelStartTxt)).BeginInit();
             this.editorTabs.SuspendLayout();
@@ -480,6 +478,10 @@ namespace IGIEditor
             ((System.ComponentModel.ISupportInitialize)(this.weaponDamageTxt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.weaponRoundPerClipTxt)).BeginInit();
             this.threeDEditor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.terrainHeightVal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.terrainCellIdx)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.terrainPreview3D)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.terrainPreviewBox)).BeginInit();
             this.missionEditor.SuspendLayout();
             this.graphEditor.SuspendLayout();
             this.positionEditor.SuspendLayout();
@@ -519,8 +521,9 @@ namespace IGIEditor
             this.editorMainPanel.Controls.Add(this.appMenuSettings);
             this.editorMainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editorMainPanel.Location = new System.Drawing.Point(0, 0);
+            this.editorMainPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.editorMainPanel.Name = "editorMainPanel";
-            this.editorMainPanel.Size = new System.Drawing.Size(866, 625);
+            this.editorMainPanel.Size = new System.Drawing.Size(1155, 769);
             this.editorMainPanel.TabIndex = 0;
             // 
             // quitLevelBtn
@@ -528,9 +531,10 @@ namespace IGIEditor
             this.quitLevelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.quitLevelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.quitLevelBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.quitLevelBtn.Location = new System.Drawing.Point(432, 140);
+            this.quitLevelBtn.Location = new System.Drawing.Point(576, 172);
+            this.quitLevelBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.quitLevelBtn.Name = "quitLevelBtn";
-            this.quitLevelBtn.Size = new System.Drawing.Size(123, 27);
+            this.quitLevelBtn.Size = new System.Drawing.Size(164, 33);
             this.quitLevelBtn.TabIndex = 45;
             this.quitLevelBtn.Text = "Quit";
             this.quitLevelBtn.UseVisualStyleBackColor = true;
@@ -541,8 +545,8 @@ namespace IGIEditor
             this.levelStartTxt.BackColor = System.Drawing.SystemColors.Control;
             this.levelStartTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.levelStartTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.levelStartTxt.Location = new System.Drawing.Point(527, 58);
-            this.levelStartTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.levelStartTxt.Location = new System.Drawing.Point(703, 71);
+            this.levelStartTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.levelStartTxt.Maximum = new decimal(new int[] {
             14,
             0,
@@ -554,7 +558,7 @@ namespace IGIEditor
             0,
             0});
             this.levelStartTxt.Name = "levelStartTxt";
-            this.levelStartTxt.Size = new System.Drawing.Size(39, 24);
+            this.levelStartTxt.Size = new System.Drawing.Size(52, 28);
             this.levelStartTxt.TabIndex = 42;
             this.levelStartTxt.Value = new decimal(new int[] {
             1,
@@ -568,9 +572,10 @@ namespace IGIEditor
             this.restartLevelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.restartLevelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.restartLevelBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.restartLevelBtn.Location = new System.Drawing.Point(431, 101);
+            this.restartLevelBtn.Location = new System.Drawing.Point(575, 124);
+            this.restartLevelBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.restartLevelBtn.Name = "restartLevelBtn";
-            this.restartLevelBtn.Size = new System.Drawing.Size(124, 27);
+            this.restartLevelBtn.Size = new System.Drawing.Size(165, 33);
             this.restartLevelBtn.TabIndex = 26;
             this.restartLevelBtn.Text = "Restart";
             this.restartLevelBtn.UseVisualStyleBackColor = true;
@@ -581,9 +586,10 @@ namespace IGIEditor
             this.startGameBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.startGameBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.startGameBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.startGameBtn.Location = new System.Drawing.Point(431, 58);
+            this.startGameBtn.Location = new System.Drawing.Point(575, 71);
+            this.startGameBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.startGameBtn.Name = "startGameBtn";
-            this.startGameBtn.Size = new System.Drawing.Size(91, 27);
+            this.startGameBtn.Size = new System.Drawing.Size(121, 33);
             this.startGameBtn.TabIndex = 15;
             this.startGameBtn.Text = "Start";
             this.startGameBtn.UseVisualStyleBackColor = true;
@@ -593,9 +599,10 @@ namespace IGIEditor
             // 
             this.xPosLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.xPosLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.xPosLbl.Location = new System.Drawing.Point(211, 58);
+            this.xPosLbl.Location = new System.Drawing.Point(281, 71);
+            this.xPosLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.xPosLbl.Name = "xPosLbl";
-            this.xPosLbl.Size = new System.Drawing.Size(184, 27);
+            this.xPosLbl.Size = new System.Drawing.Size(245, 33);
             this.xPosLbl.TabIndex = 14;
             this.xPosLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.infoViewer.SetToolTip(this.xPosLbl, "Click to Copy Position");
@@ -605,9 +612,10 @@ namespace IGIEditor
             // 
             this.yPosLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.yPosLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.yPosLbl.Location = new System.Drawing.Point(211, 101);
+            this.yPosLbl.Location = new System.Drawing.Point(281, 124);
+            this.yPosLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.yPosLbl.Name = "yPosLbl";
-            this.yPosLbl.Size = new System.Drawing.Size(184, 27);
+            this.yPosLbl.Size = new System.Drawing.Size(245, 33);
             this.yPosLbl.TabIndex = 13;
             this.yPosLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.infoViewer.SetToolTip(this.yPosLbl, "Click to Copy Position");
@@ -617,9 +625,10 @@ namespace IGIEditor
             // 
             this.zPosLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.zPosLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.zPosLbl.Location = new System.Drawing.Point(211, 140);
+            this.zPosLbl.Location = new System.Drawing.Point(281, 172);
+            this.zPosLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.zPosLbl.Name = "zPosLbl";
-            this.zPosLbl.Size = new System.Drawing.Size(184, 27);
+            this.zPosLbl.Size = new System.Drawing.Size(245, 33);
             this.zPosLbl.TabIndex = 12;
             this.zPosLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.infoViewer.SetToolTip(this.zPosLbl, "Click to Copy Position");
@@ -630,9 +639,10 @@ namespace IGIEditor
             this.statusTxt.AutoSize = true;
             this.statusTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statusTxt.ForeColor = System.Drawing.Color.Gray;
-            this.statusTxt.Location = new System.Drawing.Point(194, 188);
+            this.statusTxt.Location = new System.Drawing.Point(259, 231);
+            this.statusTxt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.statusTxt.Name = "statusTxt";
-            this.statusTxt.Size = new System.Drawing.Size(88, 18);
+            this.statusTxt.Size = new System.Drawing.Size(107, 22);
             this.statusTxt.TabIndex = 11;
             this.statusTxt.Text = "Staus Text";
             this.statusTxt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -641,9 +651,10 @@ namespace IGIEditor
             // 
             this.zPosLbl_M.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.zPosLbl_M.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.zPosLbl_M.Location = new System.Drawing.Point(177, 140);
+            this.zPosLbl_M.Location = new System.Drawing.Point(236, 172);
+            this.zPosLbl_M.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.zPosLbl_M.Name = "zPosLbl_M";
-            this.zPosLbl_M.Size = new System.Drawing.Size(28, 27);
+            this.zPosLbl_M.Size = new System.Drawing.Size(37, 33);
             this.zPosLbl_M.TabIndex = 9;
             this.zPosLbl_M.Text = "Z ";
             this.zPosLbl_M.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -652,9 +663,10 @@ namespace IGIEditor
             // 
             this.yPosLbl_M.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.yPosLbl_M.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.yPosLbl_M.Location = new System.Drawing.Point(177, 101);
+            this.yPosLbl_M.Location = new System.Drawing.Point(236, 124);
+            this.yPosLbl_M.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.yPosLbl_M.Name = "yPosLbl_M";
-            this.yPosLbl_M.Size = new System.Drawing.Size(28, 27);
+            this.yPosLbl_M.Size = new System.Drawing.Size(37, 33);
             this.yPosLbl_M.TabIndex = 8;
             this.yPosLbl_M.Text = "Y ";
             this.yPosLbl_M.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -663,9 +675,10 @@ namespace IGIEditor
             // 
             this.xPosLbl_M.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.xPosLbl_M.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.xPosLbl_M.Location = new System.Drawing.Point(177, 58);
+            this.xPosLbl_M.Location = new System.Drawing.Point(236, 71);
+            this.xPosLbl_M.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.xPosLbl_M.Name = "xPosLbl_M";
-            this.xPosLbl_M.Size = new System.Drawing.Size(28, 27);
+            this.xPosLbl_M.Size = new System.Drawing.Size(37, 33);
             this.xPosLbl_M.TabIndex = 7;
             this.xPosLbl_M.Text = "X ";
             this.xPosLbl_M.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -687,12 +700,13 @@ namespace IGIEditor
             this.editorTabs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editorTabs.HotTrack = true;
             this.editorTabs.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.editorTabs.Location = new System.Drawing.Point(0, 259);
+            this.editorTabs.Location = new System.Drawing.Point(0, 319);
+            this.editorTabs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.editorTabs.Multiline = true;
             this.editorTabs.Name = "editorTabs";
             this.editorTabs.SelectedIndex = 0;
             this.editorTabs.ShowToolTips = true;
-            this.editorTabs.Size = new System.Drawing.Size(859, 342);
+            this.editorTabs.Size = new System.Drawing.Size(1145, 421);
             this.editorTabs.TabIndex = 6;
             this.infoViewer.SetToolTip(this.editorTabs, "\r\n");
             this.editorTabs.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabContainer_Selected);
@@ -713,10 +727,11 @@ namespace IGIEditor
             this.levelEditor.Controls.Add(this.addObjectBtn);
             this.levelEditor.Controls.Add(this.addBuildingBtn);
             this.levelEditor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.levelEditor.Location = new System.Drawing.Point(4, 46);
+            this.levelEditor.Location = new System.Drawing.Point(4, 54);
+            this.levelEditor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.levelEditor.Name = "levelEditor";
-            this.levelEditor.Padding = new System.Windows.Forms.Padding(3);
-            this.levelEditor.Size = new System.Drawing.Size(851, 292);
+            this.levelEditor.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.levelEditor.Size = new System.Drawing.Size(1137, 363);
             this.levelEditor.TabIndex = 1;
             this.levelEditor.Text = "Level Toolkit";
             // 
@@ -724,9 +739,10 @@ namespace IGIEditor
             // 
             this.modelInfoLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.modelInfoLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.modelInfoLbl.Location = new System.Drawing.Point(580, 136);
+            this.modelInfoLbl.Location = new System.Drawing.Point(773, 167);
+            this.modelInfoLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.modelInfoLbl.Name = "modelInfoLbl";
-            this.modelInfoLbl.Size = new System.Drawing.Size(181, 27);
+            this.modelInfoLbl.Size = new System.Drawing.Size(241, 33);
             this.modelInfoLbl.TabIndex = 59;
             this.modelInfoLbl.Text = "Model Information";
             this.modelInfoLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -735,9 +751,10 @@ namespace IGIEditor
             // 
             this.modelIdOutLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.modelIdOutLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.modelIdOutLbl.Location = new System.Drawing.Point(737, 216);
+            this.modelIdOutLbl.Location = new System.Drawing.Point(983, 266);
+            this.modelIdOutLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.modelIdOutLbl.Name = "modelIdOutLbl";
-            this.modelIdOutLbl.Size = new System.Drawing.Size(108, 27);
+            this.modelIdOutLbl.Size = new System.Drawing.Size(144, 33);
             this.modelIdOutLbl.TabIndex = 58;
             this.modelIdOutLbl.Text = "Model Id";
             this.modelIdOutLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -748,9 +765,10 @@ namespace IGIEditor
             this.modelNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.modelNameTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.modelNameTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.modelNameTxt.Location = new System.Drawing.Point(526, 216);
+            this.modelNameTxt.Location = new System.Drawing.Point(701, 266);
+            this.modelNameTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.modelNameTxt.Name = "modelNameTxt";
-            this.modelNameTxt.Size = new System.Drawing.Size(206, 24);
+            this.modelNameTxt.Size = new System.Drawing.Size(274, 28);
             this.modelNameTxt.TabIndex = 57;
             this.modelNameTxt.Text = "WaterTower";
             this.infoViewer.SetToolTip(this.modelNameTxt, "Model id of object like 435_01_1 for WaterTower");
@@ -760,9 +778,10 @@ namespace IGIEditor
             // 
             this.modelNameOutLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.modelNameOutLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.modelNameOutLbl.Location = new System.Drawing.Point(614, 174);
+            this.modelNameOutLbl.Location = new System.Drawing.Point(819, 214);
+            this.modelNameOutLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.modelNameOutLbl.Name = "modelNameOutLbl";
-            this.modelNameOutLbl.Size = new System.Drawing.Size(234, 27);
+            this.modelNameOutLbl.Size = new System.Drawing.Size(312, 33);
             this.modelNameOutLbl.TabIndex = 55;
             this.modelNameOutLbl.Text = "Model Name";
             this.modelNameOutLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -773,9 +792,10 @@ namespace IGIEditor
             this.modelIDTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.modelIDTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.modelIDTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.modelIDTxt.Location = new System.Drawing.Point(528, 174);
+            this.modelIDTxt.Location = new System.Drawing.Point(704, 214);
+            this.modelIDTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.modelIDTxt.Name = "modelIDTxt";
-            this.modelIDTxt.Size = new System.Drawing.Size(81, 24);
+            this.modelIDTxt.Size = new System.Drawing.Size(107, 28);
             this.modelIDTxt.TabIndex = 54;
             this.modelIDTxt.Text = "435_01_1";
             this.infoViewer.SetToolTip(this.modelIDTxt, "Model id of object like 435_01_1 for WaterTower");
@@ -784,9 +804,10 @@ namespace IGIEditor
             // objectImgBox
             // 
             this.objectImgBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.objectImgBox.Location = new System.Drawing.Point(27, 37);
+            this.objectImgBox.Location = new System.Drawing.Point(36, 46);
+            this.objectImgBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.objectImgBox.Name = "objectImgBox";
-            this.objectImgBox.Size = new System.Drawing.Size(150, 253);
+            this.objectImgBox.Size = new System.Drawing.Size(199, 311);
             this.objectImgBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.objectImgBox.TabIndex = 44;
             this.objectImgBox.TabStop = false;
@@ -798,10 +819,10 @@ namespace IGIEditor
             this.objectSelectDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.objectSelectDD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.objectSelectDD.FormattingEnabled = true;
-            this.objectSelectDD.Location = new System.Drawing.Point(192, 87);
-            this.objectSelectDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.objectSelectDD.Location = new System.Drawing.Point(256, 107);
+            this.objectSelectDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.objectSelectDD.Name = "objectSelectDD";
-            this.objectSelectDD.Size = new System.Drawing.Size(315, 24);
+            this.objectSelectDD.Size = new System.Drawing.Size(419, 28);
             this.objectSelectDD.TabIndex = 32;
             this.objectSelectDD.SelectedIndexChanged += new System.EventHandler(this.objectSelectDD_SelectedIndexChanged);
             this.objectSelectDD.Click += new System.EventHandler(this.objectSelectDD_Click);
@@ -813,10 +834,10 @@ namespace IGIEditor
             this.buildingSelectDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.buildingSelectDD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.buildingSelectDD.FormattingEnabled = true;
-            this.buildingSelectDD.Location = new System.Drawing.Point(192, 37);
-            this.buildingSelectDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.buildingSelectDD.Location = new System.Drawing.Point(256, 46);
+            this.buildingSelectDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buildingSelectDD.Name = "buildingSelectDD";
-            this.buildingSelectDD.Size = new System.Drawing.Size(315, 24);
+            this.buildingSelectDD.Size = new System.Drawing.Size(419, 28);
             this.buildingSelectDD.TabIndex = 31;
             this.buildingSelectDD.SelectedIndexChanged += new System.EventHandler(this.buildingSelectDD_SelectedIndexChanged);
             this.buildingSelectDD.Click += new System.EventHandler(this.buildingSelectDD_Click);
@@ -825,9 +846,10 @@ namespace IGIEditor
             // 
             this.removeObjectBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.removeObjectBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.removeObjectBtn.Location = new System.Drawing.Point(689, 87);
+            this.removeObjectBtn.Location = new System.Drawing.Point(919, 107);
+            this.removeObjectBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.removeObjectBtn.Name = "removeObjectBtn";
-            this.removeObjectBtn.Size = new System.Drawing.Size(158, 25);
+            this.removeObjectBtn.Size = new System.Drawing.Size(211, 31);
             this.removeObjectBtn.TabIndex = 20;
             this.removeObjectBtn.Text = "Remove object";
             this.removeObjectBtn.UseVisualStyleBackColor = true;
@@ -837,9 +859,10 @@ namespace IGIEditor
             // 
             this.removeBuildingBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.removeBuildingBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.removeBuildingBtn.Location = new System.Drawing.Point(689, 35);
+            this.removeBuildingBtn.Location = new System.Drawing.Point(919, 43);
+            this.removeBuildingBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.removeBuildingBtn.Name = "removeBuildingBtn";
-            this.removeBuildingBtn.Size = new System.Drawing.Size(158, 25);
+            this.removeBuildingBtn.Size = new System.Drawing.Size(211, 31);
             this.removeBuildingBtn.TabIndex = 19;
             this.removeBuildingBtn.Text = "Remove building";
             this.removeBuildingBtn.UseVisualStyleBackColor = true;
@@ -849,9 +872,10 @@ namespace IGIEditor
             // 
             this.addObjectBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addObjectBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.addObjectBtn.Location = new System.Drawing.Point(526, 87);
+            this.addObjectBtn.Location = new System.Drawing.Point(701, 107);
+            this.addObjectBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.addObjectBtn.Name = "addObjectBtn";
-            this.addObjectBtn.Size = new System.Drawing.Size(158, 25);
+            this.addObjectBtn.Size = new System.Drawing.Size(211, 31);
             this.addObjectBtn.TabIndex = 11;
             this.addObjectBtn.Text = "Add object";
             this.addObjectBtn.UseVisualStyleBackColor = true;
@@ -861,9 +885,10 @@ namespace IGIEditor
             // 
             this.addBuildingBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addBuildingBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.addBuildingBtn.Location = new System.Drawing.Point(526, 35);
+            this.addBuildingBtn.Location = new System.Drawing.Point(701, 43);
+            this.addBuildingBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.addBuildingBtn.Name = "addBuildingBtn";
-            this.addBuildingBtn.Size = new System.Drawing.Size(158, 25);
+            this.addBuildingBtn.Size = new System.Drawing.Size(211, 31);
             this.addBuildingBtn.TabIndex = 8;
             this.addBuildingBtn.Text = "Add building";
             this.addBuildingBtn.UseVisualStyleBackColor = true;
@@ -874,9 +899,10 @@ namespace IGIEditor
             this.aiEditor.BackColor = System.Drawing.SystemColors.Control;
             this.aiEditor.Controls.Add(this.aiEditorTabs);
             this.aiEditor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiEditor.Location = new System.Drawing.Point(4, 46);
+            this.aiEditor.Location = new System.Drawing.Point(4, 54);
+            this.aiEditor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiEditor.Name = "aiEditor";
-            this.aiEditor.Size = new System.Drawing.Size(851, 292);
+            this.aiEditor.Size = new System.Drawing.Size(1137, 363);
             this.aiEditor.TabIndex = 8;
             this.aiEditor.Text = "AI Toolkit";
             // 
@@ -888,9 +914,10 @@ namespace IGIEditor
             this.aiEditorTabs.Controls.Add(this.aiPatrolPathEditor);
             this.aiEditorTabs.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.aiEditorTabs.Location = new System.Drawing.Point(0, 0);
+            this.aiEditorTabs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiEditorTabs.Name = "aiEditorTabs";
             this.aiEditorTabs.SelectedIndex = 0;
-            this.aiEditorTabs.Size = new System.Drawing.Size(853, 332);
+            this.aiEditorTabs.Size = new System.Drawing.Size(1137, 409);
             this.aiEditorTabs.TabIndex = 85;
             this.aiEditorTabs.Selected += new System.Windows.Forms.TabControlEventHandler(this.aiEditorTabs_Selected);
             // 
@@ -926,9 +953,10 @@ namespace IGIEditor
             this.aiEditorMainTab.Controls.Add(this.addAiBtn);
             this.aiEditorMainTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.aiEditorMainTab.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiEditorMainTab.Location = new System.Drawing.Point(4, 22);
+            this.aiEditorMainTab.Location = new System.Drawing.Point(4, 25);
+            this.aiEditorMainTab.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiEditorMainTab.Name = "aiEditorMainTab";
-            this.aiEditorMainTab.Size = new System.Drawing.Size(845, 306);
+            this.aiEditorMainTab.Size = new System.Drawing.Size(1129, 380);
             this.aiEditorMainTab.TabIndex = 0;
             this.aiEditorMainTab.Text = "Main";
             // 
@@ -937,19 +965,20 @@ namespace IGIEditor
             this.teamIdText.BackColor = System.Drawing.SystemColors.Control;
             this.teamIdText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.teamIdText.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.teamIdText.Location = new System.Drawing.Point(513, 211);
-            this.teamIdText.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.teamIdText.Location = new System.Drawing.Point(684, 260);
+            this.teamIdText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.teamIdText.Name = "teamIdText";
-            this.teamIdText.Size = new System.Drawing.Size(51, 24);
+            this.teamIdText.Size = new System.Drawing.Size(68, 28);
             this.teamIdText.TabIndex = 111;
             // 
             // teamIdLabel
             // 
             this.teamIdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.teamIdLabel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.teamIdLabel.Location = new System.Drawing.Point(400, 211);
+            this.teamIdLabel.Location = new System.Drawing.Point(533, 260);
+            this.teamIdLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.teamIdLabel.Name = "teamIdLabel";
-            this.teamIdLabel.Size = new System.Drawing.Size(89, 27);
+            this.teamIdLabel.Size = new System.Drawing.Size(119, 33);
             this.teamIdLabel.TabIndex = 110;
             this.teamIdLabel.Text = "Team Id";
             this.teamIdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -957,9 +986,10 @@ namespace IGIEditor
             // removeAllAiCb
             // 
             this.removeAllAiCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.removeAllAiCb.Location = new System.Drawing.Point(730, 241);
+            this.removeAllAiCb.Location = new System.Drawing.Point(973, 297);
+            this.removeAllAiCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.removeAllAiCb.Name = "removeAllAiCb";
-            this.removeAllAiCb.Size = new System.Drawing.Size(88, 16);
+            this.removeAllAiCb.Size = new System.Drawing.Size(117, 20);
             this.removeAllAiCb.TabIndex = 109;
             this.removeAllAiCb.Text = "All Soldiers";
             this.removeAllAiCb.UseVisualStyleBackColor = true;
@@ -970,10 +1000,10 @@ namespace IGIEditor
             this.maxSpawnsTxt.Enabled = false;
             this.maxSpawnsTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.maxSpawnsTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.maxSpawnsTxt.Location = new System.Drawing.Point(780, 211);
-            this.maxSpawnsTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.maxSpawnsTxt.Location = new System.Drawing.Point(1040, 260);
+            this.maxSpawnsTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.maxSpawnsTxt.Name = "maxSpawnsTxt";
-            this.maxSpawnsTxt.Size = new System.Drawing.Size(51, 24);
+            this.maxSpawnsTxt.Size = new System.Drawing.Size(68, 28);
             this.maxSpawnsTxt.TabIndex = 108;
             this.maxSpawnsTxt.Value = new decimal(new int[] {
             1,
@@ -986,10 +1016,10 @@ namespace IGIEditor
             this.aiCountTxt.BackColor = System.Drawing.SystemColors.Control;
             this.aiCountTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiCountTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiCountTxt.Location = new System.Drawing.Point(656, 211);
-            this.aiCountTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.aiCountTxt.Location = new System.Drawing.Point(875, 260);
+            this.aiCountTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.aiCountTxt.Name = "aiCountTxt";
-            this.aiCountTxt.Size = new System.Drawing.Size(51, 24);
+            this.aiCountTxt.Size = new System.Drawing.Size(68, 28);
             this.aiCountTxt.TabIndex = 107;
             this.aiCountTxt.Value = new decimal(new int[] {
             1,
@@ -1001,9 +1031,10 @@ namespace IGIEditor
             // 
             this.removeAiBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.removeAiBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.removeAiBtn.Location = new System.Drawing.Point(730, 257);
+            this.removeAiBtn.Location = new System.Drawing.Point(973, 316);
+            this.removeAiBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.removeAiBtn.Name = "removeAiBtn";
-            this.removeAiBtn.Size = new System.Drawing.Size(100, 25);
+            this.removeAiBtn.Size = new System.Drawing.Size(133, 31);
             this.removeAiBtn.TabIndex = 106;
             this.removeAiBtn.Text = "Remove";
             this.removeAiBtn.UseVisualStyleBackColor = true;
@@ -1015,10 +1046,11 @@ namespace IGIEditor
             this.graphAreaAiLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.graphAreaAiLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.graphAreaAiLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.graphAreaAiLbl.Location = new System.Drawing.Point(581, 153);
+            this.graphAreaAiLbl.Location = new System.Drawing.Point(775, 188);
+            this.graphAreaAiLbl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.graphAreaAiLbl.Name = "graphAreaAiLbl";
             this.graphAreaAiLbl.ReadOnly = true;
-            this.graphAreaAiLbl.Size = new System.Drawing.Size(246, 24);
+            this.graphAreaAiLbl.Size = new System.Drawing.Size(327, 28);
             this.graphAreaAiLbl.TabIndex = 105;
             this.graphAreaAiLbl.Text = "Graph Area";
             // 
@@ -1026,9 +1058,10 @@ namespace IGIEditor
             // 
             this.taskDetectionAiCb.AutoSize = true;
             this.taskDetectionAiCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.taskDetectionAiCb.Location = new System.Drawing.Point(166, 95);
+            this.taskDetectionAiCb.Location = new System.Drawing.Point(221, 117);
+            this.taskDetectionAiCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.taskDetectionAiCb.Name = "taskDetectionAiCb";
-            this.taskDetectionAiCb.Size = new System.Drawing.Size(122, 21);
+            this.taskDetectionAiCb.Size = new System.Drawing.Size(144, 24);
             this.taskDetectionAiCb.TabIndex = 104;
             this.taskDetectionAiCb.Text = "Task Detection";
             this.taskDetectionAiCb.UseVisualStyleBackColor = true;
@@ -1037,9 +1070,10 @@ namespace IGIEditor
             // 
             this.maxSpawnsLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.maxSpawnsLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.maxSpawnsLbl.Location = new System.Drawing.Point(712, 209);
+            this.maxSpawnsLbl.Location = new System.Drawing.Point(949, 257);
+            this.maxSpawnsLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.maxSpawnsLbl.Name = "maxSpawnsLbl";
-            this.maxSpawnsLbl.Size = new System.Drawing.Size(63, 27);
+            this.maxSpawnsLbl.Size = new System.Drawing.Size(84, 33);
             this.maxSpawnsLbl.TabIndex = 102;
             this.maxSpawnsLbl.Text = "Spawns ";
             this.maxSpawnsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1048,9 +1082,10 @@ namespace IGIEditor
             // 
             this.aiFriendlyCb.AutoSize = true;
             this.aiFriendlyCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiFriendlyCb.Location = new System.Drawing.Point(166, 46);
+            this.aiFriendlyCb.Location = new System.Drawing.Point(221, 57);
+            this.aiFriendlyCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiFriendlyCb.Name = "aiFriendlyCb";
-            this.aiFriendlyCb.Size = new System.Drawing.Size(77, 21);
+            this.aiFriendlyCb.Size = new System.Drawing.Size(90, 24);
             this.aiFriendlyCb.TabIndex = 100;
             this.aiFriendlyCb.Text = "Friendly";
             this.aiFriendlyCb.UseVisualStyleBackColor = true;
@@ -1060,9 +1095,10 @@ namespace IGIEditor
             // 
             this.aiAdvanceViewCb.AutoSize = true;
             this.aiAdvanceViewCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiAdvanceViewCb.Location = new System.Drawing.Point(166, 25);
+            this.aiAdvanceViewCb.Location = new System.Drawing.Point(221, 31);
+            this.aiAdvanceViewCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiAdvanceViewCb.Name = "aiAdvanceViewCb";
-            this.aiAdvanceViewCb.Size = new System.Drawing.Size(115, 21);
+            this.aiAdvanceViewCb.Size = new System.Drawing.Size(136, 24);
             this.aiAdvanceViewCb.TabIndex = 99;
             this.aiAdvanceViewCb.Text = "Advance View";
             this.aiAdvanceViewCb.UseVisualStyleBackColor = true;
@@ -1071,9 +1107,10 @@ namespace IGIEditor
             // 
             this.guardGeneratorCb.AutoSize = true;
             this.guardGeneratorCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guardGeneratorCb.Location = new System.Drawing.Point(166, 68);
+            this.guardGeneratorCb.Location = new System.Drawing.Point(221, 84);
+            this.guardGeneratorCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.guardGeneratorCb.Name = "guardGeneratorCb";
-            this.guardGeneratorCb.Size = new System.Drawing.Size(136, 21);
+            this.guardGeneratorCb.Size = new System.Drawing.Size(157, 24);
             this.guardGeneratorCb.TabIndex = 98;
             this.guardGeneratorCb.Text = "Guard Generator";
             this.guardGeneratorCb.UseVisualStyleBackColor = true;
@@ -1083,9 +1120,10 @@ namespace IGIEditor
             // 
             this.aiInvincibleCb.AutoSize = true;
             this.aiInvincibleCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiInvincibleCb.Location = new System.Drawing.Point(166, 4);
+            this.aiInvincibleCb.Location = new System.Drawing.Point(221, 5);
+            this.aiInvincibleCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiInvincibleCb.Name = "aiInvincibleCb";
-            this.aiInvincibleCb.Size = new System.Drawing.Size(85, 21);
+            this.aiInvincibleCb.Size = new System.Drawing.Size(100, 24);
             this.aiInvincibleCb.TabIndex = 101;
             this.aiInvincibleCb.Text = "Invincible";
             this.aiInvincibleCb.UseVisualStyleBackColor = true;
@@ -1097,10 +1135,10 @@ namespace IGIEditor
             this.aiGraphIdDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.aiGraphIdDD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.aiGraphIdDD.FormattingEnabled = true;
-            this.aiGraphIdDD.Location = new System.Drawing.Point(513, 153);
-            this.aiGraphIdDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.aiGraphIdDD.Location = new System.Drawing.Point(684, 188);
+            this.aiGraphIdDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.aiGraphIdDD.Name = "aiGraphIdDD";
-            this.aiGraphIdDD.Size = new System.Drawing.Size(56, 24);
+            this.aiGraphIdDD.Size = new System.Drawing.Size(73, 28);
             this.aiGraphIdDD.TabIndex = 97;
             this.aiGraphIdDD.SelectedIndexChanged += new System.EventHandler(this.aiGraphIdDD_SelectedValueChanged);
             // 
@@ -1111,10 +1149,10 @@ namespace IGIEditor
             this.aiTypeDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.aiTypeDD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.aiTypeDD.FormattingEnabled = true;
-            this.aiTypeDD.Location = new System.Drawing.Point(513, 101);
-            this.aiTypeDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.aiTypeDD.Location = new System.Drawing.Point(684, 124);
+            this.aiTypeDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.aiTypeDD.Name = "aiTypeDD";
-            this.aiTypeDD.Size = new System.Drawing.Size(319, 24);
+            this.aiTypeDD.Size = new System.Drawing.Size(424, 28);
             this.aiTypeDD.TabIndex = 96;
             this.aiTypeDD.SelectedIndexChanged += new System.EventHandler(this.aiTypeDD_SelectedIndexChanged);
             // 
@@ -1125,10 +1163,10 @@ namespace IGIEditor
             this.aiWeaponDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.aiWeaponDD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.aiWeaponDD.FormattingEnabled = true;
-            this.aiWeaponDD.Location = new System.Drawing.Point(513, 55);
-            this.aiWeaponDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.aiWeaponDD.Location = new System.Drawing.Point(684, 68);
+            this.aiWeaponDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.aiWeaponDD.Name = "aiWeaponDD";
-            this.aiWeaponDD.Size = new System.Drawing.Size(319, 24);
+            this.aiWeaponDD.Size = new System.Drawing.Size(424, 28);
             this.aiWeaponDD.TabIndex = 95;
             this.aiWeaponDD.SelectedValueChanged += new System.EventHandler(this.weaponAiDD_SelectedValueChanged);
             // 
@@ -1136,9 +1174,10 @@ namespace IGIEditor
             // 
             this.graphIdAiLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.graphIdAiLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.graphIdAiLbl.Location = new System.Drawing.Point(374, 150);
+            this.graphIdAiLbl.Location = new System.Drawing.Point(499, 185);
+            this.graphIdAiLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.graphIdAiLbl.Name = "graphIdAiLbl";
-            this.graphIdAiLbl.Size = new System.Drawing.Size(130, 27);
+            this.graphIdAiLbl.Size = new System.Drawing.Size(173, 33);
             this.graphIdAiLbl.TabIndex = 94;
             this.graphIdAiLbl.Text = "Graph Id ";
             this.graphIdAiLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1147,9 +1186,10 @@ namespace IGIEditor
             // 
             this.aiTypeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiTypeLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiTypeLbl.Location = new System.Drawing.Point(374, 101);
+            this.aiTypeLbl.Location = new System.Drawing.Point(499, 124);
+            this.aiTypeLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.aiTypeLbl.Name = "aiTypeLbl";
-            this.aiTypeLbl.Size = new System.Drawing.Size(130, 27);
+            this.aiTypeLbl.Size = new System.Drawing.Size(173, 33);
             this.aiTypeLbl.TabIndex = 93;
             this.aiTypeLbl.Text = "AIType ";
             this.aiTypeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1158,9 +1198,10 @@ namespace IGIEditor
             // 
             this.weaponAiLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.weaponAiLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponAiLbl.Location = new System.Drawing.Point(374, 51);
+            this.weaponAiLbl.Location = new System.Drawing.Point(499, 63);
+            this.weaponAiLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.weaponAiLbl.Name = "weaponAiLbl";
-            this.weaponAiLbl.Size = new System.Drawing.Size(130, 27);
+            this.weaponAiLbl.Size = new System.Drawing.Size(173, 33);
             this.weaponAiLbl.TabIndex = 92;
             this.weaponAiLbl.Text = "Weapon ";
             this.weaponAiLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1168,9 +1209,10 @@ namespace IGIEditor
             // weaponAIImgBox
             // 
             this.weaponAIImgBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.weaponAIImgBox.Location = new System.Drawing.Point(158, 136);
+            this.weaponAIImgBox.Location = new System.Drawing.Point(211, 167);
+            this.weaponAIImgBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.weaponAIImgBox.Name = "weaponAIImgBox";
-            this.weaponAIImgBox.Size = new System.Drawing.Size(150, 150);
+            this.weaponAIImgBox.Size = new System.Drawing.Size(199, 184);
             this.weaponAIImgBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.weaponAIImgBox.TabIndex = 91;
             this.weaponAIImgBox.TabStop = false;
@@ -1182,19 +1224,20 @@ namespace IGIEditor
             this.aiModelSelectDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.aiModelSelectDD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.aiModelSelectDD.FormattingEnabled = true;
-            this.aiModelSelectDD.Location = new System.Drawing.Point(513, 5);
-            this.aiModelSelectDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.aiModelSelectDD.Location = new System.Drawing.Point(684, 6);
+            this.aiModelSelectDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.aiModelSelectDD.Name = "aiModelSelectDD";
-            this.aiModelSelectDD.Size = new System.Drawing.Size(315, 24);
+            this.aiModelSelectDD.Size = new System.Drawing.Size(419, 28);
             this.aiModelSelectDD.TabIndex = 90;
             this.aiModelSelectDD.SelectedValueChanged += new System.EventHandler(this.aiModelSelectDD_SelectedValueChanged);
             // 
             // aiImgBox
             // 
             this.aiImgBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.aiImgBox.Location = new System.Drawing.Point(3, 23);
+            this.aiImgBox.Location = new System.Drawing.Point(4, 28);
+            this.aiImgBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiImgBox.Name = "aiImgBox";
-            this.aiImgBox.Size = new System.Drawing.Size(150, 262);
+            this.aiImgBox.Size = new System.Drawing.Size(199, 322);
             this.aiImgBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.aiImgBox.TabIndex = 89;
             this.aiImgBox.TabStop = false;
@@ -1203,9 +1246,10 @@ namespace IGIEditor
             // 
             this.aiCountLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiCountLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiCountLbl.Location = new System.Drawing.Point(560, 211);
+            this.aiCountLbl.Location = new System.Drawing.Point(747, 260);
+            this.aiCountLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.aiCountLbl.Name = "aiCountLbl";
-            this.aiCountLbl.Size = new System.Drawing.Size(89, 27);
+            this.aiCountLbl.Size = new System.Drawing.Size(119, 33);
             this.aiCountLbl.TabIndex = 87;
             this.aiCountLbl.Text = "AI Count";
             this.aiCountLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1215,8 +1259,9 @@ namespace IGIEditor
             this.aiModelNameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
             this.aiModelNameLbl.ForeColor = System.Drawing.SystemColors.ControlText;
             this.aiModelNameLbl.Location = new System.Drawing.Point(0, 0);
+            this.aiModelNameLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.aiModelNameLbl.Name = "aiModelNameLbl";
-            this.aiModelNameLbl.Size = new System.Drawing.Size(152, 23);
+            this.aiModelNameLbl.Size = new System.Drawing.Size(203, 28);
             this.aiModelNameLbl.TabIndex = 86;
             this.aiModelNameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1224,9 +1269,10 @@ namespace IGIEditor
             // 
             this.aiModelLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiModelLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiModelLbl.Location = new System.Drawing.Point(370, 2);
+            this.aiModelLbl.Location = new System.Drawing.Point(493, 2);
+            this.aiModelLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.aiModelLbl.Name = "aiModelLbl";
-            this.aiModelLbl.Size = new System.Drawing.Size(130, 27);
+            this.aiModelLbl.Size = new System.Drawing.Size(173, 33);
             this.aiModelLbl.TabIndex = 88;
             this.aiModelLbl.Text = "Model";
             this.aiModelLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1235,9 +1281,10 @@ namespace IGIEditor
             // 
             this.saveAIBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveAIBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.saveAIBtn.Location = new System.Drawing.Point(620, 257);
+            this.saveAIBtn.Location = new System.Drawing.Point(827, 316);
+            this.saveAIBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.saveAIBtn.Name = "saveAIBtn";
-            this.saveAIBtn.Size = new System.Drawing.Size(100, 25);
+            this.saveAIBtn.Size = new System.Drawing.Size(133, 31);
             this.saveAIBtn.TabIndex = 85;
             this.saveAIBtn.Text = "Save";
             this.saveAIBtn.UseVisualStyleBackColor = true;
@@ -1247,9 +1294,10 @@ namespace IGIEditor
             // 
             this.addAiBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addAiBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.addAiBtn.Location = new System.Drawing.Point(513, 257);
+            this.addAiBtn.Location = new System.Drawing.Point(684, 316);
+            this.addAiBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.addAiBtn.Name = "addAiBtn";
-            this.addAiBtn.Size = new System.Drawing.Size(100, 25);
+            this.addAiBtn.Size = new System.Drawing.Size(133, 31);
             this.addAiBtn.TabIndex = 85;
             this.addAiBtn.Text = "Add";
             this.addAiBtn.UseVisualStyleBackColor = true;
@@ -1271,11 +1319,11 @@ namespace IGIEditor
             this.aiJSONEditor.Controls.Add(this.aiJsonSaveAiBtn);
             this.aiJSONEditor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.aiJSONEditor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiJSONEditor.Location = new System.Drawing.Point(4, 22);
-            this.aiJSONEditor.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.aiJSONEditor.Location = new System.Drawing.Point(4, 25);
+            this.aiJSONEditor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.aiJSONEditor.Name = "aiJSONEditor";
-            this.aiJSONEditor.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.aiJSONEditor.Size = new System.Drawing.Size(845, 306);
+            this.aiJSONEditor.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.aiJSONEditor.Size = new System.Drawing.Size(1129, 380);
             this.aiJSONEditor.TabIndex = 1;
             this.aiJSONEditor.Text = "Json";
             // 
@@ -1283,9 +1331,10 @@ namespace IGIEditor
             // 
             this.aiJsonAutoFmtCb.AutoSize = true;
             this.aiJsonAutoFmtCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiJsonAutoFmtCb.Location = new System.Drawing.Point(784, 178);
+            this.aiJsonAutoFmtCb.Location = new System.Drawing.Point(1045, 219);
+            this.aiJsonAutoFmtCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiJsonAutoFmtCb.Name = "aiJsonAutoFmtCb";
-            this.aiJsonAutoFmtCb.Size = new System.Drawing.Size(58, 17);
+            this.aiJsonAutoFmtCb.Size = new System.Drawing.Size(71, 20);
             this.aiJsonAutoFmtCb.TabIndex = 64;
             this.aiJsonAutoFmtCb.Text = "Format";
             this.aiJsonAutoFmtCb.UseVisualStyleBackColor = true;
@@ -1294,9 +1343,10 @@ namespace IGIEditor
             // 
             this.aiJsonEditModeCb.AutoSize = true;
             this.aiJsonEditModeCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiJsonEditModeCb.Location = new System.Drawing.Point(655, 178);
+            this.aiJsonEditModeCb.Location = new System.Drawing.Point(873, 219);
+            this.aiJsonEditModeCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiJsonEditModeCb.Name = "aiJsonEditModeCb";
-            this.aiJsonEditModeCb.Size = new System.Drawing.Size(44, 17);
+            this.aiJsonEditModeCb.Size = new System.Drawing.Size(52, 20);
             this.aiJsonEditModeCb.TabIndex = 65;
             this.aiJsonEditModeCb.Text = "Edit";
             this.aiJsonEditModeCb.UseVisualStyleBackColor = true;
@@ -1306,9 +1356,10 @@ namespace IGIEditor
             // 
             this.aiJsonClearDataCb.AutoSize = true;
             this.aiJsonClearDataCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiJsonClearDataCb.Location = new System.Drawing.Point(717, 178);
+            this.aiJsonClearDataCb.Location = new System.Drawing.Point(956, 219);
+            this.aiJsonClearDataCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiJsonClearDataCb.Name = "aiJsonClearDataCb";
-            this.aiJsonClearDataCb.Size = new System.Drawing.Size(50, 17);
+            this.aiJsonClearDataCb.Size = new System.Drawing.Size(61, 20);
             this.aiJsonClearDataCb.TabIndex = 65;
             this.aiJsonClearDataCb.Text = "Clear";
             this.aiJsonClearDataCb.UseVisualStyleBackColor = true;
@@ -1321,10 +1372,10 @@ namespace IGIEditor
             this.aiJsonEditorTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.aiJsonEditorTxt.ForeColor = System.Drawing.SystemColors.ControlText;
             this.aiJsonEditorTxt.Location = new System.Drawing.Point(1, -2);
-            this.aiJsonEditorTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.aiJsonEditorTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.aiJsonEditorTxt.Name = "aiJsonEditorTxt";
             this.aiJsonEditorTxt.ReadOnly = true;
-            this.aiJsonEditorTxt.Size = new System.Drawing.Size(650, 293);
+            this.aiJsonEditorTxt.Size = new System.Drawing.Size(865, 360);
             this.aiJsonEditorTxt.TabIndex = 63;
             this.aiJsonEditorTxt.Text = "";
             this.aiJsonEditorTxt.TextChanged += new System.EventHandler(this.aiJsonEditorTxt_TextChanged);
@@ -1335,9 +1386,10 @@ namespace IGIEditor
             this.aiJsonSaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aiJsonSaveBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.aiJsonSaveBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiJsonSaveBtn.Location = new System.Drawing.Point(653, 138);
+            this.aiJsonSaveBtn.Location = new System.Drawing.Point(871, 170);
+            this.aiJsonSaveBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiJsonSaveBtn.Name = "aiJsonSaveBtn";
-            this.aiJsonSaveBtn.Size = new System.Drawing.Size(190, 33);
+            this.aiJsonSaveBtn.Size = new System.Drawing.Size(253, 41);
             this.aiJsonSaveBtn.TabIndex = 60;
             this.aiJsonSaveBtn.Text = "Save";
             this.aiJsonSaveBtn.UseVisualStyleBackColor = true;
@@ -1348,9 +1400,10 @@ namespace IGIEditor
             this.aiJsonLoadBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aiJsonLoadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.aiJsonLoadBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiJsonLoadBtn.Location = new System.Drawing.Point(653, 98);
+            this.aiJsonLoadBtn.Location = new System.Drawing.Point(871, 121);
+            this.aiJsonLoadBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiJsonLoadBtn.Name = "aiJsonLoadBtn";
-            this.aiJsonLoadBtn.Size = new System.Drawing.Size(190, 33);
+            this.aiJsonLoadBtn.Size = new System.Drawing.Size(253, 41);
             this.aiJsonLoadBtn.TabIndex = 61;
             this.aiJsonLoadBtn.Text = "Load";
             this.aiJsonLoadBtn.UseVisualStyleBackColor = true;
@@ -1361,9 +1414,10 @@ namespace IGIEditor
             this.aiJsonAddAiBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aiJsonAddAiBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.aiJsonAddAiBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiJsonAddAiBtn.Location = new System.Drawing.Point(655, 213);
+            this.aiJsonAddAiBtn.Location = new System.Drawing.Point(873, 262);
+            this.aiJsonAddAiBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiJsonAddAiBtn.Name = "aiJsonAddAiBtn";
-            this.aiJsonAddAiBtn.Size = new System.Drawing.Size(190, 33);
+            this.aiJsonAddAiBtn.Size = new System.Drawing.Size(253, 41);
             this.aiJsonAddAiBtn.TabIndex = 62;
             this.aiJsonAddAiBtn.Text = "Add";
             this.aiJsonAddAiBtn.UseVisualStyleBackColor = true;
@@ -1375,10 +1429,11 @@ namespace IGIEditor
             this.aiFileNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.aiFileNameTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiFileNameTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiFileNameTxt.Location = new System.Drawing.Point(661, 36);
+            this.aiFileNameTxt.Location = new System.Drawing.Point(881, 44);
+            this.aiFileNameTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiFileNameTxt.Name = "aiFileNameTxt";
             this.aiFileNameTxt.ReadOnly = true;
-            this.aiFileNameTxt.Size = new System.Drawing.Size(168, 24);
+            this.aiFileNameTxt.Size = new System.Drawing.Size(223, 28);
             this.aiFileNameTxt.TabIndex = 57;
             // 
             // aiFileSizeTxt
@@ -1387,10 +1442,11 @@ namespace IGIEditor
             this.aiFileSizeTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.aiFileSizeTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiFileSizeTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiFileSizeTxt.Location = new System.Drawing.Point(661, 68);
+            this.aiFileSizeTxt.Location = new System.Drawing.Point(881, 84);
+            this.aiFileSizeTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiFileSizeTxt.Name = "aiFileSizeTxt";
             this.aiFileSizeTxt.ReadOnly = true;
-            this.aiFileSizeTxt.Size = new System.Drawing.Size(168, 24);
+            this.aiFileSizeTxt.Size = new System.Drawing.Size(223, 28);
             this.aiFileSizeTxt.TabIndex = 58;
             // 
             // aiJsonVersionTxt
@@ -1399,9 +1455,10 @@ namespace IGIEditor
             this.aiJsonVersionTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.aiJsonVersionTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiJsonVersionTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiJsonVersionTxt.Location = new System.Drawing.Point(661, 6);
+            this.aiJsonVersionTxt.Location = new System.Drawing.Point(881, 7);
+            this.aiJsonVersionTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiJsonVersionTxt.Name = "aiJsonVersionTxt";
-            this.aiJsonVersionTxt.Size = new System.Drawing.Size(168, 24);
+            this.aiJsonVersionTxt.Size = new System.Drawing.Size(223, 28);
             this.aiJsonVersionTxt.TabIndex = 59;
             this.aiJsonVersionTxt.Text = "JSON v1.1";
             // 
@@ -1410,9 +1467,10 @@ namespace IGIEditor
             this.aiJsonSaveAiBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aiJsonSaveAiBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.aiJsonSaveAiBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiJsonSaveAiBtn.Location = new System.Drawing.Point(653, 253);
+            this.aiJsonSaveAiBtn.Location = new System.Drawing.Point(871, 311);
+            this.aiJsonSaveAiBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiJsonSaveAiBtn.Name = "aiJsonSaveAiBtn";
-            this.aiJsonSaveAiBtn.Size = new System.Drawing.Size(190, 33);
+            this.aiJsonSaveAiBtn.Size = new System.Drawing.Size(253, 41);
             this.aiJsonSaveAiBtn.TabIndex = 56;
             this.aiJsonSaveAiBtn.Text = "Save";
             this.aiJsonSaveAiBtn.UseVisualStyleBackColor = true;
@@ -1432,11 +1490,11 @@ namespace IGIEditor
             this.aiScriptEditor.Controls.Add(this.aiScriptEditorTxt);
             this.aiScriptEditor.Controls.Add(this.aiScriptSaveBtn);
             this.aiScriptEditor.Controls.Add(this.aiScriptLoadBtn);
-            this.aiScriptEditor.Location = new System.Drawing.Point(4, 22);
-            this.aiScriptEditor.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.aiScriptEditor.Location = new System.Drawing.Point(4, 25);
+            this.aiScriptEditor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.aiScriptEditor.Name = "aiScriptEditor";
-            this.aiScriptEditor.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.aiScriptEditor.Size = new System.Drawing.Size(845, 306);
+            this.aiScriptEditor.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.aiScriptEditor.Size = new System.Drawing.Size(1129, 380);
             this.aiScriptEditor.TabIndex = 2;
             this.aiScriptEditor.Text = "Script";
             // 
@@ -1446,10 +1504,11 @@ namespace IGIEditor
             this.aiScriptAiGraphIdTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.aiScriptAiGraphIdTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiScriptAiGraphIdTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiScriptAiGraphIdTxt.Location = new System.Drawing.Point(657, 129);
+            this.aiScriptAiGraphIdTxt.Location = new System.Drawing.Point(876, 159);
+            this.aiScriptAiGraphIdTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiScriptAiGraphIdTxt.Name = "aiScriptAiGraphIdTxt";
             this.aiScriptAiGraphIdTxt.ReadOnly = true;
-            this.aiScriptAiGraphIdTxt.Size = new System.Drawing.Size(183, 24);
+            this.aiScriptAiGraphIdTxt.Size = new System.Drawing.Size(243, 28);
             this.aiScriptAiGraphIdTxt.TabIndex = 75;
             // 
             // aiScriptAiTypeTxt
@@ -1458,10 +1517,11 @@ namespace IGIEditor
             this.aiScriptAiTypeTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.aiScriptAiTypeTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiScriptAiTypeTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiScriptAiTypeTxt.Location = new System.Drawing.Point(656, 99);
+            this.aiScriptAiTypeTxt.Location = new System.Drawing.Point(875, 122);
+            this.aiScriptAiTypeTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiScriptAiTypeTxt.Name = "aiScriptAiTypeTxt";
             this.aiScriptAiTypeTxt.ReadOnly = true;
-            this.aiScriptAiTypeTxt.Size = new System.Drawing.Size(184, 24);
+            this.aiScriptAiTypeTxt.Size = new System.Drawing.Size(245, 28);
             this.aiScriptAiTypeTxt.TabIndex = 74;
             // 
             // aiScriptAiNameTxt
@@ -1470,10 +1530,11 @@ namespace IGIEditor
             this.aiScriptAiNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.aiScriptAiNameTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiScriptAiNameTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiScriptAiNameTxt.Location = new System.Drawing.Point(656, 69);
+            this.aiScriptAiNameTxt.Location = new System.Drawing.Point(875, 85);
+            this.aiScriptAiNameTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiScriptAiNameTxt.Name = "aiScriptAiNameTxt";
             this.aiScriptAiNameTxt.ReadOnly = true;
-            this.aiScriptAiNameTxt.Size = new System.Drawing.Size(184, 24);
+            this.aiScriptAiNameTxt.Size = new System.Drawing.Size(245, 28);
             this.aiScriptAiNameTxt.TabIndex = 72;
             // 
             // aiScriptFileNameTxt
@@ -1482,10 +1543,11 @@ namespace IGIEditor
             this.aiScriptFileNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.aiScriptFileNameTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiScriptFileNameTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiScriptFileNameTxt.Location = new System.Drawing.Point(656, 7);
+            this.aiScriptFileNameTxt.Location = new System.Drawing.Point(875, 9);
+            this.aiScriptFileNameTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiScriptFileNameTxt.Name = "aiScriptFileNameTxt";
             this.aiScriptFileNameTxt.ReadOnly = true;
-            this.aiScriptFileNameTxt.Size = new System.Drawing.Size(184, 24);
+            this.aiScriptFileNameTxt.Size = new System.Drawing.Size(245, 28);
             this.aiScriptFileNameTxt.TabIndex = 70;
             // 
             // aiScriptFileSizeTxt
@@ -1494,19 +1556,21 @@ namespace IGIEditor
             this.aiScriptFileSizeTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.aiScriptFileSizeTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiScriptFileSizeTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiScriptFileSizeTxt.Location = new System.Drawing.Point(656, 39);
+            this.aiScriptFileSizeTxt.Location = new System.Drawing.Point(875, 48);
+            this.aiScriptFileSizeTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiScriptFileSizeTxt.Name = "aiScriptFileSizeTxt";
             this.aiScriptFileSizeTxt.ReadOnly = true;
-            this.aiScriptFileSizeTxt.Size = new System.Drawing.Size(184, 24);
+            this.aiScriptFileSizeTxt.Size = new System.Drawing.Size(245, 28);
             this.aiScriptFileSizeTxt.TabIndex = 71;
             // 
             // aiScrptFormatCb
             // 
             this.aiScrptFormatCb.AutoSize = true;
             this.aiScrptFormatCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiScrptFormatCb.Location = new System.Drawing.Point(783, 253);
+            this.aiScrptFormatCb.Location = new System.Drawing.Point(1044, 311);
+            this.aiScrptFormatCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiScrptFormatCb.Name = "aiScrptFormatCb";
-            this.aiScrptFormatCb.Size = new System.Drawing.Size(58, 17);
+            this.aiScrptFormatCb.Size = new System.Drawing.Size(71, 20);
             this.aiScrptFormatCb.TabIndex = 67;
             this.aiScrptFormatCb.Text = "Format";
             this.aiScrptFormatCb.UseVisualStyleBackColor = true;
@@ -1516,9 +1580,10 @@ namespace IGIEditor
             // 
             this.aiScrptEditModeCb.AutoSize = true;
             this.aiScrptEditModeCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiScrptEditModeCb.Location = new System.Drawing.Point(654, 253);
+            this.aiScrptEditModeCb.Location = new System.Drawing.Point(872, 311);
+            this.aiScrptEditModeCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiScrptEditModeCb.Name = "aiScrptEditModeCb";
-            this.aiScrptEditModeCb.Size = new System.Drawing.Size(44, 17);
+            this.aiScrptEditModeCb.Size = new System.Drawing.Size(52, 20);
             this.aiScrptEditModeCb.TabIndex = 68;
             this.aiScrptEditModeCb.Text = "Edit";
             this.aiScrptEditModeCb.UseVisualStyleBackColor = true;
@@ -1528,9 +1593,10 @@ namespace IGIEditor
             // 
             this.aiScrptClearCb.AutoSize = true;
             this.aiScrptClearCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiScrptClearCb.Location = new System.Drawing.Point(716, 253);
+            this.aiScrptClearCb.Location = new System.Drawing.Point(955, 311);
+            this.aiScrptClearCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiScrptClearCb.Name = "aiScrptClearCb";
-            this.aiScrptClearCb.Size = new System.Drawing.Size(50, 17);
+            this.aiScrptClearCb.Size = new System.Drawing.Size(61, 20);
             this.aiScrptClearCb.TabIndex = 69;
             this.aiScrptClearCb.Text = "Clear";
             this.aiScrptClearCb.UseVisualStyleBackColor = true;
@@ -1542,11 +1608,11 @@ namespace IGIEditor
             this.aiScriptEditorTxt.BackColor = System.Drawing.SystemColors.Control;
             this.aiScriptEditorTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.aiScriptEditorTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiScriptEditorTxt.Location = new System.Drawing.Point(1, 7);
-            this.aiScriptEditorTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.aiScriptEditorTxt.Location = new System.Drawing.Point(1, 9);
+            this.aiScriptEditorTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.aiScriptEditorTxt.Name = "aiScriptEditorTxt";
             this.aiScriptEditorTxt.ReadOnly = true;
-            this.aiScriptEditorTxt.Size = new System.Drawing.Size(650, 293);
+            this.aiScriptEditorTxt.Size = new System.Drawing.Size(865, 360);
             this.aiScriptEditorTxt.TabIndex = 66;
             this.aiScriptEditorTxt.Text = "";
             // 
@@ -1555,9 +1621,10 @@ namespace IGIEditor
             this.aiScriptSaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aiScriptSaveBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.aiScriptSaveBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiScriptSaveBtn.Location = new System.Drawing.Point(654, 214);
+            this.aiScriptSaveBtn.Location = new System.Drawing.Point(872, 263);
+            this.aiScriptSaveBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiScriptSaveBtn.Name = "aiScriptSaveBtn";
-            this.aiScriptSaveBtn.Size = new System.Drawing.Size(190, 33);
+            this.aiScriptSaveBtn.Size = new System.Drawing.Size(253, 41);
             this.aiScriptSaveBtn.TabIndex = 64;
             this.aiScriptSaveBtn.Text = "Save";
             this.aiScriptSaveBtn.UseVisualStyleBackColor = true;
@@ -1568,9 +1635,10 @@ namespace IGIEditor
             this.aiScriptLoadBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aiScriptLoadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.aiScriptLoadBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiScriptLoadBtn.Location = new System.Drawing.Point(654, 174);
+            this.aiScriptLoadBtn.Location = new System.Drawing.Point(872, 214);
+            this.aiScriptLoadBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiScriptLoadBtn.Name = "aiScriptLoadBtn";
-            this.aiScriptLoadBtn.Size = new System.Drawing.Size(190, 33);
+            this.aiScriptLoadBtn.Size = new System.Drawing.Size(253, 41);
             this.aiScriptLoadBtn.TabIndex = 65;
             this.aiScriptLoadBtn.Text = "Load";
             this.aiScriptLoadBtn.UseVisualStyleBackColor = true;
@@ -1593,12 +1661,52 @@ namespace IGIEditor
             this.aiPatrolPathEditor.Controls.Add(this.aiPatrolEditorTxt);
             this.aiPatrolPathEditor.Controls.Add(this.aiPatrolSaveBtn);
             this.aiPatrolPathEditor.Controls.Add(this.aiPatrolLoadBtn);
-            this.aiPatrolPathEditor.Location = new System.Drawing.Point(4, 22);
-            this.aiPatrolPathEditor.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.aiPatrolPathEditor.Location = new System.Drawing.Point(4, 25);
+            this.aiPatrolPathEditor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.aiPatrolPathEditor.Name = "aiPatrolPathEditor";
-            this.aiPatrolPathEditor.Size = new System.Drawing.Size(845, 306);
+            this.aiPatrolPathEditor.Size = new System.Drawing.Size(1129, 380);
             this.aiPatrolPathEditor.TabIndex = 3;
             this.aiPatrolPathEditor.Text = "Patrol";
+            // 
+            // aiPatrolCmdIdDD
+            // 
+            this.aiPatrolCmdIdDD.BackColor = System.Drawing.SystemColors.Control;
+            this.aiPatrolCmdIdDD.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.aiPatrolCmdIdDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.aiPatrolCmdIdDD.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.aiPatrolCmdIdDD.FormattingEnabled = true;
+            this.aiPatrolCmdIdDD.Location = new System.Drawing.Point(991, 166);
+            this.aiPatrolCmdIdDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.aiPatrolCmdIdDD.Name = "aiPatrolCmdIdDD";
+            this.aiPatrolCmdIdDD.Size = new System.Drawing.Size(121, 24);
+            this.aiPatrolCmdIdDD.TabIndex = 98;
+            this.aiPatrolCmdIdDD.SelectedIndexChanged += new System.EventHandler(this.aiPatrolCmdIdDD_SelectedIndexChanged);
+            // 
+            // aiPatrolCmdIdTxt
+            // 
+            this.aiPatrolCmdIdTxt.BackColor = System.Drawing.SystemColors.Control;
+            this.aiPatrolCmdIdTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.aiPatrolCmdIdTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.aiPatrolCmdIdTxt.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.aiPatrolCmdIdTxt.Location = new System.Drawing.Point(892, 166);
+            this.aiPatrolCmdIdTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.aiPatrolCmdIdTxt.Name = "aiPatrolCmdIdTxt";
+            this.aiPatrolCmdIdTxt.ReadOnly = true;
+            this.aiPatrolCmdIdTxt.Size = new System.Drawing.Size(90, 28);
+            this.aiPatrolCmdIdTxt.TabIndex = 97;
+            this.aiPatrolCmdIdTxt.Text = "0";
+            // 
+            // commandIdLbl
+            // 
+            this.commandIdLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.commandIdLbl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.commandIdLbl.Location = new System.Drawing.Point(951, 140);
+            this.commandIdLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.commandIdLbl.Name = "commandIdLbl";
+            this.commandIdLbl.Size = new System.Drawing.Size(128, 22);
+            this.commandIdLbl.TabIndex = 96;
+            this.commandIdLbl.Text = "Command Id";
+            this.commandIdLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // aiPatrolIdDD
             // 
@@ -1607,10 +1715,10 @@ namespace IGIEditor
             this.aiPatrolIdDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.aiPatrolIdDD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.aiPatrolIdDD.FormattingEnabled = true;
-            this.aiPatrolIdDD.Location = new System.Drawing.Point(743, 87);
-            this.aiPatrolIdDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.aiPatrolIdDD.Location = new System.Drawing.Point(991, 107);
+            this.aiPatrolIdDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.aiPatrolIdDD.Name = "aiPatrolIdDD";
-            this.aiPatrolIdDD.Size = new System.Drawing.Size(92, 21);
+            this.aiPatrolIdDD.Size = new System.Drawing.Size(121, 24);
             this.aiPatrolIdDD.TabIndex = 95;
             this.aiPatrolIdDD.SelectedIndexChanged += new System.EventHandler(this.aiPatrolIdDD_SelectedIndexChanged);
             // 
@@ -1618,9 +1726,10 @@ namespace IGIEditor
             // 
             this.aiPatrolIdLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiPatrolIdLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiPatrolIdLbl.Location = new System.Drawing.Point(713, 66);
+            this.aiPatrolIdLbl.Location = new System.Drawing.Point(951, 81);
+            this.aiPatrolIdLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.aiPatrolIdLbl.Name = "aiPatrolIdLbl";
-            this.aiPatrolIdLbl.Size = new System.Drawing.Size(71, 18);
+            this.aiPatrolIdLbl.Size = new System.Drawing.Size(95, 22);
             this.aiPatrolIdLbl.TabIndex = 94;
             this.aiPatrolIdLbl.Text = "Patrol Id";
             this.aiPatrolIdLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1631,9 +1740,10 @@ namespace IGIEditor
             this.aiPatrolIdTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.aiPatrolIdTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiPatrolIdTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiPatrolIdTxt.Location = new System.Drawing.Point(669, 87);
+            this.aiPatrolIdTxt.Location = new System.Drawing.Point(892, 107);
+            this.aiPatrolIdTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiPatrolIdTxt.Name = "aiPatrolIdTxt";
-            this.aiPatrolIdTxt.Size = new System.Drawing.Size(68, 24);
+            this.aiPatrolIdTxt.Size = new System.Drawing.Size(90, 28);
             this.aiPatrolIdTxt.TabIndex = 75;
             this.aiPatrolIdTxt.Text = "0000";
             // 
@@ -1643,10 +1753,11 @@ namespace IGIEditor
             this.aiPatrolFileNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.aiPatrolFileNameTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiPatrolFileNameTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiPatrolFileNameTxt.Location = new System.Drawing.Point(657, 7);
+            this.aiPatrolFileNameTxt.Location = new System.Drawing.Point(876, 9);
+            this.aiPatrolFileNameTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiPatrolFileNameTxt.Name = "aiPatrolFileNameTxt";
             this.aiPatrolFileNameTxt.ReadOnly = true;
-            this.aiPatrolFileNameTxt.Size = new System.Drawing.Size(184, 24);
+            this.aiPatrolFileNameTxt.Size = new System.Drawing.Size(245, 28);
             this.aiPatrolFileNameTxt.TabIndex = 73;
             // 
             // aiPatrolFileSizeTxt
@@ -1655,19 +1766,21 @@ namespace IGIEditor
             this.aiPatrolFileSizeTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.aiPatrolFileSizeTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.aiPatrolFileSizeTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiPatrolFileSizeTxt.Location = new System.Drawing.Point(657, 39);
+            this.aiPatrolFileSizeTxt.Location = new System.Drawing.Point(876, 48);
+            this.aiPatrolFileSizeTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiPatrolFileSizeTxt.Name = "aiPatrolFileSizeTxt";
             this.aiPatrolFileSizeTxt.ReadOnly = true;
-            this.aiPatrolFileSizeTxt.Size = new System.Drawing.Size(184, 24);
+            this.aiPatrolFileSizeTxt.Size = new System.Drawing.Size(245, 28);
             this.aiPatrolFileSizeTxt.TabIndex = 74;
             // 
             // aiPatrolFormatCb
             // 
             this.aiPatrolFormatCb.AutoSize = true;
             this.aiPatrolFormatCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiPatrolFormatCb.Location = new System.Drawing.Point(783, 249);
+            this.aiPatrolFormatCb.Location = new System.Drawing.Point(1044, 306);
+            this.aiPatrolFormatCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiPatrolFormatCb.Name = "aiPatrolFormatCb";
-            this.aiPatrolFormatCb.Size = new System.Drawing.Size(58, 17);
+            this.aiPatrolFormatCb.Size = new System.Drawing.Size(71, 20);
             this.aiPatrolFormatCb.TabIndex = 70;
             this.aiPatrolFormatCb.Text = "Format";
             this.aiPatrolFormatCb.UseVisualStyleBackColor = true;
@@ -1677,9 +1790,10 @@ namespace IGIEditor
             // 
             this.aiPatrolEditModeCb.AutoSize = true;
             this.aiPatrolEditModeCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiPatrolEditModeCb.Location = new System.Drawing.Point(654, 249);
+            this.aiPatrolEditModeCb.Location = new System.Drawing.Point(872, 306);
+            this.aiPatrolEditModeCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiPatrolEditModeCb.Name = "aiPatrolEditModeCb";
-            this.aiPatrolEditModeCb.Size = new System.Drawing.Size(44, 17);
+            this.aiPatrolEditModeCb.Size = new System.Drawing.Size(52, 20);
             this.aiPatrolEditModeCb.TabIndex = 71;
             this.aiPatrolEditModeCb.Text = "Edit";
             this.aiPatrolEditModeCb.UseVisualStyleBackColor = true;
@@ -1689,9 +1803,10 @@ namespace IGIEditor
             // 
             this.aiPatrolClearCb.AutoSize = true;
             this.aiPatrolClearCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiPatrolClearCb.Location = new System.Drawing.Point(716, 249);
+            this.aiPatrolClearCb.Location = new System.Drawing.Point(955, 306);
+            this.aiPatrolClearCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiPatrolClearCb.Name = "aiPatrolClearCb";
-            this.aiPatrolClearCb.Size = new System.Drawing.Size(50, 17);
+            this.aiPatrolClearCb.Size = new System.Drawing.Size(61, 20);
             this.aiPatrolClearCb.TabIndex = 72;
             this.aiPatrolClearCb.Text = "Clear";
             this.aiPatrolClearCb.UseVisualStyleBackColor = true;
@@ -1703,11 +1818,11 @@ namespace IGIEditor
             this.aiPatrolEditorTxt.BackColor = System.Drawing.SystemColors.Control;
             this.aiPatrolEditorTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.aiPatrolEditorTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiPatrolEditorTxt.Location = new System.Drawing.Point(1, 7);
-            this.aiPatrolEditorTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.aiPatrolEditorTxt.Location = new System.Drawing.Point(1, 9);
+            this.aiPatrolEditorTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.aiPatrolEditorTxt.Name = "aiPatrolEditorTxt";
             this.aiPatrolEditorTxt.ReadOnly = true;
-            this.aiPatrolEditorTxt.Size = new System.Drawing.Size(650, 293);
+            this.aiPatrolEditorTxt.Size = new System.Drawing.Size(865, 360);
             this.aiPatrolEditorTxt.TabIndex = 69;
             this.aiPatrolEditorTxt.Text = "";
             // 
@@ -1716,9 +1831,10 @@ namespace IGIEditor
             this.aiPatrolSaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aiPatrolSaveBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.aiPatrolSaveBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiPatrolSaveBtn.Location = new System.Drawing.Point(652, 210);
+            this.aiPatrolSaveBtn.Location = new System.Drawing.Point(869, 258);
+            this.aiPatrolSaveBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiPatrolSaveBtn.Name = "aiPatrolSaveBtn";
-            this.aiPatrolSaveBtn.Size = new System.Drawing.Size(190, 33);
+            this.aiPatrolSaveBtn.Size = new System.Drawing.Size(253, 41);
             this.aiPatrolSaveBtn.TabIndex = 67;
             this.aiPatrolSaveBtn.Text = "Save";
             this.aiPatrolSaveBtn.UseVisualStyleBackColor = true;
@@ -1729,9 +1845,10 @@ namespace IGIEditor
             this.aiPatrolLoadBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aiPatrolLoadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.aiPatrolLoadBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiPatrolLoadBtn.Location = new System.Drawing.Point(652, 170);
+            this.aiPatrolLoadBtn.Location = new System.Drawing.Point(869, 209);
+            this.aiPatrolLoadBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.aiPatrolLoadBtn.Name = "aiPatrolLoadBtn";
-            this.aiPatrolLoadBtn.Size = new System.Drawing.Size(190, 33);
+            this.aiPatrolLoadBtn.Size = new System.Drawing.Size(253, 41);
             this.aiPatrolLoadBtn.TabIndex = 68;
             this.aiPatrolLoadBtn.Text = "Load";
             this.aiPatrolLoadBtn.UseVisualStyleBackColor = true;
@@ -1772,9 +1889,10 @@ namespace IGIEditor
             this.humanEditor.Controls.Add(this.peekLRLbl);
             this.humanEditor.Controls.Add(this.movementSpeedLbl);
             this.humanEditor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.humanEditor.Location = new System.Drawing.Point(4, 46);
+            this.humanEditor.Location = new System.Drawing.Point(4, 54);
+            this.humanEditor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.humanEditor.Name = "humanEditor";
-            this.humanEditor.Size = new System.Drawing.Size(851, 292);
+            this.humanEditor.Size = new System.Drawing.Size(1137, 363);
             this.humanEditor.TabIndex = 2;
             this.humanEditor.Text = "Human Toolkit";
             // 
@@ -1784,8 +1902,8 @@ namespace IGIEditor
             this.gravityTxt.DecimalPlaces = 2;
             this.gravityTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.gravityTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.gravityTxt.Location = new System.Drawing.Point(453, 221);
-            this.gravityTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.gravityTxt.Location = new System.Drawing.Point(604, 272);
+            this.gravityTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gravityTxt.Maximum = new decimal(new int[] {
             -805306368,
             967903254,
@@ -1797,7 +1915,7 @@ namespace IGIEditor
             1843143693,
             -2147483648});
             this.gravityTxt.Name = "gravityTxt";
-            this.gravityTxt.Size = new System.Drawing.Size(75, 24);
+            this.gravityTxt.Size = new System.Drawing.Size(100, 28);
             this.gravityTxt.TabIndex = 85;
             this.gravityTxt.Value = new decimal(new int[] {
             -115765433,
@@ -1809,9 +1927,10 @@ namespace IGIEditor
             // 
             this.gravityLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.gravityLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.gravityLbl.Location = new System.Drawing.Point(359, 222);
+            this.gravityLbl.Location = new System.Drawing.Point(479, 273);
+            this.gravityLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.gravityLbl.Name = "gravityLbl";
-            this.gravityLbl.Size = new System.Drawing.Size(88, 27);
+            this.gravityLbl.Size = new System.Drawing.Size(117, 33);
             this.gravityLbl.TabIndex = 84;
             this.gravityLbl.Text = "Gravity";
             this.gravityLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1827,8 +1946,8 @@ namespace IGIEditor
             0,
             0,
             131072});
-            this.inAirSpeedTxt.Location = new System.Drawing.Point(617, 38);
-            this.inAirSpeedTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.inAirSpeedTxt.Location = new System.Drawing.Point(823, 47);
+            this.inAirSpeedTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inAirSpeedTxt.Maximum = new decimal(new int[] {
             -805306368,
             967903254,
@@ -1840,7 +1959,7 @@ namespace IGIEditor
             0,
             65536});
             this.inAirSpeedTxt.Name = "inAirSpeedTxt";
-            this.inAirSpeedTxt.Size = new System.Drawing.Size(75, 24);
+            this.inAirSpeedTxt.Size = new System.Drawing.Size(100, 28);
             this.inAirSpeedTxt.TabIndex = 76;
             this.inAirSpeedTxt.Value = new decimal(new int[] {
             5,
@@ -1859,8 +1978,8 @@ namespace IGIEditor
             0,
             0,
             131072});
-            this.upwardJumpTxt.Location = new System.Drawing.Point(453, 37);
-            this.upwardJumpTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.upwardJumpTxt.Location = new System.Drawing.Point(604, 46);
+            this.upwardJumpTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.upwardJumpTxt.Maximum = new decimal(new int[] {
             -805306368,
             967903254,
@@ -1872,7 +1991,7 @@ namespace IGIEditor
             0,
             65536});
             this.upwardJumpTxt.Name = "upwardJumpTxt";
-            this.upwardJumpTxt.Size = new System.Drawing.Size(75, 24);
+            this.upwardJumpTxt.Size = new System.Drawing.Size(100, 28);
             this.upwardJumpTxt.TabIndex = 75;
             this.upwardJumpTxt.Value = new decimal(new int[] {
             70,
@@ -1891,8 +2010,8 @@ namespace IGIEditor
             0,
             0,
             131072});
-            this.forwardJumpTxt.Location = new System.Drawing.Point(272, 36);
-            this.forwardJumpTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.forwardJumpTxt.Location = new System.Drawing.Point(363, 44);
+            this.forwardJumpTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.forwardJumpTxt.Maximum = new decimal(new int[] {
             -805306368,
             967903254,
@@ -1904,7 +2023,7 @@ namespace IGIEditor
             0,
             65536});
             this.forwardJumpTxt.Name = "forwardJumpTxt";
-            this.forwardJumpTxt.Size = new System.Drawing.Size(75, 24);
+            this.forwardJumpTxt.Size = new System.Drawing.Size(100, 28);
             this.forwardJumpTxt.TabIndex = 74;
             this.forwardJumpTxt.Value = new decimal(new int[] {
             20,
@@ -1923,15 +2042,15 @@ namespace IGIEditor
             0,
             0,
             131072});
-            this.peekTimeTxt.Location = new System.Drawing.Point(453, 101);
-            this.peekTimeTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.peekTimeTxt.Location = new System.Drawing.Point(604, 124);
+            this.peekTimeTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.peekTimeTxt.Maximum = new decimal(new int[] {
             -805306368,
             967903254,
             1843143693,
             0});
             this.peekTimeTxt.Name = "peekTimeTxt";
-            this.peekTimeTxt.Size = new System.Drawing.Size(75, 24);
+            this.peekTimeTxt.Size = new System.Drawing.Size(100, 28);
             this.peekTimeTxt.TabIndex = 79;
             this.peekTimeTxt.Value = new decimal(new int[] {
             5,
@@ -1950,15 +2069,15 @@ namespace IGIEditor
             0,
             0,
             131072});
-            this.peekCrouchTxt.Location = new System.Drawing.Point(272, 101);
-            this.peekCrouchTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.peekCrouchTxt.Location = new System.Drawing.Point(363, 124);
+            this.peekCrouchTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.peekCrouchTxt.Maximum = new decimal(new int[] {
             -805306368,
             967903254,
             1843143693,
             0});
             this.peekCrouchTxt.Name = "peekCrouchTxt";
-            this.peekCrouchTxt.Size = new System.Drawing.Size(75, 24);
+            this.peekCrouchTxt.Size = new System.Drawing.Size(100, 28);
             this.peekCrouchTxt.TabIndex = 78;
             this.peekCrouchTxt.Value = new decimal(new int[] {
             50,
@@ -1977,15 +2096,15 @@ namespace IGIEditor
             0,
             0,
             131072});
-            this.peekLRTxt.Location = new System.Drawing.Point(100, 101);
-            this.peekLRTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.peekLRTxt.Location = new System.Drawing.Point(133, 124);
+            this.peekLRTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.peekLRTxt.Maximum = new decimal(new int[] {
             -805306368,
             967903254,
             1843143693,
             0});
             this.peekLRTxt.Name = "peekLRTxt";
-            this.peekLRTxt.Size = new System.Drawing.Size(75, 24);
+            this.peekLRTxt.Size = new System.Drawing.Size(100, 28);
             this.peekLRTxt.TabIndex = 77;
             this.peekLRTxt.Value = new decimal(new int[] {
             50,
@@ -1998,15 +2117,15 @@ namespace IGIEditor
             this.humanViewCamTxt.BackColor = System.Drawing.SystemColors.Control;
             this.humanViewCamTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.humanViewCamTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.humanViewCamTxt.Location = new System.Drawing.Point(274, 222);
-            this.humanViewCamTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.humanViewCamTxt.Location = new System.Drawing.Point(365, 273);
+            this.humanViewCamTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.humanViewCamTxt.Maximum = new decimal(new int[] {
             5,
             0,
             0,
             0});
             this.humanViewCamTxt.Name = "humanViewCamTxt";
-            this.humanViewCamTxt.Size = new System.Drawing.Size(75, 24);
+            this.humanViewCamTxt.Size = new System.Drawing.Size(100, 28);
             this.humanViewCamTxt.TabIndex = 83;
             this.humanViewCamTxt.Value = new decimal(new int[] {
             1,
@@ -2019,15 +2138,15 @@ namespace IGIEditor
             this.damageScaleFallTxt.BackColor = System.Drawing.SystemColors.Control;
             this.damageScaleFallTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.damageScaleFallTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.damageScaleFallTxt.Location = new System.Drawing.Point(453, 159);
-            this.damageScaleFallTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.damageScaleFallTxt.Location = new System.Drawing.Point(604, 196);
+            this.damageScaleFallTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.damageScaleFallTxt.Maximum = new decimal(new int[] {
             2,
             0,
             0,
             0});
             this.damageScaleFallTxt.Name = "damageScaleFallTxt";
-            this.damageScaleFallTxt.Size = new System.Drawing.Size(75, 24);
+            this.damageScaleFallTxt.Size = new System.Drawing.Size(100, 28);
             this.damageScaleFallTxt.TabIndex = 81;
             // 
             // damageScaleFenceTxt
@@ -2041,15 +2160,15 @@ namespace IGIEditor
             0,
             0,
             131072});
-            this.damageScaleFenceTxt.Location = new System.Drawing.Point(274, 159);
-            this.damageScaleFenceTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.damageScaleFenceTxt.Location = new System.Drawing.Point(365, 196);
+            this.damageScaleFenceTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.damageScaleFenceTxt.Maximum = new decimal(new int[] {
             -805306368,
             967903254,
             1843143693,
             0});
             this.damageScaleFenceTxt.Name = "damageScaleFenceTxt";
-            this.damageScaleFenceTxt.Size = new System.Drawing.Size(75, 24);
+            this.damageScaleFenceTxt.Size = new System.Drawing.Size(100, 28);
             this.damageScaleFenceTxt.TabIndex = 81;
             // 
             // teamIdTxt
@@ -2057,10 +2176,10 @@ namespace IGIEditor
             this.teamIdTxt.BackColor = System.Drawing.SystemColors.Control;
             this.teamIdTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.teamIdTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.teamIdTxt.Location = new System.Drawing.Point(101, 222);
-            this.teamIdTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.teamIdTxt.Location = new System.Drawing.Point(135, 273);
+            this.teamIdTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.teamIdTxt.Name = "teamIdTxt";
-            this.teamIdTxt.Size = new System.Drawing.Size(75, 24);
+            this.teamIdTxt.Size = new System.Drawing.Size(100, 28);
             this.teamIdTxt.TabIndex = 82;
             // 
             // damageScaleTxt
@@ -2074,8 +2193,8 @@ namespace IGIEditor
             0,
             0,
             131072});
-            this.damageScaleTxt.Location = new System.Drawing.Point(100, 159);
-            this.damageScaleTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.damageScaleTxt.Location = new System.Drawing.Point(133, 196);
+            this.damageScaleTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.damageScaleTxt.Maximum = new decimal(new int[] {
             -805306368,
             967903254,
@@ -2087,7 +2206,7 @@ namespace IGIEditor
             0,
             65536});
             this.damageScaleTxt.Name = "damageScaleTxt";
-            this.damageScaleTxt.Size = new System.Drawing.Size(75, 24);
+            this.damageScaleTxt.Size = new System.Drawing.Size(100, 28);
             this.damageScaleTxt.TabIndex = 80;
             this.damageScaleTxt.Value = new decimal(new int[] {
             10,
@@ -2106,8 +2225,8 @@ namespace IGIEditor
             0,
             0,
             131072});
-            this.movementSpeedTxt.Location = new System.Drawing.Point(105, 36);
-            this.movementSpeedTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.movementSpeedTxt.Location = new System.Drawing.Point(140, 44);
+            this.movementSpeedTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.movementSpeedTxt.Maximum = new decimal(new int[] {
             -805306368,
             967903254,
@@ -2119,7 +2238,7 @@ namespace IGIEditor
             0,
             65536});
             this.movementSpeedTxt.Name = "movementSpeedTxt";
-            this.movementSpeedTxt.Size = new System.Drawing.Size(75, 24);
+            this.movementSpeedTxt.Size = new System.Drawing.Size(100, 28);
             this.movementSpeedTxt.TabIndex = 73;
             this.movementSpeedTxt.Value = new decimal(new int[] {
             10,
@@ -2131,9 +2250,10 @@ namespace IGIEditor
             // 
             this.updateHumanBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateHumanBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.updateHumanBtn.Location = new System.Drawing.Point(698, 222);
+            this.updateHumanBtn.Location = new System.Drawing.Point(931, 273);
+            this.updateHumanBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.updateHumanBtn.Name = "updateHumanBtn";
-            this.updateHumanBtn.Size = new System.Drawing.Size(136, 25);
+            this.updateHumanBtn.Size = new System.Drawing.Size(181, 31);
             this.updateHumanBtn.TabIndex = 60;
             this.updateHumanBtn.Text = "Update Misc";
             this.updateHumanBtn.UseVisualStyleBackColor = true;
@@ -2143,9 +2263,10 @@ namespace IGIEditor
             // 
             this.resetHumanBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.resetHumanBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.resetHumanBtn.Location = new System.Drawing.Point(698, 282);
+            this.resetHumanBtn.Location = new System.Drawing.Point(931, 347);
+            this.resetHumanBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.resetHumanBtn.Name = "resetHumanBtn";
-            this.resetHumanBtn.Size = new System.Drawing.Size(136, 25);
+            this.resetHumanBtn.Size = new System.Drawing.Size(181, 31);
             this.resetHumanBtn.TabIndex = 59;
             this.resetHumanBtn.Text = "Reset Human";
             this.resetHumanBtn.UseVisualStyleBackColor = true;
@@ -2155,9 +2276,10 @@ namespace IGIEditor
             // 
             this.inAirSpeedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.inAirSpeedLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.inAirSpeedLbl.Location = new System.Drawing.Point(535, 37);
+            this.inAirSpeedLbl.Location = new System.Drawing.Point(713, 46);
+            this.inAirSpeedLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.inAirSpeedLbl.Name = "inAirSpeedLbl";
-            this.inAirSpeedLbl.Size = new System.Drawing.Size(80, 27);
+            this.inAirSpeedLbl.Size = new System.Drawing.Size(107, 33);
             this.inAirSpeedLbl.TabIndex = 52;
             this.inAirSpeedLbl.Text = "In Air";
             this.inAirSpeedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2166,9 +2288,10 @@ namespace IGIEditor
             // 
             this.updatePeekBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updatePeekBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.updatePeekBtn.Location = new System.Drawing.Point(698, 101);
+            this.updatePeekBtn.Location = new System.Drawing.Point(931, 124);
+            this.updatePeekBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.updatePeekBtn.Name = "updatePeekBtn";
-            this.updatePeekBtn.Size = new System.Drawing.Size(136, 25);
+            this.updatePeekBtn.Size = new System.Drawing.Size(181, 31);
             this.updatePeekBtn.TabIndex = 51;
             this.updatePeekBtn.Text = "Update Peek";
             this.updatePeekBtn.UseVisualStyleBackColor = true;
@@ -2178,9 +2301,10 @@ namespace IGIEditor
             // 
             this.updateHumanHealthBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateHumanHealthBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.updateHumanHealthBtn.Location = new System.Drawing.Point(698, 160);
+            this.updateHumanHealthBtn.Location = new System.Drawing.Point(931, 197);
+            this.updateHumanHealthBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.updateHumanHealthBtn.Name = "updateHumanHealthBtn";
-            this.updateHumanHealthBtn.Size = new System.Drawing.Size(136, 25);
+            this.updateHumanHealthBtn.Size = new System.Drawing.Size(181, 31);
             this.updateHumanHealthBtn.TabIndex = 51;
             this.updateHumanHealthBtn.Text = "Update Health";
             this.updateHumanHealthBtn.UseVisualStyleBackColor = true;
@@ -2191,9 +2315,10 @@ namespace IGIEditor
             this.damageScaleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.damageScaleLbl.ForeColor = System.Drawing.SystemColors.ControlText;
             this.damageScaleLbl.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.damageScaleLbl.Location = new System.Drawing.Point(17, 159);
+            this.damageScaleLbl.Location = new System.Drawing.Point(23, 196);
+            this.damageScaleLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.damageScaleLbl.Name = "damageScaleLbl";
-            this.damageScaleLbl.Size = new System.Drawing.Size(82, 27);
+            this.damageScaleLbl.Size = new System.Drawing.Size(109, 33);
             this.damageScaleLbl.TabIndex = 47;
             this.damageScaleLbl.Text = "Human";
             this.damageScaleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2202,9 +2327,10 @@ namespace IGIEditor
             // 
             this.fallDamageLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.fallDamageLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.fallDamageLbl.Location = new System.Drawing.Point(359, 159);
+            this.fallDamageLbl.Location = new System.Drawing.Point(479, 196);
+            this.fallDamageLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.fallDamageLbl.Name = "fallDamageLbl";
-            this.fallDamageLbl.Size = new System.Drawing.Size(72, 27);
+            this.fallDamageLbl.Size = new System.Drawing.Size(96, 33);
             this.fallDamageLbl.TabIndex = 47;
             this.fallDamageLbl.Text = "Damage";
             this.fallDamageLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2213,9 +2339,10 @@ namespace IGIEditor
             // 
             this.fenceDamageScaleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.fenceDamageScaleLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.fenceDamageScaleLbl.Location = new System.Drawing.Point(178, 159);
+            this.fenceDamageScaleLbl.Location = new System.Drawing.Point(237, 196);
+            this.fenceDamageScaleLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.fenceDamageScaleLbl.Name = "fenceDamageScaleLbl";
-            this.fenceDamageScaleLbl.Size = new System.Drawing.Size(72, 27);
+            this.fenceDamageScaleLbl.Size = new System.Drawing.Size(96, 33);
             this.fenceDamageScaleLbl.TabIndex = 47;
             this.fenceDamageScaleLbl.Text = "Fence";
             this.fenceDamageScaleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2224,9 +2351,10 @@ namespace IGIEditor
             // 
             this.updateHumanSpeedBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateHumanSpeedBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.updateHumanSpeedBtn.Location = new System.Drawing.Point(698, 39);
+            this.updateHumanSpeedBtn.Location = new System.Drawing.Point(931, 48);
+            this.updateHumanSpeedBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.updateHumanSpeedBtn.Name = "updateHumanSpeedBtn";
-            this.updateHumanSpeedBtn.Size = new System.Drawing.Size(136, 25);
+            this.updateHumanSpeedBtn.Size = new System.Drawing.Size(181, 31);
             this.updateHumanSpeedBtn.TabIndex = 44;
             this.updateHumanSpeedBtn.Text = "Update Speed";
             this.updateHumanSpeedBtn.UseVisualStyleBackColor = true;
@@ -2236,9 +2364,10 @@ namespace IGIEditor
             // 
             this.peekTimeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.peekTimeLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.peekTimeLbl.Location = new System.Drawing.Point(359, 99);
+            this.peekTimeLbl.Location = new System.Drawing.Point(479, 122);
+            this.peekTimeLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.peekTimeLbl.Name = "peekTimeLbl";
-            this.peekTimeLbl.Size = new System.Drawing.Size(97, 27);
+            this.peekTimeLbl.Size = new System.Drawing.Size(129, 33);
             this.peekTimeLbl.TabIndex = 12;
             this.peekTimeLbl.Text = "Time";
             this.peekTimeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2247,9 +2376,10 @@ namespace IGIEditor
             // 
             this.upwardJumpLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.upwardJumpLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.upwardJumpLbl.Location = new System.Drawing.Point(359, 36);
+            this.upwardJumpLbl.Location = new System.Drawing.Point(479, 44);
+            this.upwardJumpLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.upwardJumpLbl.Name = "upwardJumpLbl";
-            this.upwardJumpLbl.Size = new System.Drawing.Size(97, 27);
+            this.upwardJumpLbl.Size = new System.Drawing.Size(129, 33);
             this.upwardJumpLbl.TabIndex = 12;
             this.upwardJumpLbl.Text = "Upward";
             this.upwardJumpLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2258,9 +2388,10 @@ namespace IGIEditor
             // 
             this.peekCrouchLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.peekCrouchLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.peekCrouchLbl.Location = new System.Drawing.Point(188, 99);
+            this.peekCrouchLbl.Location = new System.Drawing.Point(251, 122);
+            this.peekCrouchLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.peekCrouchLbl.Name = "peekCrouchLbl";
-            this.peekCrouchLbl.Size = new System.Drawing.Size(88, 27);
+            this.peekCrouchLbl.Size = new System.Drawing.Size(117, 33);
             this.peekCrouchLbl.TabIndex = 10;
             this.peekCrouchLbl.Text = "Crouch";
             this.peekCrouchLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2269,9 +2400,10 @@ namespace IGIEditor
             // 
             this.forwardJumpLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.forwardJumpLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.forwardJumpLbl.Location = new System.Drawing.Point(178, 36);
+            this.forwardJumpLbl.Location = new System.Drawing.Point(237, 44);
+            this.forwardJumpLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.forwardJumpLbl.Name = "forwardJumpLbl";
-            this.forwardJumpLbl.Size = new System.Drawing.Size(88, 27);
+            this.forwardJumpLbl.Size = new System.Drawing.Size(117, 33);
             this.forwardJumpLbl.TabIndex = 10;
             this.forwardJumpLbl.Text = "Forward";
             this.forwardJumpLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2280,9 +2412,10 @@ namespace IGIEditor
             // 
             this.humanViewCamLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.humanViewCamLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.humanViewCamLbl.Location = new System.Drawing.Point(178, 218);
+            this.humanViewCamLbl.Location = new System.Drawing.Point(237, 268);
+            this.humanViewCamLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.humanViewCamLbl.Name = "humanViewCamLbl";
-            this.humanViewCamLbl.Size = new System.Drawing.Size(88, 27);
+            this.humanViewCamLbl.Size = new System.Drawing.Size(117, 33);
             this.humanViewCamLbl.TabIndex = 8;
             this.humanViewCamLbl.Text = "View Cam";
             this.humanViewCamLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2291,9 +2424,10 @@ namespace IGIEditor
             // 
             this.teamIdLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.teamIdLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.teamIdLbl.Location = new System.Drawing.Point(6, 218);
+            this.teamIdLbl.Location = new System.Drawing.Point(8, 268);
+            this.teamIdLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.teamIdLbl.Name = "teamIdLbl";
-            this.teamIdLbl.Size = new System.Drawing.Size(86, 27);
+            this.teamIdLbl.Size = new System.Drawing.Size(115, 33);
             this.teamIdLbl.TabIndex = 8;
             this.teamIdLbl.Text = "Team Id";
             this.teamIdLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2302,9 +2436,10 @@ namespace IGIEditor
             // 
             this.peekLRLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.peekLRLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.peekLRLbl.Location = new System.Drawing.Point(6, 98);
+            this.peekLRLbl.Location = new System.Drawing.Point(8, 121);
+            this.peekLRLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.peekLRLbl.Name = "peekLRLbl";
-            this.peekLRLbl.Size = new System.Drawing.Size(94, 27);
+            this.peekLRLbl.Size = new System.Drawing.Size(125, 33);
             this.peekLRLbl.TabIndex = 8;
             this.peekLRLbl.Text = "Left Right";
             this.peekLRLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2313,9 +2448,10 @@ namespace IGIEditor
             // 
             this.movementSpeedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.movementSpeedLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.movementSpeedLbl.Location = new System.Drawing.Point(6, 36);
+            this.movementSpeedLbl.Location = new System.Drawing.Point(8, 44);
+            this.movementSpeedLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.movementSpeedLbl.Name = "movementSpeedLbl";
-            this.movementSpeedLbl.Size = new System.Drawing.Size(94, 27);
+            this.movementSpeedLbl.Size = new System.Drawing.Size(125, 33);
             this.movementSpeedLbl.TabIndex = 8;
             this.movementSpeedLbl.Text = "Movement";
             this.movementSpeedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2325,9 +2461,10 @@ namespace IGIEditor
             this.weaponEditor.BackColor = System.Drawing.SystemColors.Control;
             this.weaponEditor.Controls.Add(this.weaponEditorTabs);
             this.weaponEditor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponEditor.Location = new System.Drawing.Point(4, 46);
+            this.weaponEditor.Location = new System.Drawing.Point(4, 54);
+            this.weaponEditor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.weaponEditor.Name = "weaponEditor";
-            this.weaponEditor.Size = new System.Drawing.Size(851, 292);
+            this.weaponEditor.Size = new System.Drawing.Size(1137, 363);
             this.weaponEditor.TabIndex = 7;
             this.weaponEditor.Text = "Weapon Toolkit";
             // 
@@ -2338,10 +2475,11 @@ namespace IGIEditor
             this.weaponEditorTabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.weaponEditorTabs.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.weaponEditorTabs.Location = new System.Drawing.Point(0, 0);
+            this.weaponEditorTabs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.weaponEditorTabs.Multiline = true;
             this.weaponEditorTabs.Name = "weaponEditorTabs";
             this.weaponEditorTabs.SelectedIndex = 0;
-            this.weaponEditorTabs.Size = new System.Drawing.Size(851, 292);
+            this.weaponEditorTabs.Size = new System.Drawing.Size(1137, 363);
             this.weaponEditorTabs.TabIndex = 86;
             // 
             // weaponMainEditor
@@ -2362,9 +2500,10 @@ namespace IGIEditor
             this.weaponMainEditor.Controls.Add(this.addWeaponBtn);
             this.weaponMainEditor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.weaponMainEditor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponMainEditor.Location = new System.Drawing.Point(4, 22);
+            this.weaponMainEditor.Location = new System.Drawing.Point(4, 25);
+            this.weaponMainEditor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.weaponMainEditor.Name = "weaponMainEditor";
-            this.weaponMainEditor.Size = new System.Drawing.Size(843, 266);
+            this.weaponMainEditor.Size = new System.Drawing.Size(1129, 334);
             this.weaponMainEditor.TabIndex = 0;
             this.weaponMainEditor.Text = "Basic";
             this.weaponMainEditor.Click += new System.EventHandler(this.weaponEditorMainTab_Click);
@@ -2373,9 +2512,10 @@ namespace IGIEditor
             // 
             this.currentWeaponCb.AutoSize = true;
             this.currentWeaponCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.currentWeaponCb.Location = new System.Drawing.Point(724, 267);
+            this.currentWeaponCb.Location = new System.Drawing.Point(965, 329);
+            this.currentWeaponCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.currentWeaponCb.Name = "currentWeaponCb";
-            this.currentWeaponCb.Size = new System.Drawing.Size(104, 17);
+            this.currentWeaponCb.Size = new System.Drawing.Size(126, 20);
             this.currentWeaponCb.TabIndex = 156;
             this.currentWeaponCb.Text = "Current Weapon";
             this.currentWeaponCb.UseVisualStyleBackColor = true;
@@ -2387,9 +2527,10 @@ namespace IGIEditor
             this.weaponGroupFileTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.weaponGroupFileTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.weaponGroupFileTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponGroupFileTxt.Location = new System.Drawing.Point(191, 120);
+            this.weaponGroupFileTxt.Location = new System.Drawing.Point(255, 148);
+            this.weaponGroupFileTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.weaponGroupFileTxt.Name = "weaponGroupFileTxt";
-            this.weaponGroupFileTxt.Size = new System.Drawing.Size(301, 24);
+            this.weaponGroupFileTxt.Size = new System.Drawing.Size(401, 28);
             this.weaponGroupFileTxt.TabIndex = 122;
             this.weaponGroupFileTxt.Text = "WEAPON GROUP NAME";
             this.infoViewer.SetToolTip(this.weaponGroupFileTxt, "Weapon Group File Name");
@@ -2398,9 +2539,10 @@ namespace IGIEditor
             // 
             this.loadWeaponGroupBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loadWeaponGroupBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.loadWeaponGroupBtn.Location = new System.Drawing.Point(670, 120);
+            this.loadWeaponGroupBtn.Location = new System.Drawing.Point(893, 148);
+            this.loadWeaponGroupBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.loadWeaponGroupBtn.Name = "loadWeaponGroupBtn";
-            this.loadWeaponGroupBtn.Size = new System.Drawing.Size(158, 25);
+            this.loadWeaponGroupBtn.Size = new System.Drawing.Size(211, 31);
             this.loadWeaponGroupBtn.TabIndex = 121;
             this.loadWeaponGroupBtn.Text = "Load Group";
             this.loadWeaponGroupBtn.UseVisualStyleBackColor = true;
@@ -2410,9 +2552,10 @@ namespace IGIEditor
             // 
             this.saveWeaponGroupBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveWeaponGroupBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.saveWeaponGroupBtn.Location = new System.Drawing.Point(506, 120);
+            this.saveWeaponGroupBtn.Location = new System.Drawing.Point(675, 148);
+            this.saveWeaponGroupBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.saveWeaponGroupBtn.Name = "saveWeaponGroupBtn";
-            this.saveWeaponGroupBtn.Size = new System.Drawing.Size(158, 25);
+            this.saveWeaponGroupBtn.Size = new System.Drawing.Size(211, 31);
             this.saveWeaponGroupBtn.TabIndex = 120;
             this.saveWeaponGroupBtn.Text = "Save Group";
             this.saveWeaponGroupBtn.UseVisualStyleBackColor = true;
@@ -2423,8 +2566,8 @@ namespace IGIEditor
             this.weaponAmmoTxt.BackColor = System.Drawing.SystemColors.Control;
             this.weaponAmmoTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.weaponAmmoTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponAmmoTxt.Location = new System.Drawing.Point(178, 55);
-            this.weaponAmmoTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.weaponAmmoTxt.Location = new System.Drawing.Point(237, 68);
+            this.weaponAmmoTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.weaponAmmoTxt.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -2436,7 +2579,7 @@ namespace IGIEditor
             0,
             0});
             this.weaponAmmoTxt.Name = "weaponAmmoTxt";
-            this.weaponAmmoTxt.Size = new System.Drawing.Size(76, 24);
+            this.weaponAmmoTxt.Size = new System.Drawing.Size(101, 28);
             this.weaponAmmoTxt.TabIndex = 115;
             this.weaponAmmoTxt.Value = new decimal(new int[] {
             100,
@@ -2448,9 +2591,10 @@ namespace IGIEditor
             // 
             this.markWeaponsCb.AutoSize = true;
             this.markWeaponsCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.markWeaponsCb.Location = new System.Drawing.Point(724, 250);
+            this.markWeaponsCb.Location = new System.Drawing.Point(965, 308);
+            this.markWeaponsCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.markWeaponsCb.Name = "markWeaponsCb";
-            this.markWeaponsCb.Size = new System.Drawing.Size(94, 17);
+            this.markWeaponsCb.Size = new System.Drawing.Size(114, 20);
             this.markWeaponsCb.TabIndex = 113;
             this.markWeaponsCb.Text = "Mark Weapon";
             this.markWeaponsCb.UseVisualStyleBackColor = true;
@@ -2459,9 +2603,10 @@ namespace IGIEditor
             // 
             this.allWeaponsCb.AutoSize = true;
             this.allWeaponsCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.allWeaponsCb.Location = new System.Drawing.Point(724, 231);
+            this.allWeaponsCb.Location = new System.Drawing.Point(965, 284);
+            this.allWeaponsCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.allWeaponsCb.Name = "allWeaponsCb";
-            this.allWeaponsCb.Size = new System.Drawing.Size(86, 17);
+            this.allWeaponsCb.Size = new System.Drawing.Size(106, 20);
             this.allWeaponsCb.TabIndex = 114;
             this.allWeaponsCb.Text = "All Weapons";
             this.allWeaponsCb.UseVisualStyleBackColor = true;
@@ -2470,9 +2615,10 @@ namespace IGIEditor
             // 
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label4.Location = new System.Drawing.Point(37, 52);
+            this.label4.Location = new System.Drawing.Point(49, 64);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(130, 27);
+            this.label4.Size = new System.Drawing.Size(173, 33);
             this.label4.TabIndex = 112;
             this.label4.Text = "Ammo ";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2484,19 +2630,20 @@ namespace IGIEditor
             this.weaponDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.weaponDD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.weaponDD.FormattingEnabled = true;
-            this.weaponDD.Location = new System.Drawing.Point(178, 10);
-            this.weaponDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.weaponDD.Location = new System.Drawing.Point(237, 12);
+            this.weaponDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.weaponDD.Name = "weaponDD";
-            this.weaponDD.Size = new System.Drawing.Size(315, 24);
+            this.weaponDD.Size = new System.Drawing.Size(419, 28);
             this.weaponDD.TabIndex = 111;
             this.weaponDD.SelectedValueChanged += new System.EventHandler(this.weaponSelectDD_SelectedValueChanged);
             // 
             // weaponImgBox
             // 
             this.weaponImgBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.weaponImgBox.Location = new System.Drawing.Point(17, 100);
+            this.weaponImgBox.Location = new System.Drawing.Point(23, 123);
+            this.weaponImgBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.weaponImgBox.Name = "weaponImgBox";
-            this.weaponImgBox.Size = new System.Drawing.Size(150, 150);
+            this.weaponImgBox.Size = new System.Drawing.Size(199, 184);
             this.weaponImgBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.weaponImgBox.TabIndex = 110;
             this.weaponImgBox.TabStop = false;
@@ -2505,9 +2652,10 @@ namespace IGIEditor
             // 
             this.removeWeaponBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.removeWeaponBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.removeWeaponBtn.Location = new System.Drawing.Point(670, 8);
+            this.removeWeaponBtn.Location = new System.Drawing.Point(893, 10);
+            this.removeWeaponBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.removeWeaponBtn.Name = "removeWeaponBtn";
-            this.removeWeaponBtn.Size = new System.Drawing.Size(158, 25);
+            this.removeWeaponBtn.Size = new System.Drawing.Size(211, 31);
             this.removeWeaponBtn.TabIndex = 109;
             this.removeWeaponBtn.Text = "Remove Weapon";
             this.removeWeaponBtn.UseVisualStyleBackColor = true;
@@ -2517,9 +2665,10 @@ namespace IGIEditor
             // 
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label5.Location = new System.Drawing.Point(34, 6);
+            this.label5.Location = new System.Drawing.Point(45, 7);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(130, 27);
+            this.label5.Size = new System.Drawing.Size(173, 33);
             this.label5.TabIndex = 106;
             this.label5.Text = "Weapon";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2528,9 +2677,10 @@ namespace IGIEditor
             // 
             this.addWeaponBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addWeaponBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.addWeaponBtn.Location = new System.Drawing.Point(506, 8);
+            this.addWeaponBtn.Location = new System.Drawing.Point(675, 10);
+            this.addWeaponBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.addWeaponBtn.Name = "addWeaponBtn";
-            this.addWeaponBtn.Size = new System.Drawing.Size(158, 25);
+            this.addWeaponBtn.Size = new System.Drawing.Size(211, 31);
             this.addWeaponBtn.TabIndex = 105;
             this.addWeaponBtn.Text = "Add Weapon";
             this.addWeaponBtn.UseVisualStyleBackColor = true;
@@ -2575,11 +2725,11 @@ namespace IGIEditor
             this.weaponCfgEditor.Controls.Add(this.updateWeaponPropertiesBtn);
             this.weaponCfgEditor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.weaponCfgEditor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponCfgEditor.Location = new System.Drawing.Point(4, 22);
-            this.weaponCfgEditor.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.weaponCfgEditor.Location = new System.Drawing.Point(4, 25);
+            this.weaponCfgEditor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.weaponCfgEditor.Name = "weaponCfgEditor";
-            this.weaponCfgEditor.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.weaponCfgEditor.Size = new System.Drawing.Size(843, 266);
+            this.weaponCfgEditor.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.weaponCfgEditor.Size = new System.Drawing.Size(1127, 353);
             this.weaponCfgEditor.TabIndex = 1;
             this.weaponCfgEditor.Text = "Advanced";
             this.weaponCfgEditor.Click += new System.EventHandler(this.weaponCfgEditor_Click);
@@ -2589,9 +2739,10 @@ namespace IGIEditor
             this.loadWeaponProps.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loadWeaponProps.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.loadWeaponProps.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.loadWeaponProps.Location = new System.Drawing.Point(712, 6);
+            this.loadWeaponProps.Location = new System.Drawing.Point(949, 7);
+            this.loadWeaponProps.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.loadWeaponProps.Name = "loadWeaponProps";
-            this.loadWeaponProps.Size = new System.Drawing.Size(124, 25);
+            this.loadWeaponProps.Size = new System.Drawing.Size(165, 31);
             this.loadWeaponProps.TabIndex = 157;
             this.loadWeaponProps.Text = "Load";
             this.loadWeaponProps.UseVisualStyleBackColor = true;
@@ -2602,9 +2753,10 @@ namespace IGIEditor
             this.saveWeaponProps.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveWeaponProps.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.saveWeaponProps.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.saveWeaponProps.Location = new System.Drawing.Point(587, 6);
+            this.saveWeaponProps.Location = new System.Drawing.Point(783, 7);
+            this.saveWeaponProps.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.saveWeaponProps.Name = "saveWeaponProps";
-            this.saveWeaponProps.Size = new System.Drawing.Size(124, 25);
+            this.saveWeaponProps.Size = new System.Drawing.Size(165, 31);
             this.saveWeaponProps.TabIndex = 156;
             this.saveWeaponProps.Text = "Save";
             this.saveWeaponProps.UseVisualStyleBackColor = true;
@@ -2615,9 +2767,10 @@ namespace IGIEditor
             this.resetWeaponBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.resetWeaponBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.resetWeaponBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.resetWeaponBtn.Location = new System.Drawing.Point(712, 255);
+            this.resetWeaponBtn.Location = new System.Drawing.Point(949, 314);
+            this.resetWeaponBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.resetWeaponBtn.Name = "resetWeaponBtn";
-            this.resetWeaponBtn.Size = new System.Drawing.Size(119, 25);
+            this.resetWeaponBtn.Size = new System.Drawing.Size(159, 31);
             this.resetWeaponBtn.TabIndex = 155;
             this.resetWeaponBtn.Text = "Reset";
             this.resetWeaponBtn.UseVisualStyleBackColor = true;
@@ -2634,15 +2787,15 @@ namespace IGIEditor
             0,
             0,
             131072});
-            this.weaponRangeTxt.Location = new System.Drawing.Point(507, 254);
-            this.weaponRangeTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.weaponRangeTxt.Location = new System.Drawing.Point(676, 313);
+            this.weaponRangeTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.weaponRangeTxt.Maximum = new decimal(new int[] {
             -805306368,
             967903254,
             1843143693,
             0});
             this.weaponRangeTxt.Name = "weaponRangeTxt";
-            this.weaponRangeTxt.Size = new System.Drawing.Size(75, 24);
+            this.weaponRangeTxt.Size = new System.Drawing.Size(100, 28);
             this.weaponRangeTxt.TabIndex = 153;
             this.weaponRangeTxt.Value = new decimal(new int[] {
             20,
@@ -2654,9 +2807,10 @@ namespace IGIEditor
             // 
             this.weaponRangeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.weaponRangeLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponRangeLbl.Location = new System.Drawing.Point(439, 252);
+            this.weaponRangeLbl.Location = new System.Drawing.Point(585, 310);
+            this.weaponRangeLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.weaponRangeLbl.Name = "weaponRangeLbl";
-            this.weaponRangeLbl.Size = new System.Drawing.Size(63, 27);
+            this.weaponRangeLbl.Size = new System.Drawing.Size(84, 33);
             this.weaponRangeLbl.TabIndex = 152;
             this.weaponRangeLbl.Text = "Range";
             this.weaponRangeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2666,15 +2820,15 @@ namespace IGIEditor
             this.weaponRoundPerMinuteTxt.BackColor = System.Drawing.SystemColors.Control;
             this.weaponRoundPerMinuteTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.weaponRoundPerMinuteTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponRoundPerMinuteTxt.Location = new System.Drawing.Point(138, 252);
-            this.weaponRoundPerMinuteTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.weaponRoundPerMinuteTxt.Location = new System.Drawing.Point(184, 310);
+            this.weaponRoundPerMinuteTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.weaponRoundPerMinuteTxt.Maximum = new decimal(new int[] {
             -805306368,
             967903254,
             1843143693,
             0});
             this.weaponRoundPerMinuteTxt.Name = "weaponRoundPerMinuteTxt";
-            this.weaponRoundPerMinuteTxt.Size = new System.Drawing.Size(75, 24);
+            this.weaponRoundPerMinuteTxt.Size = new System.Drawing.Size(100, 28);
             this.weaponRoundPerMinuteTxt.TabIndex = 151;
             this.weaponRoundPerMinuteTxt.Value = new decimal(new int[] {
             5,
@@ -2687,15 +2841,15 @@ namespace IGIEditor
             this.weaponBulletsTxt.BackColor = System.Drawing.SystemColors.Control;
             this.weaponBulletsTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.weaponBulletsTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponBulletsTxt.Location = new System.Drawing.Point(507, 203);
-            this.weaponBulletsTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.weaponBulletsTxt.Location = new System.Drawing.Point(676, 250);
+            this.weaponBulletsTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.weaponBulletsTxt.Maximum = new decimal(new int[] {
             -805306368,
             967903254,
             1843143693,
             0});
             this.weaponBulletsTxt.Name = "weaponBulletsTxt";
-            this.weaponBulletsTxt.Size = new System.Drawing.Size(75, 24);
+            this.weaponBulletsTxt.Size = new System.Drawing.Size(100, 28);
             this.weaponBulletsTxt.TabIndex = 150;
             this.weaponBulletsTxt.Value = new decimal(new int[] {
             70,
@@ -2714,15 +2868,15 @@ namespace IGIEditor
             0,
             0,
             131072});
-            this.weaponPowerTxt.Location = new System.Drawing.Point(340, 203);
-            this.weaponPowerTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.weaponPowerTxt.Location = new System.Drawing.Point(453, 250);
+            this.weaponPowerTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.weaponPowerTxt.Maximum = new decimal(new int[] {
             -805306368,
             967903254,
             1843143693,
             0});
             this.weaponPowerTxt.Name = "weaponPowerTxt";
-            this.weaponPowerTxt.Size = new System.Drawing.Size(75, 24);
+            this.weaponPowerTxt.Size = new System.Drawing.Size(100, 28);
             this.weaponPowerTxt.TabIndex = 149;
             this.weaponPowerTxt.Value = new decimal(new int[] {
             20,
@@ -2741,15 +2895,15 @@ namespace IGIEditor
             0,
             0,
             131072});
-            this.weaponDamageTxt.Location = new System.Drawing.Point(138, 203);
-            this.weaponDamageTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.weaponDamageTxt.Location = new System.Drawing.Point(184, 250);
+            this.weaponDamageTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.weaponDamageTxt.Maximum = new decimal(new int[] {
             -805306368,
             967903254,
             1843143693,
             0});
             this.weaponDamageTxt.Name = "weaponDamageTxt";
-            this.weaponDamageTxt.Size = new System.Drawing.Size(75, 24);
+            this.weaponDamageTxt.Size = new System.Drawing.Size(100, 28);
             this.weaponDamageTxt.TabIndex = 148;
             this.weaponDamageTxt.Value = new decimal(new int[] {
             10,
@@ -2762,15 +2916,15 @@ namespace IGIEditor
             this.weaponRoundPerClipTxt.BackColor = System.Drawing.SystemColors.Control;
             this.weaponRoundPerClipTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.weaponRoundPerClipTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponRoundPerClipTxt.Location = new System.Drawing.Point(340, 255);
-            this.weaponRoundPerClipTxt.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.weaponRoundPerClipTxt.Location = new System.Drawing.Point(453, 314);
+            this.weaponRoundPerClipTxt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.weaponRoundPerClipTxt.Maximum = new decimal(new int[] {
             -805306368,
             967903254,
             1843143693,
             0});
             this.weaponRoundPerClipTxt.Name = "weaponRoundPerClipTxt";
-            this.weaponRoundPerClipTxt.Size = new System.Drawing.Size(76, 24);
+            this.weaponRoundPerClipTxt.Size = new System.Drawing.Size(101, 28);
             this.weaponRoundPerClipTxt.TabIndex = 147;
             this.weaponRoundPerClipTxt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.weaponRoundPerClipTxt.Value = new decimal(new int[] {
@@ -2783,9 +2937,10 @@ namespace IGIEditor
             // 
             this.weaponRoundPerClipLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.weaponRoundPerClipLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponRoundPerClipLbl.Location = new System.Drawing.Point(229, 254);
+            this.weaponRoundPerClipLbl.Location = new System.Drawing.Point(305, 313);
+            this.weaponRoundPerClipLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.weaponRoundPerClipLbl.Name = "weaponRoundPerClipLbl";
-            this.weaponRoundPerClipLbl.Size = new System.Drawing.Size(98, 27);
+            this.weaponRoundPerClipLbl.Size = new System.Drawing.Size(131, 33);
             this.weaponRoundPerClipLbl.TabIndex = 154;
             this.weaponRoundPerClipLbl.Text = "Rounds/Clip";
             this.weaponRoundPerClipLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2794,9 +2949,10 @@ namespace IGIEditor
             // 
             this.weaponRoundPerMinuteLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.weaponRoundPerMinuteLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponRoundPerMinuteLbl.Location = new System.Drawing.Point(5, 252);
+            this.weaponRoundPerMinuteLbl.Location = new System.Drawing.Point(7, 310);
+            this.weaponRoundPerMinuteLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.weaponRoundPerMinuteLbl.Name = "weaponRoundPerMinuteLbl";
-            this.weaponRoundPerMinuteLbl.Size = new System.Drawing.Size(123, 27);
+            this.weaponRoundPerMinuteLbl.Size = new System.Drawing.Size(164, 33);
             this.weaponRoundPerMinuteLbl.TabIndex = 147;
             this.weaponRoundPerMinuteLbl.Text = "Rounds/Minute";
             this.weaponRoundPerMinuteLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2806,9 +2962,10 @@ namespace IGIEditor
             this.updateWeaponPowerDamageBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateWeaponPowerDamageBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.updateWeaponPowerDamageBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.updateWeaponPowerDamageBtn.Location = new System.Drawing.Point(588, 206);
+            this.updateWeaponPowerDamageBtn.Location = new System.Drawing.Point(784, 254);
+            this.updateWeaponPowerDamageBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.updateWeaponPowerDamageBtn.Name = "updateWeaponPowerDamageBtn";
-            this.updateWeaponPowerDamageBtn.Size = new System.Drawing.Size(243, 25);
+            this.updateWeaponPowerDamageBtn.Size = new System.Drawing.Size(324, 31);
             this.updateWeaponPowerDamageBtn.TabIndex = 146;
             this.updateWeaponPowerDamageBtn.Text = "Update Power";
             this.updateWeaponPowerDamageBtn.UseVisualStyleBackColor = true;
@@ -2818,9 +2975,10 @@ namespace IGIEditor
             // 
             this.weaponBulletsLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.weaponBulletsLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponBulletsLbl.Location = new System.Drawing.Point(434, 203);
+            this.weaponBulletsLbl.Location = new System.Drawing.Point(579, 250);
+            this.weaponBulletsLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.weaponBulletsLbl.Name = "weaponBulletsLbl";
-            this.weaponBulletsLbl.Size = new System.Drawing.Size(68, 27);
+            this.weaponBulletsLbl.Size = new System.Drawing.Size(91, 33);
             this.weaponBulletsLbl.TabIndex = 145;
             this.weaponBulletsLbl.Text = "Bullets";
             this.weaponBulletsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2829,9 +2987,10 @@ namespace IGIEditor
             // 
             this.weaponPowerLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.weaponPowerLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponPowerLbl.Location = new System.Drawing.Point(242, 201);
+            this.weaponPowerLbl.Location = new System.Drawing.Point(323, 247);
+            this.weaponPowerLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.weaponPowerLbl.Name = "weaponPowerLbl";
-            this.weaponPowerLbl.Size = new System.Drawing.Size(63, 27);
+            this.weaponPowerLbl.Size = new System.Drawing.Size(84, 33);
             this.weaponPowerLbl.TabIndex = 144;
             this.weaponPowerLbl.Text = "Power";
             this.weaponPowerLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2840,9 +2999,10 @@ namespace IGIEditor
             // 
             this.weaponDamageLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.weaponDamageLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponDamageLbl.Location = new System.Drawing.Point(8, 203);
+            this.weaponDamageLbl.Location = new System.Drawing.Point(11, 250);
+            this.weaponDamageLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.weaponDamageLbl.Name = "weaponDamageLbl";
-            this.weaponDamageLbl.Size = new System.Drawing.Size(92, 27);
+            this.weaponDamageLbl.Size = new System.Drawing.Size(123, 33);
             this.weaponDamageLbl.TabIndex = 143;
             this.weaponDamageLbl.Text = "Damage";
             this.weaponDamageLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2855,10 +3015,10 @@ namespace IGIEditor
             this.weaponSfx2DD.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.weaponSfx2DD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.weaponSfx2DD.FormattingEnabled = true;
-            this.weaponSfx2DD.Location = new System.Drawing.Point(420, 154);
-            this.weaponSfx2DD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.weaponSfx2DD.Location = new System.Drawing.Point(560, 190);
+            this.weaponSfx2DD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.weaponSfx2DD.Name = "weaponSfx2DD";
-            this.weaponSfx2DD.Size = new System.Drawing.Size(157, 24);
+            this.weaponSfx2DD.Size = new System.Drawing.Size(208, 28);
             this.weaponSfx2DD.TabIndex = 142;
             // 
             // weaponSfx1DD
@@ -2869,10 +3029,10 @@ namespace IGIEditor
             this.weaponSfx1DD.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.weaponSfx1DD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.weaponSfx1DD.FormattingEnabled = true;
-            this.weaponSfx1DD.Location = new System.Drawing.Point(105, 154);
-            this.weaponSfx1DD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.weaponSfx1DD.Location = new System.Drawing.Point(140, 190);
+            this.weaponSfx1DD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.weaponSfx1DD.Name = "weaponSfx1DD";
-            this.weaponSfx1DD.Size = new System.Drawing.Size(157, 24);
+            this.weaponSfx1DD.Size = new System.Drawing.Size(208, 28);
             this.weaponSfx1DD.TabIndex = 141;
             // 
             // weaponDisplayTypeDD
@@ -2890,19 +3050,20 @@ namespace IGIEditor
             "CLIP",
             "NORMAL",
             "NONE"});
-            this.weaponDisplayTypeDD.Location = new System.Drawing.Point(420, 101);
-            this.weaponDisplayTypeDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.weaponDisplayTypeDD.Location = new System.Drawing.Point(560, 124);
+            this.weaponDisplayTypeDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.weaponDisplayTypeDD.Name = "weaponDisplayTypeDD";
-            this.weaponDisplayTypeDD.Size = new System.Drawing.Size(157, 24);
+            this.weaponDisplayTypeDD.Size = new System.Drawing.Size(208, 28);
             this.weaponDisplayTypeDD.TabIndex = 142;
             // 
             // sfx2Lbl
             // 
             this.sfx2Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.sfx2Lbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.sfx2Lbl.Location = new System.Drawing.Point(305, 154);
+            this.sfx2Lbl.Location = new System.Drawing.Point(407, 190);
+            this.sfx2Lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.sfx2Lbl.Name = "sfx2Lbl";
-            this.sfx2Lbl.Size = new System.Drawing.Size(110, 27);
+            this.sfx2Lbl.Size = new System.Drawing.Size(147, 33);
             this.sfx2Lbl.TabIndex = 140;
             this.sfx2Lbl.Text = "Sound Effect 2";
             this.sfx2Lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2918,19 +3079,20 @@ namespace IGIEditor
             this.weaponSightTypeDD.Items.AddRange(new object[] {
             "CROSSHAIR",
             "NONE"});
-            this.weaponSightTypeDD.Location = new System.Drawing.Point(105, 101);
-            this.weaponSightTypeDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.weaponSightTypeDD.Location = new System.Drawing.Point(140, 124);
+            this.weaponSightTypeDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.weaponSightTypeDD.Name = "weaponSightTypeDD";
-            this.weaponSightTypeDD.Size = new System.Drawing.Size(157, 24);
+            this.weaponSightTypeDD.Size = new System.Drawing.Size(208, 28);
             this.weaponSightTypeDD.TabIndex = 141;
             // 
             // sfx1Lbl
             // 
             this.sfx1Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sfx1Lbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.sfx1Lbl.Location = new System.Drawing.Point(5, 151);
+            this.sfx1Lbl.Location = new System.Drawing.Point(7, 186);
+            this.sfx1Lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.sfx1Lbl.Name = "sfx1Lbl";
-            this.sfx1Lbl.Size = new System.Drawing.Size(100, 27);
+            this.sfx1Lbl.Size = new System.Drawing.Size(133, 33);
             this.sfx1Lbl.TabIndex = 138;
             this.sfx1Lbl.Text = "Sound Effect 1";
             this.sfx1Lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2939,9 +3101,10 @@ namespace IGIEditor
             // 
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label6.Location = new System.Drawing.Point(305, 101);
+            this.label6.Location = new System.Drawing.Point(407, 124);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(110, 27);
+            this.label6.Size = new System.Drawing.Size(147, 33);
             this.label6.TabIndex = 140;
             this.label6.Text = "Display AIType";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2951,9 +3114,10 @@ namespace IGIEditor
             this.updateWeaponSFXBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateWeaponSFXBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.updateWeaponSFXBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.updateWeaponSFXBtn.Location = new System.Drawing.Point(588, 154);
+            this.updateWeaponSFXBtn.Location = new System.Drawing.Point(784, 190);
+            this.updateWeaponSFXBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.updateWeaponSFXBtn.Name = "updateWeaponSFXBtn";
-            this.updateWeaponSFXBtn.Size = new System.Drawing.Size(242, 25);
+            this.updateWeaponSFXBtn.Size = new System.Drawing.Size(323, 31);
             this.updateWeaponSFXBtn.TabIndex = 137;
             this.updateWeaponSFXBtn.Text = "Update SFX";
             this.updateWeaponSFXBtn.UseVisualStyleBackColor = true;
@@ -2963,9 +3127,10 @@ namespace IGIEditor
             // 
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label7.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label7.Location = new System.Drawing.Point(14, 98);
+            this.label7.Location = new System.Drawing.Point(19, 121);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(86, 27);
+            this.label7.Size = new System.Drawing.Size(115, 33);
             this.label7.TabIndex = 138;
             this.label7.Text = "Sight AIType";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2975,9 +3140,10 @@ namespace IGIEditor
             this.updateWeaponUIBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateWeaponUIBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.updateWeaponUIBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.updateWeaponUIBtn.Location = new System.Drawing.Point(588, 101);
+            this.updateWeaponUIBtn.Location = new System.Drawing.Point(784, 124);
+            this.updateWeaponUIBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.updateWeaponUIBtn.Name = "updateWeaponUIBtn";
-            this.updateWeaponUIBtn.Size = new System.Drawing.Size(242, 25);
+            this.updateWeaponUIBtn.Size = new System.Drawing.Size(323, 31);
             this.updateWeaponUIBtn.TabIndex = 137;
             this.updateWeaponUIBtn.Text = "Update UI";
             this.updateWeaponUIBtn.UseVisualStyleBackColor = true;
@@ -2987,9 +3153,10 @@ namespace IGIEditor
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label2.Location = new System.Drawing.Point(313, 56);
+            this.label2.Location = new System.Drawing.Point(417, 69);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 27);
+            this.label2.Size = new System.Drawing.Size(137, 33);
             this.label2.TabIndex = 135;
             this.label2.Text = "Description";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3000,9 +3167,10 @@ namespace IGIEditor
             this.weaponDescriptionTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.weaponDescriptionTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.weaponDescriptionTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponDescriptionTxt.Location = new System.Drawing.Point(422, 57);
+            this.weaponDescriptionTxt.Location = new System.Drawing.Point(563, 70);
+            this.weaponDescriptionTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.weaponDescriptionTxt.Name = "weaponDescriptionTxt";
-            this.weaponDescriptionTxt.Size = new System.Drawing.Size(156, 24);
+            this.weaponDescriptionTxt.Size = new System.Drawing.Size(207, 28);
             this.weaponDescriptionTxt.TabIndex = 134;
             this.weaponDescriptionTxt.Text = "<SNIPDESC>";
             this.infoViewer.SetToolTip(this.weaponDescriptionTxt, "Weapon Description");
@@ -3011,9 +3179,10 @@ namespace IGIEditor
             // 
             this.weaponNameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.weaponNameLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponNameLbl.Location = new System.Drawing.Point(14, 57);
+            this.weaponNameLbl.Location = new System.Drawing.Point(19, 70);
+            this.weaponNameLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.weaponNameLbl.Name = "weaponNameLbl";
-            this.weaponNameLbl.Size = new System.Drawing.Size(86, 27);
+            this.weaponNameLbl.Size = new System.Drawing.Size(115, 33);
             this.weaponNameLbl.TabIndex = 133;
             this.weaponNameLbl.Text = "Name";
             this.weaponNameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3026,10 +3195,10 @@ namespace IGIEditor
             this.weaponCfgDD.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.weaponCfgDD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.weaponCfgDD.FormattingEnabled = true;
-            this.weaponCfgDD.Location = new System.Drawing.Point(237, 5);
-            this.weaponCfgDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.weaponCfgDD.Location = new System.Drawing.Point(316, 6);
+            this.weaponCfgDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.weaponCfgDD.Name = "weaponCfgDD";
-            this.weaponCfgDD.Size = new System.Drawing.Size(315, 24);
+            this.weaponCfgDD.Size = new System.Drawing.Size(419, 28);
             this.weaponCfgDD.TabIndex = 123;
             this.weaponCfgDD.SelectedIndexChanged += new System.EventHandler(this.weaponCfgDD_SelectedIndexChanged);
             // 
@@ -3037,9 +3206,10 @@ namespace IGIEditor
             // 
             this.weaponTypeLblDD.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.weaponTypeLblDD.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponTypeLblDD.Location = new System.Drawing.Point(94, 2);
+            this.weaponTypeLblDD.Location = new System.Drawing.Point(125, 2);
+            this.weaponTypeLblDD.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.weaponTypeLblDD.Name = "weaponTypeLblDD";
-            this.weaponTypeLblDD.Size = new System.Drawing.Size(130, 27);
+            this.weaponTypeLblDD.Size = new System.Drawing.Size(173, 33);
             this.weaponTypeLblDD.TabIndex = 122;
             this.weaponTypeLblDD.Text = "Weapon";
             this.weaponTypeLblDD.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3049,9 +3219,10 @@ namespace IGIEditor
             this.updateWeaponDetailsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateWeaponDetailsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.updateWeaponDetailsBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.updateWeaponDetailsBtn.Location = new System.Drawing.Point(588, 57);
+            this.updateWeaponDetailsBtn.Location = new System.Drawing.Point(784, 70);
+            this.updateWeaponDetailsBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.updateWeaponDetailsBtn.Name = "updateWeaponDetailsBtn";
-            this.updateWeaponDetailsBtn.Size = new System.Drawing.Size(243, 25);
+            this.updateWeaponDetailsBtn.Size = new System.Drawing.Size(324, 31);
             this.updateWeaponDetailsBtn.TabIndex = 121;
             this.updateWeaponDetailsBtn.Text = "Update Details";
             this.updateWeaponDetailsBtn.UseVisualStyleBackColor = true;
@@ -3063,9 +3234,10 @@ namespace IGIEditor
             this.weaponNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.weaponNameTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.weaponNameTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.weaponNameTxt.Location = new System.Drawing.Point(106, 57);
+            this.weaponNameTxt.Location = new System.Drawing.Point(141, 70);
+            this.weaponNameTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.weaponNameTxt.Name = "weaponNameTxt";
-            this.weaponNameTxt.Size = new System.Drawing.Size(156, 24);
+            this.weaponNameTxt.Size = new System.Drawing.Size(207, 28);
             this.weaponNameTxt.TabIndex = 120;
             this.weaponNameTxt.Text = "Sniperz";
             this.infoViewer.SetToolTip(this.weaponNameTxt, "Weapon Name");
@@ -3075,9 +3247,10 @@ namespace IGIEditor
             this.updateWeaponPropertiesBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateWeaponPropertiesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.updateWeaponPropertiesBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.updateWeaponPropertiesBtn.Location = new System.Drawing.Point(587, 255);
+            this.updateWeaponPropertiesBtn.Location = new System.Drawing.Point(783, 314);
+            this.updateWeaponPropertiesBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.updateWeaponPropertiesBtn.Name = "updateWeaponPropertiesBtn";
-            this.updateWeaponPropertiesBtn.Size = new System.Drawing.Size(124, 25);
+            this.updateWeaponPropertiesBtn.Size = new System.Drawing.Size(165, 31);
             this.updateWeaponPropertiesBtn.TabIndex = 119;
             this.updateWeaponPropertiesBtn.Text = "Update";
             this.updateWeaponPropertiesBtn.UseVisualStyleBackColor = true;
@@ -3100,182 +3273,183 @@ namespace IGIEditor
             this.threeDEditor.Controls.Add(this.terrainPreview3D);
             this.threeDEditor.Controls.Add(this.terrainPreviewBox);
             this.threeDEditor.Controls.Add(this.loadTerrainBtn);
-            this.threeDEditor.Controls.Add(this.resume3DEditorBtn);
-            this.threeDEditor.Controls.Add(this.start3DEditorBtn);
             this.threeDEditor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.threeDEditor.Location = new System.Drawing.Point(4, 46);
+            this.threeDEditor.Location = new System.Drawing.Point(4, 54);
+            this.threeDEditor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.threeDEditor.Name = "threeDEditor";
-            this.threeDEditor.Size = new System.Drawing.Size(851, 292);
+            this.threeDEditor.Size = new System.Drawing.Size(1137, 363);
             this.threeDEditor.TabIndex = 3;
             this.threeDEditor.Text = "Terrain Editor";
-            //
+            // 
             // updateTerrainHeightBtn
-            //
+            // 
             this.updateTerrainHeightBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.updateTerrainHeightBtn.Location = new System.Drawing.Point(740, 100);
+            this.updateTerrainHeightBtn.Location = new System.Drawing.Point(887, 98);
+            this.updateTerrainHeightBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.updateTerrainHeightBtn.Name = "updateTerrainHeightBtn";
-            this.updateTerrainHeightBtn.Size = new System.Drawing.Size(120, 25);
+            this.updateTerrainHeightBtn.Size = new System.Drawing.Size(155, 31);
             this.updateTerrainHeightBtn.TabIndex = 12;
             this.updateTerrainHeightBtn.Text = "Update Height";
             this.updateTerrainHeightBtn.UseVisualStyleBackColor = true;
             this.updateTerrainHeightBtn.Click += new System.EventHandler(this.updateTerrainHeightBtn_Click);
-            //
+            // 
             // terrainHeightVal
-            //
+            // 
             this.terrainHeightVal.DecimalPlaces = 2;
-            this.terrainHeightVal.Location = new System.Drawing.Point(620, 100);
-            this.terrainHeightVal.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            this.terrainHeightVal.Minimum = new decimal(new int[] { 100000, 0, 0, -2147483648 });
+            this.terrainHeightVal.Location = new System.Drawing.Point(733, 103);
+            this.terrainHeightVal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.terrainHeightVal.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.terrainHeightVal.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
             this.terrainHeightVal.Name = "terrainHeightVal";
-            this.terrainHeightVal.Size = new System.Drawing.Size(100, 22);
+            this.terrainHeightVal.Size = new System.Drawing.Size(133, 26);
             this.terrainHeightVal.TabIndex = 11;
-            //
+            // 
             // terrainLabel
-            //
+            // 
             this.terrainLabel.AutoSize = true;
-            this.terrainLabel.Location = new System.Drawing.Point(620, 80);
+            this.terrainLabel.Location = new System.Drawing.Point(733, 78);
+            this.terrainLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.terrainLabel.Name = "terrainLabel";
-            this.terrainLabel.Size = new System.Drawing.Size(100, 16);
+            this.terrainLabel.Size = new System.Drawing.Size(121, 20);
             this.terrainLabel.TabIndex = 10;
             this.terrainLabel.Text = "Terrain Height:";
-            //
-            // terrainCellIdx
-            //
-            this.terrainCellIdx.Location = new System.Drawing.Point(500, 100);
-            this.terrainCellIdx.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });
-            this.terrainCellIdx.Name = "terrainCellIdx";
-            this.terrainCellIdx.Size = new System.Drawing.Size(100, 22);
-            this.terrainCellIdx.TabIndex = 19;
-            this.terrainCellIdx.ValueChanged += new System.EventHandler(this.terrainCellIdx_ValueChanged);
-            //
-            // terrainCellLbl
-            //
-            this.terrainCellLbl.AutoSize = true;
-            this.terrainCellLbl.Location = new System.Drawing.Point(500, 80);
-            this.terrainCellLbl.Name = "terrainCellLbl";
-            this.terrainCellLbl.Size = new System.Drawing.Size(70, 16);
-            this.terrainCellLbl.TabIndex = 18;
-            this.terrainCellLbl.Text = "Cell Index:";
-            //
-            // terrainPreview3D
-            //
-            this.terrainPreview3D.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.terrainPreview3D.Location = new System.Drawing.Point(620, 130);
-            this.terrainPreview3D.Name = "terrainPreview3D";
-            this.terrainPreview3D.Size = new System.Drawing.Size(200, 150);
-            this.terrainPreview3D.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.terrainPreview3D.TabIndex = 20;
-            this.terrainPreview3D.TabStop = false;
-            //
-            // terrainPreviewBox
-            //
-            this.terrainPreviewBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.terrainPreviewBox.Location = new System.Drawing.Point(500, 180);
-            this.terrainPreviewBox.Name = "terrainPreviewBox";
-            this.terrainPreviewBox.Size = new System.Drawing.Size(100, 100);
-            this.terrainPreviewBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.terrainPreviewBox.TabIndex = 17;
-            this.terrainPreviewBox.TabStop = false;
-            //
+            // 
             // terrainItemsList
-            //
+            // 
             this.terrainItemsList.FormattingEnabled = true;
-            this.terrainItemsList.ItemHeight = 16;
-            this.terrainItemsList.Location = new System.Drawing.Point(34, 128);
+            this.terrainItemsList.ItemHeight = 20;
+            this.terrainItemsList.Location = new System.Drawing.Point(45, 158);
+            this.terrainItemsList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.terrainItemsList.Name = "terrainItemsList";
-            this.terrainItemsList.Size = new System.Drawing.Size(430, 140);
+            this.terrainItemsList.Size = new System.Drawing.Size(572, 164);
             this.terrainItemsList.TabIndex = 9;
             this.terrainItemsList.SelectedIndexChanged += new System.EventHandler(this.terrainItemsList_SelectedIndexChanged);
-            //
-            // saveTerrainBtn
-            //
-            this.saveTerrainBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveTerrainBtn.Location = new System.Drawing.Point(630, 28);
-            this.saveTerrainBtn.Name = "saveTerrainBtn";
-            this.saveTerrainBtn.Size = new System.Drawing.Size(163, 25);
-            this.saveTerrainBtn.TabIndex = 8;
-            this.saveTerrainBtn.Text = "Save Terrain";
-            this.saveTerrainBtn.UseVisualStyleBackColor = true;
-            this.saveTerrainBtn.Click += new System.EventHandler(this.saveTerrainBtn_Click);
-            //
+            // 
             // saveLmpBtn
-            //
+            // 
             this.saveLmpBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveLmpBtn.Location = new System.Drawing.Point(630, 92);
+            this.saveLmpBtn.Location = new System.Drawing.Point(352, 98);
+            this.saveLmpBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.saveLmpBtn.Name = "saveLmpBtn";
-            this.saveLmpBtn.Size = new System.Drawing.Size(163, 25);
+            this.saveLmpBtn.Size = new System.Drawing.Size(155, 31);
             this.saveLmpBtn.TabIndex = 16;
             this.saveLmpBtn.Text = "Save LightMap";
             this.saveLmpBtn.UseVisualStyleBackColor = true;
             this.saveLmpBtn.Click += new System.EventHandler(this.saveLmpBtn_Click);
-            //
+            // 
             // loadLmpBtn
-            //
+            // 
             this.loadLmpBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.loadLmpBtn.Location = new System.Drawing.Point(430, 92);
+            this.loadLmpBtn.Location = new System.Drawing.Point(100, 98);
+            this.loadLmpBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.loadLmpBtn.Name = "loadLmpBtn";
-            this.loadLmpBtn.Size = new System.Drawing.Size(163, 25);
+            this.loadLmpBtn.Size = new System.Drawing.Size(155, 31);
             this.loadLmpBtn.TabIndex = 15;
             this.loadLmpBtn.Text = "Load LightMap";
             this.loadLmpBtn.UseVisualStyleBackColor = true;
             this.loadLmpBtn.Click += new System.EventHandler(this.loadLmpBtn_Click);
-            //
+            // 
             // saveBitBtn
-            //
+            // 
             this.saveBitBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveBitBtn.Location = new System.Drawing.Point(630, 60);
+            this.saveBitBtn.Location = new System.Drawing.Point(352, 54);
+            this.saveBitBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.saveBitBtn.Name = "saveBitBtn";
-            this.saveBitBtn.Size = new System.Drawing.Size(163, 25);
+            this.saveBitBtn.Size = new System.Drawing.Size(155, 31);
             this.saveBitBtn.TabIndex = 14;
             this.saveBitBtn.Text = "Save BitMap";
             this.saveBitBtn.UseVisualStyleBackColor = true;
             this.saveBitBtn.Click += new System.EventHandler(this.saveBitBtn_Click);
-            //
+            // 
             // loadBitBtn
-            //
+            // 
             this.loadBitBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.loadBitBtn.Location = new System.Drawing.Point(430, 60);
+            this.loadBitBtn.Location = new System.Drawing.Point(97, 54);
+            this.loadBitBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.loadBitBtn.Name = "loadBitBtn";
-            this.loadBitBtn.Size = new System.Drawing.Size(163, 25);
+            this.loadBitBtn.Size = new System.Drawing.Size(158, 31);
             this.loadBitBtn.TabIndex = 13;
             this.loadBitBtn.Text = "Load BitMap";
             this.loadBitBtn.UseVisualStyleBackColor = true;
             this.loadBitBtn.Click += new System.EventHandler(this.loadBitBtn_Click);
-            //
+            // 
+            // saveTerrainBtn
+            // 
+            this.saveTerrainBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveTerrainBtn.Location = new System.Drawing.Point(352, 12);
+            this.saveTerrainBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.saveTerrainBtn.Name = "saveTerrainBtn";
+            this.saveTerrainBtn.Size = new System.Drawing.Size(155, 31);
+            this.saveTerrainBtn.TabIndex = 8;
+            this.saveTerrainBtn.Text = "Save Terrain";
+            this.saveTerrainBtn.UseVisualStyleBackColor = true;
+            this.saveTerrainBtn.Click += new System.EventHandler(this.saveTerrainBtn_Click);
+            // 
+            // terrainCellIdx
+            // 
+            this.terrainCellIdx.Location = new System.Drawing.Point(573, 103);
+            this.terrainCellIdx.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.terrainCellIdx.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.terrainCellIdx.Name = "terrainCellIdx";
+            this.terrainCellIdx.Size = new System.Drawing.Size(133, 26);
+            this.terrainCellIdx.TabIndex = 19;
+            this.terrainCellIdx.ValueChanged += new System.EventHandler(this.terrainCellIdx_ValueChanged);
+            // 
+            // terrainCellLbl
+            // 
+            this.terrainCellLbl.AutoSize = true;
+            this.terrainCellLbl.Location = new System.Drawing.Point(573, 78);
+            this.terrainCellLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.terrainCellLbl.Name = "terrainCellLbl";
+            this.terrainCellLbl.Size = new System.Drawing.Size(87, 20);
+            this.terrainCellLbl.TabIndex = 18;
+            this.terrainCellLbl.Text = "Cell Index:";
+            // 
+            // terrainPreview3D
+            // 
+            this.terrainPreview3D.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.terrainPreview3D.Location = new System.Drawing.Point(827, 160);
+            this.terrainPreview3D.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.terrainPreview3D.Name = "terrainPreview3D";
+            this.terrainPreview3D.Size = new System.Drawing.Size(266, 184);
+            this.terrainPreview3D.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.terrainPreview3D.TabIndex = 20;
+            this.terrainPreview3D.TabStop = false;
+            // 
+            // terrainPreviewBox
+            // 
+            this.terrainPreviewBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.terrainPreviewBox.Location = new System.Drawing.Point(667, 222);
+            this.terrainPreviewBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.terrainPreviewBox.Name = "terrainPreviewBox";
+            this.terrainPreviewBox.Size = new System.Drawing.Size(133, 123);
+            this.terrainPreviewBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.terrainPreviewBox.TabIndex = 17;
+            this.terrainPreviewBox.TabStop = false;
+            // 
             // loadTerrainBtn
-            //
+            // 
             this.loadTerrainBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.loadTerrainBtn.Location = new System.Drawing.Point(430, 28);
+            this.loadTerrainBtn.Location = new System.Drawing.Point(97, 12);
+            this.loadTerrainBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.loadTerrainBtn.Name = "loadTerrainBtn";
-            this.loadTerrainBtn.Size = new System.Drawing.Size(163, 25);
+            this.loadTerrainBtn.Size = new System.Drawing.Size(158, 31);
             this.loadTerrainBtn.TabIndex = 7;
             this.loadTerrainBtn.Text = "Load Terrain";
             this.loadTerrainBtn.UseVisualStyleBackColor = true;
             this.loadTerrainBtn.Click += new System.EventHandler(this.loadTerrainBtn_Click);
-            // 
-            // resume3DEditorBtn
-            // 
-            this.resume3DEditorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.resume3DEditorBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.resume3DEditorBtn.Location = new System.Drawing.Point(343, 101);
-            this.resume3DEditorBtn.Name = "resume3DEditorBtn";
-            this.resume3DEditorBtn.Size = new System.Drawing.Size(200, 33);
-            this.resume3DEditorBtn.TabIndex = 22;
-            this.resume3DEditorBtn.Text = "Resume 3D Editor";
-            this.resume3DEditorBtn.UseVisualStyleBackColor = true;
-            this.resume3DEditorBtn.Click += new System.EventHandler(this.start3DEditorBtn_Click);
-            // 
-            // start3DEditorBtn
-            // 
-            this.start3DEditorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.start3DEditorBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.start3DEditorBtn.Location = new System.Drawing.Point(343, 62);
-            this.start3DEditorBtn.Name = "start3DEditorBtn";
-            this.start3DEditorBtn.Size = new System.Drawing.Size(200, 33);
-            this.start3DEditorBtn.TabIndex = 21;
-            this.start3DEditorBtn.Text = "Start 3D Editor";
-            this.start3DEditorBtn.UseVisualStyleBackColor = true;
-            this.start3DEditorBtn.Click += new System.EventHandler(this.start3DEditorBtn_Click);
             // 
             // missionEditor
             // 
@@ -3301,9 +3475,10 @@ namespace IGIEditor
             this.missionEditor.Controls.Add(this.loadMissionBtn);
             this.missionEditor.Controls.Add(this.saveMissionBtn);
             this.missionEditor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.missionEditor.Location = new System.Drawing.Point(4, 46);
+            this.missionEditor.Location = new System.Drawing.Point(4, 54);
+            this.missionEditor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.missionEditor.Name = "missionEditor";
-            this.missionEditor.Size = new System.Drawing.Size(851, 292);
+            this.missionEditor.Size = new System.Drawing.Size(1137, 363);
             this.missionEditor.TabIndex = 4;
             this.missionEditor.Text = "Mission Toolkit";
             // 
@@ -3312,9 +3487,10 @@ namespace IGIEditor
             this.missionLevelLbl.AutoSize = true;
             this.missionLevelLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.missionLevelLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.missionLevelLbl.Location = new System.Drawing.Point(335, 209);
+            this.missionLevelLbl.Location = new System.Drawing.Point(447, 257);
+            this.missionLevelLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.missionLevelLbl.Name = "missionLevelLbl";
-            this.missionLevelLbl.Size = new System.Drawing.Size(42, 18);
+            this.missionLevelLbl.Size = new System.Drawing.Size(55, 24);
             this.missionLevelLbl.TabIndex = 81;
             this.missionLevelLbl.Text = "Level";
             this.missionLevelLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -3324,9 +3500,10 @@ namespace IGIEditor
             this.missionAuthorLbl.AutoSize = true;
             this.missionAuthorLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.missionAuthorLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.missionAuthorLbl.Location = new System.Drawing.Point(169, 209);
+            this.missionAuthorLbl.Location = new System.Drawing.Point(225, 257);
+            this.missionAuthorLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.missionAuthorLbl.Name = "missionAuthorLbl";
-            this.missionAuthorLbl.Size = new System.Drawing.Size(59, 18);
+            this.missionAuthorLbl.Size = new System.Drawing.Size(76, 24);
             this.missionAuthorLbl.TabIndex = 80;
             this.missionAuthorLbl.Text = "Author: ";
             this.missionAuthorLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -3336,9 +3513,10 @@ namespace IGIEditor
             this.missionSizeLbl.AutoSize = true;
             this.missionSizeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.missionSizeLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.missionSizeLbl.Location = new System.Drawing.Point(395, 209);
+            this.missionSizeLbl.Location = new System.Drawing.Point(527, 257);
+            this.missionSizeLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.missionSizeLbl.Name = "missionSizeLbl";
-            this.missionSizeLbl.Size = new System.Drawing.Size(43, 17);
+            this.missionSizeLbl.Size = new System.Drawing.Size(52, 20);
             this.missionSizeLbl.TabIndex = 79;
             this.missionSizeLbl.Text = "Size: ";
             this.missionSizeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -3350,10 +3528,10 @@ namespace IGIEditor
             this.missionsOnlineDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.missionsOnlineDD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.missionsOnlineDD.FormattingEnabled = true;
-            this.missionsOnlineDD.Location = new System.Drawing.Point(172, 175);
-            this.missionsOnlineDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.missionsOnlineDD.Location = new System.Drawing.Point(229, 215);
+            this.missionsOnlineDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.missionsOnlineDD.Name = "missionsOnlineDD";
-            this.missionsOnlineDD.Size = new System.Drawing.Size(336, 24);
+            this.missionsOnlineDD.Size = new System.Drawing.Size(447, 28);
             this.missionsOnlineDD.TabIndex = 78;
             this.missionsOnlineDD.SelectedIndexChanged += new System.EventHandler(this.missionsOnlineDD_SelectedIndexChanged);
             // 
@@ -3361,9 +3539,10 @@ namespace IGIEditor
             // 
             this.uploadMissionBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.uploadMissionBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.uploadMissionBtn.Location = new System.Drawing.Point(338, 267);
+            this.uploadMissionBtn.Location = new System.Drawing.Point(451, 329);
+            this.uploadMissionBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.uploadMissionBtn.Name = "uploadMissionBtn";
-            this.uploadMissionBtn.Size = new System.Drawing.Size(169, 25);
+            this.uploadMissionBtn.Size = new System.Drawing.Size(225, 31);
             this.uploadMissionBtn.TabIndex = 77;
             this.uploadMissionBtn.Text = "Upload";
             this.uploadMissionBtn.UseVisualStyleBackColor = true;
@@ -3373,9 +3552,10 @@ namespace IGIEditor
             // 
             this.missionServerList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.missionServerList.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.missionServerList.Location = new System.Drawing.Point(33, 172);
+            this.missionServerList.Location = new System.Drawing.Point(44, 212);
+            this.missionServerList.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.missionServerList.Name = "missionServerList";
-            this.missionServerList.Size = new System.Drawing.Size(130, 27);
+            this.missionServerList.Size = new System.Drawing.Size(173, 33);
             this.missionServerList.TabIndex = 76;
             this.missionServerList.Text = "Missions Online";
             this.missionServerList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3386,9 +3566,10 @@ namespace IGIEditor
             this.missionLevelFlowTimerCb.Checked = true;
             this.missionLevelFlowTimerCb.CheckState = System.Windows.Forms.CheckState.Checked;
             this.missionLevelFlowTimerCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.missionLevelFlowTimerCb.Location = new System.Drawing.Point(607, 290);
+            this.missionLevelFlowTimerCb.Location = new System.Drawing.Point(809, 357);
+            this.missionLevelFlowTimerCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.missionLevelFlowTimerCb.Name = "missionLevelFlowTimerCb";
-            this.missionLevelFlowTimerCb.Size = new System.Drawing.Size(88, 17);
+            this.missionLevelFlowTimerCb.Size = new System.Drawing.Size(110, 20);
             this.missionLevelFlowTimerCb.TabIndex = 74;
             this.missionLevelFlowTimerCb.Text = "Enable Timer";
             this.missionLevelFlowTimerCb.UseVisualStyleBackColor = true;
@@ -3397,9 +3578,10 @@ namespace IGIEditor
             // 
             this.missionPlayTimeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.missionPlayTimeLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.missionPlayTimeLbl.Location = new System.Drawing.Point(604, 251);
+            this.missionPlayTimeLbl.Location = new System.Drawing.Point(805, 309);
+            this.missionPlayTimeLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.missionPlayTimeLbl.Name = "missionPlayTimeLbl";
-            this.missionPlayTimeLbl.Size = new System.Drawing.Size(92, 27);
+            this.missionPlayTimeLbl.Size = new System.Drawing.Size(123, 33);
             this.missionPlayTimeLbl.TabIndex = 36;
             this.missionPlayTimeLbl.Text = "Play Time";
             this.missionPlayTimeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3408,9 +3590,10 @@ namespace IGIEditor
             // 
             this.addLevelFlowBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addLevelFlowBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.addLevelFlowBtn.Location = new System.Drawing.Point(710, 282);
+            this.addLevelFlowBtn.Location = new System.Drawing.Point(947, 347);
+            this.addLevelFlowBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.addLevelFlowBtn.Name = "addLevelFlowBtn";
-            this.addLevelFlowBtn.Size = new System.Drawing.Size(137, 25);
+            this.addLevelFlowBtn.Size = new System.Drawing.Size(183, 31);
             this.addLevelFlowBtn.TabIndex = 35;
             this.addLevelFlowBtn.Text = "Add Timer";
             this.addLevelFlowBtn.UseVisualStyleBackColor = true;
@@ -3420,9 +3603,10 @@ namespace IGIEditor
             // 
             this.downloadMissionBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.downloadMissionBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.downloadMissionBtn.Location = new System.Drawing.Point(172, 267);
+            this.downloadMissionBtn.Location = new System.Drawing.Point(229, 329);
+            this.downloadMissionBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.downloadMissionBtn.Name = "downloadMissionBtn";
-            this.downloadMissionBtn.Size = new System.Drawing.Size(166, 25);
+            this.downloadMissionBtn.Size = new System.Drawing.Size(221, 31);
             this.downloadMissionBtn.TabIndex = 34;
             this.downloadMissionBtn.Text = "Download";
             this.downloadMissionBtn.UseVisualStyleBackColor = true;
@@ -3432,9 +3616,10 @@ namespace IGIEditor
             // 
             this.installMissionBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.installMissionBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.installMissionBtn.Location = new System.Drawing.Point(534, 31);
+            this.installMissionBtn.Location = new System.Drawing.Point(712, 38);
+            this.installMissionBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.installMissionBtn.Name = "installMissionBtn";
-            this.installMissionBtn.Size = new System.Drawing.Size(158, 25);
+            this.installMissionBtn.Size = new System.Drawing.Size(211, 31);
             this.installMissionBtn.TabIndex = 34;
             this.installMissionBtn.Text = "Install Mission";
             this.installMissionBtn.UseVisualStyleBackColor = true;
@@ -3446,18 +3631,20 @@ namespace IGIEditor
             this.missionDescTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.missionDescTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.missionDescTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.missionDescTxt.Location = new System.Drawing.Point(170, 81);
+            this.missionDescTxt.Location = new System.Drawing.Point(227, 100);
+            this.missionDescTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.missionDescTxt.Name = "missionDescTxt";
-            this.missionDescTxt.Size = new System.Drawing.Size(338, 24);
+            this.missionDescTxt.Size = new System.Drawing.Size(450, 28);
             this.missionDescTxt.TabIndex = 33;
             // 
             // missionDescLbl
             // 
             this.missionDescLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.missionDescLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.missionDescLbl.Location = new System.Drawing.Point(39, 81);
+            this.missionDescLbl.Location = new System.Drawing.Point(52, 100);
+            this.missionDescLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.missionDescLbl.Name = "missionDescLbl";
-            this.missionDescLbl.Size = new System.Drawing.Size(130, 27);
+            this.missionDescLbl.Size = new System.Drawing.Size(173, 33);
             this.missionDescLbl.TabIndex = 32;
             this.missionDescLbl.Text = "Description ";
             this.missionDescLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3466,9 +3653,10 @@ namespace IGIEditor
             // 
             this.missionRefreshBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.missionRefreshBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.missionRefreshBtn.Location = new System.Drawing.Point(534, 172);
+            this.missionRefreshBtn.Location = new System.Drawing.Point(712, 212);
+            this.missionRefreshBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.missionRefreshBtn.Name = "missionRefreshBtn";
-            this.missionRefreshBtn.Size = new System.Drawing.Size(158, 25);
+            this.missionRefreshBtn.Size = new System.Drawing.Size(211, 31);
             this.missionRefreshBtn.TabIndex = 28;
             this.missionRefreshBtn.Text = "Refresh Missions";
             this.missionRefreshBtn.UseVisualStyleBackColor = true;
@@ -3478,9 +3666,10 @@ namespace IGIEditor
             // 
             this.removeMissionBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.removeMissionBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.removeMissionBtn.Location = new System.Drawing.Point(534, 82);
+            this.removeMissionBtn.Location = new System.Drawing.Point(712, 101);
+            this.removeMissionBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.removeMissionBtn.Name = "removeMissionBtn";
-            this.removeMissionBtn.Size = new System.Drawing.Size(158, 25);
+            this.removeMissionBtn.Size = new System.Drawing.Size(211, 31);
             this.removeMissionBtn.TabIndex = 28;
             this.removeMissionBtn.Text = "Remove Mission";
             this.removeMissionBtn.UseVisualStyleBackColor = true;
@@ -3492,9 +3681,10 @@ namespace IGIEditor
             this.missionPlayTimeTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.missionPlayTimeTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.missionPlayTimeTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.missionPlayTimeTxt.Location = new System.Drawing.Point(710, 251);
+            this.missionPlayTimeTxt.Location = new System.Drawing.Point(947, 309);
+            this.missionPlayTimeTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.missionPlayTimeTxt.Name = "missionPlayTimeTxt";
-            this.missionPlayTimeTxt.Size = new System.Drawing.Size(138, 24);
+            this.missionPlayTimeTxt.Size = new System.Drawing.Size(183, 28);
             this.missionPlayTimeTxt.TabIndex = 30;
             this.missionPlayTimeTxt.Text = "60";
             // 
@@ -3504,18 +3694,20 @@ namespace IGIEditor
             this.missionNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.missionNameTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.missionNameTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.missionNameTxt.Location = new System.Drawing.Point(170, 33);
+            this.missionNameTxt.Location = new System.Drawing.Point(227, 41);
+            this.missionNameTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.missionNameTxt.Name = "missionNameTxt";
-            this.missionNameTxt.Size = new System.Drawing.Size(338, 24);
+            this.missionNameTxt.Size = new System.Drawing.Size(450, 28);
             this.missionNameTxt.TabIndex = 30;
             // 
             // missionNameLbl
             // 
             this.missionNameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.missionNameLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.missionNameLbl.Location = new System.Drawing.Point(39, 32);
+            this.missionNameLbl.Location = new System.Drawing.Point(52, 39);
+            this.missionNameLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.missionNameLbl.Name = "missionNameLbl";
-            this.missionNameLbl.Size = new System.Drawing.Size(130, 27);
+            this.missionNameLbl.Size = new System.Drawing.Size(173, 33);
             this.missionNameLbl.TabIndex = 29;
             this.missionNameLbl.Text = "Name ";
             this.missionNameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3524,9 +3716,10 @@ namespace IGIEditor
             // 
             this.loadMissionBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loadMissionBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.loadMissionBtn.Location = new System.Drawing.Point(338, 122);
+            this.loadMissionBtn.Location = new System.Drawing.Point(451, 150);
+            this.loadMissionBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.loadMissionBtn.Name = "loadMissionBtn";
-            this.loadMissionBtn.Size = new System.Drawing.Size(169, 25);
+            this.loadMissionBtn.Size = new System.Drawing.Size(225, 31);
             this.loadMissionBtn.TabIndex = 28;
             this.loadMissionBtn.Text = "Load Mission";
             this.loadMissionBtn.UseVisualStyleBackColor = true;
@@ -3536,9 +3729,10 @@ namespace IGIEditor
             // 
             this.saveMissionBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveMissionBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.saveMissionBtn.Location = new System.Drawing.Point(170, 122);
+            this.saveMissionBtn.Location = new System.Drawing.Point(227, 150);
+            this.saveMissionBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.saveMissionBtn.Name = "saveMissionBtn";
-            this.saveMissionBtn.Size = new System.Drawing.Size(169, 25);
+            this.saveMissionBtn.Size = new System.Drawing.Size(225, 31);
             this.saveMissionBtn.TabIndex = 28;
             this.saveMissionBtn.Text = "Save Mission";
             this.saveMissionBtn.UseVisualStyleBackColor = true;
@@ -3585,10 +3779,10 @@ namespace IGIEditor
             this.graphEditor.Controls.Add(this.graphIdDD);
             this.graphEditor.Controls.Add(this.graphIdLbl);
             this.graphEditor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.graphEditor.Location = new System.Drawing.Point(4, 46);
-            this.graphEditor.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.graphEditor.Location = new System.Drawing.Point(4, 54);
+            this.graphEditor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.graphEditor.Name = "graphEditor";
-            this.graphEditor.Size = new System.Drawing.Size(851, 292);
+            this.graphEditor.Size = new System.Drawing.Size(1137, 363);
             this.graphEditor.TabIndex = 9;
             this.graphEditor.Text = "Graph Toolkit";
             // 
@@ -3596,9 +3790,10 @@ namespace IGIEditor
             // 
             this.nodesInfoCb.AutoSize = true;
             this.nodesInfoCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nodesInfoCb.Location = new System.Drawing.Point(752, 273);
+            this.nodesInfoCb.Location = new System.Drawing.Point(1003, 336);
+            this.nodesInfoCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nodesInfoCb.Name = "nodesInfoCb";
-            this.nodesInfoCb.Size = new System.Drawing.Size(84, 17);
+            this.nodesInfoCb.Size = new System.Drawing.Size(101, 20);
             this.nodesInfoCb.TabIndex = 82;
             this.nodesInfoCb.Text = "Nodes - Info";
             this.nodesInfoCb.UseVisualStyleBackColor = true;
@@ -3608,9 +3803,10 @@ namespace IGIEditor
             // 
             this.showAllGraphsCb.AutoSize = true;
             this.showAllGraphsCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.showAllGraphsCb.Location = new System.Drawing.Point(256, 60);
+            this.showAllGraphsCb.Location = new System.Drawing.Point(341, 74);
+            this.showAllGraphsCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.showAllGraphsCb.Name = "showAllGraphsCb";
-            this.showAllGraphsCb.Size = new System.Drawing.Size(74, 17);
+            this.showAllGraphsCb.Size = new System.Drawing.Size(91, 20);
             this.showAllGraphsCb.TabIndex = 81;
             this.showAllGraphsCb.Text = "All Graphs";
             this.showAllGraphsCb.UseVisualStyleBackColor = true;
@@ -3620,9 +3816,10 @@ namespace IGIEditor
             // 
             this.gameItemsLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gameItemsLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.gameItemsLbl.Location = new System.Drawing.Point(752, 0);
+            this.gameItemsLbl.Location = new System.Drawing.Point(1003, 0);
+            this.gameItemsLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.gameItemsLbl.Name = "gameItemsLbl";
-            this.gameItemsLbl.Size = new System.Drawing.Size(95, 16);
+            this.gameItemsLbl.Size = new System.Drawing.Size(127, 20);
             this.gameItemsLbl.TabIndex = 80;
             this.gameItemsLbl.Text = "Game Items";
             this.gameItemsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3635,9 +3832,10 @@ namespace IGIEditor
             this.stopTraversingNodesBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.stopTraversingNodesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.stopTraversingNodesBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.stopTraversingNodesBtn.Location = new System.Drawing.Point(477, 167);
+            this.stopTraversingNodesBtn.Location = new System.Drawing.Point(636, 206);
+            this.stopTraversingNodesBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.stopTraversingNodesBtn.Name = "stopTraversingNodesBtn";
-            this.stopTraversingNodesBtn.Size = new System.Drawing.Size(110, 33);
+            this.stopTraversingNodesBtn.Size = new System.Drawing.Size(147, 41);
             this.stopTraversingNodesBtn.TabIndex = 79;
             this.stopTraversingNodesBtn.Text = "Stop Traversing";
             this.stopTraversingNodesBtn.UseVisualStyleBackColor = true;
@@ -3649,9 +3847,10 @@ namespace IGIEditor
             this.manualTeleportGraphCb.Checked = true;
             this.manualTeleportGraphCb.CheckState = System.Windows.Forms.CheckState.Checked;
             this.manualTeleportGraphCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.manualTeleportGraphCb.Location = new System.Drawing.Point(38, 207);
+            this.manualTeleportGraphCb.Location = new System.Drawing.Point(51, 255);
+            this.manualTeleportGraphCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.manualTeleportGraphCb.Name = "manualTeleportGraphCb";
-            this.manualTeleportGraphCb.Size = new System.Drawing.Size(97, 17);
+            this.manualTeleportGraphCb.Size = new System.Drawing.Size(118, 20);
             this.manualTeleportGraphCb.TabIndex = 78;
             this.manualTeleportGraphCb.Text = "Manual - Mode";
             this.manualTeleportGraphCb.UseVisualStyleBackColor = true;
@@ -3663,9 +3862,10 @@ namespace IGIEditor
             this.manualTeleportNodeCb.Checked = true;
             this.manualTeleportNodeCb.CheckState = System.Windows.Forms.CheckState.Checked;
             this.manualTeleportNodeCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.manualTeleportNodeCb.Location = new System.Drawing.Point(253, 207);
+            this.manualTeleportNodeCb.Location = new System.Drawing.Point(337, 255);
+            this.manualTeleportNodeCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.manualTeleportNodeCb.Name = "manualTeleportNodeCb";
-            this.manualTeleportNodeCb.Size = new System.Drawing.Size(97, 17);
+            this.manualTeleportNodeCb.Size = new System.Drawing.Size(118, 20);
             this.manualTeleportNodeCb.TabIndex = 77;
             this.manualTeleportNodeCb.Text = "Manual - Mode";
             this.manualTeleportNodeCb.UseVisualStyleBackColor = true;
@@ -3675,9 +3875,10 @@ namespace IGIEditor
             // 
             this.autoTeleportGraphCb.AutoSize = true;
             this.autoTeleportGraphCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.autoTeleportGraphCb.Location = new System.Drawing.Point(151, 207);
+            this.autoTeleportGraphCb.Location = new System.Drawing.Point(201, 255);
+            this.autoTeleportGraphCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.autoTeleportGraphCb.Name = "autoTeleportGraphCb";
-            this.autoTeleportGraphCb.Size = new System.Drawing.Size(84, 17);
+            this.autoTeleportGraphCb.Size = new System.Drawing.Size(101, 20);
             this.autoTeleportGraphCb.TabIndex = 76;
             this.autoTeleportGraphCb.Text = "Auto - Mode";
             this.autoTeleportGraphCb.UseVisualStyleBackColor = true;
@@ -3687,9 +3888,10 @@ namespace IGIEditor
             // 
             this.teleportToGraphBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.teleportToGraphBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.teleportToGraphBtn.Location = new System.Drawing.Point(38, 167);
+            this.teleportToGraphBtn.Location = new System.Drawing.Point(51, 206);
+            this.teleportToGraphBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.teleportToGraphBtn.Name = "teleportToGraphBtn";
-            this.teleportToGraphBtn.Size = new System.Drawing.Size(200, 33);
+            this.teleportToGraphBtn.Size = new System.Drawing.Size(267, 41);
             this.teleportToGraphBtn.TabIndex = 75;
             this.teleportToGraphBtn.Text = "Teleport To Graph";
             this.teleportToGraphBtn.UseVisualStyleBackColor = true;
@@ -3699,9 +3901,10 @@ namespace IGIEditor
             // 
             this.autoTeleportNodeCb.AutoSize = true;
             this.autoTeleportNodeCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.autoTeleportNodeCb.Location = new System.Drawing.Point(365, 207);
+            this.autoTeleportNodeCb.Location = new System.Drawing.Point(487, 255);
+            this.autoTeleportNodeCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.autoTeleportNodeCb.Name = "autoTeleportNodeCb";
-            this.autoTeleportNodeCb.Size = new System.Drawing.Size(84, 17);
+            this.autoTeleportNodeCb.Size = new System.Drawing.Size(101, 20);
             this.autoTeleportNodeCb.TabIndex = 74;
             this.autoTeleportNodeCb.Text = "Auto - Mode";
             this.autoTeleportNodeCb.UseVisualStyleBackColor = true;
@@ -3711,9 +3914,10 @@ namespace IGIEditor
             // 
             this.viewPortCameraEnableCb.AutoSize = true;
             this.viewPortCameraEnableCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.viewPortCameraEnableCb.Location = new System.Drawing.Point(477, 207);
+            this.viewPortCameraEnableCb.Location = new System.Drawing.Point(636, 255);
+            this.viewPortCameraEnableCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.viewPortCameraEnableCb.Name = "viewPortCameraEnableCb";
-            this.viewPortCameraEnableCb.Size = new System.Drawing.Size(104, 17);
+            this.viewPortCameraEnableCb.Size = new System.Drawing.Size(130, 20);
             this.viewPortCameraEnableCb.TabIndex = 73;
             this.viewPortCameraEnableCb.Text = "Camera - Enable";
             this.viewPortCameraEnableCb.UseVisualStyleBackColor = true;
@@ -3723,9 +3927,10 @@ namespace IGIEditor
             // 
             this.teleportToNodeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.teleportToNodeBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.teleportToNodeBtn.Location = new System.Drawing.Point(256, 167);
+            this.teleportToNodeBtn.Location = new System.Drawing.Point(341, 206);
+            this.teleportToNodeBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.teleportToNodeBtn.Name = "teleportToNodeBtn";
-            this.teleportToNodeBtn.Size = new System.Drawing.Size(200, 33);
+            this.teleportToNodeBtn.Size = new System.Drawing.Size(267, 41);
             this.teleportToNodeBtn.TabIndex = 72;
             this.teleportToNodeBtn.Text = "Teleport To Node";
             this.teleportToNodeBtn.UseVisualStyleBackColor = true;
@@ -3735,9 +3940,10 @@ namespace IGIEditor
             // 
             this.nodeIdMetreCb.AutoSize = true;
             this.nodeIdMetreCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.nodeIdMetreCb.Location = new System.Drawing.Point(508, 125);
+            this.nodeIdMetreCb.Location = new System.Drawing.Point(677, 154);
+            this.nodeIdMetreCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nodeIdMetreCb.Name = "nodeIdMetreCb";
-            this.nodeIdMetreCb.Size = new System.Drawing.Size(58, 19);
+            this.nodeIdMetreCb.Size = new System.Drawing.Size(68, 22);
             this.nodeIdMetreCb.TabIndex = 70;
             this.nodeIdMetreCb.Text = "Meter";
             this.nodeIdMetreCb.UseVisualStyleBackColor = true;
@@ -3749,9 +3955,10 @@ namespace IGIEditor
             this.nodeIdOffsetCb.Checked = true;
             this.nodeIdOffsetCb.CheckState = System.Windows.Forms.CheckState.Checked;
             this.nodeIdOffsetCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.nodeIdOffsetCb.Location = new System.Drawing.Point(446, 125);
+            this.nodeIdOffsetCb.Location = new System.Drawing.Point(595, 154);
+            this.nodeIdOffsetCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nodeIdOffsetCb.Name = "nodeIdOffsetCb";
-            this.nodeIdOffsetCb.Size = new System.Drawing.Size(57, 19);
+            this.nodeIdOffsetCb.Size = new System.Drawing.Size(70, 22);
             this.nodeIdOffsetCb.TabIndex = 71;
             this.nodeIdOffsetCb.Text = "Offset";
             this.nodeIdOffsetCb.UseVisualStyleBackColor = true;
@@ -3763,19 +3970,21 @@ namespace IGIEditor
             this.graphTotalNodesTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.graphTotalNodesTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.graphTotalNodesTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.graphTotalNodesTxt.Location = new System.Drawing.Point(676, 32);
+            this.graphTotalNodesTxt.Location = new System.Drawing.Point(901, 39);
+            this.graphTotalNodesTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.graphTotalNodesTxt.Name = "graphTotalNodesTxt";
             this.graphTotalNodesTxt.ReadOnly = true;
-            this.graphTotalNodesTxt.Size = new System.Drawing.Size(107, 24);
+            this.graphTotalNodesTxt.Size = new System.Drawing.Size(142, 28);
             this.graphTotalNodesTxt.TabIndex = 69;
             // 
             // graphTotalNodesLbl
             // 
             this.graphTotalNodesLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.graphTotalNodesLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.graphTotalNodesLbl.Location = new System.Drawing.Point(524, 29);
+            this.graphTotalNodesLbl.Location = new System.Drawing.Point(699, 36);
+            this.graphTotalNodesLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.graphTotalNodesLbl.Name = "graphTotalNodesLbl";
-            this.graphTotalNodesLbl.Size = new System.Drawing.Size(124, 27);
+            this.graphTotalNodesLbl.Size = new System.Drawing.Size(165, 33);
             this.graphTotalNodesLbl.TabIndex = 68;
             this.graphTotalNodesLbl.Text = "Total Nodes";
             this.graphTotalNodesLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3786,10 +3995,11 @@ namespace IGIEditor
             this.nodeCriteriaTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nodeCriteriaTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.nodeCriteriaTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.nodeCriteriaTxt.Location = new System.Drawing.Point(206, 94);
+            this.nodeCriteriaTxt.Location = new System.Drawing.Point(275, 116);
+            this.nodeCriteriaTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nodeCriteriaTxt.Name = "nodeCriteriaTxt";
             this.nodeCriteriaTxt.ReadOnly = true;
-            this.nodeCriteriaTxt.Size = new System.Drawing.Size(176, 24);
+            this.nodeCriteriaTxt.Size = new System.Drawing.Size(234, 28);
             this.nodeCriteriaTxt.TabIndex = 67;
             // 
             // nodeZTxt
@@ -3798,9 +4008,10 @@ namespace IGIEditor
             this.nodeZTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nodeZTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.nodeZTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.nodeZTxt.Location = new System.Drawing.Point(742, 94);
+            this.nodeZTxt.Location = new System.Drawing.Point(989, 116);
+            this.nodeZTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nodeZTxt.Name = "nodeZTxt";
-            this.nodeZTxt.Size = new System.Drawing.Size(90, 24);
+            this.nodeZTxt.Size = new System.Drawing.Size(119, 28);
             this.nodeZTxt.TabIndex = 66;
             this.nodeZTxt.Text = "0";
             // 
@@ -3808,9 +4019,10 @@ namespace IGIEditor
             // 
             this.nodeZLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.nodeZLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.nodeZLbl.Location = new System.Drawing.Point(703, 92);
+            this.nodeZLbl.Location = new System.Drawing.Point(937, 113);
+            this.nodeZLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.nodeZLbl.Name = "nodeZLbl";
-            this.nodeZLbl.Size = new System.Drawing.Size(33, 27);
+            this.nodeZLbl.Size = new System.Drawing.Size(44, 33);
             this.nodeZLbl.TabIndex = 65;
             this.nodeZLbl.Text = "Z ";
             this.nodeZLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3821,9 +4033,10 @@ namespace IGIEditor
             this.nodeYTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nodeYTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.nodeYTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.nodeYTxt.Location = new System.Drawing.Point(591, 94);
+            this.nodeYTxt.Location = new System.Drawing.Point(788, 116);
+            this.nodeYTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nodeYTxt.Name = "nodeYTxt";
-            this.nodeYTxt.Size = new System.Drawing.Size(90, 24);
+            this.nodeYTxt.Size = new System.Drawing.Size(119, 28);
             this.nodeYTxt.TabIndex = 64;
             this.nodeYTxt.Text = "0";
             // 
@@ -3831,9 +4044,10 @@ namespace IGIEditor
             // 
             this.nodeYLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.nodeYLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.nodeYLbl.Location = new System.Drawing.Point(552, 92);
+            this.nodeYLbl.Location = new System.Drawing.Point(736, 113);
+            this.nodeYLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.nodeYLbl.Name = "nodeYLbl";
-            this.nodeYLbl.Size = new System.Drawing.Size(33, 27);
+            this.nodeYLbl.Size = new System.Drawing.Size(44, 33);
             this.nodeYLbl.TabIndex = 63;
             this.nodeYLbl.Text = "Y ";
             this.nodeYLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3844,9 +4058,10 @@ namespace IGIEditor
             this.nodeXTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nodeXTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.nodeXTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.nodeXTxt.Location = new System.Drawing.Point(448, 94);
+            this.nodeXTxt.Location = new System.Drawing.Point(597, 116);
+            this.nodeXTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nodeXTxt.Name = "nodeXTxt";
-            this.nodeXTxt.Size = new System.Drawing.Size(90, 24);
+            this.nodeXTxt.Size = new System.Drawing.Size(119, 28);
             this.nodeXTxt.TabIndex = 62;
             this.nodeXTxt.Text = "0";
             // 
@@ -3854,9 +4069,10 @@ namespace IGIEditor
             // 
             this.nodeXLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.nodeXLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.nodeXLbl.Location = new System.Drawing.Point(409, 92);
+            this.nodeXLbl.Location = new System.Drawing.Point(545, 113);
+            this.nodeXLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.nodeXLbl.Name = "nodeXLbl";
-            this.nodeXLbl.Size = new System.Drawing.Size(33, 27);
+            this.nodeXLbl.Size = new System.Drawing.Size(44, 33);
             this.nodeXLbl.TabIndex = 61;
             this.nodeXLbl.Text = "X ";
             this.nodeXLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3865,9 +4081,10 @@ namespace IGIEditor
             // 
             this.removeNodesBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.removeNodesBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.removeNodesBtn.Location = new System.Drawing.Point(38, 273);
+            this.removeNodesBtn.Location = new System.Drawing.Point(51, 336);
+            this.removeNodesBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.removeNodesBtn.Name = "removeNodesBtn";
-            this.removeNodesBtn.Size = new System.Drawing.Size(200, 33);
+            this.removeNodesBtn.Size = new System.Drawing.Size(267, 41);
             this.removeNodesBtn.TabIndex = 60;
             this.removeNodesBtn.Text = "Remove Node";
             this.removeNodesBtn.UseVisualStyleBackColor = true;
@@ -3877,9 +4094,10 @@ namespace IGIEditor
             // 
             this.removeLinksBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.removeLinksBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.removeLinksBtn.Location = new System.Drawing.Point(256, 273);
+            this.removeLinksBtn.Location = new System.Drawing.Point(341, 336);
+            this.removeLinksBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.removeLinksBtn.Name = "removeLinksBtn";
-            this.removeLinksBtn.Size = new System.Drawing.Size(200, 33);
+            this.removeLinksBtn.Size = new System.Drawing.Size(267, 41);
             this.removeLinksBtn.TabIndex = 60;
             this.removeLinksBtn.Text = "Remove Link";
             this.removeLinksBtn.UseVisualStyleBackColor = true;
@@ -3889,9 +4107,10 @@ namespace IGIEditor
             // 
             this.refreshLinksBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refreshLinksBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.refreshLinksBtn.Location = new System.Drawing.Point(357, 240);
+            this.refreshLinksBtn.Location = new System.Drawing.Point(476, 295);
+            this.refreshLinksBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.refreshLinksBtn.Name = "refreshLinksBtn";
-            this.refreshLinksBtn.Size = new System.Drawing.Size(100, 33);
+            this.refreshLinksBtn.Size = new System.Drawing.Size(133, 41);
             this.refreshLinksBtn.TabIndex = 60;
             this.refreshLinksBtn.Text = "Refresh";
             this.refreshLinksBtn.UseVisualStyleBackColor = true;
@@ -3901,9 +4120,10 @@ namespace IGIEditor
             // 
             this.addLinksBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addLinksBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.addLinksBtn.Location = new System.Drawing.Point(256, 240);
+            this.addLinksBtn.Location = new System.Drawing.Point(341, 295);
+            this.addLinksBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.addLinksBtn.Name = "addLinksBtn";
-            this.addLinksBtn.Size = new System.Drawing.Size(100, 33);
+            this.addLinksBtn.Size = new System.Drawing.Size(133, 41);
             this.addLinksBtn.TabIndex = 60;
             this.addLinksBtn.Text = "Add";
             this.addLinksBtn.UseVisualStyleBackColor = true;
@@ -3914,9 +4134,10 @@ namespace IGIEditor
             this.refreshNodesBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refreshNodesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.45F);
             this.refreshNodesBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.refreshNodesBtn.Location = new System.Drawing.Point(139, 240);
+            this.refreshNodesBtn.Location = new System.Drawing.Point(185, 295);
+            this.refreshNodesBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.refreshNodesBtn.Name = "refreshNodesBtn";
-            this.refreshNodesBtn.Size = new System.Drawing.Size(100, 33);
+            this.refreshNodesBtn.Size = new System.Drawing.Size(133, 41);
             this.refreshNodesBtn.TabIndex = 60;
             this.refreshNodesBtn.Text = "Refresh";
             this.refreshNodesBtn.UseVisualStyleBackColor = true;
@@ -3926,9 +4147,10 @@ namespace IGIEditor
             // 
             this.addNodesBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addNodesBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.addNodesBtn.Location = new System.Drawing.Point(38, 240);
+            this.addNodesBtn.Location = new System.Drawing.Point(51, 295);
+            this.addNodesBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.addNodesBtn.Name = "addNodesBtn";
-            this.addNodesBtn.Size = new System.Drawing.Size(100, 33);
+            this.addNodesBtn.Size = new System.Drawing.Size(133, 41);
             this.addNodesBtn.TabIndex = 60;
             this.addNodesBtn.Text = "Add";
             this.addNodesBtn.UseVisualStyleBackColor = true;
@@ -3938,9 +4160,10 @@ namespace IGIEditor
             // 
             this.graphsMarkCb.AutoSize = true;
             this.graphsMarkCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.graphsMarkCb.Location = new System.Drawing.Point(652, 273);
+            this.graphsMarkCb.Location = new System.Drawing.Point(869, 336);
+            this.graphsMarkCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.graphsMarkCb.Name = "graphsMarkCb";
-            this.graphsMarkCb.Size = new System.Drawing.Size(88, 17);
+            this.graphsMarkCb.Size = new System.Drawing.Size(106, 20);
             this.graphsMarkCb.TabIndex = 58;
             this.graphsMarkCb.Text = "Graph - Mark";
             this.graphsMarkCb.UseVisualStyleBackColor = true;
@@ -3950,9 +4173,10 @@ namespace IGIEditor
             // 
             this.graphsAllCb.AutoSize = true;
             this.graphsAllCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.graphsAllCb.Location = new System.Drawing.Point(652, 292);
+            this.graphsAllCb.Location = new System.Drawing.Point(869, 359);
+            this.graphsAllCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.graphsAllCb.Name = "graphsAllCb";
-            this.graphsAllCb.Size = new System.Drawing.Size(75, 17);
+            this.graphsAllCb.Size = new System.Drawing.Size(91, 20);
             this.graphsAllCb.TabIndex = 58;
             this.graphsAllCb.Text = "Graph - All";
             this.graphsAllCb.UseVisualStyleBackColor = true;
@@ -3962,9 +4186,10 @@ namespace IGIEditor
             // 
             this.nodesHilightCb.AutoSize = true;
             this.nodesHilightCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nodesHilightCb.Location = new System.Drawing.Point(751, 292);
+            this.nodesHilightCb.Location = new System.Drawing.Point(1001, 359);
+            this.nodesHilightCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nodesHilightCb.Name = "nodesHilightCb";
-            this.nodesHilightCb.Size = new System.Drawing.Size(95, 17);
+            this.nodesHilightCb.Size = new System.Drawing.Size(117, 20);
             this.nodesHilightCb.TabIndex = 58;
             this.nodesHilightCb.Text = "Nodes - Hilight";
             this.nodesHilightCb.UseVisualStyleBackColor = true;
@@ -3976,9 +4201,10 @@ namespace IGIEditor
             this.nodesObjectsCb.Checked = true;
             this.nodesObjectsCb.CheckState = System.Windows.Forms.CheckState.Checked;
             this.nodesObjectsCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nodesObjectsCb.Location = new System.Drawing.Point(752, 250);
+            this.nodesObjectsCb.Location = new System.Drawing.Point(1003, 308);
+            this.nodesObjectsCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nodesObjectsCb.Name = "nodesObjectsCb";
-            this.nodesObjectsCb.Size = new System.Drawing.Size(94, 17);
+            this.nodesObjectsCb.Size = new System.Drawing.Size(116, 20);
             this.nodesObjectsCb.TabIndex = 57;
             this.nodesObjectsCb.Text = "Nodes- Object";
             this.nodesObjectsCb.UseVisualStyleBackColor = true;
@@ -3991,10 +4217,10 @@ namespace IGIEditor
             this.nodeIdDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.nodeIdDD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nodeIdDD.FormattingEnabled = true;
-            this.nodeIdDD.Location = new System.Drawing.Point(133, 91);
-            this.nodeIdDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.nodeIdDD.Location = new System.Drawing.Point(177, 112);
+            this.nodeIdDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.nodeIdDD.Name = "nodeIdDD";
-            this.nodeIdDD.Size = new System.Drawing.Size(56, 24);
+            this.nodeIdDD.Size = new System.Drawing.Size(73, 28);
             this.nodeIdDD.TabIndex = 56;
             this.nodeIdDD.SelectedIndexChanged += new System.EventHandler(this.nodeIdDD_SelectedIndexChanged);
             // 
@@ -4002,9 +4228,10 @@ namespace IGIEditor
             // 
             this.nodeIdLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.nodeIdLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.nodeIdLbl.Location = new System.Drawing.Point(6, 88);
+            this.nodeIdLbl.Location = new System.Drawing.Point(8, 108);
+            this.nodeIdLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.nodeIdLbl.Name = "nodeIdLbl";
-            this.nodeIdLbl.Size = new System.Drawing.Size(130, 27);
+            this.nodeIdLbl.Size = new System.Drawing.Size(173, 33);
             this.nodeIdLbl.TabIndex = 55;
             this.nodeIdLbl.Text = "Node Id ";
             this.nodeIdLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4015,10 +4242,11 @@ namespace IGIEditor
             this.graphAreaLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.graphAreaLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.graphAreaLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.graphAreaLbl.Location = new System.Drawing.Point(256, 29);
+            this.graphAreaLbl.Location = new System.Drawing.Point(341, 36);
+            this.graphAreaLbl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.graphAreaLbl.Name = "graphAreaLbl";
             this.graphAreaLbl.ReadOnly = true;
-            this.graphAreaLbl.Size = new System.Drawing.Size(246, 24);
+            this.graphAreaLbl.Size = new System.Drawing.Size(327, 28);
             this.graphAreaLbl.TabIndex = 52;
             this.graphAreaLbl.Text = "Graph Area";
             // 
@@ -4029,10 +4257,10 @@ namespace IGIEditor
             this.graphIdDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.graphIdDD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.graphIdDD.FormattingEnabled = true;
-            this.graphIdDD.Location = new System.Drawing.Point(133, 29);
-            this.graphIdDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.graphIdDD.Location = new System.Drawing.Point(177, 36);
+            this.graphIdDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.graphIdDD.Name = "graphIdDD";
-            this.graphIdDD.Size = new System.Drawing.Size(56, 24);
+            this.graphIdDD.Size = new System.Drawing.Size(73, 28);
             this.graphIdDD.TabIndex = 51;
             this.graphIdDD.SelectedIndexChanged += new System.EventHandler(this.graphIdDD_SelectedIndexChanged);
             // 
@@ -4040,9 +4268,10 @@ namespace IGIEditor
             // 
             this.graphIdLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.graphIdLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.graphIdLbl.Location = new System.Drawing.Point(3, 26);
+            this.graphIdLbl.Location = new System.Drawing.Point(4, 32);
+            this.graphIdLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.graphIdLbl.Name = "graphIdLbl";
-            this.graphIdLbl.Size = new System.Drawing.Size(130, 27);
+            this.graphIdLbl.Size = new System.Drawing.Size(173, 33);
             this.graphIdLbl.TabIndex = 50;
             this.graphIdLbl.Text = "Graph Id ";
             this.graphIdLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4082,9 +4311,10 @@ namespace IGIEditor
             this.positionEditor.Controls.Add(this.xPosLbl_O);
             this.positionEditor.Controls.Add(this.updateObjPosition);
             this.positionEditor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.positionEditor.Location = new System.Drawing.Point(4, 46);
+            this.positionEditor.Location = new System.Drawing.Point(4, 54);
+            this.positionEditor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.positionEditor.Name = "positionEditor";
-            this.positionEditor.Size = new System.Drawing.Size(851, 292);
+            this.positionEditor.Size = new System.Drawing.Size(1137, 363);
             this.positionEditor.TabIndex = 5;
             this.positionEditor.Text = "Position Toolkit";
             // 
@@ -4093,9 +4323,10 @@ namespace IGIEditor
             this.resetPosCb.AutoSize = true;
             this.resetPosCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.resetPosCb.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.resetPosCb.Location = new System.Drawing.Point(764, 270);
+            this.resetPosCb.Location = new System.Drawing.Point(1019, 332);
+            this.resetPosCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.resetPosCb.Name = "resetPosCb";
-            this.resetPosCb.Size = new System.Drawing.Size(82, 19);
+            this.resetPosCb.Size = new System.Drawing.Size(100, 22);
             this.resetPosCb.TabIndex = 73;
             this.resetPosCb.Text = "Reset Pos";
             this.resetPosCb.UseVisualStyleBackColor = true;
@@ -4112,15 +4343,15 @@ namespace IGIEditor
             0,
             0,
             262144});
-            this.gammaTxt.Location = new System.Drawing.Point(518, 169);
-            this.gammaTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.gammaTxt.Location = new System.Drawing.Point(691, 208);
+            this.gammaTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gammaTxt.Maximum = new decimal(new int[] {
             9,
             0,
             0,
             0});
             this.gammaTxt.Name = "gammaTxt";
-            this.gammaTxt.Size = new System.Drawing.Size(90, 24);
+            this.gammaTxt.Size = new System.Drawing.Size(120, 28);
             this.gammaTxt.TabIndex = 70;
             // 
             // betaTxt
@@ -4134,15 +4365,15 @@ namespace IGIEditor
             0,
             0,
             262144});
-            this.betaTxt.Location = new System.Drawing.Point(320, 169);
-            this.betaTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.betaTxt.Location = new System.Drawing.Point(427, 208);
+            this.betaTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.betaTxt.Maximum = new decimal(new int[] {
             9,
             0,
             0,
             0});
             this.betaTxt.Name = "betaTxt";
-            this.betaTxt.Size = new System.Drawing.Size(90, 24);
+            this.betaTxt.Size = new System.Drawing.Size(120, 28);
             this.betaTxt.TabIndex = 71;
             // 
             // alphaTxt
@@ -4156,24 +4387,25 @@ namespace IGIEditor
             0,
             0,
             262144});
-            this.alphaTxt.Location = new System.Drawing.Point(130, 169);
-            this.alphaTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.alphaTxt.Location = new System.Drawing.Point(173, 208);
+            this.alphaTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.alphaTxt.Maximum = new decimal(new int[] {
             9,
             0,
             0,
             0});
             this.alphaTxt.Name = "alphaTxt";
-            this.alphaTxt.Size = new System.Drawing.Size(90, 24);
+            this.alphaTxt.Size = new System.Drawing.Size(120, 28);
             this.alphaTxt.TabIndex = 72;
             // 
             // gammaLbl
             // 
             this.gammaLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.gammaLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.gammaLbl.Location = new System.Drawing.Point(427, 167);
+            this.gammaLbl.Location = new System.Drawing.Point(569, 206);
+            this.gammaLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.gammaLbl.Name = "gammaLbl";
-            this.gammaLbl.Size = new System.Drawing.Size(78, 27);
+            this.gammaLbl.Size = new System.Drawing.Size(104, 33);
             this.gammaLbl.TabIndex = 69;
             this.gammaLbl.Text = "Gamma ";
             this.gammaLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4182,9 +4414,10 @@ namespace IGIEditor
             // 
             this.betaLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.betaLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.betaLbl.Location = new System.Drawing.Point(244, 166);
+            this.betaLbl.Location = new System.Drawing.Point(325, 204);
+            this.betaLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.betaLbl.Name = "betaLbl";
-            this.betaLbl.Size = new System.Drawing.Size(70, 27);
+            this.betaLbl.Size = new System.Drawing.Size(93, 33);
             this.betaLbl.TabIndex = 68;
             this.betaLbl.Text = "Beta ";
             this.betaLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4193,9 +4426,10 @@ namespace IGIEditor
             // 
             this.alphaLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.alphaLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.alphaLbl.Location = new System.Drawing.Point(56, 164);
+            this.alphaLbl.Location = new System.Drawing.Point(75, 202);
+            this.alphaLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.alphaLbl.Name = "alphaLbl";
-            this.alphaLbl.Size = new System.Drawing.Size(70, 27);
+            this.alphaLbl.Size = new System.Drawing.Size(93, 33);
             this.alphaLbl.TabIndex = 67;
             this.alphaLbl.Text = "Alpha ";
             this.alphaLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4204,9 +4438,10 @@ namespace IGIEditor
             // 
             this.updateObjOrientation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateObjOrientation.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.updateObjOrientation.Location = new System.Drawing.Point(638, 168);
+            this.updateObjOrientation.Location = new System.Drawing.Point(851, 207);
+            this.updateObjOrientation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.updateObjOrientation.Name = "updateObjOrientation";
-            this.updateObjOrientation.Size = new System.Drawing.Size(208, 25);
+            this.updateObjOrientation.Size = new System.Drawing.Size(277, 31);
             this.updateObjOrientation.TabIndex = 66;
             this.updateObjOrientation.Text = "Update Object Orientation";
             this.updateObjOrientation.UseVisualStyleBackColor = true;
@@ -4216,9 +4451,10 @@ namespace IGIEditor
             // 
             this.humanPosMeterCb.AutoSize = true;
             this.humanPosMeterCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.humanPosMeterCb.Location = new System.Drawing.Point(697, 270);
+            this.humanPosMeterCb.Location = new System.Drawing.Point(929, 332);
+            this.humanPosMeterCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.humanPosMeterCb.Name = "humanPosMeterCb";
-            this.humanPosMeterCb.Size = new System.Drawing.Size(58, 19);
+            this.humanPosMeterCb.Size = new System.Drawing.Size(68, 22);
             this.humanPosMeterCb.TabIndex = 64;
             this.humanPosMeterCb.Text = "Meter";
             this.humanPosMeterCb.UseVisualStyleBackColor = true;
@@ -4230,9 +4466,10 @@ namespace IGIEditor
             this.humanPosOffCb.Checked = true;
             this.humanPosOffCb.CheckState = System.Windows.Forms.CheckState.Checked;
             this.humanPosOffCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.humanPosOffCb.Location = new System.Drawing.Point(638, 270);
+            this.humanPosOffCb.Location = new System.Drawing.Point(851, 332);
+            this.humanPosOffCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.humanPosOffCb.Name = "humanPosOffCb";
-            this.humanPosOffCb.Size = new System.Drawing.Size(57, 19);
+            this.humanPosOffCb.Size = new System.Drawing.Size(70, 22);
             this.humanPosOffCb.TabIndex = 65;
             this.humanPosOffCb.Text = "Offset";
             this.humanPosOffCb.UseVisualStyleBackColor = true;
@@ -4244,9 +4481,10 @@ namespace IGIEditor
             this.zPosTxt_H.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.zPosTxt_H.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.zPosTxt_H.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.zPosTxt_H.Location = new System.Drawing.Point(518, 240);
+            this.zPosTxt_H.Location = new System.Drawing.Point(691, 295);
+            this.zPosTxt_H.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.zPosTxt_H.Name = "zPosTxt_H";
-            this.zPosTxt_H.Size = new System.Drawing.Size(90, 24);
+            this.zPosTxt_H.Size = new System.Drawing.Size(119, 28);
             this.zPosTxt_H.TabIndex = 63;
             this.zPosTxt_H.Text = "0";
             // 
@@ -4254,9 +4492,10 @@ namespace IGIEditor
             // 
             this.zPosLbl_H.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.zPosLbl_H.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.zPosLbl_H.Location = new System.Drawing.Point(434, 238);
+            this.zPosLbl_H.Location = new System.Drawing.Point(579, 293);
+            this.zPosLbl_H.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.zPosLbl_H.Name = "zPosLbl_H";
-            this.zPosLbl_H.Size = new System.Drawing.Size(78, 27);
+            this.zPosLbl_H.Size = new System.Drawing.Size(104, 33);
             this.zPosLbl_H.TabIndex = 62;
             this.zPosLbl_H.Text = "Z ";
             this.zPosLbl_H.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4267,9 +4506,10 @@ namespace IGIEditor
             this.yPosTxt_H.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.yPosTxt_H.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.yPosTxt_H.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.yPosTxt_H.Location = new System.Drawing.Point(320, 237);
+            this.yPosTxt_H.Location = new System.Drawing.Point(427, 292);
+            this.yPosTxt_H.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.yPosTxt_H.Name = "yPosTxt_H";
-            this.yPosTxt_H.Size = new System.Drawing.Size(90, 24);
+            this.yPosTxt_H.Size = new System.Drawing.Size(119, 28);
             this.yPosTxt_H.TabIndex = 61;
             this.yPosTxt_H.Text = "0";
             // 
@@ -4277,9 +4517,10 @@ namespace IGIEditor
             // 
             this.yPosLbl_H.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.yPosLbl_H.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.yPosLbl_H.Location = new System.Drawing.Point(251, 237);
+            this.yPosLbl_H.Location = new System.Drawing.Point(335, 292);
+            this.yPosLbl_H.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.yPosLbl_H.Name = "yPosLbl_H";
-            this.yPosLbl_H.Size = new System.Drawing.Size(70, 27);
+            this.yPosLbl_H.Size = new System.Drawing.Size(93, 33);
             this.yPosLbl_H.TabIndex = 60;
             this.yPosLbl_H.Text = "Y ";
             this.yPosLbl_H.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4290,9 +4531,10 @@ namespace IGIEditor
             this.xPosTxt_H.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.xPosTxt_H.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.xPosTxt_H.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.xPosTxt_H.Location = new System.Drawing.Point(130, 236);
+            this.xPosTxt_H.Location = new System.Drawing.Point(173, 290);
+            this.xPosTxt_H.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.xPosTxt_H.Name = "xPosTxt_H";
-            this.xPosTxt_H.Size = new System.Drawing.Size(90, 24);
+            this.xPosTxt_H.Size = new System.Drawing.Size(119, 28);
             this.xPosTxt_H.TabIndex = 59;
             this.xPosTxt_H.Text = "0";
             // 
@@ -4300,9 +4542,10 @@ namespace IGIEditor
             // 
             this.xPosLbl_H.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.xPosLbl_H.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.xPosLbl_H.Location = new System.Drawing.Point(63, 235);
+            this.xPosLbl_H.Location = new System.Drawing.Point(84, 289);
+            this.xPosLbl_H.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.xPosLbl_H.Name = "xPosLbl_H";
-            this.xPosLbl_H.Size = new System.Drawing.Size(70, 27);
+            this.xPosLbl_H.Size = new System.Drawing.Size(93, 33);
             this.xPosLbl_H.TabIndex = 58;
             this.xPosLbl_H.Text = "X ";
             this.xPosLbl_H.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4311,9 +4554,10 @@ namespace IGIEditor
             // 
             this.updateHumaPosition.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateHumaPosition.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.updateHumaPosition.Location = new System.Drawing.Point(638, 238);
+            this.updateHumaPosition.Location = new System.Drawing.Point(851, 293);
+            this.updateHumaPosition.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.updateHumaPosition.Name = "updateHumaPosition";
-            this.updateHumaPosition.Size = new System.Drawing.Size(208, 25);
+            this.updateHumaPosition.Size = new System.Drawing.Size(277, 31);
             this.updateHumaPosition.TabIndex = 57;
             this.updateHumaPosition.Text = "Update Human Position";
             this.updateHumaPosition.UseVisualStyleBackColor = true;
@@ -4326,10 +4570,10 @@ namespace IGIEditor
             this.objectPosDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.objectPosDD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.objectPosDD.FormattingEnabled = true;
-            this.objectPosDD.Location = new System.Drawing.Point(503, 30);
-            this.objectPosDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.objectPosDD.Location = new System.Drawing.Point(671, 37);
+            this.objectPosDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.objectPosDD.Name = "objectPosDD";
-            this.objectPosDD.Size = new System.Drawing.Size(315, 24);
+            this.objectPosDD.Size = new System.Drawing.Size(419, 28);
             this.objectPosDD.TabIndex = 56;
             this.objectPosDD.SelectedIndexChanged += new System.EventHandler(this.objectPosDD_SelectedIndexChanged);
             this.objectPosDD.Click += new System.EventHandler(this.objectSelectDD_Click);
@@ -4338,9 +4582,10 @@ namespace IGIEditor
             // 
             this.objPosLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.objPosLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.objPosLbl.Location = new System.Drawing.Point(382, 30);
+            this.objPosLbl.Location = new System.Drawing.Point(509, 37);
+            this.objPosLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.objPosLbl.Name = "objPosLbl";
-            this.objPosLbl.Size = new System.Drawing.Size(130, 27);
+            this.objPosLbl.Size = new System.Drawing.Size(173, 33);
             this.objPosLbl.TabIndex = 55;
             this.objPosLbl.Text = "Object";
             this.objPosLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4352,10 +4597,10 @@ namespace IGIEditor
             this.buildingPosDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.buildingPosDD.ForeColor = System.Drawing.SystemColors.WindowText;
             this.buildingPosDD.FormattingEnabled = true;
-            this.buildingPosDD.Location = new System.Drawing.Point(113, 30);
-            this.buildingPosDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.buildingPosDD.Location = new System.Drawing.Point(151, 37);
+            this.buildingPosDD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buildingPosDD.Name = "buildingPosDD";
-            this.buildingPosDD.Size = new System.Drawing.Size(271, 24);
+            this.buildingPosDD.Size = new System.Drawing.Size(360, 28);
             this.buildingPosDD.TabIndex = 54;
             this.buildingPosDD.SelectedIndexChanged += new System.EventHandler(this.buildingPosDD_SelectedIndexChanged);
             this.buildingPosDD.Click += new System.EventHandler(this.buildingSelectDD_Click);
@@ -4364,9 +4609,10 @@ namespace IGIEditor
             // 
             this.buildingPosLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.buildingPosLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buildingPosLbl.Location = new System.Drawing.Point(8, 28);
+            this.buildingPosLbl.Location = new System.Drawing.Point(11, 34);
+            this.buildingPosLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.buildingPosLbl.Name = "buildingPosLbl";
-            this.buildingPosLbl.Size = new System.Drawing.Size(130, 27);
+            this.buildingPosLbl.Size = new System.Drawing.Size(173, 33);
             this.buildingPosLbl.TabIndex = 53;
             this.buildingPosLbl.Text = "Building";
             this.buildingPosLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4376,9 +4622,10 @@ namespace IGIEditor
             this.posCurrentCb.AutoSize = true;
             this.posCurrentCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.posCurrentCb.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.posCurrentCb.Location = new System.Drawing.Point(760, 124);
+            this.posCurrentCb.Location = new System.Drawing.Point(1013, 153);
+            this.posCurrentCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.posCurrentCb.Name = "posCurrentCb";
-            this.posCurrentCb.Size = new System.Drawing.Size(90, 19);
+            this.posCurrentCb.Size = new System.Drawing.Size(110, 22);
             this.posCurrentCb.TabIndex = 52;
             this.posCurrentCb.Text = "Current Pos";
             this.posCurrentCb.UseVisualStyleBackColor = true;
@@ -4388,9 +4635,10 @@ namespace IGIEditor
             // 
             this.posMeterCb.AutoSize = true;
             this.posMeterCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.posMeterCb.Location = new System.Drawing.Point(697, 124);
+            this.posMeterCb.Location = new System.Drawing.Point(929, 153);
+            this.posMeterCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.posMeterCb.Name = "posMeterCb";
-            this.posMeterCb.Size = new System.Drawing.Size(58, 19);
+            this.posMeterCb.Size = new System.Drawing.Size(68, 22);
             this.posMeterCb.TabIndex = 50;
             this.posMeterCb.Text = "Meter";
             this.posMeterCb.UseVisualStyleBackColor = true;
@@ -4402,9 +4650,10 @@ namespace IGIEditor
             this.posOffCb.Checked = true;
             this.posOffCb.CheckState = System.Windows.Forms.CheckState.Checked;
             this.posOffCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.posOffCb.Location = new System.Drawing.Point(638, 124);
+            this.posOffCb.Location = new System.Drawing.Point(851, 153);
+            this.posOffCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.posOffCb.Name = "posOffCb";
-            this.posOffCb.Size = new System.Drawing.Size(57, 19);
+            this.posOffCb.Size = new System.Drawing.Size(70, 22);
             this.posOffCb.TabIndex = 51;
             this.posOffCb.Text = "Offset";
             this.posOffCb.UseVisualStyleBackColor = true;
@@ -4416,9 +4665,10 @@ namespace IGIEditor
             this.zPosObjTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.zPosObjTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.zPosObjTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.zPosObjTxt.Location = new System.Drawing.Point(518, 92);
+            this.zPosObjTxt.Location = new System.Drawing.Point(691, 113);
+            this.zPosObjTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.zPosObjTxt.Name = "zPosObjTxt";
-            this.zPosObjTxt.Size = new System.Drawing.Size(90, 24);
+            this.zPosObjTxt.Size = new System.Drawing.Size(119, 28);
             this.zPosObjTxt.TabIndex = 49;
             this.zPosObjTxt.Text = "0";
             // 
@@ -4426,9 +4676,10 @@ namespace IGIEditor
             // 
             this.zPosLbl_O.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.zPosLbl_O.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.zPosLbl_O.Location = new System.Drawing.Point(434, 90);
+            this.zPosLbl_O.Location = new System.Drawing.Point(579, 111);
+            this.zPosLbl_O.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.zPosLbl_O.Name = "zPosLbl_O";
-            this.zPosLbl_O.Size = new System.Drawing.Size(78, 27);
+            this.zPosLbl_O.Size = new System.Drawing.Size(104, 33);
             this.zPosLbl_O.TabIndex = 48;
             this.zPosLbl_O.Text = "Z ";
             this.zPosLbl_O.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4439,9 +4690,10 @@ namespace IGIEditor
             this.yPosObjTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.yPosObjTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.yPosObjTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.yPosObjTxt.Location = new System.Drawing.Point(320, 89);
+            this.yPosObjTxt.Location = new System.Drawing.Point(427, 110);
+            this.yPosObjTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.yPosObjTxt.Name = "yPosObjTxt";
-            this.yPosObjTxt.Size = new System.Drawing.Size(90, 24);
+            this.yPosObjTxt.Size = new System.Drawing.Size(119, 28);
             this.yPosObjTxt.TabIndex = 47;
             this.yPosObjTxt.Text = "0";
             // 
@@ -4449,9 +4701,10 @@ namespace IGIEditor
             // 
             this.yPosLbl_O.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.yPosLbl_O.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.yPosLbl_O.Location = new System.Drawing.Point(251, 88);
+            this.yPosLbl_O.Location = new System.Drawing.Point(335, 108);
+            this.yPosLbl_O.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.yPosLbl_O.Name = "yPosLbl_O";
-            this.yPosLbl_O.Size = new System.Drawing.Size(70, 27);
+            this.yPosLbl_O.Size = new System.Drawing.Size(93, 33);
             this.yPosLbl_O.TabIndex = 46;
             this.yPosLbl_O.Text = "Y ";
             this.yPosLbl_O.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4462,9 +4715,10 @@ namespace IGIEditor
             this.xPosObjTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.xPosObjTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.xPosObjTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.xPosObjTxt.Location = new System.Drawing.Point(130, 88);
+            this.xPosObjTxt.Location = new System.Drawing.Point(173, 108);
+            this.xPosObjTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.xPosObjTxt.Name = "xPosObjTxt";
-            this.xPosObjTxt.Size = new System.Drawing.Size(90, 24);
+            this.xPosObjTxt.Size = new System.Drawing.Size(119, 28);
             this.xPosObjTxt.TabIndex = 45;
             this.xPosObjTxt.Text = "0";
             // 
@@ -4472,9 +4726,10 @@ namespace IGIEditor
             // 
             this.xPosLbl_O.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.xPosLbl_O.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.xPosLbl_O.Location = new System.Drawing.Point(63, 87);
+            this.xPosLbl_O.Location = new System.Drawing.Point(84, 107);
+            this.xPosLbl_O.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.xPosLbl_O.Name = "xPosLbl_O";
-            this.xPosLbl_O.Size = new System.Drawing.Size(70, 27);
+            this.xPosLbl_O.Size = new System.Drawing.Size(93, 33);
             this.xPosLbl_O.TabIndex = 44;
             this.xPosLbl_O.Text = "X ";
             this.xPosLbl_O.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4483,9 +4738,10 @@ namespace IGIEditor
             // 
             this.updateObjPosition.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateObjPosition.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.updateObjPosition.Location = new System.Drawing.Point(638, 92);
+            this.updateObjPosition.Location = new System.Drawing.Point(851, 113);
+            this.updateObjPosition.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.updateObjPosition.Name = "updateObjPosition";
-            this.updateObjPosition.Size = new System.Drawing.Size(208, 25);
+            this.updateObjPosition.Size = new System.Drawing.Size(277, 31);
             this.updateObjPosition.TabIndex = 43;
             this.updateObjPosition.Text = "Update Object Position";
             this.updateObjPosition.UseVisualStyleBackColor = true;
@@ -4505,10 +4761,10 @@ namespace IGIEditor
             this.devMode.Controls.Add(this.devVersionTxt);
             this.devMode.Controls.Add(this.createUpdateBtn);
             this.devMode.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.devMode.Location = new System.Drawing.Point(4, 46);
-            this.devMode.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.devMode.Location = new System.Drawing.Point(4, 54);
+            this.devMode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.devMode.Name = "devMode";
-            this.devMode.Size = new System.Drawing.Size(851, 292);
+            this.devMode.Size = new System.Drawing.Size(1137, 363);
             this.devMode.TabIndex = 10;
             this.devMode.Text = "Dev Mode";
             // 
@@ -4516,9 +4772,10 @@ namespace IGIEditor
             // 
             this.devAutoFormatCb.AutoSize = true;
             this.devAutoFormatCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.devAutoFormatCb.Location = new System.Drawing.Point(739, 202);
+            this.devAutoFormatCb.Location = new System.Drawing.Point(985, 249);
+            this.devAutoFormatCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.devAutoFormatCb.Name = "devAutoFormatCb";
-            this.devAutoFormatCb.Size = new System.Drawing.Size(83, 17);
+            this.devAutoFormatCb.Size = new System.Drawing.Size(101, 20);
             this.devAutoFormatCb.TabIndex = 55;
             this.devAutoFormatCb.Text = "Auto Format";
             this.devAutoFormatCb.UseVisualStyleBackColor = true;
@@ -4527,9 +4784,10 @@ namespace IGIEditor
             // 
             this.devClearContentsCb.AutoSize = true;
             this.devClearContentsCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.devClearContentsCb.Location = new System.Drawing.Point(659, 202);
+            this.devClearContentsCb.Location = new System.Drawing.Point(879, 249);
+            this.devClearContentsCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.devClearContentsCb.Name = "devClearContentsCb";
-            this.devClearContentsCb.Size = new System.Drawing.Size(76, 17);
+            this.devClearContentsCb.Size = new System.Drawing.Size(93, 20);
             this.devClearContentsCb.TabIndex = 55;
             this.devClearContentsCb.Text = "Clear Data";
             this.devClearContentsCb.UseVisualStyleBackColor = true;
@@ -4539,10 +4797,10 @@ namespace IGIEditor
             this.devViewerTxt.AutoWordSelection = true;
             this.devViewerTxt.BackColor = System.Drawing.SystemColors.Control;
             this.devViewerTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.devViewerTxt.Location = new System.Drawing.Point(5, 3);
-            this.devViewerTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.devViewerTxt.Location = new System.Drawing.Point(7, 4);
+            this.devViewerTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.devViewerTxt.Name = "devViewerTxt";
-            this.devViewerTxt.Size = new System.Drawing.Size(650, 312);
+            this.devViewerTxt.Size = new System.Drawing.Size(865, 383);
             this.devViewerTxt.TabIndex = 54;
             this.devViewerTxt.Text = "DEVELOPER TEXT VIEWER";
             this.devViewerTxt.TextChanged += new System.EventHandler(this.devViewerTxt_TextChanged);
@@ -4553,9 +4811,10 @@ namespace IGIEditor
             this.saveDevFileBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveDevFileBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.saveDevFileBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.saveDevFileBtn.Location = new System.Drawing.Point(659, 162);
+            this.saveDevFileBtn.Location = new System.Drawing.Point(879, 199);
+            this.saveDevFileBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.saveDevFileBtn.Name = "saveDevFileBtn";
-            this.saveDevFileBtn.Size = new System.Drawing.Size(190, 33);
+            this.saveDevFileBtn.Size = new System.Drawing.Size(253, 41);
             this.saveDevFileBtn.TabIndex = 53;
             this.saveDevFileBtn.Text = "Save File";
             this.saveDevFileBtn.UseVisualStyleBackColor = true;
@@ -4566,9 +4825,10 @@ namespace IGIEditor
             this.loadDevFileBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loadDevFileBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loadDevFileBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.loadDevFileBtn.Location = new System.Drawing.Point(659, 122);
+            this.loadDevFileBtn.Location = new System.Drawing.Point(879, 150);
+            this.loadDevFileBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.loadDevFileBtn.Name = "loadDevFileBtn";
-            this.loadDevFileBtn.Size = new System.Drawing.Size(190, 33);
+            this.loadDevFileBtn.Size = new System.Drawing.Size(253, 41);
             this.loadDevFileBtn.TabIndex = 53;
             this.loadDevFileBtn.Text = "Load File";
             this.loadDevFileBtn.UseVisualStyleBackColor = true;
@@ -4579,9 +4839,10 @@ namespace IGIEditor
             this.uploadUpdateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.uploadUpdateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.uploadUpdateBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.uploadUpdateBtn.Location = new System.Drawing.Point(659, 278);
+            this.uploadUpdateBtn.Location = new System.Drawing.Point(879, 342);
+            this.uploadUpdateBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.uploadUpdateBtn.Name = "uploadUpdateBtn";
-            this.uploadUpdateBtn.Size = new System.Drawing.Size(190, 33);
+            this.uploadUpdateBtn.Size = new System.Drawing.Size(253, 41);
             this.uploadUpdateBtn.TabIndex = 53;
             this.uploadUpdateBtn.Text = "Upload Update";
             this.uploadUpdateBtn.UseVisualStyleBackColor = true;
@@ -4593,10 +4854,11 @@ namespace IGIEditor
             this.devFileNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.devFileNameTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.devFileNameTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.devFileNameTxt.Location = new System.Drawing.Point(665, 34);
+            this.devFileNameTxt.Location = new System.Drawing.Point(887, 42);
+            this.devFileNameTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.devFileNameTxt.Name = "devFileNameTxt";
             this.devFileNameTxt.ReadOnly = true;
-            this.devFileNameTxt.Size = new System.Drawing.Size(168, 24);
+            this.devFileNameTxt.Size = new System.Drawing.Size(223, 28);
             this.devFileNameTxt.TabIndex = 52;
             // 
             // devFileSizeTxt
@@ -4605,10 +4867,11 @@ namespace IGIEditor
             this.devFileSizeTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.devFileSizeTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.devFileSizeTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.devFileSizeTxt.Location = new System.Drawing.Point(665, 65);
+            this.devFileSizeTxt.Location = new System.Drawing.Point(887, 80);
+            this.devFileSizeTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.devFileSizeTxt.Name = "devFileSizeTxt";
             this.devFileSizeTxt.ReadOnly = true;
-            this.devFileSizeTxt.Size = new System.Drawing.Size(168, 24);
+            this.devFileSizeTxt.Size = new System.Drawing.Size(223, 28);
             this.devFileSizeTxt.TabIndex = 52;
             // 
             // devVersionTxt
@@ -4617,9 +4880,10 @@ namespace IGIEditor
             this.devVersionTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.devVersionTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.devVersionTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.devVersionTxt.Location = new System.Drawing.Point(665, 3);
+            this.devVersionTxt.Location = new System.Drawing.Point(887, 4);
+            this.devVersionTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.devVersionTxt.Name = "devVersionTxt";
-            this.devVersionTxt.Size = new System.Drawing.Size(168, 24);
+            this.devVersionTxt.Size = new System.Drawing.Size(223, 28);
             this.devVersionTxt.TabIndex = 52;
             this.devVersionTxt.Text = "0.4.0.0";
             // 
@@ -4628,9 +4892,10 @@ namespace IGIEditor
             this.createUpdateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.createUpdateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.createUpdateBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.createUpdateBtn.Location = new System.Drawing.Point(659, 238);
+            this.createUpdateBtn.Location = new System.Drawing.Point(879, 293);
+            this.createUpdateBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.createUpdateBtn.Name = "createUpdateBtn";
-            this.createUpdateBtn.Size = new System.Drawing.Size(190, 33);
+            this.createUpdateBtn.Size = new System.Drawing.Size(253, 41);
             this.createUpdateBtn.TabIndex = 50;
             this.createUpdateBtn.Text = "Create Update";
             this.createUpdateBtn.UseVisualStyleBackColor = true;
@@ -4653,20 +4918,69 @@ namespace IGIEditor
             this.texEditor.Controls.Add(this.packResourceBtn);
             this.texEditor.Controls.Add(this.selectTexturesBtn);
             this.texEditor.Controls.Add(this.textureBox);
-            this.texEditor.Location = new System.Drawing.Point(4, 46);
-            this.texEditor.Margin = new System.Windows.Forms.Padding(2);
+            this.texEditor.Location = new System.Drawing.Point(4, 54);
+            this.texEditor.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.texEditor.Name = "texEditor";
-            this.texEditor.Size = new System.Drawing.Size(851, 292);
+            this.texEditor.Size = new System.Drawing.Size(1137, 363);
             this.texEditor.TabIndex = 11;
             this.texEditor.Text = "Texture Toolkit";
+            // 
+            // textureNavLbl
+            // 
+            this.textureNavLbl.AutoSize = true;
+            this.textureNavLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.textureNavLbl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.textureNavLbl.Location = new System.Drawing.Point(893, 89);
+            this.textureNavLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.textureNavLbl.Name = "textureNavLbl";
+            this.textureNavLbl.Size = new System.Drawing.Size(81, 18);
+            this.textureNavLbl.TabIndex = 58;
+            this.textureNavLbl.Text = "Navigation:";
+            // 
+            // textureFileNameLbl
+            // 
+            this.textureFileNameLbl.AutoSize = true;
+            this.textureFileNameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.textureFileNameLbl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.textureFileNameLbl.Location = new System.Drawing.Point(893, 117);
+            this.textureFileNameLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.textureFileNameLbl.Name = "textureFileNameLbl";
+            this.textureFileNameLbl.Size = new System.Drawing.Size(79, 18);
+            this.textureFileNameLbl.TabIndex = 59;
+            this.textureFileNameLbl.Text = "File Name:";
+            // 
+            // textureResolutionLbl
+            // 
+            this.textureResolutionLbl.AutoSize = true;
+            this.textureResolutionLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.textureResolutionLbl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.textureResolutionLbl.Location = new System.Drawing.Point(893, 166);
+            this.textureResolutionLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.textureResolutionLbl.Name = "textureResolutionLbl";
+            this.textureResolutionLbl.Size = new System.Drawing.Size(83, 18);
+            this.textureResolutionLbl.TabIndex = 60;
+            this.textureResolutionLbl.Text = "Resolution:";
+            // 
+            // textureSizeLbl
+            // 
+            this.textureSizeLbl.AutoSize = true;
+            this.textureSizeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.textureSizeLbl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.textureSizeLbl.Location = new System.Drawing.Point(893, 207);
+            this.textureSizeLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.textureSizeLbl.Name = "textureSizeLbl";
+            this.textureSizeLbl.Size = new System.Drawing.Size(68, 18);
+            this.textureSizeLbl.TabIndex = 61;
+            this.textureSizeLbl.Text = "File Size:";
             // 
             // nextTextureBtn
             // 
             this.nextTextureBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.nextTextureBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.nextTextureBtn.Location = new System.Drawing.Point(758, 90);
+            this.nextTextureBtn.Location = new System.Drawing.Point(1011, 111);
+            this.nextTextureBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nextTextureBtn.Name = "nextTextureBtn";
-            this.nextTextureBtn.Size = new System.Drawing.Size(75, 25);
+            this.nextTextureBtn.Size = new System.Drawing.Size(100, 31);
             this.nextTextureBtn.TabIndex = 57;
             this.nextTextureBtn.Text = "Next";
             this.nextTextureBtn.UseVisualStyleBackColor = true;
@@ -4676,9 +4990,10 @@ namespace IGIEditor
             // 
             this.prevTextureBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.prevTextureBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.prevTextureBtn.Location = new System.Drawing.Point(670, 90);
+            this.prevTextureBtn.Location = new System.Drawing.Point(893, 111);
+            this.prevTextureBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.prevTextureBtn.Name = "prevTextureBtn";
-            this.prevTextureBtn.Size = new System.Drawing.Size(75, 25);
+            this.prevTextureBtn.Size = new System.Drawing.Size(100, 31);
             this.prevTextureBtn.TabIndex = 56;
             this.prevTextureBtn.Text = "Prev";
             this.prevTextureBtn.UseVisualStyleBackColor = true;
@@ -4690,10 +5005,11 @@ namespace IGIEditor
             this.textureFileSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textureFileSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.textureFileSize.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textureFileSize.Location = new System.Drawing.Point(670, 200);
+            this.textureFileSize.Location = new System.Drawing.Point(893, 246);
+            this.textureFileSize.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textureFileSize.Name = "textureFileSize";
             this.textureFileSize.ReadOnly = true;
-            this.textureFileSize.Size = new System.Drawing.Size(163, 24);
+            this.textureFileSize.Size = new System.Drawing.Size(217, 28);
             this.textureFileSize.TabIndex = 55;
             // 
             // textureFileResolution
@@ -4702,10 +5018,11 @@ namespace IGIEditor
             this.textureFileResolution.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textureFileResolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.textureFileResolution.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textureFileResolution.Location = new System.Drawing.Point(670, 167);
+            this.textureFileResolution.Location = new System.Drawing.Point(893, 206);
+            this.textureFileResolution.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textureFileResolution.Name = "textureFileResolution";
             this.textureFileResolution.ReadOnly = true;
-            this.textureFileResolution.Size = new System.Drawing.Size(163, 24);
+            this.textureFileResolution.Size = new System.Drawing.Size(217, 28);
             this.textureFileResolution.TabIndex = 54;
             // 
             // textureFileName
@@ -4714,19 +5031,21 @@ namespace IGIEditor
             this.textureFileName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textureFileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.textureFileName.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textureFileName.Location = new System.Drawing.Point(670, 127);
+            this.textureFileName.Location = new System.Drawing.Point(893, 156);
+            this.textureFileName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textureFileName.Name = "textureFileName";
             this.textureFileName.ReadOnly = true;
-            this.textureFileName.Size = new System.Drawing.Size(163, 24);
+            this.textureFileName.Size = new System.Drawing.Size(217, 28);
             this.textureFileName.TabIndex = 53;
             // 
             // replaceTextureBtn
             // 
             this.replaceTextureBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.replaceTextureBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.replaceTextureBtn.Location = new System.Drawing.Point(670, 60);
+            this.replaceTextureBtn.Location = new System.Drawing.Point(893, 74);
+            this.replaceTextureBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.replaceTextureBtn.Name = "replaceTextureBtn";
-            this.replaceTextureBtn.Size = new System.Drawing.Size(163, 25);
+            this.replaceTextureBtn.Size = new System.Drawing.Size(217, 31);
             this.replaceTextureBtn.TabIndex = 46;
             this.replaceTextureBtn.Text = "Replace Texture";
             this.replaceTextureBtn.UseVisualStyleBackColor = true;
@@ -4736,9 +5055,10 @@ namespace IGIEditor
             // 
             this.unpackResourceBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.unpackResourceBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.unpackResourceBtn.Location = new System.Drawing.Point(670, 275);
+            this.unpackResourceBtn.Location = new System.Drawing.Point(893, 338);
+            this.unpackResourceBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.unpackResourceBtn.Name = "unpackResourceBtn";
-            this.unpackResourceBtn.Size = new System.Drawing.Size(163, 25);
+            this.unpackResourceBtn.Size = new System.Drawing.Size(217, 31);
             this.unpackResourceBtn.TabIndex = 46;
             this.unpackResourceBtn.Text = "Unpack Resource";
             this.unpackResourceBtn.UseVisualStyleBackColor = true;
@@ -4748,9 +5068,10 @@ namespace IGIEditor
             // 
             this.packResourceBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.packResourceBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.packResourceBtn.Location = new System.Drawing.Point(670, 243);
+            this.packResourceBtn.Location = new System.Drawing.Point(893, 299);
+            this.packResourceBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.packResourceBtn.Name = "packResourceBtn";
-            this.packResourceBtn.Size = new System.Drawing.Size(163, 25);
+            this.packResourceBtn.Size = new System.Drawing.Size(217, 31);
             this.packResourceBtn.TabIndex = 46;
             this.packResourceBtn.Text = "Pack Resource";
             this.packResourceBtn.UseVisualStyleBackColor = true;
@@ -4760,9 +5081,10 @@ namespace IGIEditor
             // 
             this.selectTexturesBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.selectTexturesBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.selectTexturesBtn.Location = new System.Drawing.Point(670, 10);
+            this.selectTexturesBtn.Location = new System.Drawing.Point(893, 12);
+            this.selectTexturesBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.selectTexturesBtn.Name = "selectTexturesBtn";
-            this.selectTexturesBtn.Size = new System.Drawing.Size(163, 25);
+            this.selectTexturesBtn.Size = new System.Drawing.Size(217, 31);
             this.selectTexturesBtn.TabIndex = 46;
             this.selectTexturesBtn.Text = "Select Textures";
             this.selectTexturesBtn.UseVisualStyleBackColor = true;
@@ -4771,59 +5093,16 @@ namespace IGIEditor
             // textureBox
             // 
             this.textureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textureBox.Location = new System.Drawing.Point(7, 3);
+            this.textureBox.Location = new System.Drawing.Point(9, 4);
+            this.textureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textureBox.Name = "textureBox";
-            this.textureBox.Size = new System.Drawing.Size(652, 314);
+            this.textureBox.Size = new System.Drawing.Size(869, 386);
             this.textureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.textureBox.TabIndex = 45;
             this.textureBox.TabStop = false;
             this.textureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textureBox_MouseDown);
             this.textureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.textureBox_MouseMove);
             this.textureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.textureBox_MouseUp);
-            // 
-            // textureNavLbl
-            // 
-            this.textureNavLbl.AutoSize = true;
-            this.textureNavLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.textureNavLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textureNavLbl.Location = new System.Drawing.Point(670, 72);
-            this.textureNavLbl.Name = "textureNavLbl";
-            this.textureNavLbl.Size = new System.Drawing.Size(80, 15);
-            this.textureNavLbl.TabIndex = 58;
-            this.textureNavLbl.Text = "Navigation:";
-            // 
-            // textureFileNameLbl
-            // 
-            this.textureFileNameLbl.AutoSize = true;
-            this.textureFileNameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.textureFileNameLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textureFileNameLbl.Location = new System.Drawing.Point(670, 95);
-            this.textureFileNameLbl.Name = "textureFileNameLbl";
-            this.textureFileNameLbl.Size = new System.Drawing.Size(75, 15);
-            this.textureFileNameLbl.TabIndex = 59;
-            this.textureFileNameLbl.Text = "File Name:";
-            // 
-            // textureResolutionLbl
-            // 
-            this.textureResolutionLbl.AutoSize = true;
-            this.textureResolutionLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.textureResolutionLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textureResolutionLbl.Location = new System.Drawing.Point(670, 135);
-            this.textureResolutionLbl.Name = "textureResolutionLbl";
-            this.textureResolutionLbl.Size = new System.Drawing.Size(75, 15);
-            this.textureResolutionLbl.TabIndex = 60;
-            this.textureResolutionLbl.Text = "Resolution:";
-            // 
-            // textureSizeLbl
-            // 
-            this.textureSizeLbl.AutoSize = true;
-            this.textureSizeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.textureSizeLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textureSizeLbl.Location = new System.Drawing.Point(670, 168);
-            this.textureSizeLbl.Name = "textureSizeLbl";
-            this.textureSizeLbl.Size = new System.Drawing.Size(75, 15);
-            this.textureSizeLbl.TabIndex = 61;
-            this.textureSizeLbl.Text = "File Size:";
             // 
             // objectEditor
             // 
@@ -4839,10 +5118,11 @@ namespace IGIEditor
             this.objectEditor.Controls.Add(this.removeBuildingsBtn);
             this.objectEditor.Controls.Add(this.removeObjsBtn);
             this.objectEditor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.objectEditor.Location = new System.Drawing.Point(4, 46);
+            this.objectEditor.Location = new System.Drawing.Point(4, 54);
+            this.objectEditor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.objectEditor.Name = "objectEditor";
-            this.objectEditor.Padding = new System.Windows.Forms.Padding(3);
-            this.objectEditor.Size = new System.Drawing.Size(851, 292);
+            this.objectEditor.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.objectEditor.Size = new System.Drawing.Size(1137, 363);
             this.objectEditor.TabIndex = 0;
             this.objectEditor.Text = "Object Toolkit";
             // 
@@ -4851,15 +5131,15 @@ namespace IGIEditor
             this.buildingsResetTxt.BackColor = System.Drawing.SystemColors.Control;
             this.buildingsResetTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.buildingsResetTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buildingsResetTxt.Location = new System.Drawing.Point(690, 231);
-            this.buildingsResetTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.buildingsResetTxt.Location = new System.Drawing.Point(920, 284);
+            this.buildingsResetTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buildingsResetTxt.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.buildingsResetTxt.Name = "buildingsResetTxt";
-            this.buildingsResetTxt.Size = new System.Drawing.Size(148, 24);
+            this.buildingsResetTxt.Size = new System.Drawing.Size(197, 28);
             this.buildingsResetTxt.TabIndex = 49;
             this.buildingsResetTxt.Value = new decimal(new int[] {
             1,
@@ -4872,15 +5152,15 @@ namespace IGIEditor
             this.objectsResetTxt.BackColor = System.Drawing.SystemColors.Control;
             this.objectsResetTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.objectsResetTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.objectsResetTxt.Location = new System.Drawing.Point(691, 188);
-            this.objectsResetTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.objectsResetTxt.Location = new System.Drawing.Point(921, 231);
+            this.objectsResetTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.objectsResetTxt.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.objectsResetTxt.Name = "objectsResetTxt";
-            this.objectsResetTxt.Size = new System.Drawing.Size(148, 24);
+            this.objectsResetTxt.Size = new System.Drawing.Size(197, 28);
             this.objectsResetTxt.TabIndex = 48;
             this.objectsResetTxt.Value = new decimal(new int[] {
             1,
@@ -4893,15 +5173,15 @@ namespace IGIEditor
             this.buildingsRemoveTxt.BackColor = System.Drawing.SystemColors.Control;
             this.buildingsRemoveTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.buildingsRemoveTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buildingsRemoveTxt.Location = new System.Drawing.Point(690, 131);
-            this.buildingsRemoveTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.buildingsRemoveTxt.Location = new System.Drawing.Point(920, 161);
+            this.buildingsRemoveTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buildingsRemoveTxt.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.buildingsRemoveTxt.Name = "buildingsRemoveTxt";
-            this.buildingsRemoveTxt.Size = new System.Drawing.Size(148, 24);
+            this.buildingsRemoveTxt.Size = new System.Drawing.Size(197, 28);
             this.buildingsRemoveTxt.TabIndex = 47;
             this.buildingsRemoveTxt.Value = new decimal(new int[] {
             1,
@@ -4914,15 +5194,15 @@ namespace IGIEditor
             this.objectsRemoveTxt.BackColor = System.Drawing.SystemColors.Control;
             this.objectsRemoveTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.objectsRemoveTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.objectsRemoveTxt.Location = new System.Drawing.Point(691, 91);
-            this.objectsRemoveTxt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.objectsRemoveTxt.Location = new System.Drawing.Point(921, 112);
+            this.objectsRemoveTxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.objectsRemoveTxt.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.objectsRemoveTxt.Name = "objectsRemoveTxt";
-            this.objectsRemoveTxt.Size = new System.Drawing.Size(148, 24);
+            this.objectsRemoveTxt.Size = new System.Drawing.Size(197, 28);
             this.objectsRemoveTxt.TabIndex = 46;
             this.objectsRemoveTxt.Value = new decimal(new int[] {
             1,
@@ -4934,9 +5214,10 @@ namespace IGIEditor
             // 
             this.resetBuildingsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.resetBuildingsBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.resetBuildingsBtn.Location = new System.Drawing.Point(506, 228);
+            this.resetBuildingsBtn.Location = new System.Drawing.Point(675, 281);
+            this.resetBuildingsBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.resetBuildingsBtn.Name = "resetBuildingsBtn";
-            this.resetBuildingsBtn.Size = new System.Drawing.Size(163, 28);
+            this.resetBuildingsBtn.Size = new System.Drawing.Size(217, 34);
             this.resetBuildingsBtn.TabIndex = 11;
             this.resetBuildingsBtn.Text = "Reset Buildings";
             this.resetBuildingsBtn.UseVisualStyleBackColor = true;
@@ -4946,9 +5227,10 @@ namespace IGIEditor
             // 
             this.resetObjectsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.resetObjectsBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.resetObjectsBtn.Location = new System.Drawing.Point(506, 186);
+            this.resetObjectsBtn.Location = new System.Drawing.Point(675, 229);
+            this.resetObjectsBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.resetObjectsBtn.Name = "resetObjectsBtn";
-            this.resetObjectsBtn.Size = new System.Drawing.Size(163, 28);
+            this.resetObjectsBtn.Size = new System.Drawing.Size(217, 34);
             this.resetObjectsBtn.TabIndex = 10;
             this.resetObjectsBtn.Text = "Reset Objects";
             this.resetObjectsBtn.UseVisualStyleBackColor = true;
@@ -4958,9 +5240,10 @@ namespace IGIEditor
             // 
             this.restoreModelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.restoreModelBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.restoreModelBtn.Location = new System.Drawing.Point(676, 40);
+            this.restoreModelBtn.Location = new System.Drawing.Point(901, 49);
+            this.restoreModelBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.restoreModelBtn.Name = "restoreModelBtn";
-            this.restoreModelBtn.Size = new System.Drawing.Size(163, 25);
+            this.restoreModelBtn.Size = new System.Drawing.Size(217, 31);
             this.restoreModelBtn.TabIndex = 5;
             this.restoreModelBtn.Text = "Restrore model";
             this.restoreModelBtn.UseVisualStyleBackColor = true;
@@ -4970,9 +5253,10 @@ namespace IGIEditor
             // 
             this.removeModelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.removeModelBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.removeModelBtn.Location = new System.Drawing.Point(506, 40);
+            this.removeModelBtn.Location = new System.Drawing.Point(675, 49);
+            this.removeModelBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.removeModelBtn.Name = "removeModelBtn";
-            this.removeModelBtn.Size = new System.Drawing.Size(163, 25);
+            this.removeModelBtn.Size = new System.Drawing.Size(217, 31);
             this.removeModelBtn.TabIndex = 5;
             this.removeModelBtn.Text = "Remove model";
             this.removeModelBtn.UseVisualStyleBackColor = true;
@@ -4982,9 +5266,10 @@ namespace IGIEditor
             // 
             this.removeBuildingsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.removeBuildingsBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.removeBuildingsBtn.Location = new System.Drawing.Point(506, 128);
+            this.removeBuildingsBtn.Location = new System.Drawing.Point(675, 158);
+            this.removeBuildingsBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.removeBuildingsBtn.Name = "removeBuildingsBtn";
-            this.removeBuildingsBtn.Size = new System.Drawing.Size(163, 28);
+            this.removeBuildingsBtn.Size = new System.Drawing.Size(217, 34);
             this.removeBuildingsBtn.TabIndex = 4;
             this.removeBuildingsBtn.Text = "Remove Buildings";
             this.removeBuildingsBtn.UseVisualStyleBackColor = true;
@@ -4994,9 +5279,10 @@ namespace IGIEditor
             // 
             this.removeObjsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.removeObjsBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.removeObjsBtn.Location = new System.Drawing.Point(506, 88);
+            this.removeObjsBtn.Location = new System.Drawing.Point(675, 108);
+            this.removeObjsBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.removeObjsBtn.Name = "removeObjsBtn";
-            this.removeObjsBtn.Size = new System.Drawing.Size(163, 28);
+            this.removeObjsBtn.Size = new System.Drawing.Size(217, 34);
             this.removeObjsBtn.TabIndex = 0;
             this.removeObjsBtn.Text = "Remove Objects";
             this.removeObjsBtn.UseVisualStyleBackColor = true;
@@ -5006,18 +5292,20 @@ namespace IGIEditor
             // 
             this.levelNameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.levelNameLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.levelNameLbl.Location = new System.Drawing.Point(8, 28);
+            this.levelNameLbl.Location = new System.Drawing.Point(11, 34);
+            this.levelNameLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.levelNameLbl.Name = "levelNameLbl";
-            this.levelNameLbl.Size = new System.Drawing.Size(150, 27);
+            this.levelNameLbl.Size = new System.Drawing.Size(200, 33);
             this.levelNameLbl.TabIndex = 2;
             this.levelNameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // levelImgBox
             // 
             this.levelImgBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.levelImgBox.Location = new System.Drawing.Point(9, 58);
+            this.levelImgBox.Location = new System.Drawing.Point(12, 71);
+            this.levelImgBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.levelImgBox.Name = "levelImgBox";
-            this.levelImgBox.Size = new System.Drawing.Size(150, 150);
+            this.levelImgBox.Size = new System.Drawing.Size(199, 184);
             this.levelImgBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.levelImgBox.TabIndex = 1;
             this.levelImgBox.TabStop = false;
@@ -5031,8 +5319,8 @@ namespace IGIEditor
             this.helpToolStripMenuItem});
             this.appMenuSettings.Location = new System.Drawing.Point(0, 0);
             this.appMenuSettings.Name = "appMenuSettings";
-            this.appMenuSettings.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.appMenuSettings.Size = new System.Drawing.Size(864, 24);
+            this.appMenuSettings.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.appMenuSettings.Size = new System.Drawing.Size(1153, 28);
             this.appMenuSettings.TabIndex = 49;
             this.appMenuSettings.Text = "menuStrip1";
             // 
@@ -5047,7 +5335,7 @@ namespace IGIEditor
             this.compilerSelectToolStripMenuItem,
             this.positionToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
             this.settingsToolStripMenuItem.Text = " Menu";
             // 
             // editorOnlineToolStripMenuItem
@@ -5059,7 +5347,7 @@ namespace IGIEditor
             this.refreshGameBtnMenu,
             this.clearToolStripMenuItem});
             this.editorOnlineToolStripMenuItem.Name = "editorOnlineToolStripMenuItem";
-            this.editorOnlineToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.editorOnlineToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.editorOnlineToolStripMenuItem.Text = "Level Menu";
             // 
             // startGameBtnMenu
@@ -5067,7 +5355,7 @@ namespace IGIEditor
             this.startGameBtnMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.levelStartTxtMenu});
             this.startGameBtnMenu.Name = "startGameBtnMenu";
-            this.startGameBtnMenu.Size = new System.Drawing.Size(113, 22);
+            this.startGameBtnMenu.Size = new System.Drawing.Size(141, 26);
             this.startGameBtnMenu.Text = "Start";
             this.startGameBtnMenu.Click += new System.EventHandler(this.startGameBtnMenu_Click);
             // 
@@ -5075,34 +5363,34 @@ namespace IGIEditor
             // 
             this.levelStartTxtMenu.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.levelStartTxtMenu.Name = "levelStartTxtMenu";
-            this.levelStartTxtMenu.Size = new System.Drawing.Size(224, 23);
+            this.levelStartTxtMenu.Size = new System.Drawing.Size(224, 27);
             this.levelStartTxtMenu.Text = "1";
             // 
             // restartLevelBtnMenu
             // 
             this.restartLevelBtnMenu.Name = "restartLevelBtnMenu";
-            this.restartLevelBtnMenu.Size = new System.Drawing.Size(113, 22);
+            this.restartLevelBtnMenu.Size = new System.Drawing.Size(141, 26);
             this.restartLevelBtnMenu.Text = "Restart";
             this.restartLevelBtnMenu.Click += new System.EventHandler(this.restartLevelBtn_Click);
             // 
             // quitLevelBtnMenu
             // 
             this.quitLevelBtnMenu.Name = "quitLevelBtnMenu";
-            this.quitLevelBtnMenu.Size = new System.Drawing.Size(113, 22);
+            this.quitLevelBtnMenu.Size = new System.Drawing.Size(141, 26);
             this.quitLevelBtnMenu.Text = "Quit";
             this.quitLevelBtnMenu.Click += new System.EventHandler(this.quitLevelBtn_Click);
             // 
             // refreshGameBtnMenu
             // 
             this.refreshGameBtnMenu.Name = "refreshGameBtnMenu";
-            this.refreshGameBtnMenu.Size = new System.Drawing.Size(113, 22);
+            this.refreshGameBtnMenu.Size = new System.Drawing.Size(141, 26);
             this.refreshGameBtnMenu.Text = "Refresh";
             this.refreshGameBtnMenu.Click += new System.EventHandler(this.refreshGame_Click);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
             this.clearToolStripMenuItem.Text = "Clear ";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
@@ -5113,27 +5401,27 @@ namespace IGIEditor
             this.editorModeCb,
             this.liveEditorCb});
             this.selectEditorModeToolStripMenuItem.Name = "selectEditorModeToolStripMenuItem";
-            this.selectEditorModeToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.selectEditorModeToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.selectEditorModeToolStripMenuItem.Text = "ToolKit Mode";
             // 
             // playModeCb
             // 
             this.playModeCb.Name = "playModeCb";
-            this.playModeCb.Size = new System.Drawing.Size(130, 22);
+            this.playModeCb.Size = new System.Drawing.Size(162, 26);
             this.playModeCb.Text = "Play Mode";
             this.playModeCb.Click += new System.EventHandler(this.playModeCb_Click);
             // 
             // editorModeCb
             // 
             this.editorModeCb.Name = "editorModeCb";
-            this.editorModeCb.Size = new System.Drawing.Size(130, 22);
+            this.editorModeCb.Size = new System.Drawing.Size(162, 26);
             this.editorModeCb.Text = "Edit Mode";
             this.editorModeCb.Click += new System.EventHandler(this.editorModeCb_Click);
             // 
             // liveEditorCb
             // 
             this.liveEditorCb.Name = "liveEditorCb";
-            this.liveEditorCb.Size = new System.Drawing.Size(130, 22);
+            this.liveEditorCb.Size = new System.Drawing.Size(162, 26);
             this.liveEditorCb.Text = "Live Mode";
             this.liveEditorCb.Click += new System.EventHandler(this.liveEditorCb_Click);
             // 
@@ -5142,7 +5430,7 @@ namespace IGIEditor
             this.editorConnectionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editorOnlineCb});
             this.editorConnectionToolStripMenuItem.Name = "editorConnectionToolStripMenuItem";
-            this.editorConnectionToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.editorConnectionToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.editorConnectionToolStripMenuItem.Text = "Toolkit Connection";
             // 
             // editorOnlineCb
@@ -5150,7 +5438,7 @@ namespace IGIEditor
             this.editorOnlineCb.Checked = true;
             this.editorOnlineCb.CheckState = System.Windows.Forms.CheckState.Checked;
             this.editorOnlineCb.Name = "editorOnlineCb";
-            this.editorOnlineCb.Size = new System.Drawing.Size(109, 22);
+            this.editorOnlineCb.Size = new System.Drawing.Size(135, 26);
             this.editorOnlineCb.Text = "Online";
             this.editorOnlineCb.Click += new System.EventHandler(this.editorOnlineCb_Click);
             // 
@@ -5160,20 +5448,20 @@ namespace IGIEditor
             this.startWindowedGameBtn,
             this.startFullScreenGameBtn});
             this.startGameToolStripMenuItem.Name = "startGameToolStripMenuItem";
-            this.startGameToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.startGameToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.startGameToolStripMenuItem.Text = "Start Game";
             // 
             // startWindowedGameBtn
             // 
             this.startWindowedGameBtn.Name = "startWindowedGameBtn";
-            this.startWindowedGameBtn.Size = new System.Drawing.Size(131, 22);
+            this.startWindowedGameBtn.Size = new System.Drawing.Size(163, 26);
             this.startWindowedGameBtn.Text = "Window";
             this.startWindowedGameBtn.Click += new System.EventHandler(this.startWindowedGameBtn_Click);
             // 
             // startFullScreenGameBtn
             // 
             this.startFullScreenGameBtn.Name = "startFullScreenGameBtn";
-            this.startFullScreenGameBtn.Size = new System.Drawing.Size(131, 22);
+            this.startFullScreenGameBtn.Size = new System.Drawing.Size(163, 26);
             this.startFullScreenGameBtn.Text = "Full Screen";
             this.startFullScreenGameBtn.Click += new System.EventHandler(this.startFullScreenGameBtn_Click);
             // 
@@ -5183,7 +5471,7 @@ namespace IGIEditor
             this.internalsStatusMenu,
             this.profileToolStripMenuItem});
             this.gameStatusToolStripMenuItem.Name = "gameStatusToolStripMenuItem";
-            this.gameStatusToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.gameStatusToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.gameStatusToolStripMenuItem.Text = "Game Status";
             // 
             // internalsStatusMenu
@@ -5191,13 +5479,13 @@ namespace IGIEditor
             this.internalsStatusMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.internalsStatusLbl});
             this.internalsStatusMenu.Name = "internalsStatusMenu";
-            this.internalsStatusMenu.Size = new System.Drawing.Size(119, 22);
+            this.internalsStatusMenu.Size = new System.Drawing.Size(148, 26);
             this.internalsStatusMenu.Text = "Internals";
             // 
             // internalsStatusLbl
             // 
             this.internalsStatusLbl.Name = "internalsStatusLbl";
-            this.internalsStatusLbl.Size = new System.Drawing.Size(96, 22);
+            this.internalsStatusLbl.Size = new System.Drawing.Size(119, 26);
             this.internalsStatusLbl.Text = "N/A";
             // 
             // profileToolStripMenuItem
@@ -5206,27 +5494,46 @@ namespace IGIEditor
             this.gameProfileNameLbl,
             this.gameProfileMissionLbl});
             this.profileToolStripMenuItem.Name = "profileToolStripMenuItem";
-            this.profileToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.profileToolStripMenuItem.Size = new System.Drawing.Size(148, 26);
             this.profileToolStripMenuItem.Text = "Profile";
             // 
             // gameProfileNameLbl
             // 
             this.gameProfileNameLbl.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.gameProfileNameLbl.Name = "gameProfileNameLbl";
-            this.gameProfileNameLbl.Size = new System.Drawing.Size(224, 23);
+            this.gameProfileNameLbl.Size = new System.Drawing.Size(224, 27);
             this.gameProfileNameLbl.Text = "N/A";
             // 
             // gameProfileMissionLbl
             // 
             this.gameProfileMissionLbl.Name = "gameProfileMissionLbl";
-            this.gameProfileMissionLbl.Size = new System.Drawing.Size(284, 22);
+            this.gameProfileMissionLbl.Size = new System.Drawing.Size(298, 26);
             this.gameProfileMissionLbl.Text = "N/A";
             // 
-            // compilerTypeLbl
+            // compilerSelectToolStripMenuItem
             // 
-            this.compilerTypeLbl.Name = "compilerTypeLbl";
-            this.compilerTypeLbl.Size = new System.Drawing.Size(114, 22);
-            this.compilerTypeLbl.Text = "Internal";
+            this.compilerSelectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.internalCompilerCb,
+            this.externalCompilerCb});
+            this.compilerSelectToolStripMenuItem.Name = "compilerSelectToolStripMenuItem";
+            this.compilerSelectToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.compilerSelectToolStripMenuItem.Text = "Compiler";
+            // 
+            // internalCompilerCb
+            // 
+            this.internalCompilerCb.Name = "internalCompilerCb";
+            this.internalCompilerCb.Size = new System.Drawing.Size(145, 26);
+            this.internalCompilerCb.Text = "Internal";
+            this.internalCompilerCb.Click += new System.EventHandler(this.internalCompilerCb_Click);
+            // 
+            // externalCompilerCb
+            // 
+            this.externalCompilerCb.Checked = true;
+            this.externalCompilerCb.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.externalCompilerCb.Name = "externalCompilerCb";
+            this.externalCompilerCb.Size = new System.Drawing.Size(145, 26);
+            this.externalCompilerCb.Text = "External";
+            this.externalCompilerCb.Click += new System.EventHandler(this.externalCompilerCb_Click);
             // 
             // positionToolStripMenuItem
             // 
@@ -5234,7 +5541,7 @@ namespace IGIEditor
             this.posCoordCb,
             this.posMetersCb});
             this.positionToolStripMenuItem.Name = "positionToolStripMenuItem";
-            this.positionToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.positionToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.positionToolStripMenuItem.Text = "Position";
             // 
             // posCoordCb
@@ -5242,14 +5549,14 @@ namespace IGIEditor
             this.posCoordCb.Checked = true;
             this.posCoordCb.CheckState = System.Windows.Forms.CheckState.Checked;
             this.posCoordCb.Name = "posCoordCb";
-            this.posCoordCb.Size = new System.Drawing.Size(138, 22);
+            this.posCoordCb.Size = new System.Drawing.Size(172, 26);
             this.posCoordCb.Text = "Coordinates";
             this.posCoordCb.Click += new System.EventHandler(this.posCoordCb_Click);
             // 
             // posMetersCb
             // 
             this.posMetersCb.Name = "posMetersCb";
-            this.posMetersCb.Size = new System.Drawing.Size(138, 22);
+            this.posMetersCb.Size = new System.Drawing.Size(172, 26);
             this.posMetersCb.Text = "Meter";
             this.posMetersCb.Click += new System.EventHandler(this.posMetersCb_Click);
             // 
@@ -5259,7 +5566,7 @@ namespace IGIEditor
             this.gameSettingsToolStripMenuItem,
             this.applicationSettingsToolStripMenuItem});
             this.appSettingsToolStripMenuItem.Name = "appSettingsToolStripMenuItem";
-            this.appSettingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.appSettingsToolStripMenuItem.Size = new System.Drawing.Size(76, 24);
             this.appSettingsToolStripMenuItem.Text = "Settings";
             // 
             // gameSettingsToolStripMenuItem
@@ -5272,7 +5579,7 @@ namespace IGIEditor
             this.configToolStripMenuItem,
             this.miscToolStripMenuItem});
             this.gameSettingsToolStripMenuItem.Name = "gameSettingsToolStripMenuItem";
-            this.gameSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gameSettingsToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
             this.gameSettingsToolStripMenuItem.Text = "Game Settings";
             // 
             // musicToolStripMenuItem
@@ -5281,13 +5588,13 @@ namespace IGIEditor
             this.enableMusicCb,
             this.volumeToolStripMenuItem});
             this.musicToolStripMenuItem.Name = "musicToolStripMenuItem";
-            this.musicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.musicToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.musicToolStripMenuItem.Text = "Music";
             // 
             // enableMusicCb
             // 
             this.enableMusicCb.Name = "enableMusicCb";
-            this.enableMusicCb.Size = new System.Drawing.Size(114, 22);
+            this.enableMusicCb.Size = new System.Drawing.Size(142, 26);
             this.enableMusicCb.Text = "Enable";
             this.enableMusicCb.Click += new System.EventHandler(this.enableMusicCb_CheckedChanged);
             // 
@@ -5297,7 +5604,7 @@ namespace IGIEditor
             this.musicVolumeUpdateBtn,
             this.sfxVolumeUpdateBtn});
             this.volumeToolStripMenuItem.Name = "volumeToolStripMenuItem";
-            this.volumeToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.volumeToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
             this.volumeToolStripMenuItem.Text = "Volume";
             // 
             // musicVolumeUpdateBtn
@@ -5305,14 +5612,14 @@ namespace IGIEditor
             this.musicVolumeUpdateBtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.musicVolumeUpdateTxt});
             this.musicVolumeUpdateBtn.Name = "musicVolumeUpdateBtn";
-            this.musicVolumeUpdateBtn.Size = new System.Drawing.Size(106, 22);
+            this.musicVolumeUpdateBtn.Size = new System.Drawing.Size(130, 26);
             this.musicVolumeUpdateBtn.Text = "Music";
             // 
             // musicVolumeUpdateTxt
             // 
             this.musicVolumeUpdateTxt.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.musicVolumeUpdateTxt.Name = "musicVolumeUpdateTxt";
-            this.musicVolumeUpdateTxt.Size = new System.Drawing.Size(224, 23);
+            this.musicVolumeUpdateTxt.Size = new System.Drawing.Size(224, 27);
             this.musicVolumeUpdateTxt.Text = "5.0";
             this.musicVolumeUpdateTxt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.musicVolumeUpdateTxt_KeyDown);
             // 
@@ -5321,14 +5628,14 @@ namespace IGIEditor
             this.sfxVolumeUpdateBtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sfxVolumeUpdateTxt});
             this.sfxVolumeUpdateBtn.Name = "sfxVolumeUpdateBtn";
-            this.sfxVolumeUpdateBtn.Size = new System.Drawing.Size(106, 22);
+            this.sfxVolumeUpdateBtn.Size = new System.Drawing.Size(130, 26);
             this.sfxVolumeUpdateBtn.Text = "SFX";
             // 
             // sfxVolumeUpdateTxt
             // 
             this.sfxVolumeUpdateTxt.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.sfxVolumeUpdateTxt.Name = "sfxVolumeUpdateTxt";
-            this.sfxVolumeUpdateTxt.Size = new System.Drawing.Size(224, 23);
+            this.sfxVolumeUpdateTxt.Size = new System.Drawing.Size(224, 27);
             this.sfxVolumeUpdateTxt.Text = "3.5";
             this.sfxVolumeUpdateTxt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.sfxVolumeUpdateTxt_KeyDown);
             // 
@@ -5337,21 +5644,21 @@ namespace IGIEditor
             this.setFramesBtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.framesTxt});
             this.setFramesBtn.Name = "setFramesBtn";
-            this.setFramesBtn.Size = new System.Drawing.Size(180, 22);
+            this.setFramesBtn.Size = new System.Drawing.Size(180, 26);
             this.setFramesBtn.Text = "Frames";
             // 
             // framesTxt
             // 
             this.framesTxt.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.framesTxt.Name = "framesTxt";
-            this.framesTxt.Size = new System.Drawing.Size(224, 23);
+            this.framesTxt.Size = new System.Drawing.Size(224, 27);
             this.framesTxt.Text = "30";
             this.framesTxt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.framesTxt_KeyDown);
             // 
             // debugModeCb
             // 
             this.debugModeCb.Name = "debugModeCb";
-            this.debugModeCb.Size = new System.Drawing.Size(180, 22);
+            this.debugModeCb.Size = new System.Drawing.Size(180, 26);
             this.debugModeCb.Text = "Debug Mode";
             this.debugModeCb.Click += new System.EventHandler(this.debugModeCb_CheckedChanged);
             // 
@@ -5362,27 +5669,27 @@ namespace IGIEditor
             this.resetLevelBtn,
             this.resetScriptsFileBtn});
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.resetToolStripMenuItem.Text = "Reset";
             // 
             // gfxResetBtn
             // 
             this.gfxResetBtn.Name = "gfxResetBtn";
-            this.gfxResetBtn.Size = new System.Drawing.Size(180, 22);
+            this.gfxResetBtn.Size = new System.Drawing.Size(189, 26);
             this.gfxResetBtn.Text = "Graphics Reset";
             this.gfxResetBtn.Click += new System.EventHandler(this.gfxResetBtn_Click);
             // 
             // resetLevelBtn
             // 
             this.resetLevelBtn.Name = "resetLevelBtn";
-            this.resetLevelBtn.Size = new System.Drawing.Size(180, 22);
+            this.resetLevelBtn.Size = new System.Drawing.Size(189, 26);
             this.resetLevelBtn.Text = "Level Reset";
             this.resetLevelBtn.Click += new System.EventHandler(this.resetLevelBtn_Click);
             // 
             // resetScriptsFileBtn
             // 
             this.resetScriptsFileBtn.Name = "resetScriptsFileBtn";
-            this.resetScriptsFileBtn.Size = new System.Drawing.Size(180, 22);
+            this.resetScriptsFileBtn.Size = new System.Drawing.Size(189, 26);
             this.resetScriptsFileBtn.Text = "File Reset";
             this.resetScriptsFileBtn.Click += new System.EventHandler(this.resetScriptsFileBtn_Click);
             // 
@@ -5392,20 +5699,20 @@ namespace IGIEditor
             this.configSaveBtn,
             this.configLoadBtn});
             this.configToolStripMenuItem.Name = "configToolStripMenuItem";
-            this.configToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.configToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.configToolStripMenuItem.Text = "Config";
             // 
             // configSaveBtn
             // 
             this.configSaveBtn.Name = "configSaveBtn";
-            this.configSaveBtn.Size = new System.Drawing.Size(100, 22);
+            this.configSaveBtn.Size = new System.Drawing.Size(125, 26);
             this.configSaveBtn.Text = "Save";
             this.configSaveBtn.Click += new System.EventHandler(this.configSaveBtn_Click);
             // 
             // configLoadBtn
             // 
             this.configLoadBtn.Name = "configLoadBtn";
-            this.configLoadBtn.Size = new System.Drawing.Size(100, 22);
+            this.configLoadBtn.Size = new System.Drawing.Size(125, 26);
             this.configLoadBtn.Text = "Load";
             this.configLoadBtn.Click += new System.EventHandler(this.configLoadBtn_Click);
             // 
@@ -5416,27 +5723,27 @@ namespace IGIEditor
             this.cutsceneRemoveBtn,
             this.aiIdleCb});
             this.miscToolStripMenuItem.Name = "miscToolStripMenuItem";
-            this.miscToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.miscToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.miscToolStripMenuItem.Text = "Misc";
             // 
             // disableWarningsCb
             // 
             this.disableWarningsCb.Name = "disableWarningsCb";
-            this.disableWarningsCb.Size = new System.Drawing.Size(174, 22);
+            this.disableWarningsCb.Size = new System.Drawing.Size(215, 26);
             this.disableWarningsCb.Text = "Disable Warnings";
             this.disableWarningsCb.Click += new System.EventHandler(this.disableWarningsCb_CheckedChanged);
             // 
             // cutsceneRemoveBtn
             // 
             this.cutsceneRemoveBtn.Name = "cutsceneRemoveBtn";
-            this.cutsceneRemoveBtn.Size = new System.Drawing.Size(174, 22);
+            this.cutsceneRemoveBtn.Size = new System.Drawing.Size(215, 26);
             this.cutsceneRemoveBtn.Text = "Remove Cutscenes";
             this.cutsceneRemoveBtn.Click += new System.EventHandler(this.cutsceneRemoveBtn_Click);
             // 
             // aiIdleCb
             // 
             this.aiIdleCb.Name = "aiIdleCb";
-            this.aiIdleCb.Size = new System.Drawing.Size(174, 22);
+            this.aiIdleCb.Size = new System.Drawing.Size(215, 26);
             this.aiIdleCb.Text = "Enemy Idle state";
             this.aiIdleCb.Click += new System.EventHandler(this.aiIdleCb_CheckedChanged);
             // 
@@ -5451,7 +5758,7 @@ namespace IGIEditor
             this.exportObjectsToolStripMenuItem,
             this.gamePathBtn});
             this.applicationSettingsToolStripMenuItem.Name = "applicationSettingsToolStripMenuItem";
-            this.applicationSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.applicationSettingsToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
             this.applicationSettingsToolStripMenuItem.Text = "Application Settings";
             // 
             // logsToolStripMenuItem
@@ -5461,27 +5768,27 @@ namespace IGIEditor
             this.shareAppLogsBtn,
             this.viewAppLogsBtn});
             this.logsToolStripMenuItem.Name = "logsToolStripMenuItem";
-            this.logsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.logsToolStripMenuItem.Size = new System.Drawing.Size(163, 26);
             this.logsToolStripMenuItem.Text = "Logs";
             // 
             // appLogsCb
             // 
             this.appLogsCb.Name = "appLogsCb";
-            this.appLogsCb.Size = new System.Drawing.Size(180, 22);
+            this.appLogsCb.Size = new System.Drawing.Size(137, 26);
             this.appLogsCb.Text = "Enable";
             this.appLogsCb.Click += new System.EventHandler(this.appLogsCb_CheckedChanged);
             // 
             // shareAppLogsBtn
             // 
             this.shareAppLogsBtn.Name = "shareAppLogsBtn";
-            this.shareAppLogsBtn.Size = new System.Drawing.Size(180, 22);
+            this.shareAppLogsBtn.Size = new System.Drawing.Size(137, 26);
             this.shareAppLogsBtn.Text = "Share";
             this.shareAppLogsBtn.Click += new System.EventHandler(this.shareAppLogsBtn_Click);
             // 
             // viewAppLogsBtn
             // 
             this.viewAppLogsBtn.Name = "viewAppLogsBtn";
-            this.viewAppLogsBtn.Size = new System.Drawing.Size(180, 22);
+            this.viewAppLogsBtn.Size = new System.Drawing.Size(137, 26);
             this.viewAppLogsBtn.Text = "View";
             this.viewAppLogsBtn.Click += new System.EventHandler(this.viewAppLogsBtn_Click);
             // 
@@ -5492,27 +5799,27 @@ namespace IGIEditor
             this.clearCacheBtn,
             this.clearTempToolStripMenuItem});
             this.appdataToolStripMenuItem.Name = "appdataToolStripMenuItem";
-            this.appdataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.appdataToolStripMenuItem.Size = new System.Drawing.Size(163, 26);
             this.appdataToolStripMenuItem.Text = "Appdata";
             // 
             // showAppDataCachePathBtn
             // 
             this.showAppDataCachePathBtn.Name = "showAppDataCachePathBtn";
-            this.showAppDataCachePathBtn.Size = new System.Drawing.Size(137, 22);
+            this.showAppDataCachePathBtn.Size = new System.Drawing.Size(170, 26);
             this.showAppDataCachePathBtn.Text = "Show Path";
             this.showAppDataCachePathBtn.Click += new System.EventHandler(this.showAppDataCachePathBtn_Click);
             // 
             // clearCacheBtn
             // 
             this.clearCacheBtn.Name = "clearCacheBtn";
-            this.clearCacheBtn.Size = new System.Drawing.Size(137, 22);
+            this.clearCacheBtn.Size = new System.Drawing.Size(170, 26);
             this.clearCacheBtn.Text = "Clear Cache";
             this.clearCacheBtn.Click += new System.EventHandler(this.clearCacheBtn_Click);
             // 
             // clearTempToolStripMenuItem
             // 
             this.clearTempToolStripMenuItem.Name = "clearTempToolStripMenuItem";
-            this.clearTempToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.clearTempToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
             this.clearTempToolStripMenuItem.Text = "Clear Temp";
             this.clearTempToolStripMenuItem.Click += new System.EventHandler(this.clearTempToolStripMenuItem_Click);
             // 
@@ -5522,13 +5829,13 @@ namespace IGIEditor
             this.autoResetCb,
             this.autoRefreshGameCb});
             this.autoOptionsToolStripMenuItem.Name = "autoOptionsToolStripMenuItem";
-            this.autoOptionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.autoOptionsToolStripMenuItem.Size = new System.Drawing.Size(163, 26);
             this.autoOptionsToolStripMenuItem.Text = "Timer";
             // 
             // autoResetCb
             // 
             this.autoResetCb.Name = "autoResetCb";
-            this.autoResetCb.Size = new System.Drawing.Size(140, 22);
+            this.autoResetCb.Size = new System.Drawing.Size(176, 26);
             this.autoResetCb.Text = "Reset level";
             this.autoResetCb.Click += new System.EventHandler(this.autoResetCb_CheckedChanged);
             // 
@@ -5537,7 +5844,7 @@ namespace IGIEditor
             this.autoRefreshGameCb.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshTimerIntervalTxt});
             this.autoRefreshGameCb.Name = "autoRefreshGameCb";
-            this.autoRefreshGameCb.Size = new System.Drawing.Size(140, 22);
+            this.autoRefreshGameCb.Size = new System.Drawing.Size(176, 26);
             this.autoRefreshGameCb.Text = "Refresh level";
             this.autoRefreshGameCb.Click += new System.EventHandler(this.autoRefreshGameCb_CheckedChanged);
             // 
@@ -5545,35 +5852,8 @@ namespace IGIEditor
             // 
             this.refreshTimerIntervalTxt.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.refreshTimerIntervalTxt.Name = "refreshTimerIntervalTxt";
-            this.refreshTimerIntervalTxt.Size = new System.Drawing.Size(100, 23);
+            this.refreshTimerIntervalTxt.Size = new System.Drawing.Size(100, 27);
             this.refreshTimerIntervalTxt.Text = "15";
-            // 
-            // compilerSelectToolStripMenuItem
-            // 
-            this.compilerSelectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.internalCompilerCb,
-            this.externalCompilerCb});
-            this.compilerSelectToolStripMenuItem.Name = "compilerSelectToolStripMenuItem";
-            this.compilerSelectToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.compilerSelectToolStripMenuItem.Text = "Compiler";
-            // 
-            // internalCompilerCb
-            // 
-            this.internalCompilerCb.Checked = false;
-            this.internalCompilerCb.CheckState = System.Windows.Forms.CheckState.Unchecked;
-            this.internalCompilerCb.Name = "internalCompilerCb";
-            this.internalCompilerCb.Size = new System.Drawing.Size(115, 22);
-            this.internalCompilerCb.Text = "Internal";
-            this.internalCompilerCb.Click += new System.EventHandler(this.internalCompilerCb_Click);
-            // 
-            // externalCompilerCb
-            // 
-            this.externalCompilerCb.Checked = true;
-            this.externalCompilerCb.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.externalCompilerCb.Name = "externalCompilerCb";
-            this.externalCompilerCb.Size = new System.Drawing.Size(115, 22);
-            this.externalCompilerCb.Text = "External";
-            this.externalCompilerCb.Click += new System.EventHandler(this.externalCompilerCb_Click);
             // 
             // updateToolStripMenuItem
             // 
@@ -5581,13 +5861,13 @@ namespace IGIEditor
             this.editorUpdaterBtn,
             this.updateCheckerAutomaticOption});
             this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(163, 26);
             this.updateToolStripMenuItem.Text = "Update";
             // 
             // editorUpdaterBtn
             // 
             this.editorUpdaterBtn.Name = "editorUpdaterBtn";
-            this.editorUpdaterBtn.Size = new System.Drawing.Size(130, 22);
+            this.editorUpdaterBtn.Size = new System.Drawing.Size(161, 26);
             this.editorUpdaterBtn.Text = "Manual";
             this.editorUpdaterBtn.Click += new System.EventHandler(this.editorUpdaterBtn_Click);
             // 
@@ -5597,14 +5877,14 @@ namespace IGIEditor
             this.updateIntervalTxt,
             this.updateCheckerCb});
             this.updateCheckerAutomaticOption.Name = "updateCheckerAutomaticOption";
-            this.updateCheckerAutomaticOption.Size = new System.Drawing.Size(130, 22);
+            this.updateCheckerAutomaticOption.Size = new System.Drawing.Size(161, 26);
             this.updateCheckerAutomaticOption.Text = "Automatic";
             // 
             // updateIntervalTxt
             // 
             this.updateIntervalTxt.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.updateIntervalTxt.Name = "updateIntervalTxt";
-            this.updateIntervalTxt.Size = new System.Drawing.Size(224, 23);
+            this.updateIntervalTxt.Size = new System.Drawing.Size(224, 27);
             this.updateIntervalTxt.Text = "15";
             this.updateIntervalTxt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.updateIntervalTxt_KeyDown);
             this.updateIntervalTxt.TextChanged += new System.EventHandler(this.updateIntervalTxt_TextChanged);
@@ -5612,14 +5892,14 @@ namespace IGIEditor
             // updateCheckerCb
             // 
             this.updateCheckerCb.Name = "updateCheckerCb";
-            this.updateCheckerCb.Size = new System.Drawing.Size(284, 22);
+            this.updateCheckerCb.Size = new System.Drawing.Size(298, 26);
             this.updateCheckerCb.Text = "Enable Timer";
             this.updateCheckerCb.Click += new System.EventHandler(this.updateCheckerCb_Click);
             // 
             // appSupportBtn
             // 
             this.appSupportBtn.Name = "appSupportBtn";
-            this.appSupportBtn.Size = new System.Drawing.Size(180, 22);
+            this.appSupportBtn.Size = new System.Drawing.Size(163, 26);
             this.appSupportBtn.Text = "Support";
             this.appSupportBtn.Click += new System.EventHandler(this.appSupportBtn_Click);
             // 
@@ -5629,7 +5909,7 @@ namespace IGIEditor
             this.exportObjectsDD,
             this.exportObjectsBtn});
             this.exportObjectsToolStripMenuItem.Name = "exportObjectsToolStripMenuItem";
-            this.exportObjectsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportObjectsToolStripMenuItem.Size = new System.Drawing.Size(163, 26);
             this.exportObjectsToolStripMenuItem.Text = "Export";
             // 
             // exportObjectsDD
@@ -5639,20 +5919,20 @@ namespace IGIEditor
             "XML",
             "JSON"});
             this.exportObjectsDD.Name = "exportObjectsDD";
-            this.exportObjectsDD.Size = new System.Drawing.Size(224, 23);
+            this.exportObjectsDD.Size = new System.Drawing.Size(224, 28);
             this.exportObjectsDD.Text = "CSV";
             // 
             // exportObjectsBtn
             // 
             this.exportObjectsBtn.Name = "exportObjectsBtn";
-            this.exportObjectsBtn.Size = new System.Drawing.Size(284, 22);
+            this.exportObjectsBtn.Size = new System.Drawing.Size(298, 26);
             this.exportObjectsBtn.Text = "Export";
             this.exportObjectsBtn.Click += new System.EventHandler(this.exportObjectsBtn_Click);
             // 
             // gamePathBtn
             // 
             this.gamePathBtn.Name = "gamePathBtn";
-            this.gamePathBtn.Size = new System.Drawing.Size(180, 22);
+            this.gamePathBtn.Size = new System.Drawing.Size(163, 26);
             this.gamePathBtn.Text = "Game Path";
             this.gamePathBtn.Click += new System.EventHandler(this.gamePathBtn_Click);
             // 
@@ -5662,13 +5942,13 @@ namespace IGIEditor
             this.aboutToolStripMenuItem,
             this.versionToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -5677,63 +5957,32 @@ namespace IGIEditor
             this.versionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.versionLbl});
             this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
-            this.versionToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
             this.versionToolStripMenuItem.Text = "Version";
             // 
             // versionLbl
             // 
             this.versionLbl.Name = "versionLbl";
-            this.versionLbl.Size = new System.Drawing.Size(108, 22);
+            this.versionLbl.Size = new System.Drawing.Size(135, 26);
             this.versionLbl.Text = "IGI-1.1";
             // 
-            // commandIdLbl
+            // compilerTypeLbl
             // 
-            this.commandIdLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.commandIdLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.commandIdLbl.Location = new System.Drawing.Point(713, 114);
-            this.commandIdLbl.Name = "commandIdLbl";
-            this.commandIdLbl.Size = new System.Drawing.Size(96, 18);
-            this.commandIdLbl.TabIndex = 96;
-            this.commandIdLbl.Text = "Command Id";
-            this.commandIdLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // aiPatrolCmdIdDD
-            // 
-            this.aiPatrolCmdIdDD.BackColor = System.Drawing.SystemColors.Control;
-            this.aiPatrolCmdIdDD.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.aiPatrolCmdIdDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.aiPatrolCmdIdDD.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.aiPatrolCmdIdDD.FormattingEnabled = true;
-            this.aiPatrolCmdIdDD.Location = new System.Drawing.Point(743, 135);
-            this.aiPatrolCmdIdDD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.aiPatrolCmdIdDD.Name = "aiPatrolCmdIdDD";
-            this.aiPatrolCmdIdDD.Size = new System.Drawing.Size(92, 21);
-            this.aiPatrolCmdIdDD.TabIndex = 98;
-            this.aiPatrolCmdIdDD.SelectedIndexChanged += new System.EventHandler(this.aiPatrolCmdIdDD_SelectedIndexChanged);
-            // 
-            // aiPatrolCmdIdTxt
-            // 
-            this.aiPatrolCmdIdTxt.BackColor = System.Drawing.SystemColors.Control;
-            this.aiPatrolCmdIdTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.aiPatrolCmdIdTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.aiPatrolCmdIdTxt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.aiPatrolCmdIdTxt.Location = new System.Drawing.Point(669, 135);
-            this.aiPatrolCmdIdTxt.Name = "aiPatrolCmdIdTxt";
-            this.aiPatrolCmdIdTxt.ReadOnly = true;
-            this.aiPatrolCmdIdTxt.Size = new System.Drawing.Size(68, 24);
-            this.aiPatrolCmdIdTxt.TabIndex = 97;
-            this.aiPatrolCmdIdTxt.Text = "0";
+            this.compilerTypeLbl.Name = "compilerTypeLbl";
+            this.compilerTypeLbl.Size = new System.Drawing.Size(114, 22);
+            this.compilerTypeLbl.Text = "Internal";
             // 
             // IGIEditorUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(866, 625);
+            this.ClientSize = new System.Drawing.Size(1155, 769);
             this.Controls.Add(this.editorMainPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.appMenuSettings;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "IGIEditorUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Project IGI 1 ToolKit";
@@ -5788,6 +6037,11 @@ namespace IGIEditor
             ((System.ComponentModel.ISupportInitialize)(this.weaponDamageTxt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.weaponRoundPerClipTxt)).EndInit();
             this.threeDEditor.ResumeLayout(false);
+            this.threeDEditor.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.terrainHeightVal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.terrainCellIdx)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.terrainPreview3D)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.terrainPreviewBox)).EndInit();
             this.missionEditor.ResumeLayout(false);
             this.missionEditor.PerformLayout();
             this.graphEditor.ResumeLayout(false);
@@ -5829,8 +6083,6 @@ namespace IGIEditor
         private System.Windows.Forms.ToolTip infoViewer;
         private System.Windows.Forms.Button resetBuildingsBtn;
         private System.Windows.Forms.Button resetObjectsBtn;
-        private System.Windows.Forms.Button resume3DEditorBtn;
-        private System.Windows.Forms.Button start3DEditorBtn;
         private System.Windows.Forms.Button loadTerrainBtn;
         private System.Windows.Forms.Button saveTerrainBtn;
         private System.Windows.Forms.ListBox terrainItemsList;

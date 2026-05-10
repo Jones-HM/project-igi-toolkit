@@ -74,6 +74,13 @@ namespace IGIEditor
             public List<byte[]> pixelData = new List<byte[]>();
         }
 
+        public class CMDData
+        {
+            public List<CMDItem> headers = new List<CMDItem>();
+            public List<byte[]> vertexData = new List<byte[]>(); // Raw vertex data
+            public List<uint[]> triangleData = new List<uint[]>(); // Triangle indices
+        }
+
         public static CTRData LoadCTR(string filepath)
         {
             CTRData data = new CTRData();

@@ -6007,11 +6007,19 @@ namespace IGIEditor
             StartTerrainEditor();
         }
 
+        private void resume3DEditorBtn_Click(object sender, EventArgs e)
+        {
+            StartTerrainEditor();
+        }
+
         private void StartTerrainEditor()
         {
             try
             {
-                string terrainPath = QUtils.cfgGamePath + gameLevel;
+                string gameLevel = gGameLevel.ToString();
+                string terrainPath = Path.Combine(QUtils.cfgGamePath + gameLevel, "terrain");
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "terrainPath file is " + terrainPath);
+
                 if (!Directory.Exists(terrainPath))
                 {
                     QLog.ShowWarning("Terrain data path not found for level " + gameLevel);
@@ -6019,7 +6027,8 @@ namespace IGIEditor
                 }
 
                 // Try to auto-load HMP if it exists
-                string hmpFile = Path.Combine(terrainPath, "height.hmp");
+                string hmpFile = Path.Combine(terrainPath, "terrain.hmp");
+                QLog.AddLog(MethodBase.GetCurrentMethod().Name, "Heightmap file is " + hmpFile);
                 if (File.Exists(hmpFile))
                 {
                     currentHmpPath = hmpFile;
@@ -6246,6 +6255,9 @@ namespace IGIEditor
                 {
                     terrainCellIdx.Maximum = currentHmpData.hmpArrays[idx].Length - 1;
                     terrainCellIdx.Value = 0;
+                    // HMP uses float values, so allow full range
+                    terrainHeightVal.Minimum = new decimal(new int[] { 100000, 0, 0, -2147483648 });
+                    terrainHeightVal.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
                     terrainHeightVal.Value = (decimal)currentHmpData.hmpArrays[idx][0];
                     terrainPreviewBox.Image = QTerrain.RenderHMP(currentHmpData.hmpArrays[idx], currentHmpData.headers[idx].size);
                     terrainPreview3D.Image = QTerrain.Render3DWireframe(currentHmpData.hmpArrays[idx], currentHmpData.headers[idx].size);
@@ -6257,6 +6269,9 @@ namespace IGIEditor
                 {
                     terrainCellIdx.Maximum = currentBitData.bitArrays[idx].Length - 1;
                     terrainCellIdx.Value = 0;
+                    // BIT uses byte values (0-255)
+                    terrainHeightVal.Minimum = 0;
+                    terrainHeightVal.Maximum = 255;
                     terrainHeightVal.Value = (decimal)currentBitData.bitArrays[idx][0];
                     terrainPreviewBox.Image = QTerrain.RenderBIT(currentBitData.bitArrays[idx], currentBitData.headers[idx].size);
                     terrainPreview3D.Image = null;
@@ -6268,6 +6283,9 @@ namespace IGIEditor
                 {
                     terrainCellIdx.Maximum = currentLmpData.pixelData[idx].Length - 1;
                     terrainCellIdx.Value = 0;
+                    // LMP uses byte values (0-255)
+                    terrainHeightVal.Minimum = 0;
+                    terrainHeightVal.Maximum = 255;
                     terrainHeightVal.Value = (decimal)currentLmpData.pixelData[idx][0];
                     terrainPreviewBox.Image = QTerrain.RenderLMP(currentLmpData.pixelData[idx], currentLmpData.sizes[idx]);
                     terrainPreview3D.Image = null;
@@ -6323,7 +6341,11 @@ namespace IGIEditor
             {
                 if (cellIdx < currentBitData.bitArrays[idx].Length)
                 {
-                    currentBitData.bitArrays[idx][cellIdx] = (byte)terrainHeightVal.Value;
+                    // Clamp value to byte range (0-255) to prevent OverflowException
+                    decimal value = terrainHeightVal.Value;
+                    if (value < 0) value = 0;
+                    if (value > 255) value = 255;
+                    currentBitData.bitArrays[idx][cellIdx] = (byte)value;
                     terrainPreviewBox.Image = QTerrain.RenderBIT(currentBitData.bitArrays[idx], currentBitData.headers[idx].size);
                     SetStatusText($"BIT Chunk {idx} Cell {cellIdx} updated.");
                 }
@@ -6332,7 +6354,11 @@ namespace IGIEditor
             {
                 if (cellIdx < currentLmpData.pixelData[idx].Length)
                 {
-                    currentLmpData.pixelData[idx][cellIdx] = (byte)terrainHeightVal.Value;
+                    // Clamp value to byte range (0-255) to prevent OverflowException
+                    decimal value = terrainHeightVal.Value;
+                    if (value < 0) value = 0;
+                    if (value > 255) value = 255;
+                    currentLmpData.pixelData[idx][cellIdx] = (byte)value;
                     terrainPreviewBox.Image = QTerrain.RenderLMP(currentLmpData.pixelData[idx], currentLmpData.sizes[idx]);
                     SetStatusText($"LMP Chunk {idx} Cell {cellIdx} updated.");
                 }
