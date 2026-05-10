@@ -222,32 +222,33 @@ namespace IGIEditor
             using (Graphics g = Graphics.FromImage(bmp))
             {
                 g.Clear(Color.Black);
-                Pen pen = new Pen(Color.Lime, 1);
-
-                float scale = 300.0f / gridSize;
-                float heightScale = 0.5f;
-
-                // Simple Isometric Projection
-                Func<float, float, float, PointF> project = (x, y, z) => {
-                    float px = (x - y) * 0.707f * scale + width / 2;
-                    float py = (x + y) * 0.354f * scale - z * heightScale + height / 2;
-                    return new PointF(px, py);
-                };
-
-                for (int y = 0; y < gridSize; y++)
+                using (var pen = new Pen(Color.Lime, 1))
                 {
-                    for (int x = 0; x < gridSize; x++)
+                    float scale = 300.0f / gridSize;
+                    float heightScale = 0.5f;
+
+                    // Simple Isometric Projection
+                    Func<float, float, float, PointF> project = (x, y, z) => {
+                        float px = (x - y) * 0.707f * scale + width / 2;
+                        float py = (x + y) * 0.354f * scale - z * heightScale + height / 2;
+                        return new PointF(px, py);
+                    };
+
+                    for (int y = 0; y < gridSize; y++)
                     {
-                        PointF p1 = project(x, y, hmpArray[y * gridSize + x]);
-                        if (x + 1 < gridSize)
+                        for (int x = 0; x < gridSize; x++)
                         {
-                            PointF p2 = project(x + 1, y, hmpArray[y * gridSize + (x + 1)]);
-                            g.DrawLine(pen, p1, p2);
-                        }
-                        if (y + 1 < gridSize)
-                        {
-                            PointF p3 = project(x, y + 1, hmpArray[(y + 1) * gridSize + x]);
-                            g.DrawLine(pen, p1, p3);
+                            PointF p1 = project(x, y, hmpArray[y * gridSize + x]);
+                            if (x + 1 < gridSize)
+                            {
+                                PointF p2 = project(x + 1, y, hmpArray[y * gridSize + (x + 1)]);
+                                g.DrawLine(pen, p1, p2);
+                            }
+                            if (y + 1 < gridSize)
+                            {
+                                PointF p3 = project(x, y + 1, hmpArray[(y + 1) * gridSize + x]);
+                                g.DrawLine(pen, p1, p3);
+                            }
                         }
                     }
                 }
@@ -283,8 +284,12 @@ namespace IGIEditor
             {
                 for (int x = 0; x < imgSize; x++)
                 {
-                    byte val = bitArray[y * imgSize + x];
-                    bmp.SetPixel(x, y, Color.FromArgb(val, val, val));
+                    int idx = y * imgSize + x;
+                    if (idx >= 0 && idx < bitArray.Length)
+                    {
+                        byte val = bitArray[idx];
+                        bmp.SetPixel(x, y, Color.FromArgb(val, val, val));
+                    }
                 }
             }
             return bmp;
@@ -320,7 +325,7 @@ namespace IGIEditor
                         data.sizes.Add(size);
 
                         // Calculate pixel data size with overflow protection
-                        long pixelDataSizeLong = (long)size * (long)size);
+                        long pixelDataSizeLong = (long)size * (long)size;
                         if (pixelDataSizeLong > int.MaxValue)
                         {
                             QLog.AddLog("LoadLMP", "LMP size too large: " + pixelDataSizeLong + ", skipping entry");
