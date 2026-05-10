@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace IGIEditor
 {
-    public class QTrigger
+    class QTrigger
     {
         public class TriggerTask
         {
@@ -55,7 +55,8 @@ namespace IGIEditor
         public static readonly string[] AvailableTriggerProperties = new string[] {
             "isDead", "isExploded", "isDestroyed", "isAlarm", "isTrigger", "isDetection", "isHacked", "isPressed", "isLastPressed", "isClosed", "isOpen", "isLocked", "isFinished", "isSendt", "isSpawned", "isFailed", "isComplete",
             "isOn", "isReset", "isPlaying", "isRun", "isStop", "isStart", "isMoving", "isInUse", "isSearched", "isPicked", "isPickedUp",
-            "nValue", "vValue", "nUserData", "vFloor"
+            "nActiveID", "zData", "nValue", "vValue", "nUserData", "vFloor", "nWantedFloor", "vLastFloor", "nDetectionTime", "isHackedThisTick", "isFinishedThisTick", "nTickSendt", "nTick",
+            "isLastRun", "vGenerateFactor", "nBackupTimer", "nInactive", "isLastInUse", "nTriggerLastTick", "isLastDetection", "isLastDestroyed", "isLastOn", "nDoorOpenTicks", "isLastOpen", "isLastClosed", "nTicksSinceFinishedDisplay", "nFinishedDisplay", "isFinishedDisplay", "nSpawns", "eDifficulty", "eTeam"
         };
 
         public static List<TriggerTask> ParseTriggerTasks(string qscData)
@@ -97,7 +98,10 @@ namespace IGIEditor
                     {
                         triggerTasks.Add(triggerTask);
                     }
-                    index = end + 1;
+
+                    // Bug Fix: To find nested tasks, we only advance by "Task_New".Length
+                    // and continue searching within the current task's content.
+                    index += 8;
                 }
                 else
                 {
@@ -122,10 +126,6 @@ namespace IGIEditor
 
                 int id;
                 if (!int.TryParse(idStr, out id)) id = -1;
-                
-                // Skip triggers with -1 ID (invalid)
-                if (id == -1) return null;
-                
                 task.Id = id;
                 task.Type = type;
                 task.Note = args[2].Trim().Replace("\"", "");
@@ -218,10 +218,10 @@ namespace IGIEditor
             if (string.IsNullOrWhiteSpace(fullCondition) || fullCondition == "1" || fullCondition == "0")
                 return new List<string>();
 
-            string[] splitters = new string[] { "||", "&&" };
+            string[] splitters = new string[] { "||", "&&", "\n", "\r" };
             return fullCondition.Split(splitters, StringSplitOptions.RemoveEmptyEntries)
                                 .Select(s => s.Trim())
-                                .Where(s => !string.IsNullOrEmpty(s))
+                                .Where(s => !string.IsNullOrEmpty(s) && !s.Contains("Task_New"))
                                 .Distinct()
                                 .ToList();
         }
